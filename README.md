@@ -36,6 +36,7 @@ Work in Progress
   
 ### Use GitHub to document code commits
 GitHub, Jira and confluence has been setup to commit code as well as related documentation for this project. Links below
+
 Github Repository - https://github.com/InTimeTec-LLC/kmt-prototype (publicly available)
 Jira Board - https://intimetec.atlassian.net/secure/RapidBoard.jspa?rapidView=178&selectedIssue=ADPQVP2018-41 (internal)
 Confluence - https://intimetec.atlassian.net/wiki/spaces/AD/overview (internal)
