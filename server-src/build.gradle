@@ -140,7 +140,7 @@ task createDist{
 	}
 		 new File("$projectDir/dist/version.txt").text = """
 	Version: $version
-	Revision: ${Grgit.open(dir: '.').head().id}
+	Revision: ${Grgit.open(currentDir: file('.')).head().id}
 	Buildtime: ${new SimpleDateFormat("dd-MM-yyyy HH:mm:ss").format(new Date())}
 	Application-name: ${project.name}
 	"""
