@@ -5,7 +5,7 @@ mongo kmt_db --eval 'db.sample.insert({"name":"test"})'
 mongo kmt_db --eval 'db.createUser(
   {
     user: "itt",
-    pwd: "itt@123456",
+    pwd: "itt@123",
     roles: [ { role: "userAdmin", db: "kmt_db" } ]
   }
 )'
