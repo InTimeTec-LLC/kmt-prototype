@@ -8,6 +8,7 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { QuillEditorSampleComponent } from './quill-editor-sample/quill-editor-sample.component';
 import { QuillModule } from 'ngx-quill';
 import { SharedModule } from '../shared/shared.module';
+import { LoginComponent } from './login/login.component';
 
 
 const appRoutes: Routes = [
@@ -16,26 +17,16 @@ const appRoutes: Routes = [
     component: DashboardComponent,
     data: { title: 'Dashboard' }
   },
+  {
+    path: 'login',
+    component: LoginComponent,
+    data: { title: 'Login' }
+  },
   /*{
     path: 'book-edit/:id',
     path: 'books',
     component: BookComponent,
     data: { title: 'Book List' }
-  },
-  {
-    path: 'book-details/:id',
-    component: BookDetailComponent,
-    data: { title: 'Book Details' }
-  },
-  {
-    path: 'book-create',
-    component: BookCreateComponent,
-    data: { title: 'Create Book' }
-  },
-  {
-    path: 'book-edit/:id',
-    component: BookEditComponent,
-    data: { title: 'Edit Book' }
   },*/
   { path: '',
     redirectTo: '/dashboard',
@@ -48,7 +39,8 @@ const appRoutes: Routes = [
   declarations: [
     AppComponent,
     QuillEditorSampleComponent,
-    DashboardComponent
+    DashboardComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,
