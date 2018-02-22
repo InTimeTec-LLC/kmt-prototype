@@ -1,1 +1,1 @@
-java -jar ktm-prototype.jar
+java -jar kmt-prototype.jar
