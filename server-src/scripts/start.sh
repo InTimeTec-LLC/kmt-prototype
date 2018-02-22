@@ -1,1 +1,1 @@
-java -jar java-microservice-template.jar
+java -jar ktm-prototype.jar

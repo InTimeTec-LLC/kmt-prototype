@@ -1,11 +1,11 @@
 #Creates a database and a user
 
-mongo javaTemplate --eval 'db.sample.insert({"name":"test"})'
+mongo kmt_db --eval 'db.sample.insert({"name":"test"})'
 
-mongo javaTemplate --eval 'db.createUser(
+mongo kmt_db --eval 'db.createUser(
   {
-    user: "javaUser",
-    pwd: "password",
-    roles: [ { role: "userAdmin", db: "javaTemplate" } ]
+    user: "itt",
+    pwd: "itt@123456",
+    roles: [ { role: "userAdmin", db: "kmt_db" } ]
   }
 )'
