@@ -9,13 +9,18 @@ import { QuillEditorSampleComponent } from './quill-editor-sample/quill-editor-s
 import { QuillModule } from 'ngx-quill';
 import { SharedModule } from '../shared/shared.module';
 import { LoginComponent } from './login/login.component';
+import { AuthGuard } from '../shared/service/helper/auth-guards';
+import { HttpClientModule } from '@angular/common/http';
+import { HttpModule } from '@angular/http';
+
 
 
 const appRoutes: Routes = [
   {
     path: 'dashboard',
     component: DashboardComponent,
-    data: { title: 'Dashboard' }
+    data: { title: 'Dashboard' },
+    canActivate: [AuthGuard]
   },
   {
     path: 'login',
@@ -28,9 +33,10 @@ const appRoutes: Routes = [
     component: BookComponent,
     data: { title: 'Book List' }
   },*/
-  { path: '',
-    redirectTo: '/dashboard',
-    pathMatch: 'full'
+  // otherwise redirect to home
+  { 
+    path: '**', 
+    redirectTo: 'dashboard' 
   }
 ];
 
@@ -47,6 +53,8 @@ const appRoutes: Routes = [
     FormsModule,
     ReactiveFormsModule,
     QuillModule,
+    HttpClientModule ,
+    HttpModule,
     SharedModule.forRoot(),
     RouterModule.forRoot(
       appRoutes,
