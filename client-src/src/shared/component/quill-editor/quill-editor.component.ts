@@ -7,39 +7,39 @@ import { Observable } from 'rxjs/Observable';
 
 import { QuillEditorComponent } from 'ngx-quill/src/quill-editor.component';
 
-import 'rxjs/add/operator/debounceTime'
+import 'rxjs/add/operator/debounceTime';
 import 'rxjs/add/operator/distinctUntilChanged';
 
 import Quill from 'quill/quill';
 
 // add image resize module
-//import ImageResize from 'quill-image-resize-module';
-//Quill.register('modules/imageResize', ImageResize);
+// import ImageResize from 'quill-image-resize-module';
+// Quill.register('modules/imageResize', ImageResize);
 
 // override p with div tag
 const Parchment = Quill.import('parchment');
-let Block = Parchment.query('block');
+const Block = Parchment.query('block');
 
 Block.tagName = 'DIV';
 // or class NewBlock extends Block {}; NewBlock.tagName = 'DIV';
 Quill.register(Block /* or NewBlock */, true);
 
-//import Counter from './counter';
-//Quill.register('modules/counter', Counter)
+// import Counter from './counter';
+// Quill.register('modules/counter', Counter)
 
 // Add fonts to whitelist
-var Font = Quill.import('formats/font');
+const Font = Quill.import('formats/font');
 // We do not add Aref Ruqaa since it is the default
 Font.whitelist = ['mirza', 'aref', 'sans-serif', 'monospace', 'serif'];
 Quill.register(Font, true);
 
 @Component({
-  selector: 'sample-quill-editor',
-  templateUrl: './quill-editor-sample.component.html',
-  styleUrls: ['./quill-editor-sample.component.css']
+  selector: 'app-custom-quill-editor',
+  templateUrl: './quill-editor.component.html',
+  styleUrls: ['./quill-editor.component.css']
 })
 
-export class QuillEditorSampleComponent implements OnInit {
+export class CustomQuillEditorComponent implements OnInit {
   title = '<ul><li>I am example content</li><li><u>And this, too</u></li></ul>';
   isReadOnly = false;
   placeholder = 'placeholder';
@@ -56,7 +56,7 @@ export class QuillEditorSampleComponent implements OnInit {
       toolbar: [['formula'], ['image']], imageResize: {}
     }
   }
-  @ViewChild('editor') editor: QuillEditorComponent
+  @ViewChild('editor') editor: QuillEditorComponent;
 
   ngOnInit() {
     this.form

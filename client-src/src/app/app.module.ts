@@ -5,11 +5,11 @@ import { RouterModule, Routes } from '@angular/router';
 
 import { AppComponent } from './app.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
-import { QuillEditorSampleComponent } from './quill-editor-sample/quill-editor-sample.component';
-import { QuillModule } from 'ngx-quill';
+import { AddArticleComponent } from './add-knowledge-base-article/add.component';
 import { SharedModule } from '../shared/shared.module';
 import { LoginComponent } from './login/login.component';
-
+import { InMemoryWebApiModule } from 'angular-in-memory-web-api';
+import { ArticleData } from './mock-api/article-data';
 
 const appRoutes: Routes = [
   {
@@ -21,6 +21,11 @@ const appRoutes: Routes = [
     path: 'login',
     component: LoginComponent,
     data: { title: 'Login' }
+  },
+  {
+    path: 'article/add',
+    component: AddArticleComponent,
+    data: { title: 'Add knowledge Base Article' }
   },
   /*{
     path: 'book-edit/:id',
@@ -38,16 +43,16 @@ const appRoutes: Routes = [
 @NgModule({
   declarations: [
     AppComponent,
-    QuillEditorSampleComponent,
     DashboardComponent,
-    LoginComponent
+    LoginComponent,
+    AddArticleComponent
   ],
   imports: [
     BrowserModule,
     FormsModule,
     ReactiveFormsModule,
-    QuillModule,
     SharedModule.forRoot(),
+    InMemoryWebApiModule.forRoot(ArticleData),
     RouterModule.forRoot(
       appRoutes,
       { enableTracing: true } // <-- debugging purposes only

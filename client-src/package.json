@@ -20,6 +20,7 @@
     "@angular/http": "^5.2.0",
     "@angular/platform-browser": "^5.2.0",
     "@angular/platform-browser-dynamic": "^5.2.0",
+    "angular-in-memory-web-api": "^0.5.3",
     "@angular/router": "^5.2.0",
     "core-js": "^2.4.1",
     "ngx-quill": "^2.1.1",

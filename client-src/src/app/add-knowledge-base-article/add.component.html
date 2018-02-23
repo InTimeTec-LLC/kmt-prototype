@@ -1,0 +1,15 @@
+<div>
+  <div>
+    <label>Title: </label>
+    <input [(ngModel)]="article.title" />
+  </div>
+  <div>
+    <label>Description: </label>
+    <input [(ngModel)]="article.description" />
+  </div>
+  <div>
+    <button (click)="addArticle()">Save</button>
+  </div>
+</div> 
+<div *ngIf="articleTitle" [ngClass] = "'success'"> {{articleTitle}} created. </div>
+<div *ngIf="errorMessage" [ngClass] = "'error'"> {{errorMessage}} </div>

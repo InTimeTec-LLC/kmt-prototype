@@ -1,8 +1,8 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
-//import { HttpClient } from '@angular/common/http';
+import { KnowledgeBaseArticleService } from '../../shared/service/knowledge-base-article/knowledge-base-article.service';
 
 @Component({
-  selector: 'dashboard',
+  selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.css'],
   encapsulation: ViewEncapsulation.None
@@ -11,17 +11,19 @@ export class DashboardComponent implements OnInit {
 
   knowledge_base_contents: any;
 
-  constructor() {
-    //private http: HttpClient 
+  constructor(private kbContentService: KnowledgeBaseArticleService) {
   }
 
   ngOnInit() {
-    /*this.http.get('/dashboard').subscribe(data => {
-      console.log(data);
-      this.knowledge_base_content = data;
-    });*/
-        this.knowledge_base_contents = [{"id":1, "title":"Test Title", "description":"Test Description"}, 
-    {"id":1, "title":"Test Title", "description":"Test Description"}, {"id":1, "title":"Test Title", "description":"Test Description"}]
+    this.kbContentService.listKnowledgeBaseArticle().subscribe(
+      result => {
+        this.knowledge_base_contents = result;
+        },
+      error => {
+        // To Do proper error handling at application level
+        // console.log("error in api call");
+    }
+  );
 
   }
 
