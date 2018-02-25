@@ -1,6 +1,5 @@
-package com.itt.jmtemplate.model;
 
-import java.util.List;
+package com.itt.kmt.models;
 
 import org.springframework.data.annotation.Id;
 
@@ -8,61 +7,60 @@ import lombok.Data;
 
 /**
  * This class represents Role.
- * @author Rakshit Rajeev
+ * 
+ * @author Manoj Mewara
  */
+
 @Data
 public class Role {
-    /**
-     * roleName of Role.
-     */
-    private String roleName;
-    /**
-     * roleId of role.
-     */
-    private int roleId;
+
     /**
      * unique identifier.
      */
     @Id
     private String id;
     /**
-     * permissions associated with role.
+     * roleName of Role.
      */
-    private List<Permission> permissions;
+    private String roleName;
+
     /**
-     * @return the permissions
+     * Gets the id.
+     *
+     * @return the id
      */
-    public List<Permission> getPermissions() {
-	return permissions;
+    public String getId() {
+
+        return id;
     }
+
     /**
-     * @param permissions the permissions to set
+     * Sets the id.
+     *
+     * @param id the new id
      */
-    public void setPermissions(List<Permission> permissions) {
-	this.permissions = permissions;
+    public void setId(final String id) {
+
+        this.id = id;
     }
+
     /**
-     * @return the roleName
+     * Gets the role name.
+     *
+     * @return the role name
      */
     public String getRoleName() {
-	return roleName;
+
+        return roleName;
     }
+
     /**
-     * @param roleName the roleName to set
+     * Sets the role name.
+     *
+     * @param roleName the new role name
      */
-    public void setRoleName(String roleName) {
-	this.roleName = roleName;
-    }
-    /**
-     * @return the roleId
-     */
-    public int getRoleId() {
-	return roleId;
-    }
-    /**
-     * @param roleId the roleId to set
-     */
-    public void setRoleId(int roleId) {
-	this.roleId = roleId;
+    public void setRoleName(final String roleName) {
+
+        this.roleName = roleName;
     }
 }
