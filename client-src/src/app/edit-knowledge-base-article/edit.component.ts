@@ -3,25 +3,39 @@ import { KnowledgeBaseArticleService } from '../../shared/service/knowledge-base
 import { Router } from '@angular/router';
 import { KnowledgeBaseArticle } from '../../shared/modals/knowledge-base-article';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import {ActivatedRoute} from '@angular/router';
 
 @Component({
-  selector: 'app-add-kb-article',
-  templateUrl: './add.component.html',
+  selector: 'app-edit-kb-article',
+  templateUrl: './edit.component.html',
   styleUrls: []
 })
-export class AddArticleComponent implements OnInit {
+export class EditArticleComponent implements OnInit {
 
   articles: KnowledgeBaseArticle[];
   errorMessage: String;
   articleTitle: String;
   article: FormGroup;
-
+  articleId: Number;
 
 
   constructor(
     private kbContentService: KnowledgeBaseArticleService,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private activatedRoute: ActivatedRoute
   ) {
+    this.activatedRoute.params.subscribe((params: any) => {
+      this.articleId = params['id'];
+      if (this.articleId) {
+        this.kbContentService.reteriveKnowledgeBaseArticleById(this.articleId).subscribe((article: KnowledgeBaseArticle) => {
+          this.article.setValue({
+            title: article.title,
+            description: article.description
+          });
+        });
+      }
+    });
+
   }
 
   ngOnInit() {
@@ -34,13 +48,11 @@ export class AddArticleComponent implements OnInit {
 
 
   onSubmit({value, valid}: {value: KnowledgeBaseArticle, valid: boolean }) {
-    this.kbContentService.createKnowledgeBaseArticle(value)
+    this.kbContentService.updateKnowledgeBaseArticle(this.articleId, value)
     .subscribe( article => {
                     this.articleTitle = article.title;
          },
                   error => this.errorMessage = <any>error);
 
   }
-
-
 }

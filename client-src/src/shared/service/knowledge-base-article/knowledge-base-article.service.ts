@@ -5,6 +5,7 @@ import { KnowledgeBaseArticle } from '../.././modals/knowledge-base-article';
 import { of } from 'rxjs/observable/of';
 import { catchError, map, tap } from 'rxjs/operators';
 import 'rxjs/add/operator/catch';
+import { environment } from '../../../environments/environment';
 
 
 /**
@@ -23,13 +24,13 @@ export class KnowledgeBaseArticleService {
    * @param {HttpClient} http - The injected HttpClient.
    * @constructor
    */
-  private apiUrl = 'api/articles';  // URL to web api
+  private apiUrl = 'api/articles';  // URL to web api environment.API_ENDPOINT
 
   constructor(private http: HttpClient) { }
 
   /**
    * Returns an Observable for the HTTP GET request for the JSON resource.
-   * @return {string[]} The Observable for the HTTP request.
+   * @return {KnowledgeBaseArticle[]} The Observable for the HTTP request.
    */
 
    listKnowledgeBaseArticle (): Observable<KnowledgeBaseArticle[]> {
@@ -40,7 +41,7 @@ export class KnowledgeBaseArticleService {
 
   /**
    * Returns an Observable for the HTTP POST request for the JSON resource.
-   * @return {string[]} The Observable for the HTTP request.
+   * @return {KnowledgeBaseArticle} The Observable for the HTTP request.
    */
 
   createKnowledgeBaseArticle (articleInfo: KnowledgeBaseArticle): Observable<KnowledgeBaseArticle> {
@@ -49,6 +50,27 @@ export class KnowledgeBaseArticleService {
 }
 
   /**
+   * Returns an Observable for the HTTP POST request for the JSON resource.
+   * @return {KnowledgeBaseArticle} The Observable for the HTTP request.
+   */
+
+  updateKnowledgeBaseArticle (id: Number, articleInfo: KnowledgeBaseArticle): Observable<KnowledgeBaseArticle> {
+    return this.http.put(this.apiUrl + '/' + id, articleInfo, httpOptions)
+               .catch(this.handleErrorObservable);
+  }
+
+  /**
+   * Returns an Observable for the HTTP POST request for the JSON resource.
+   * @return {KnowledgeBaseArticle} The Observable for the HTTP request.
+   */
+
+  reteriveKnowledgeBaseArticleById(articleId: Number): Observable<KnowledgeBaseArticle> {
+    return this.http.get(this.apiUrl + '/' + articleId).catch(this.handleErrorObservable);
+}
+
+
+
+/**
     * Handle HTTP error
     */
   private handleErrorObservable (error: Response | any) {

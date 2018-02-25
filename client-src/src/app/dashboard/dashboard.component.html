@@ -16,7 +16,7 @@
       <tr *ngFor="let kb of knowledge_base_contents">
         <td>{{ kb.title }}</td>
         <td>{{ kb.description }}</td>
-        <td><!--<a [routerLink]="['/book-details', kb.id]">Show Detail</a>-->Show Detail</td>
+        <td><a [routerLink]="['/article/edit', kb.id]">Edit</a></td>
       </tr>
     </tbody>
   </table>
