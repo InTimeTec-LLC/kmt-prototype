@@ -1,0 +1,28 @@
+[
+	{
+		"role": "admin",
+		"permissions": [
+			"addUser",
+			"updateUser",
+			"addContent",
+			"updateContent",
+			"deleteContent"
+		]
+	},
+	{
+		"role": "manger",
+		"permissions": [
+			"addContent",
+			"updateContent",
+			"deleteContent"
+		]
+	},
+	{
+		"role": "user",
+		"permissions": [
+			"addContent",
+			"updateContent",
+			"deleteContent"
+		]
+	}
+]
