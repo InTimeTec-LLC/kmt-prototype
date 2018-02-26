@@ -7,6 +7,7 @@ import 'rxjs/add/operator/delay';
 import 'rxjs/add/operator/mergeMap';
 import 'rxjs/add/operator/materialize';
 import 'rxjs/add/operator/dematerialize';
+import { UserData } from './user-data';
  
 @Injectable()
 export class FakeBackendInterceptor implements HttpInterceptor {
@@ -21,7 +22,7 @@ export class FakeBackendInterceptor implements HttpInterceptor {
         return Observable.of(null).mergeMap(() => {
  
             // authenticate
-            if (request.url.endsWith('/api/authenticate') && request.method === 'POST') {
+            if (request.url.endsWith('/api/users/login') && request.method === 'POST') {
                 console.log(request);
                 // find if any user matches login credentials
                 let filteredUsers = users.filter(user => {
@@ -47,10 +48,10 @@ export class FakeBackendInterceptor implements HttpInterceptor {
             }
  
             // get users
-            if (request.url.endsWith('/api/users') && request.method === 'GET') {
+            if (request.url.endsWith('api/users') && request.method === 'GET') {
                 // check for fake auth token in header and return users if valid, this security is implemented server side in a real application
                 if (request.headers.get('Authorization') === 'Bearer fake-jwt-token') {
-                    return Observable.of(new HttpResponse({ status: 200, body: users }));
+                    return Observable.of(new HttpResponse({ status: 200, body: UserData.listOfUser() }));
                 } else {
                     // return 401 not authorised if token is null or invalid
                     return Observable.throw('Unauthorised');

@@ -33,10 +33,9 @@ export class UserService {
    * @return {User[]} The Observable for the HTTP request.
    */
 
-   listUser (): Observable<User[]> {
+   listUser (): Observable<any> {
     return this.http.get(this.apiUrl)
     .catch(this.handleErrorObservable);
-
   }
 
   /**
@@ -47,7 +46,7 @@ export class UserService {
   createUser (userInfo: UserService): Observable<User> {
         return this.http.post(this.apiUrl, userInfo, httpOptions)
                    .catch(this.handleErrorObservable);
-}
+  }
 
   /**
    * Returns an Observable for the HTTP POST request for the JSON resource.

@@ -5,16 +5,30 @@ import { RouterModule } from '@angular/router';
 import {HttpClientModule} from '@angular/common/http';
 import { KnowledgeBaseArticleService } from './service/knowledge-base-article/knowledge-base-article.service';
 import { AuthenticationService } from './service/authentication/authentication.service';
-import { fakeBackendProvider } from './service/helper/fake-backend';
+import { fakeBackendProvider } from '../mock/fake-backend';
 import { AuthGuard } from './service/helper/auth-guards';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { JwtInterceptor } from './service/helper/jwt-interceptor';
+import { UserData } from '../mock/user-data';
+import { UserService } from './service/user/user.service';
 
+
+import {
+  MatButtonModule,
+  MatCheckboxModule,
+  MatIconModule,
+  MatGridListModule,
+  MatInputModule
+}  from '@angular/material';
 
 @NgModule({
   imports: [CommonModule, FormsModule, ReactiveFormsModule, RouterModule, HttpClientModule],
   declarations: [],
-  exports: [CommonModule, FormsModule, RouterModule]
+  exports: [CommonModule, FormsModule, RouterModule, MatButtonModule,
+    MatCheckboxModule,
+    MatGridListModule,
+    MatInputModule,
+    MatIconModule]
 })
 export class SharedModule {
   static forRoot(): ModuleWithProviders {
@@ -31,7 +45,9 @@ export class SharedModule {
 
         // provider used to create fake backend
         fakeBackendProvider,
-        AuthGuard
+        AuthGuard,
+        UserData,
+        UserService
       ]
     };
   }

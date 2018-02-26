@@ -11,7 +11,7 @@ import { EditArticleComponent } from './edit-knowledge-base-article/edit.compone
 import { SharedModule } from '../shared/shared.module';
 import { LoginComponent } from './login/login.component';
 import { InMemoryWebApiModule } from 'angular-in-memory-web-api';
-import { ArticleData } from './mock-api/article-data';
+import { ArticleData } from '../mock/article-data';
 import { AppRoutingModule } from './app-routing.module';
 import { AuthGuard } from '../shared/service/helper/auth-guards';
 import { HttpClientModule } from '@angular/common/http';
@@ -52,11 +52,13 @@ import {
   MatTabsModule,
   MatToolbarModule,
   MatTooltipModule,
+  MatFormFieldModule,
 } from '@angular/material';
 import { MainComponent } from './main/main.component';
 import { LeftPanelComponent } from './left-panel/left-panel.component';
 import { FooterComponent } from './footer/footer.component';
 import { ContentComponent } from './content/content.component';
+import { UserListComponent } from './user-list/user-list.component';
 
 
 @NgModule({
@@ -94,8 +96,9 @@ import { ContentComponent } from './content/content.component';
     MatTabsModule,
     MatToolbarModule,
     MatTooltipModule,
+    MatFormFieldModule
   ],
-  declarations: []
+  declarations: [UserListComponent]
 })
 export class DemoMaterialModule {}
 

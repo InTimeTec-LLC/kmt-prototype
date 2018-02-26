@@ -6,6 +6,7 @@ import { EditArticleComponent } from './edit-knowledge-base-article/edit.compone
 import { LoginComponent } from './login/login.component';
 import { AuthGuard } from '../shared/service/helper/auth-guards';
 import { AddUserComponent } from './add-user/add-user.component';
+import { UserListComponent } from './user-list/user-list.component';
 
 const routes:  Routes = [
     {
@@ -33,6 +34,10 @@ const routes:  Routes = [
     { path: 'user/add',
       component: AddUserComponent,
       data: { title: 'Add User' }
+    },
+    { path: 'userlist',
+      component: UserListComponent,
+      data: { title: 'User List' }
     },
     { path: '',
       redirectTo: '/dashboard',
