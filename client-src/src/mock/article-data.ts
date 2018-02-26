@@ -9,6 +9,20 @@ export class ArticleData implements InMemoryDbService {
         {id: 4, title: 'Test Title4', description: 'Test Description4'},
         {id: 5, title: 'Test Title5', description: 'Test Description5'}
     ];
-    return {articles};
+
+    const users = [
+      {id: 1, firstName: 'Test1', LastName: 'Kumar', password: '123456',
+      userRole: 'manager', email: 'test1@test.com'},
+      {id: 2, firstName: 'Test2', LastName: 'Kumar', password: '123456',
+      userRole: 'manager', email: 'test2@test.com'},
+      {id: 3, firstName: 'Test3', LastName: 'Kumar', password: '123456',
+      userRole: 'manager', email: 'test3@test.com'},
+      {id: 4, firstName: 'Test4', LastName: 'Kumar', password: '123456',
+      userRole: 'manager', email: 'test4@test.com'},
+      {id: 5, firstName: 'Test5', LastName: 'Kumar', password: '123456',
+      userRole: 'manager', email: 'test5@test.com'}
+  ];
+
+    return {articles, users};
   }
 }

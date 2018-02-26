@@ -12,31 +12,19 @@ import { JwtInterceptor } from './service/helper/jwt-interceptor';
 import { UserData } from '../mock/user-data';
 import { UserService } from './service/user/user.service';
 
-
-import {
-  MatButtonModule,
-  MatCheckboxModule,
-  MatIconModule,
-  MatGridListModule,
-  MatInputModule
-}  from '@angular/material';
-
 @NgModule({
   imports: [CommonModule, FormsModule, ReactiveFormsModule, RouterModule, HttpClientModule],
   declarations: [],
-  exports: [CommonModule, FormsModule, RouterModule, MatButtonModule,
-    MatCheckboxModule,
-    MatGridListModule,
-    MatInputModule,
-    MatIconModule]
+  exports: [CommonModule, FormsModule, RouterModule]
 })
 export class SharedModule {
   static forRoot(): ModuleWithProviders {
     return {
       ngModule: SharedModule,
       providers: [
-        KnowledgeBaseArticleService, 
-        AuthenticationService, 
+        KnowledgeBaseArticleService,
+        UserService,
+        AuthenticationService,
         {
             provide: HTTP_INTERCEPTORS,
             useClass: JwtInterceptor,

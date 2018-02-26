@@ -43,7 +43,7 @@ export class UserService {
    * @return {User} The Observable for the HTTP request.
    */
 
-  createUser (userInfo: UserService): Observable<User> {
+  createUser (userInfo: User): Observable<User> {
         return this.http.post(this.apiUrl, userInfo, httpOptions)
                    .catch(this.handleErrorObservable);
   }
