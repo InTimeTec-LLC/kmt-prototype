@@ -53,6 +53,10 @@ import {
   MatToolbarModule,
   MatTooltipModule,
 } from '@angular/material';
+import { MainComponent } from './main/main.component';
+import { LeftPanelComponent } from './left-panel/left-panel.component';
+import { FooterComponent } from './footer/footer.component';
+import { ContentComponent } from './content/content.component';
 
 
 @NgModule({
@@ -90,7 +94,8 @@ import {
     MatTabsModule,
     MatToolbarModule,
     MatTooltipModule,
-  ]
+  ],
+  declarations: []
 })
 export class DemoMaterialModule {}
 
@@ -102,7 +107,11 @@ export class DemoMaterialModule {}
     LoginComponent,
     AddArticleComponent,
     EditArticleComponent,
-    AddUserComponent
+    AddUserComponent,
+    FooterComponent,
+    LeftPanelComponent,
+    ContentComponent,
+    MainComponent
   ],
   imports: [
     BrowserModule,
