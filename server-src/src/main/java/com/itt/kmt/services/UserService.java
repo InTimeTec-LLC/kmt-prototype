@@ -1,12 +1,14 @@
 package com.itt.kmt.services;
 
-import java.util.List;
-
+import com.itt.kmt.models.Role;
+import com.itt.kmt.models.User;
+import com.itt.kmt.repositories.RoleRepository;
+import com.itt.kmt.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.itt.kmt.models.User;
-import com.itt.kmt.repositories.UserRepository;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Service class that acts as an intermediary between controller and the
@@ -21,17 +23,26 @@ public class UserService {
      */
     @Autowired
     private UserRepository repository;
+
+    /**
+     * Instance of the role Repository implementation.
+     */
+    @Autowired
+    private RoleRepository roleRepository;
+
     /**
      * Gets the User given the email.
-     * 
+     *
      * @param email Email of the User.
      * @return User object matching the email.
      */
     public User getUserByEmail(final String email) {
         return repository.findByEmail(email);
     }
+
     /**
      * Gets the User given the id.
+     *
      * @param id Id of the User.
      * @return User object matching the id.
      */
@@ -41,13 +52,16 @@ public class UserService {
 
     /**
      * Gets all the Users.
+     *
      * @return List of all the users.
      */
     public List<User> getAllUsers() {
         return (List<User>) repository.findAll();
     }
+
     /**
      * Saves the User.
+     *
      * @param user User object to be saved.
      * @return Users saved.
      */
@@ -60,30 +74,36 @@ public class UserService {
             throw new RuntimeException("user already exists");
         }
     }
+
     /**
      * deactivates the User given the email.
+     *
      * @param email Email of the User.
      */
     public void deleteUserByEmail(final String email) {
         User existingUser = getUserByEmail(email);
         if (existingUser != null) {
-           existingUser.setStatus("D");
-           repository.save(existingUser);    
+            existingUser.setStatus("D");
+            repository.save(existingUser);
         } else {
-           throw new RuntimeException("user with the email does not exist");
+            throw new RuntimeException("user with the email does not exist");
         }
     }
+
     /**
      * deletes User given the id.
+     *
      * @param id Id of the User.
      */
     public void deleteUserById(final String id) {
-       repository.delete(id);
+        repository.delete(id);
     }
+
     /**
      * Activates inactive User.
+     *
      * @param user user to be updated.
-     * @param id id of the user to be updated.
+     * @param id   id of the user to be updated.
      * @return user.
      */
     public User updateUser(final User user, final String id) {
@@ -100,5 +120,20 @@ public class UserService {
         } else {
             throw new RuntimeException("user does not exist");
         }
+    }
+
+    /**
+     * Activates all User Roles.
+     * @return Roles.
+     */
+    public List<String> getUserRoles() {
+        List<Role> roleList = (List<Role>) roleRepository.findAll();
+        List<String> rolesList = new ArrayList<>();
+        if (roleList != null) {
+            for (Role role: roleList) {
+                rolesList.add(role.getRole());
+            }
+        }
+        return rolesList;
     }
 }

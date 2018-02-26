@@ -18,7 +18,7 @@ import com.itt.kmt.services.UserService;
  * This class is responsible for exposing REST APis for User.
  */
 @RestController
-@RequestMapping(value = "/users")
+@RequestMapping(value = "/api/users")
 public class UserController {
     /**
      * Service implementation for DB entity that provides retrieval methods.
@@ -82,5 +82,15 @@ public class UserController {
         userService.updateUser(user, id);
         ResponseMsg updateResponseMsg = new ResponseMsg(true, "user updated successfully");
         return new ModelMap().addAttribute("success", updateResponseMsg);
+    }
+
+    /**
+     * REST API to return all Roles.
+     * @return ModelMap.
+     */
+    @RequestMapping(value = "/roles", method = RequestMethod.GET)
+    public ModelMap getUserRoles() {
+        List<String> roles = userService.getUserRoles();
+        return new ModelMap().addAttribute("roles", roles);
     }
 }
