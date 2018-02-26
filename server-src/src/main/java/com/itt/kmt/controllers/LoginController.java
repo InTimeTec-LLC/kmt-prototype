@@ -13,6 +13,7 @@ import com.itt.kmt.jwt.JWTUtil;
 import com.itt.kmt.jwt.exception.UnauthorizedException;
 import com.itt.kmt.models.User;
 import com.itt.kmt.response.models.FailureResponseMsg;
+import com.itt.kmt.response.models.LoginResponseMsg;
 import com.itt.kmt.response.models.ResponseMsg;
 import com.itt.kmt.response.models.SuccessResponseMsg;
 import com.itt.kmt.services.UserService;
@@ -21,8 +22,8 @@ import com.itt.kmt.services.UserService;
  * This class is responsible for exposing REST APis for User.
  */
 @RestController
-@RequestMapping("/api/users")
-public class UserController {
+@RequestMapping("/api")
+public class LoginController {
 
     /**
      * Service implementation for DB entity that provides retrieval methods.
@@ -37,18 +38,21 @@ public class UserController {
      * @return the success response msg
      */
     @RequestMapping(value = "/login", method = RequestMethod.POST, produces = "application/json",
-                    consumes = "application/json")
-    public SuccessResponseMsg login(@RequestBody
-    final User user) {
+            consumes = "application/json")
+    public LoginResponseMsg login(@RequestBody
+            final User user) {
 
         if (user != null) {
             User dbUser = userService.getUserByEmail(user.getEmail());
-            if (dbUser != null && dbUser.getPassword()
-                                        .equals(user.getPassword())) {
 
-                SuccessResponseMsg success = new SuccessResponseMsg(
-                    new ResponseMsg(Boolean.TRUE, JWTUtil.sign(dbUser.getEmail(), dbUser.getPassword())));
-                return success;
+            if (dbUser != null && dbUser.getPassword()
+                    .equals(user.getPassword())) {
+                LoginResponseMsg responseMsg = new LoginResponseMsg(Boolean.TRUE, JWTUtil.sign(dbUser.getEmail(), dbUser.getPassword()));
+
+                dbUser.setPassword(null);
+                responseMsg.setUser(dbUser);
+
+                return responseMsg;
             } else {
                 throw new UnauthorizedException();
             }
