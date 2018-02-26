@@ -31,7 +31,7 @@ We assembled a multidisciplinary and collaborative team that included the follow
 ### Understand people's needs
 We have setup an Research interview meetings with few personnel working in State of California. We will be going through a list of questionnaire with them to understand the end user need for such collaborative knowledge management tool. We will heavily rely on these personnel’s inputs to design the application.
 
-### “Human-centered design” techniques or tools
+### “User-centered design” techniques or tools
 Work in Progress
   
 ### Use GitHub to document code commits
