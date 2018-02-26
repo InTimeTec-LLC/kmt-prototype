@@ -3,19 +3,21 @@ import { UserService } from '../../shared/service/user/user.service';
 import { Router } from '@angular/router';
 import { User } from '../../shared/modals/user';
 import { AbstractControl, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import {ActivatedRoute} from '@angular/router';
 
 @Component({
-  selector: 'app-add-user',
-  templateUrl: './add-user.component.html',
-  styleUrls: ['./add-user.component.scss']
+  selector: 'app-edit-user',
+  templateUrl: './edit-user.component.html',
+  styleUrls: ['./edit-user.component.scss']
 })
 
-export class AddUserComponent implements OnInit {
+export class EditUserComponent implements OnInit {
 
   users: User[];
   errorMessage: String;
-  addUserName: String;
+  userName: String;
   user: FormGroup;
+  userId: Number;
 
 
   get cpwd() {
@@ -25,8 +27,26 @@ export class AddUserComponent implements OnInit {
   constructor(
     private userService: UserService,
     private fb: FormBuilder,
-    private router: Router
+    private router: Router,
+    private activatedRoute: ActivatedRoute
+
   ) {
+
+    this.activatedRoute.params.subscribe((params: any) => {
+      this.userId = params['id'];
+      if (this.userId) {
+        this.userService.reteriveUserById(this.userId).subscribe((user: User) => {
+          this.user.setValue({
+            firstName: user.firstName,
+            lastName: user.lastName,
+            email: user.email,
+            password: user.password,
+            confirmPassword: user.password,
+            userRole: user.userRole
+          });
+        });
+      }
+    });
   }
 
   ngOnInit() {
@@ -54,12 +74,11 @@ export class AddUserComponent implements OnInit {
 
   onSubmit({value, valid}: {value: User, valid: boolean }) {
 
-    this.userService.createUser(value)
+    this.userService.updateUser(this.userId, value)
     .subscribe( user => {
-                    this.addUserName = user.firstName;
+                    this.userName = user.firstName;
          },
                   error => this.errorMessage = <any>error);
-
   }
 
   onCancle() {

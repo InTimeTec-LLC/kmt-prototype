@@ -1,5 +1,5 @@
 
-<div><h1>Add User</h1></div>
+<div><h1>Edit User</h1></div>
 <form  (ngSubmit)="onSubmit(user)" [formGroup]="user">
 
 <div class="example-container">
@@ -70,7 +70,7 @@
   <button type="button" mat-raised-button (click)="onCancle()">Cancel</button>
   <button mat-raised-button type="submit">Save</button>
 
-  <div *ngIf="addUserName" [ngClass] = "'success'"> {{addUserName}} created. </div>
+  <div *ngIf="userName" [ngClass] = "'success'"> {{userName}} created. </div>
 
 </div>
 </form>

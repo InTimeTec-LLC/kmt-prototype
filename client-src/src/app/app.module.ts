@@ -17,6 +17,7 @@ import { AuthGuard } from '../shared/service/helper/auth-guards';
 import { HttpClientModule } from '@angular/common/http';
 import { HttpModule } from '@angular/http';
 import { AddUserComponent } from './add-user/add-user.component';
+import { EditUserComponent } from './edit-user/edit-user.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MainComponent } from './main/main.component';
 import { LeftPanelComponent } from './left-panel/left-panel.component';
@@ -38,7 +39,8 @@ import { MaterialModule } from '../shared/material.module';
     LeftPanelComponent,
     ContentComponent,
     MainComponent,
-    UserListComponent
+    UserListComponent,
+    EditUserComponent
   ],
   imports: [
     BrowserModule,

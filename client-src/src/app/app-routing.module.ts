@@ -7,6 +7,7 @@ import { LoginComponent } from './login/login.component';
 import { AuthGuard } from '../shared/service/helper/auth-guards';
 import { AddUserComponent } from './add-user/add-user.component';
 import { UserListComponent } from './user-list/user-list.component';
+import { EditUserComponent } from './edit-user/edit-user.component';
 
 const routes:  Routes = [
     {
@@ -42,7 +43,11 @@ const routes:  Routes = [
     { path: '',
       redirectTo: '/dashboard',
       pathMatch: 'full'
-    }
+    },
+    { path: 'user/edit/:id',
+      component: EditUserComponent,
+      data: { title: 'Edit User' }
+    },
   ];
 
 
