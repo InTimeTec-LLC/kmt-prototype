@@ -1,19 +1,67 @@
-<div class="col-md-6 col-md-offset-3">
-    <h2>Login</h2>
-    <form name="form" (ngSubmit)="f.form.valid && login()" #f="ngForm" novalidate>
-        <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !username.valid }">
-            <label for="username">Username</label>
-            <input type="text" class="form-control" name="username" [(ngModel)]="model.username" #username="ngModel" required />
-            <div *ngIf="f.submitted && !username.valid" class="help-block">Username is required</div>
-        </div>
-        <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !password.valid }">
-            <label for="password">Password</label>
-            <input type="password" class="form-control" name="password" [(ngModel)]="model.password" #password="ngModel" required />
-            <div *ngIf="f.submitted && !password.valid" class="help-block">Password is required</div>
-        </div>
-        <div class="form-group">
-            <button [disabled]="loading" class="btn btn-primary">Login</button>
-            <img *ngIf="loading" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
-        </div>
-    </form>
+
+
+<div class="app-header">
+    <h1 class="app-heading">Login</h1>
 </div>
+<!-- Application header ends -->
+ 
+<mat-grid-list cols="3">
+    <mat-grid-tile></mat-grid-tile>
+ 
+    <!-- Writing markup for login starts -->
+    <mat-grid-tile class='login-element'>
+        <div class="login-container">
+ 
+            <!-- Template Header starts -->
+            <div class="login-box-header">
+                <h2>Login </h2>
+                
+            </div>
+            <!-- Template Header ends -->
+ 
+            <!-- Template Body starts -->
+            <div class="login-box-body pass">
+                <form class="example-form" name="form" >
+                    <mat-form-field class="example-full-width">
+                        <label>User-name:</label> 
+                        <input matInput type="text" name="username" [(ngModel)]="model.username" #username="ngModel" required>
+                    </mat-form-field>
+
+                    <mat-form-field class="example-full-width">
+                        <label>Password</label>
+                        <input matInput type="password" class="form-control" name="password" [(ngModel)]="model.password" #password="ngModel" required>
+                    </mat-form-field>
+                    <mat-grid-list cols="2" class="template-body-footer">
+                            <mat-grid-tile>
+                                <div class="login-button" (click)="login()">
+                                    <button mat-raised-button color="primary" class="login-button">
+                                    <mat-icon>input</mat-icon>
+                                    Login
+                                    </button>
+                                </div>
+                            </mat-grid-tile>
+                            <mat-grid-tile>
+                                    <div class="login-forgot">
+                                            <a href='#'> Forgot Password</a>
+                                        </div>
+                                    </mat-grid-tile>
+                    </mat-grid-list>
+            </form>
+        </div>
+            
+            
+            <!-- Template Body ends -->
+            
+        </div>
+    </mat-grid-tile>
+    <!-- Writing markup for login ends -->
+    <mat-grid-tile></mat-grid-tile>
+ 
+</mat-grid-list>
+
+<!-- Application footer starts -->
+<div class="app-footer">
+    <h6 class="app-footer">Term & Conditions /@copyright 2018</h6>
+</div>
+<!-- Application footer ends -->
+
