@@ -19,30 +19,6 @@ import { HttpModule } from '@angular/http';
 
 
 
-const appRoutes: Routes = [
-  {
-    path: 'dashboard',
-    component: DashboardComponent,
-    data: { title: 'Dashboard' },
-    canActivate: [AuthGuard]
-  },
-  {
-    path: 'login',
-    component: LoginComponent,
-    data: { title: 'Login' }
-  },
-  /*{
-    path: 'book-edit/:id',
-    path: 'books',
-    component: BookComponent,
-    data: { title: 'Book List' }
-  },*/
-  // otherwise redirect to home
-  { 
-    path: '**', 
-    redirectTo: 'dashboard' 
-  }
-];
 
 
 @NgModule({

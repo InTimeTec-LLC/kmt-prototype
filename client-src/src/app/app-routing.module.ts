@@ -4,13 +4,16 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { AddArticleComponent } from './add-knowledge-base-article/add.component';
 import { EditArticleComponent } from './edit-knowledge-base-article/edit.component';
 import { LoginComponent } from './login/login.component';
+import { AuthGuard } from '../shared/service/helper/auth-guards';
 
 
 const routes:  Routes = [
     {
       path: 'dashboard',
       component: DashboardComponent,
-      data: { title: 'Dashboard' }
+      data: { title: 'Dashboard' },
+      canActivate: [AuthGuard]
+
     },
     {
       path: 'login',
