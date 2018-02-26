@@ -1,0 +1,30 @@
+<form  (ngSubmit)="onSubmit(article)" [formGroup]="article">
+<div>
+  <div>
+    <label>Title: </label>
+    <input formControlName="title" type="text" placeholder="Title" />
+    <div class="error" 
+    *ngIf="article.get('title').touched 
+    && article.get('title').hasError('required')">
+      Title is required
+    </div>
+  </div>
+  <div>
+    <label>Description: </label>
+    <quill-editor #description id="description" style="height: 300px"
+    placeholder="Description"
+  formControlName="description"></quill-editor>
+
+    <div class="error" 
+    *ngIf="article.get('description').touched 
+    && article.get('description').hasError('required')">
+      Description is required
+    </div>
+  </div>
+  <div>
+    <button [disabled]="article.invalid">Save</button>
+  </div>
+</div> 
+<div *ngIf="articleTitle" [ngClass] = "'success'"> {{articleTitle}} created. </div>
+<div *ngIf="errorMessage" [ngClass] = "'error'"> {{errorMessage}} </div>
+</form>

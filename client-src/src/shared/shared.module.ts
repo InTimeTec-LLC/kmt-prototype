@@ -1,18 +1,18 @@
 import { NgModule, ModuleWithProviders } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
-
-import { KnowledgeBaseContentService } from './service/knowledge-base-content/knowledge-base.service';
+import {HttpClientModule} from '@angular/common/http';
+import { KnowledgeBaseArticleService } from './service/knowledge-base-article/knowledge-base-article.service';
 import { AuthenticationService } from './service/authentication/authentication.service';
 import { fakeBackendProvider } from './service/helper/fake-backend';
 import { AuthGuard } from './service/helper/auth-guards';
-import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { JwtInterceptor } from './service/helper/jwt-interceptor';
 
 
 @NgModule({
-  imports: [CommonModule, RouterModule],
+  imports: [CommonModule, FormsModule, ReactiveFormsModule, RouterModule, HttpClientModule],
   declarations: [],
   exports: [CommonModule, FormsModule, RouterModule]
 })
@@ -21,7 +21,7 @@ export class SharedModule {
     return {
       ngModule: SharedModule,
       providers: [
-        KnowledgeBaseContentService, 
+        KnowledgeBaseArticleService, 
         AuthenticationService, 
         {
             provide: HTTP_INTERCEPTORS,

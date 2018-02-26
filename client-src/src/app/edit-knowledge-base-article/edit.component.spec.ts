@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { QuillEditorSampleComponent } from './quill-editor-sample.component';
+import { EditArticleComponent } from './edit.component';
 
-describe('QuillEditorSampleComponent', () => {
-  let component: QuillEditorSampleComponent;
-  let fixture: ComponentFixture<QuillEditorSampleComponent>;
+describe('AddArticleComponent', () => {
+  let component: EditArticleComponent;
+  let fixture: ComponentFixture<EditArticleComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ QuillEditorSampleComponent ]
+      declarations: [ EditArticleComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(QuillEditorSampleComponent);
+    fixture = TestBed.createComponent(EditArticleComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

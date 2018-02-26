@@ -1,5 +1,4 @@
-export class Content {
-  id: number;
+export class KnowledgeBaseArticle {
   title: string;
   description: string;
 }
