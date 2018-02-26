@@ -8,7 +8,7 @@ export class AuthenticationService {
     public token: string;
 
     constructor(private http: HttpClient) {
-       
+
     }
 
     login(username: string, password: string) {
@@ -29,4 +29,5 @@ export class AuthenticationService {
         this.token = null;
         localStorage.removeItem('currentUser');
     }
+
 }
