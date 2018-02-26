@@ -1,0 +1,9 @@
+Started on Feb 21, 2018 12:07:00 PM
+Using strategy: Default
+[poll] Last Built Revision: Revision 7942b4cc5e787ab7a4fe226eecf799d697e7c36f (refs/remotes/origin/master)
+ > git --version # timeout=10
+ > git ls-remote -h https://github.com/yash-itt/test.git # timeout=10
+Found 1 remote heads on https://github.com/yash-itt/test.git
+[poll] Latest remote head revision on refs/heads/master is: 3fb6e141671cbf7cd66f07d91dad9c55211c7aff
+Done. Took 0.2 sec
+Changes found
