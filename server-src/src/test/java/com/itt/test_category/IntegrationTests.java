@@ -4,7 +4,7 @@ package com.itt.test_category;
 /**
  * Tag interface for RepositoryTests
  * 
- * @author Rakesh Sawan
+ * @author Ashish Y
  */
 public interface IntegrationTests {
 

@@ -4,6 +4,7 @@ package com.itt;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.data.mongodb.config.EnableMongoAuditing;
 
 /**
  * This class provides access to application configuration as defined in,
@@ -12,6 +13,7 @@ import org.springframework.context.annotation.Configuration;
  * @author Rakesh Sawan
  */
 @Configuration("config")
+@EnableMongoAuditing
 public class AppConfig {
 
     /**

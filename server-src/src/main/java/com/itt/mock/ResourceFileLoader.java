@@ -31,8 +31,9 @@ public final class ResourceFileLoader {
      */
     public static String loadResource(final String fileName) {
 
+        //Resource resource = new ClassPathResource("C:\Users\intime\git\kmt-prototype\server-src\src\test\resources\"+ArticleTestData.jsonfileName);
         Resource resource = new ClassPathResource(fileName);
-        StringBuffer data = new StringBuffer();
+                StringBuffer data = new StringBuffer();
         try {
             InputStream is = resource.getInputStream();
             BufferedReader br = new BufferedReader(new InputStreamReader(is));

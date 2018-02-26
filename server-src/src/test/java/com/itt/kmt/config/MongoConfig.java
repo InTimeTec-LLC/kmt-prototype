@@ -1,5 +1,5 @@
 
-package com.itt.jmtemplate.config;
+package com.itt.kmt.config;
 
 import java.io.IOException;
 
