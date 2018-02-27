@@ -1,5 +1,4 @@
 ARG tag=latest
 FROM yashittdocker/adpq-web:${tag}
 RUN ["rm", "-fr", "/usr/local/tomcat/webapps/ROOT"]
-COPY ROOT.war /usr/local/tomcat/webapps/ROOT.war
 CMD ["catalina.sh", "run"]

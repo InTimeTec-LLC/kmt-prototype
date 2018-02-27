@@ -2,7 +2,7 @@
 
 #This script setup Docker Jenkins and Web Server containers
 if [ $# -lt "1" ]; then
-        echo "No parameter passed, Please tray again with Jenkins TAGNAME parameter
+        echo "No parameter passed, Please try again with Jenkins TAGNAME parameter
                 ex: ./filename.sh latest_1.3"
         exit 1;
 fi
@@ -63,6 +63,7 @@ then
         echo "********** PackageRepo Folder Deleted**********"
 fi
 
+sudo mkdir /home/ubuntu/tomcatDeployFiles
 sudo mkdir /home/ubuntu/packageRepo
 cd /home/ubuntu/packageRepo
 echo "********** Packagerepo folder created **********"
