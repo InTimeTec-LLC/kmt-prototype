@@ -1,6 +1,21 @@
-#Creates a database and a user
+#Creates a database, user and userRoles
 
 mongo kmt_db --eval 'db.sample.insert({"name":"test"})'
+
+mongo kmt_db --eval 'db.role.insert([
+    {
+        _id: 1,
+        role: "user"
+    },
+    {
+        _id: 2,
+        role: "manager"
+    },
+    {
+        _id: 3,
+        role: "admin"
+    }]
+)'
 
 mongo kmt_db --eval 'db.createUser(
   {
@@ -9,3 +24,5 @@ mongo kmt_db --eval 'db.createUser(
     roles: [ { role: "userAdmin", db: "kmt_db" } ]
   }
 )'
+
+
