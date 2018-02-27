@@ -1,8 +1,23 @@
+.add-heading {
+  background-color: #f24634;
+  color: #fff;
+  margin-top: 10px;
+  padding:  10px;
+}
+
 .example-container {
-    display: flex;
-    flex-direction: column;
-  }
-  
-  .example-container > * {
-    width: 100%;
-  }
+  flex-direction: column;
+  background-color: #f2f2f2;
+  padding: 20px;
+  box-shadow: 2px 2px 21px #d4c8c8;
+}
+
+.heading-margin {
+  margin: 0px;
+}
+
+
+.mat-form-field {
+width: 45%;
+margin-right: 26px;
+}
