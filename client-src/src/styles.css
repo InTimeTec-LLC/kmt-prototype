@@ -14,3 +14,8 @@ body {
   font-size: 8pt;
   float: right;
 }
+.container{
+  width: 76%;
+  float: right;
+  margin:0px 28px;
+}

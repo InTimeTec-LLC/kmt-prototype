@@ -1,10 +1,10 @@
 
 
 <div class="app-header">
-    <h1 class="app-heading">Login</h1>
+    <h1 class="heading ">Login</h1>
 </div>
 <!-- Application header ends -->
- 
+ <div class="login-body">
 <mat-grid-list cols="3">
     <mat-grid-tile></mat-grid-tile>
  
@@ -20,10 +20,10 @@
             <!-- Template Header ends -->
  
             <!-- Template Body starts -->
-            <div class="login-box-body pass">
+            <div class="login-box-body ">
                 <form class="example-form" name="form" >
                     <mat-form-field class="example-full-width">
-                        <label>User-name:</label> 
+                        <label>Email</label> 
                         <input matInput type="text" name="username" [(ngModel)]="model.username" #username="ngModel" required>
                     </mat-form-field>
 
@@ -31,22 +31,15 @@
                         <label>Password</label>
                         <input matInput type="password" class="form-control" name="password" [(ngModel)]="model.password" #password="ngModel" required>
                     </mat-form-field>
-                    <mat-grid-list cols="2" class="template-body-footer">
-                            <mat-grid-tile>
-                                <div class="login-button" (click)="login()">
-                                    <button mat-raised-button color="primary" class="login-button">
-                                    <mat-icon>input</mat-icon>
-                                    Login
-                                    </button>
-                                </div>
-                            </mat-grid-tile>
-                            <mat-grid-tile>
-                                    <div class="login-forgot">
-                                            <a href='#'> Forgot Password</a>
-                                        </div>
-                                    </mat-grid-tile>
-                    </mat-grid-list>
-            </form>
+                    <div class="login-forgot">
+                        <a href='#'> Forgot Password</a>
+                    </div>
+                    <div class="login-button" (click)="login()">
+                        <button mat-raised-button color="primary" class="login-button">
+                          Login
+                         </button>
+                    </div>
+            </form> 
         </div>
             
             
@@ -58,10 +51,12 @@
     <mat-grid-tile></mat-grid-tile>
  
 </mat-grid-list>
+</div>
 
 <!-- Application footer starts -->
-<div class="app-footer">
-    <h6 class="app-footer">Term & Conditions /@copyright 2018</h6>
-</div>
+<div class="footer">
+        <a href="#"> Term & Conditions </a>
+        <a href="#">  Privacy policay </a><span>  @copyright 2018</span>
+      </div> 
 <!-- Application footer ends -->
 
