@@ -10,8 +10,8 @@ buildscript {
     }
 }
 plugins {
-	id 'io.franzbecker.gradle-lombok' version '1.11'
-    	id 'net.ltgt.apt' version '0.10'
+    id 'io.franzbecker.gradle-lombok' version '1.11'
+        id 'net.ltgt.apt' version '0.10'
     id 'org.ajoberstar.grgit' version '1.7.2'
 }
 
@@ -26,7 +26,7 @@ apply plugin: "jacoco"
 apply plugin: 'maven'
 apply plugin: 'io.franzbecker.gradle-lombok'
 apply plugin: 'org.ajoberstar.grgit'
-
+apply plugin: 'war'
 
 bootRepackage {
     mainClass = 'com.itt.Application'
@@ -38,7 +38,7 @@ checkstyle {
     configProperties = [ "suppressionFile" : project(':').file('config/checkstyle/suppressions.xml')]
 }
 
-jar {
+war {
     baseName = project.name
     version =  "${version}"
 }
@@ -98,52 +98,52 @@ task writeNewPom << {
     }.writeTo("pom.xml")
 }
 task repositoryTests(type: Test, dependsOn: testClasses){
-	include '**/*RepositoryTests*'
+    include '**/*RepositoryTests*'
 }
 /**
  * Custom test runner task to execute the tests in specific order.
  * First all repository tests are executed, followed by data seeding and then the rest of the unit tests
  */
 task runUnitTests(type: Test){
-	exclude '**/*Integ*Test*'
-	finalizedBy jacocoTestReport 
+    exclude '**/*Integ*Test*'
+    finalizedBy jacocoTestReport 
 }
 task integrationTests(type: Test) {
-	include '**/*Integ*Test*'
+    include '**/*Integ*Test*'
 }
 
 // Inject JacocoTestReport as part of test execution
 test { 
-	useJUnit {
-		excludeCategories 'com.itt.test_category.IntegrationTests'
-	}
-	finalizedBy jacocoTestReport
+    useJUnit {
+        excludeCategories 'com.itt.test_category.IntegrationTests'
+    }
+    finalizedBy jacocoTestReport
 } 
 
-	
+    
 tasks.withType(Test){
-	testLogging {
-		events 'started', 'passed'
-	}
+    testLogging {
+        events 'started', 'passed'
+    }
 }
 task createDist{
-	copy{
-		println "Current version:${version} buildDir:${buildDir}"
- 		into ("${projectDir}/dist")
-		from ("${buildDir}/libs/${project.name}-${version}.jar"){
-			rename("${project.name}-${version}.jar","${project.name}.jar")
-		}
-	}
-	copy{
-		from "${projectDir}/scripts/start.sh"
- 		into ("${projectDir}/dist")
-	}
-		 new File("$projectDir/dist/version.txt").text = """
-	Version: $version
-	Revision: ${Grgit.open(currentDir: file('.')).head().id}
-	Buildtime: ${new SimpleDateFormat("dd-MM-yyyy HH:mm:ss").format(new Date())}
-	Application-name: ${project.name}
-	"""
+    copy{
+        println "Current version:${version} buildDir:${buildDir}"
+        into ("${projectDir}/dist")
+        from ("${buildDir}/libs/${project.name}-${version}.war"){
+            rename("${project.name}-${version}.war","${project.name}.war")
+        }
+    }
+    copy{
+        from "${projectDir}/scripts/start.sh"
+        into ("${projectDir}/dist")
+    }
+         new File("$projectDir/dist/version.txt").text = """
+    Version: $version
+    Revision: ${Grgit.open(currentDir: file('.')).head().id}
+    Buildtime: ${new SimpleDateFormat("dd-MM-yyyy HH:mm:ss").format(new Date())}
+    Application-name: ${project.name}
+    """
 }
 build {
        finalizedBy createDist
