@@ -24,7 +24,7 @@ export class UserService {
    * @param {HttpClient} http - The injected HttpClient.
    * @constructor
    */
-  private apiUrl = 'api/users';  // URL to web api environment.API_ENDPOINT
+  private apiUrl = environment.API_ENDPOINT + 'users';  // URL to web api environment.API_ENDPOINT
 
   constructor(private http: HttpClient) { }
 

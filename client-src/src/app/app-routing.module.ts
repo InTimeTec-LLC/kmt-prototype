@@ -15,7 +15,6 @@ const routes:  Routes = [
       component: DashboardComponent,
       data: { title: 'Dashboard' },
       canActivate: [AuthGuard]
-
     },
     {
       path: 'login',
@@ -41,7 +40,7 @@ const routes:  Routes = [
       data: { title: 'User List' }
     },
     { path: '',
-      redirectTo: '/login',
+      redirectTo: '/dashboard',
       pathMatch: 'full'
     },
     { path: 'user/edit/:id',

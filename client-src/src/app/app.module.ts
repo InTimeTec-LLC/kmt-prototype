@@ -10,7 +10,7 @@ import { AddArticleComponent } from './add-knowledge-base-article/add.component'
 import { EditArticleComponent } from './edit-knowledge-base-article/edit.component';
 import { SharedModule } from '../shared/shared.module';
 import { LoginComponent } from './login/login.component';
-import { InMemoryWebApiModule } from 'angular-in-memory-web-api';
+//import { InMemoryWebApiModule } from 'angular-in-memory-web-api';
 import { ArticleData } from '../mock/article-data';
 import { AppRoutingModule } from './app-routing.module';
 import { AuthGuard } from '../shared/service/helper/auth-guards';
@@ -49,7 +49,7 @@ import { MaterialModule } from '../shared/material.module';
     HttpClientModule ,
     HttpModule,
     SharedModule.forRoot(),
-    InMemoryWebApiModule.forRoot(ArticleData),
+    //InMemoryWebApiModule.forRoot(ArticleData),
     AppRoutingModule,
     MaterialModule,
     ReactiveFormsModule,

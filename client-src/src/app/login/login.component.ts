@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { AuthenticationService } from '../../shared/service/authentication/authentication.service'
+import { AuthenticationService } from '../../shared/service/authentication/authentication.service';
 
 @Component({
   selector: 'app-login',
@@ -15,17 +15,18 @@ export class LoginComponent implements OnInit {
 
   constructor(private router: Router, private authenticationService: AuthenticationService) { }
 
-  ngOnInit() {
-      // reset login status
-      this.authenticationService.logout();
-  }
+    ngOnInit() {
+        // reset login status
+        this.authenticationService.logout();
+    }
 
     login() {
         this.loading = true;
         this.authenticationService.login(this.model.username, this.model.password)
             .subscribe(
                 data => {
-                    this.router.navigate(['/userlist']);
+                    console.log(data);
+                    this.router.navigate(['/dashboard']);
                 },
                 error => {
                     this.error = 'Username or password is incorrect';

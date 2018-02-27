@@ -22,15 +22,14 @@ export class FakeBackendInterceptor implements HttpInterceptor {
         return Observable.of(null).mergeMap(() => {
  
             // authenticate
-            if (request.url.endsWith('/api/users/login') && request.method === 'POST') {
+            /*if (request.url.endsWith('/mock/api/users/login') && request.method === 'POST') {
                 console.log(request);
-                // find if any user matches login credentials
+            
                 let filteredUsers = users.filter(user => {
                     return user.username === request.body.username && user.password === request.body.password;
                 });
  
                 if (filteredUsers.length) {
-                    // if login details are valid return 200 OK with user details and fake jwt token
                     let user = filteredUsers[0];
                     let body = {
                         id: user.id,
@@ -42,10 +41,9 @@ export class FakeBackendInterceptor implements HttpInterceptor {
  
                     return Observable.of(new HttpResponse({ status: 200, body: body }));
                 } else {
-                    // else return 400 bad request
                     return Observable.throw('Username or password is incorrect');
                 }
-            }
+            }*/
  
             // get users
             /*if (request.url.endsWith('api/users') && request.method === 'GET') {
