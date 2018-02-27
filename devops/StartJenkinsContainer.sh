@@ -66,8 +66,9 @@ fi
 sudo mkdir /home/ubuntu/packageRepo
 cd /home/ubuntu/packageRepo
 echo "********** Packagerepo folder created **********"
-sudo git clone https://github.com/yash-itt/test.git
-cd test
+sudo git clone https://github.com/InTimeTec-LLC/kmt-prototype.git
+sudo git checkout devops
+cd kmt-prototype/devops
 echo "********** Complete checkout to repo **********"
 sudo cp -r jenkins-home -d /var/
 echo "********** Unzip completed **********"
