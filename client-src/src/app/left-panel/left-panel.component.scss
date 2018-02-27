@@ -1,0 +1,184 @@
+html, body {
+    height: auto;
+}
+
+body {
+    font-size: 1.7rem;
+}
+
+a {
+    text-decoration: none;
+}
+/* For the Side navigation.........................*/
+.sidenav {
+    height: 100%;
+    width: 20%;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    background-color: #111;
+    overflow-x: hidden;
+    
+}
+
+.user-profile {
+    float: left;
+    width: 100%;
+    border-bottom: 1px solid white;
+    padding: 15px 0px;
+    background-color:#332e2e ;
+}
+
+.user-image {
+    display: inline;
+    float: left;
+    width: 21%;
+    margin-right: 7px;
+}
+
+.user-information {
+    float: left;
+    width: 75%;
+    display: inline;
+    padding-top: 10px;
+}
+
+.circle {
+    height: 50px;
+    width: 50px;  
+}
+
+.user {
+    
+    display: block;
+}
+
+.user a {
+    color: white;   
+}
+
+
+
+.user-logout a {
+    color: #0071bc;
+}
+
+ /* for the menu items..................*/
+ 
+ .menu-list{
+     margin-top: 0;
+     margin-bottom: 0;
+     list-style-type: none;
+     padding-left: 0;
+     border-bottom: 1px solid;
+     border-top: 1px solid;
+ }
+
+ul {
+     margin-top: 1em;
+     margin-bottom: 1em;
+}
+
+.sidenav-menu {
+    float: left;
+    width: 100%;
+}
+
+.sidenav-menu ul{
+    list-style-type: none;
+    margin-left: 0px;
+}
+
+.menu-list > li:first-child {
+    border-top: none;
+}
+
+.menu-list > li {
+    background-color: transparent;
+    border-top: 1px solid #5b616b;
+    font-size: 1.2rem;
+}
+
+.menu-list > li {
+    margin-bottom: 0;
+}
+
+li {
+    line-height: 1.5;
+}
+
+.menu-icon {
+    width: 20px;
+    height: 20px;
+    padding-right: 10px;
+} 
+
+.menu-list a {
+    border: none;
+    color: #fff;
+    display: block;
+    line-height: 1.3;
+    padding: 0.85rem 1rem 0.85rem 1rem;
+}
+
+.menu-list a:hover {
+    background-color: #f1f1f1;
+    border-left: 0.4rem solid #0071bc;
+    color: #0071bc;
+}
+
+/* for sublist...............*/
+
+.submenubar ul {
+    display: none;
+}
+
+.submenubar:hover ul {
+    display: block;
+}
+
+.menu-sub_list {
+    margin-top: 0;
+    margin-bottom: 0;
+    list-style-type: none;
+    padding-left: 0;
+    margin: 0;
+    width: 100%;   
+}
+
+/* ending the side navbar .......*/
+
+/* content box..............................*/
+.main {
+    margin-left: 250px; /* Same as the width of the sidenav */    
+}
+
+.content-box {
+    margin: 20px;
+}
+
+.some-header {
+    background-color: #191919;
+    color: white;
+    padding: 20px; 
+}
+
+.content {
+    margin: 20px;
+}
+
+
+
+/* media quary.............*/
+@media screen and (min-width: 1201px){
+    .menu-list {
+        border-bottom: none;
+        border-top: none;
+    }
+   }
+
+@media screen and (max-height: 450px) {
+    .sidenav {padding-top: 15px;}
+    .sidenav a {font-size: 16px;}
+}
