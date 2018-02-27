@@ -9,91 +9,89 @@ body{
 	margin:0px !important;
 }
  
-.app-header{
-	color: #fff;
-    background-color: #e91e63;
+.app-header {
+    color: #fff;
+    background-color: #000000;
     text-align: center;
-    padding: 1%;
-	-webkit-box-shadow: 2px 4px 58px -20px rgba(0,0,0,1);
-	-moz-box-shadow: 2px 4px 58px -20px rgba(0,0,0,1);
-	box-shadow: 2px 4px 58px -20px rgba(0,0,0,1);
+    padding: 14px;
 }
  
+.login-body {
+    margin-top: 40px
+}
 .login-container{
 	width: 100%;
-  	height:400px;
-  	padding: 0% !important;
+  	height:450px;
+  	padding: 0%;
 	background-color: #fff;
 	-webkit-box-shadow: 2px 4px 58px -20px rgba(0,0,0,1);
 	-moz-box-shadow: 2px 4px 58px -20px rgba(0,0,0,1);
 	box-shadow: 2px 4px 58px -20px rgba(0,0,0,1);
 }
  
-.login-box-header{
+.login-box-header {
 	width: auto;
-    height: 20%;
+    height: 17%;
     background-color: #1f8edc;
     text-align: center;
     vertical-align: middle;
     font-size: 1em;
     padding: 2%;
     color: #fff;
+    
 }
  
-.justifier {
-	width: 100%;
-	padding-bottom: 2%;
-}
-
 .login-button {
-    padding:1% !important;	
+    padding:1% ;	
     font-size: 1em;
-    color: #fff !important;
+    color: #fff ;
 }
- 
-.example-form {
-    min-width: 150px;
-    max-width: 500px;
-    padding: 20px;
-  }
+.example-form {  
+    padding: 10px;
+}
   
-  .example-full-width {
-    width: 90%;
-  }
-
-.app-footer {
+.example-full-width {
+    width: 100%;
+}
+ /* footer.............*/
+.footer {
     color: #fff;
-    background-color: #bfbbbd;
+    background-color: #111;
     text-align: center;
-    padding: 4px;
+    font-size: 12px;
+    padding: 8px;
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    left: 200px;
 }
 
-.pass input {
-    border: 1px solid gray;
+.footer a {
+    color: white;
+    text-decoration: none;
+}
+
+.login-box-body{
+    margin: 0px 35px 0px 20px;
+}
+
+.login-box-body  input {
     padding: 10px;
     margin-top: 10px;
 }
 
-.mat-form-field-underline {
-    height: 0!important;
-}
-  
-.mat-input-ripple {
-     background-color: transparent!important; 
+.login-forgot {
+    margin-bottom: 10px;
 }
 
-.mat-input-wrapper {
-     padding-bottom: 0!important;
-}
-
-.template-body-footer mat-grid-tile {
-    padding-top: 70px!important;
-}
-
-.template-body-footer button {
-    width: 100%;
+.login-forgot a {
+    text-decoration: none;
 }
 
 .mat-raised-button.mat-primary {
     background-color: #1f8edc!important;
+}
+
+.heading {
+    margin: 0;
 }
