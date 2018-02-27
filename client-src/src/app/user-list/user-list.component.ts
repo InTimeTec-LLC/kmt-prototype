@@ -9,7 +9,7 @@ import { UserService } from '../../shared/service/user/user.service';
 })
 export class UserListComponent implements OnInit {
 
-  listOfUsers : any;  
+  listOfUsers: any;
   constructor(private userService: UserService) { }
 
   ngOnInit() {
@@ -20,7 +20,7 @@ export class UserListComponent implements OnInit {
       this.userService.listUser()
       .subscribe(
           data => {
-              this.listOfUsers = data.users;
+              this.listOfUsers = data;
               console.log(this.listOfUsers);
           },
           error => {

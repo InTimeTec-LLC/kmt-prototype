@@ -6,14 +6,17 @@
         <th>Last Name</th>
         <th>Email</th>
         <th>Role</th>
+        <th></th>
       </tr>
     </thead>
     <tbody>
       <tr *ngFor="let user of listOfUsers">
-        <td> {{ user.first_name }}</td>
-        <td> {{ user.last_name }}</td>
+        <td> {{ user.firstName }}</td>
+        <td> {{ user.lastName }}</td>
         <td> {{ user.email }}</td>
-        <td> {{ user.user_role }}</td>
+        <td> {{ user.userRole }}</td>
+        <td><a [routerLink]="['/user/edit', user.id]">Edit</a></td>
+        <td><a [routerLink]="['/user/del', user.id]">Delete</a></td>
       </tr>
     </tbody>
   </table>

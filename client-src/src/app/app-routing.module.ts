@@ -41,7 +41,7 @@ const routes:  Routes = [
       data: { title: 'User List' }
     },
     { path: '',
-      redirectTo: '/dashboard',
+      redirectTo: '/login',
       pathMatch: 'full'
     },
     { path: 'user/edit/:id',

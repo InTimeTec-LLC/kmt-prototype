@@ -30,4 +30,20 @@ export class AuthenticationService {
         localStorage.removeItem('currentUser');
     }
 
+    isAuthenticated(): boolean {
+        const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+         if (currentUser && currentUser.token) {
+             return true;
+         }
+         return false;
+    }
+
+    getUserName(): string {
+        const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+         if (currentUser && currentUser.token) {
+             return currentUser.firstName + ' ' + currentUser.lastName;
+         }
+         return null;
+    }
+
 }
