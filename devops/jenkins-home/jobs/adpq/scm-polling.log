@@ -1,9 +1,9 @@
-Started on Feb 21, 2018 12:14:00 PM
+Started on Feb 27, 2018 5:46:00 AM
 Using strategy: Default
-[poll] Last Built Revision: Revision 3fb6e141671cbf7cd66f07d91dad9c55211c7aff (refs/remotes/origin/master)
+[poll] Last Built Revision: Revision dc48675b34555985ce4ec61985f1c8679920dca1 (refs/remotes/origin/devops)
  > git --version # timeout=10
- > git ls-remote -h https://github.com/yash-itt/test.git # timeout=10
-Found 1 remote heads on https://github.com/yash-itt/test.git
-[poll] Latest remote head revision on refs/heads/master is: 3fb6e141671cbf7cd66f07d91dad9c55211c7aff - already built by 3
-Done. Took 0.21 sec
+ > git ls-remote -h https://github.com/InTimeTec-LLC/kmt-prototype.git # timeout=10
+Found 13 remote heads on https://github.com/InTimeTec-LLC/kmt-prototype.git
+[poll] Latest remote head revision on refs/heads/devops is: dc48675b34555985ce4ec61985f1c8679920dca1 - already built by 6
+Done. Took 0.37 sec
 No changes

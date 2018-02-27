@@ -1,0 +1,25 @@
+Started by user [8mha:////4ILforTHmVRHGeZ574lrtvczhMbNdbawH/p7KPqb9L5BAAAAlx+LCAAAAAAAAP9b85aBtbiIQTGjNKU4P08vOT+vOD8nVc83PyU1x6OyILUoJzMv2y+/JJUBAhiZGBgqihhk0NSjKDWzXb3RdlLBUSYGJk8GtpzUvPSSDB8G5tKinBIGIZ+sxLJE/ZzEvHT94JKizLx0a6BxUmjGOUNodHsLgAzWEgZu/dLi1CL9xJTczDwAj6GcLcAAAAA=[0madmin
+Building in workspace /var/jenkins_home/workspace/adpq
+ > git rev-parse --is-inside-work-tree # timeout=10
+Fetching changes from the remote Git repository
+ > git config remote.origin.url https://github.com/InTimeTec-LLC/kmt-prototype.git # timeout=10
+Fetching upstream changes from https://github.com/InTimeTec-LLC/kmt-prototype.git
+ > git --version # timeout=10
+ > git fetch --tags --progress https://github.com/InTimeTec-LLC/kmt-prototype.git +refs/heads/*:refs/remotes/origin/*
+ > git rev-parse refs/remotes/origin/devops^{commit} # timeout=10
+ > git rev-parse refs/remotes/origin/origin/devops^{commit} # timeout=10
+Checking out Revision dc48675b34555985ce4ec61985f1c8679920dca1 (refs/remotes/origin/devops)
+ > git config core.sparsecheckout # timeout=10
+ > git checkout -f dc48675b34555985ce4ec61985f1c8679920dca1
+Commit message: "job configuration changed"
+First time build. Skipping changelog.
+[adpq] $ /bin/sh -xe /tmp/jenkins3128283898530940858.sh
++ echo /var/jenkins_home/workspace/adpq
+/var/jenkins_home/workspace/adpq
++ cd /var/jenkins_home/workspace/adpq/devops/scripts
++ ls
+setupMongoAndWebContainer.sh
++ chmod +x StartJenkinsContainer.sh
+chmod: cannot access 'StartJenkinsContainer.sh': No such file or directory
+Build step 'Execute shell' marked build as failure
+Finished: FAILURE
