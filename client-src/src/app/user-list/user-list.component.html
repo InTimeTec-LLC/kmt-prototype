@@ -3,7 +3,7 @@
   <div class="Container-table">
     <div class="add-heading"><h2 class="heading-margin">User Settings</h2></div>
     <div class="example-container">
-    <table class="table">
+    <!-- <table class="table">
     <thead>
       <tr>
         <th>First Name</th>
@@ -20,10 +20,52 @@
         <td> {{ user.email }}</td>
         <td> {{ user.userRole }}</td>
         <td><a [routerLink]="['/user/edit', user.id]">Edit</a></td>
-        <!--<td><a [routerLink]="['/user/del', user.id]">Delete</a></td>-->
       </tr>
-     </tbody>
-  </table>
+     </tbody> 
+  </table>-->
+
+  <div class="example-header">
+    <mat-form-field>
+      <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
+    </mat-form-field>
+  </div>
+  
+  <div class="example-container-1 mat-elevation-z8">
+  
+    <mat-table [dataSource]="dataSource" matSort>
+  
+      <!-- ID Column -->
+      <ng-container matColumnDef="name">
+        <mat-header-cell *matHeaderCellDef mat-sort-header> Name </mat-header-cell>
+        <mat-cell *matCellDef="let row"> {{row.firstName}} {{row.lastName}} </mat-cell>
+      </ng-container>
+  
+      <!-- Progress Column -->
+      <ng-container matColumnDef="email">
+        <mat-header-cell *matHeaderCellDef mat-sort-header> Email </mat-header-cell>
+        <mat-cell *matCellDef="let row"> {{row.email}} </mat-cell>
+      </ng-container>
+  
+      <!-- Name Column -->
+      <ng-container matColumnDef="role">
+        <mat-header-cell *matHeaderCellDef mat-sort-header> Role </mat-header-cell>
+        <mat-cell *matCellDef="let row"> {{row.userRole}} </mat-cell>
+      </ng-container>
+  
+      <!-- Color Column -->
+      <ng-container matColumnDef="actions">
+        <mat-header-cell *matHeaderCellDef mat-sort-header> Actions </mat-header-cell>
+        <mat-cell *matCellDef="let row">Edit | Delete </mat-cell>
+      </ng-container>
+  
+      <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+      <mat-row *matRowDef="let row; columns: displayedColumns;">
+      </mat-row>
+    </mat-table>
+  
+    <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
+  </div>
+
   </div>
  </div>
 </div>

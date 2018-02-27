@@ -20,7 +20,19 @@ export class ArticleData implements InMemoryDbService {
       {id: 4, firstName: 'Test4', lastName: 'Kumar', password: '123456',
       userRole: 'manager', email: 'test4@test.com'},
       {id: 5, firstName: 'Test5', lastName: 'Kumar', password: '123456',
-      userRole: 'manager', email: 'test5@test.com'}
+      userRole: 'manager', email: 'test5@test.com'},
+      {id: 6, firstName: 'Test6', lastName: 'Kumar', password: '123456',
+      userRole: 'manager', email: 'Test6@test.com'},
+      {id: 7, firstName: 'Test7', lastName: 'Kumar', password: '123456',
+      userRole: 'manager', email: 'Test7@test.com'},
+      {id: 8, firstName: 'Test8', lastName: 'Kumar', password: '123456',
+      userRole: 'manager', email: 'Test8@test.com'},
+      {id: 9, firstName: 'Test9', lastName: 'Kumar', password: '123456',
+      userRole: 'manager', email: 'Test9@test.com'},
+      {id: 10, firstName: 'Test10', lastName: 'Kumar', password: '123456',
+      userRole: 'manager', email: 'Test10@test.com'},
+      {id: 11, firstName: 'Test11', lastName: 'Kumar', password: '123456',
+      userRole: 'manager', email: 'Test11@test.com'}
   ];
 
     return {articles, users};
