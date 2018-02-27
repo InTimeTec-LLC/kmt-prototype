@@ -67,8 +67,10 @@ sudo mkdir /home/ubuntu/packageRepo
 cd /home/ubuntu/packageRepo
 echo "********** Packagerepo folder created **********"
 sudo git clone https://github.com/InTimeTec-LLC/kmt-prototype.git
+cd kmt-prototype
+#remove when generate pull request
 sudo git checkout devops
-cd kmt-prototype/devops
+cd devops
 echo "********** Complete checkout to repo **********"
 sudo cp -r jenkins-home/ -d /var/
 echo "********** Unzip completed **********"
