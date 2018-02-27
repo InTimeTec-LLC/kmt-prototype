@@ -46,10 +46,10 @@
     <hudson.scm.SCMRevisionState_-None/>
   </actions>
   <queueId>1</queueId>
-  <timestamp>1519706349437</timestamp>
-  <startTime>1519706349441</startTime>
+  <timestamp>1519710009637</timestamp>
+  <startTime>1519710009646</startTime>
   <result>SUCCESS</result>
-  <duration>11458</duration>
+  <duration>15818</duration>
   <charset>UTF-8</charset>
   <keepLog>false</keepLog>
   <builtOn></builtOn>

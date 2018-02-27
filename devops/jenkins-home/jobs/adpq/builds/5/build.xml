@@ -17,7 +17,7 @@
           <string>refs/remotes/origin/devops</string>
           <hudson.plugins.git.util.Build>
             <marked plugin="git-client@2.7.1">
-              <sha1>68b4652bd831b3f2b08e2acf5055fe3d348b8783</sha1>
+              <sha1>dc48675b34555985ce4ec61985f1c8679920dca1</sha1>
               <branches class="list">
                 <hudson.plugins.git.Branch>
                   <sha1 reference="../../../sha1"/>
@@ -47,10 +47,10 @@
     <hudson.scm.SCMRevisionState_-None/>
   </actions>
   <queueId>2</queueId>
-  <timestamp>1519706445661</timestamp>
-  <startTime>1519706445662</startTime>
-  <result>SUCCESS</result>
-  <duration>56069</duration>
+  <timestamp>1519710091911</timestamp>
+  <startTime>1519710091912</startTime>
+  <result>FAILURE</result>
+  <duration>13138</duration>
   <charset>UTF-8</charset>
   <keepLog>false</keepLog>
   <builtOn></builtOn>
