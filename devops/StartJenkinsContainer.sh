@@ -70,7 +70,7 @@ sudo git clone https://github.com/InTimeTec-LLC/kmt-prototype.git
 sudo git checkout devops
 cd kmt-prototype/devops
 echo "********** Complete checkout to repo **********"
-sudo cp -r jenkins-home -d /var/
+sudo cp -r jenkins-home/ -d /var/
 echo "********** Unzip completed **********"
 #stopping existing jenkins docker and pulling the upadted
 isContainerRunning=$(sudo docker ps -q -f "name=adpq-jenkins")
@@ -84,7 +84,7 @@ isJenkinsImageExist=$(sudo docker images adpq-jenkins -q)
 if [[ "$isJenkinsImageExist" != "" ]]
 then
         sudo docker stop $isJenkinsImageExist
-        sudo docker rm $isJenkinsImageExist
+        sudo docker	 rm $isJenkinsImageExist
 fi
-
-sudo docker run -d --name adpq-jenkins -p 8080:8080 -p 50000:50000 -v /var/jenkins-home:/var/jenkins_home -v /var/run/docker.sock:/var/run/docker.sock -v $(which docker):/usr/bin/docker -v /home/ubuntu:/var/jenkins_home/deployCodeFiles/ -u root yashittdocker/adpq-jenkins:$jenkinsContainerTag
+HOSTVM_IP=$(ip -f inet -o addr show eth0|cut -d\  -f 7 | cut -d/ -f 1)
+sudo docker run -d --name adpq-jenkins -p 8080:8080 -p 50000:50000 -v /var/jenkins-home:/var/jenkins_home -v /var/run/docker.sock:/var/run/docker.sock -v $(which docker):/usr/bin/docker -v /home/ubuntu:/var/jenkins_home/deployCodeFiles/ -e HOSTIP=$HOSTVM_IP -u root yashittdocker/adpq-jenkins:$jenkinsContainerTag
