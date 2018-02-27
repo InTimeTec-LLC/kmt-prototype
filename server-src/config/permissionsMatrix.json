@@ -4,6 +4,10 @@
 		"permissions": [
 			"addUser",
 			"updateUser",
+			"getUserById",
+			"getAllUser",
+			"deleteUser",
+			"getAllRoles",
 			"addContent",
 			"updateContent",
 			"deleteContent"

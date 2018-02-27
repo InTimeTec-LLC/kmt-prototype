@@ -61,7 +61,6 @@ public class MyRealm extends AuthorizingRealm {
 
         System.out.println("reading permission matrix");
         ObjectMapper objectMapper = new ObjectMapper();
-        Set<String> roleNameList = new HashSet<String>();
         Set<String> permissions = new HashSet<String>();
 
         String email = JWTUtil.getemail(principals.toString());
@@ -86,7 +85,7 @@ public class MyRealm extends AuthorizingRealm {
                 // TODO Auto-generated catch block
                 e.printStackTrace();
             }
-            simpleAuthorizationInfo.addRoles(roleNameList);
+            simpleAuthorizationInfo.addRole(role);
             simpleAuthorizationInfo.addStringPermissions(permissions);
 
             return simpleAuthorizationInfo;
