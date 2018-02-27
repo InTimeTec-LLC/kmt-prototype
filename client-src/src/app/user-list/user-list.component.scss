@@ -1,0 +1,56 @@
+.add-heading {
+    background-color: #ffa834;
+    color: #fff;
+    margin-top: 10px;
+    padding:  10px;
+  }
+
+  .example-container {
+    flex-direction: column;
+    background-color: #fbfbfb;
+    padding: 20px;
+    box-shadow:  0px 5px 8px rgba(0, 0, 0, 0.3);
+  }
+
+  .heading-margin {
+    margin: 0px;
+  }
+
+  .table {
+      width: 100%;
+      text-align: left;
+  }
+
+  th, td {
+    padding: 5px;
+}
+
+  table, th, td {
+    border: 1px solid #cccaca;
+    border-collapse: collapse;
+}
+
+table tr:nth-child(even) {
+    background-color: #eee;
+}
+table tr:nth-child(odd) {
+   background-color:#fff;
+}
+
+.add-user-button {
+       float: right;
+       margin: 19px 0 10px 0;
+  }
+
+  .add-user-button a {
+    text-decoration: none;
+    padding: 10px 21px;
+    background-color: #ffa834;
+    display: block;
+    color: #fff;
+}
+
+  .Container-table {
+      float: left;
+      width: 100%;
+  }

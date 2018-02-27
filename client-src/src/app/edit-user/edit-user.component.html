@@ -68,10 +68,10 @@
     && user.get('confirmPassword').hasError('notEquivalent')">
       Password and Confirm Password should match
   </div>
-
+<div class="button-postion">
   <button type="button" mat-raised-button (click)="onCancle()">Cancel</button>
   <button mat-raised-button type="submit">Save</button>
-
+</div>
   <div *ngIf="userName" [ngClass] = "'success'"> {{userName}} created. </div>
 
 </div>

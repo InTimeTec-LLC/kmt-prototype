@@ -1,12 +1,16 @@
 <div class="container">
-  <table class="table">
+  <div class="add-user-button"><a href="user/add">Add User</a></div>
+  <div class="Container-table">
+    <div class="add-heading"><h2 class="heading-margin">User Settings</h2></div>
+    <div class="example-container">
+    <table class="table">
     <thead>
       <tr>
         <th>First Name</th>
         <th>Last Name</th>
         <th>Email</th>
         <th>Role</th>
-        <th></th>
+        <th>Action</th>
       </tr>
     </thead>
     <tbody>
@@ -16,9 +20,10 @@
         <td> {{ user.email }}</td>
         <td> {{ user.userRole }}</td>
         <td><a [routerLink]="['/user/edit', user.id]">Edit</a></td>
-        <td><a [routerLink]="['/user/del', user.id]">Delete</a></td>
+        <!--<td><a [routerLink]="['/user/del', user.id]">Delete</a></td>-->
       </tr>
-    </tbody>
+     </tbody>
   </table>
- 
+  </div>
+ </div>
 </div>
