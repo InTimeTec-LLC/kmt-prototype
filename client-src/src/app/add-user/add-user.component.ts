@@ -3,6 +3,7 @@ import { UserService } from '../../shared/service/user/user.service';
 import { Router } from '@angular/router';
 import { User } from '../../shared/modals/user';
 import { AbstractControl, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import {ToasterModule, ToasterService} from 'angular5-toaster';
 
 @Component({
   selector: 'app-add-user',
@@ -25,7 +26,8 @@ export class AddUserComponent implements OnInit {
   constructor(
     private userService: UserService,
     private fb: FormBuilder,
-    private router: Router
+    private router: Router,
+    private toasterService: ToasterService
   ) {
   }
 
@@ -52,13 +54,18 @@ export class AddUserComponent implements OnInit {
     };
   }
 
-  onSubmit({value, valid}: {value: User, valid: boolean }) {
-
+  onSubmit({value, valid}: {value: any, valid: boolean }) {
+    delete value.confirmPassword;
     this.userService.createUser(value)
-    .subscribe( user => {
-                    this.addUserName = user.firstName;
+    .subscribe( data => {
+              this.toasterService.pop('success', 'Success', data.success.message);
          },
-                  error => this.errorMessage = <any>error);
+                  error => {
+                    console.log('i am here');
+                    console.log(error);
+                    //this.toasterService.pop('error', 'Error', error.failure.message);
+                  }
+                );
 
   }
 

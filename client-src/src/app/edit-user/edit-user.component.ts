@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { User } from '../../shared/modals/user';
 import { AbstractControl, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import {ActivatedRoute} from '@angular/router';
+import {ToasterModule, ToasterService} from 'angular5-toaster';
 
 @Component({
   selector: 'app-edit-user',
@@ -17,7 +18,7 @@ export class EditUserComponent implements OnInit {
   errorMessage: String;
   userName: String;
   user: FormGroup;
-  userId: Number;
+  userId: String;
 
 
   get cpwd() {
@@ -28,21 +29,22 @@ export class EditUserComponent implements OnInit {
     private userService: UserService,
     private fb: FormBuilder,
     private router: Router,
-    private activatedRoute: ActivatedRoute
+    private activatedRoute: ActivatedRoute,
+    private toasterService: ToasterService
 
   ) {
 
     this.activatedRoute.params.subscribe((params: any) => {
       this.userId = params['id'];
       if (this.userId) {
-        this.userService.reteriveUserById(this.userId).subscribe((user: User) => {
+        this.userService.reteriveUserById(this.userId).subscribe((data: any) => {
           this.user.setValue({
-            firstName: user.firstName,
-            lastName: user.lastName,
-            email: user.email,
-            password: user.password,
-            confirmPassword: user.password,
-            userRole: user.userRole
+            firstName: data.user.firstName,
+            lastName: data.user.lastName,
+            email: data.user.email,
+            password: data.user.password,
+            confirmPassword: data.user.password,
+            userRole: data.user.userRole
           });
         });
       }
@@ -72,13 +74,13 @@ export class EditUserComponent implements OnInit {
     };
   }
 
-  onSubmit({value, valid}: {value: User, valid: boolean }) {
-
+  onSubmit({value, valid}: {value: any, valid: boolean }) {
+    delete value.confirmPassword;
     this.userService.updateUser(this.userId, value)
-    .subscribe( user => {
-                    this.userName = user.firstName;
+    .subscribe( data => {
+                    this.toasterService.pop('success', 'Success', data.success.message);
          },
-                  error => this.errorMessage = <any>error);
+                  error => this.toasterService.pop('error', 'Error', error.failure.message));
   }
 
   onCancle() {

@@ -6,19 +6,16 @@ import { of } from 'rxjs/observable/of';
 import { catchError, map, tap } from 'rxjs/operators';
 import 'rxjs/add/operator/catch';
 import { environment } from '../../../environments/environment';
-
+import { AuthenticationService } from '../authentication/authentication.service';
 
 /**
  * This class provides the User service with methods to manage.
  */
 
-const httpOptions = {
-  headers: new HttpHeaders({ 'Content-Type': 'application/json' })
-};
 
 @Injectable()
 export class UserService {
-
+  httpOptions: any;
   /**
    * Creates a new KnowledgeBaseContentervice with the injected HttpClient.
    * @param {HttpClient} http - The injected HttpClient.
@@ -26,7 +23,12 @@ export class UserService {
    */
   private apiUrl = environment.API_ENDPOINT + 'users';  // URL to web api environment.API_ENDPOINT
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private auth: AuthenticationService) {
+      const token = auth.getAccessToken();
+      this.httpOptions = {
+      headers: new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': token })
+    };
+  }
 
   /**
    * Returns an Observable for the HTTP GET request for the JSON resource.
@@ -43,8 +45,8 @@ export class UserService {
    * @return {User} The Observable for the HTTP request.
    */
 
-  createUser (userInfo: User): Observable<User> {
-        return this.http.post(this.apiUrl, userInfo, httpOptions)
+  createUser (userInfo: User): Observable<any> {
+        return this.http.post(this.apiUrl, userInfo, this.httpOptions)
                    .catch(this.handleErrorObservable);
   }
 
@@ -53,8 +55,8 @@ export class UserService {
    * @return {KnowledgeBaseArticle} The Observable for the HTTP request.
    */
 
-  updateUser (id: Number, userInfo: User): Observable<User> {
-    return this.http.put(this.apiUrl + '/' + id, userInfo, httpOptions)
+  updateUser (id: String, userInfo: User): Observable<any> {
+    return this.http.put(this.apiUrl + '/' + id, userInfo, this.httpOptions)
                .catch(this.handleErrorObservable);
   }
 
@@ -63,8 +65,8 @@ export class UserService {
    * @return {UserService} The Observable for the HTTP request.
    */
 
-  reteriveUserById(userId: Number): Observable<User> {
-    return this.http.get(this.apiUrl + '/' + userId).catch(this.handleErrorObservable);
+  reteriveUserById(userId: String): Observable<any> {
+    return this.http.get(this.apiUrl + '/' + userId, this.httpOptions).catch(this.handleErrorObservable);
 }
 
 

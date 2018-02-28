@@ -55,7 +55,7 @@
       <!-- Color Column -->
       <ng-container matColumnDef="actions">
         <mat-header-cell *matHeaderCellDef mat-sort-header> Actions </mat-header-cell>
-        <mat-cell *matCellDef="let row">Edit | Delete </mat-cell>
+        <mat-cell *matCellDef="let row"><a [routerLink]="['/user/edit', row.id]">Edit</a> | Delete </mat-cell>
       </ng-container>
   
       <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>

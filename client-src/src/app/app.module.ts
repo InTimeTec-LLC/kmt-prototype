@@ -25,6 +25,7 @@ import { FooterComponent } from './footer/footer.component';
 import { ContentComponent } from './content/content.component';
 import { UserListComponent } from './user-list/user-list.component';
 import { MaterialModule } from '../shared/material.module';
+import {ToasterModule, ToasterService} from 'angular5-toaster';
 
 
 @NgModule({
@@ -53,7 +54,8 @@ import { MaterialModule } from '../shared/material.module';
     AppRoutingModule,
     MaterialModule,
     ReactiveFormsModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    ToasterModule
 
   ],
   providers: [],
