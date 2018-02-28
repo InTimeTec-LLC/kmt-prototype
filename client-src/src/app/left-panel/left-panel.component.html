@@ -11,48 +11,48 @@
      <div class="sidenav-menu">
        <ul class="menu-list">
          <li>
-             <a href="#">
+             <a (click)="onTapNavigation('')">
              <img src="https://upload.wikimedia.org/wikipedia/commons/c/c3/Circle-icons-camera.svg" class="menu-icon">
              <span>Search</span>
              </a>
          </li>
          <li>
-             <a href="#">
+             <a (click)="onTapNavigation('')">
              <img src="https://upload.wikimedia.org/wikipedia/commons/c/c3/Circle-icons-camera.svg" class="menu-icon">
              <span>Knowledge Base</span>
              </a>
          </li>
          <li *ngIf="userType === 'admin' || userType === 'manager'">
-             <a href="#">
+             <a (click)="onTapNavigation('')">
              <img src="https://upload.wikimedia.org/wikipedia/commons/c/c3/Circle-icons-camera.svg" class="menu-icon">
              <span>Dashboard</span>
              </a>
          </li>
          <li>
-             <a href="#">
+             <a (click)="onTapNavigation('')">
              <img src="https://upload.wikimedia.org/wikipedia/commons/c/c3/Circle-icons-camera.svg" class="menu-icon">
              <span>Content</span>
              </a>
          </li>
          <li class="submenubar">
-             <a href="#services" >
+             <a>
                <img src="https://upload.wikimedia.org/wikipedia/commons/c/c3/Circle-icons-camera.svg" class="menu-icon">
                <span>Settings</span>
              </a>
              <ul class="menu-sub_list">
                <li *ngIf="userType === 'admin' || userType === 'manager'">            
-                 <a href="userlist">User</a>
+                 <a (click)="onTapNavigation('/userlist')">User</a>
                </li>
                <li>  
-                   <a href="#">Profile</a>
+                   <a (click)="onTapNavigation('')">Profile</a>
                </li>
                <li> 
-                   <a href="#">Google Tanslater</a>
+                   <a (click)="onTapNavigation('')">Google Tanslater</a>
                </li>     
              </ul>              
          </li>
          <li>
-             <a href="#">
+             <a (click)="onTapNavigation('')">
                <img src="https://upload.wikimedia.org/wikipedia/commons/c/c3/Circle-icons-camera.svg" class="menu-icon">
                <span>Help</span>
              </a>
