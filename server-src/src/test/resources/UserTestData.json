@@ -1,0 +1,26 @@
+{
+	"user-1":  {
+            "id": "1",
+            "email": "sss@gmail.com",
+            "lastName": "ashish",
+            "firstName": "ashish",
+            "userRole":"admin",
+            "active"  : true
+        },
+   "user-2":  {
+            "id": "2",
+            "email": "rrr@gmail.com",
+            "lastName": "rohan",
+            "firstName": "sahu",
+            "userRole":"manager",
+            "active"  : true
+        },
+   "user-3":  {
+            "id": "3",
+            "email": "kkk@gmail.com",
+            "lastName": "Rakshit",
+            "firstName": "Rakshit",
+            "userRole":"user",
+            "active"  : true
+        }
+}
