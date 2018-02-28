@@ -28,8 +28,9 @@
   <mat-form-field>
     <mat-select formControlName="userRole" placeholder="Role">
         <mat-option value="">Select</mat-option>
-      <mat-option value="manager">Manager</mat-option>
-      <mat-option value="admin">Admin</mat-option>
+        <mat-option value="user">User</mat-option>
+        <mat-option value="manager">Manager</mat-option>
+        <mat-option value="admin">Admin</mat-option>
     </mat-select>
   </mat-form-field>
   <div class="error" 
@@ -39,7 +40,7 @@
   </div>
 
   <mat-form-field>
-    <input formControlName="email" matInput placeholder="Email">
+    <input formControlName="email" matInput placeholder="Email" readonly>
   </mat-form-field>
   <div class="error" 
     *ngIf="user.get('email').touched 
@@ -71,11 +72,11 @@
       Password and Confirm Password should match
   </div>
 <div class="button-postion">
+  <button type="button" mat-raised-button (click)="onDeactivate()">Deactivate</button>
   <button type="button" mat-raised-button (click)="onCancle()">Cancel</button>
   <button mat-raised-button type="submit">Save</button>
 </div>
   <div *ngIf="userName" [ngClass] = "'success'"> {{userName}} created. </div>
-
 </div>
 </form>
 </div>

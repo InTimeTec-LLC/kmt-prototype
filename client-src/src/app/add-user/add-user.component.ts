@@ -33,7 +33,7 @@ export class AddUserComponent implements OnInit {
 
   ngOnInit() {
     this.user = this.fb.group({
-      firstName: ['', [Validators.required, Validators.minLength(10)]],
+      firstName: ['', [Validators.required, Validators.minLength(2)]],
       lastName: ['', Validators.required],
       password: ['', Validators.required],
       userRole: ['', Validators.required],
@@ -61,9 +61,7 @@ export class AddUserComponent implements OnInit {
               this.toasterService.pop('success', 'Success', data.success.message);
          },
                   error => {
-                    console.log('i am here');
-                    console.log(error);
-                    //this.toasterService.pop('error', 'Error', error.failure.message);
+                    this.toasterService.pop('error', 'Error', error.failure.message);
                   }
                 );
 

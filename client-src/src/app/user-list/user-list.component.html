@@ -51,11 +51,17 @@
         <mat-header-cell *matHeaderCellDef mat-sort-header> Role </mat-header-cell>
         <mat-cell *matCellDef="let row"> {{row.userRole}} </mat-cell>
       </ng-container>
+
+       <!-- status Column -->
+       <ng-container matColumnDef="status">
+          <mat-header-cell *matHeaderCellDef mat-sort-header> Status </mat-header-cell>
+          <mat-cell *matCellDef="let row"> {{row.status}} </mat-cell>
+        </ng-container>
   
       <!-- Color Column -->
       <ng-container matColumnDef="actions">
         <mat-header-cell *matHeaderCellDef mat-sort-header> Actions </mat-header-cell>
-        <mat-cell *matCellDef="let row"><a [routerLink]="['/user/edit', row.id]">Edit</a> | Delete </mat-cell>
+        <mat-cell *matCellDef="let row"><a [routerLink]="['/user/edit', row.id]">Edit</a></mat-cell>
       </ng-container>
   
       <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>

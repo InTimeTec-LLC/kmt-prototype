@@ -69,6 +69,15 @@ export class UserService {
     return this.http.get(this.apiUrl + '/' + userId, this.httpOptions).catch(this.handleErrorObservable);
 }
 
+/**
+   * Returns an Observable for the HTTP DELETE request for the JSON resource.
+   * @return {UserService} The Observable for the HTTP request.
+   */
+
+  deleteUser (id: String): Observable<any> {
+    return this.http.delete(this.apiUrl + '/' + id,  this.httpOptions)
+               .catch(this.handleErrorObservable);
+  }
 
 
 /**

@@ -1,4 +1,5 @@
 <div class="container">
+    <toaster-container></toaster-container>
     <div class="add-heading"><h2 class="heading-margin">Add User</h2></div>
     <form  (ngSubmit)="onSubmit(user)" [formGroup]="user">
         <div class="lower-container">
@@ -24,6 +25,7 @@
           <mat-form-field>
             <mat-select formControlName="userRole" placeholder="Role">
                 <mat-option value="">Select</mat-option>
+                <mat-option value="user">User</mat-option>
               <mat-option value="manager">Manager</mat-option>
               <mat-option value="admin">Admin</mat-option>
             </mat-select>
@@ -68,7 +70,7 @@
           </div>
             </div>
         <div class="button-postion">
-          <button type="button" mat-raised-button>Cancel</button>
+          <button type="button" mat-raised-button (click)="onCancle()">Cancel</button>
           <button mat-raised-button type="submit">Save</button>
         </div>
         
