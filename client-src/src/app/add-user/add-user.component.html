@@ -1,7 +1,8 @@
 <div class="container">
     <div class="add-heading"><h2 class="heading-margin">Add User</h2></div>
     <form  (ngSubmit)="onSubmit(user)" [formGroup]="user">
-        <div class="example-container">
+        <div class="lower-container">
+            <div class="form-box">
           <mat-form-field>
             <input formControlName="firstName" matInput placeholder="First Name">
           </mat-form-field>
@@ -65,6 +66,7 @@
             && user.get('confirmPassword').hasError('notEquivalent')">
               Password and Confirm Password should match
           </div>
+            </div>
         <div class="button-postion">
           <button type="button" mat-raised-button>Cancel</button>
           <button mat-raised-button type="submit">Save</button>

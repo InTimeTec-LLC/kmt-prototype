@@ -6,9 +6,7 @@ body {
     font-size: 1.7rem;
 }
 
-a {
-    text-decoration: none;
-}
+
 /* For the Side navigation.........................*/
 .sidenav {
     height: 100%;
@@ -34,12 +32,13 @@ a {
     display: inline;
     float: left;
     width: 21%;
-    margin-right: 7px;
+    margin-right: 6px;
+    margin-left: 6px
 }
 
 .user-information {
     float: left;
-    width: 75%;
+    width: 72%;
     display: inline;
     padding-top: 10px;
 }
@@ -65,7 +64,7 @@ a {
 }
 
  /* for the menu items..................*/
- 
+  
  .menu-list{
      margin-top: 0;
      margin-bottom: 0;
