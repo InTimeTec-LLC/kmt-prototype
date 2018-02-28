@@ -9,14 +9,14 @@ import { Router } from '@angular/router';
 })
 export class LeftPanelComponent implements OnInit {
 
-
-  constructor(private auth: AuthenticationService, private router: Router) { }
-
-  ngOnInit() {
-    this.getUserName();
-    this.isAuthenticated();
+  userType : any;
+  constructor(private auth: AuthenticationService, private router: Router) { 
+     this.userType = this.auth.getUserType(); 
   }
 
+  ngOnInit() {
+    
+  }
 
   isAuthenticated() {
     return this.auth.isAuthenticated();

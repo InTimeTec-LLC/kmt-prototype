@@ -47,6 +47,14 @@ export class AuthenticationService {
          return null;
     }
 
+    getUserType(): string {
+        const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+         if (currentUser && currentUser.user && currentUser.user.userRole) {
+             return currentUser.user.userRole;
+         }
+         return undefined;
+    }
+
     getAccessToken(): string {
         const currentUser = JSON.parse(localStorage.getItem('currentUser'));
          if (currentUser && currentUser.accessToken) {
