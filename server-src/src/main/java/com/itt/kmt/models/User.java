@@ -51,4 +51,8 @@ public class User implements Serializable {
      * active status of the user.
      */
     private boolean active = true;
+    /**
+     * password of the user.
+     */
+    private String password;
 }
