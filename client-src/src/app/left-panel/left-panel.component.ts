@@ -18,6 +18,10 @@ export class LeftPanelComponent implements OnInit {
     
   }
 
+  onTapNavigation(route) {
+    this.router.navigate([route]);
+  }
+
   isAuthenticated() {
     return this.auth.isAuthenticated();
   }
