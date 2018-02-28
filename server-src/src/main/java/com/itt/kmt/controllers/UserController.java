@@ -2,6 +2,7 @@ package com.itt.kmt.controllers;
 
 import java.util.List;
 
+import com.itt.kmt.models.Role;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -82,5 +83,15 @@ public class UserController {
         userService.updateUser(user, id);
         ResponseMsg updateResponseMsg = new ResponseMsg(true, "user updated successfully");
         return new ModelMap().addAttribute("success", updateResponseMsg);
+    }
+
+    /**
+     * REST API to return all Roles.
+     * @return ModelMap.
+     */
+    @RequestMapping(value = "/roles", method = RequestMethod.GET)
+    public ModelMap getUserRoles() {
+        List<Role> roleList = userService.getUserRoles();
+        return new ModelMap().addAttribute("roles", roleList);
     }
 }

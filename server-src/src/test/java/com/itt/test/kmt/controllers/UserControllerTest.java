@@ -10,7 +10,10 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 import java.nio.charset.Charset;
 import java.util.ArrayList;
+import java.util.List;
 
+import com.itt.kmt.models.Role;
+import com.itt.test_data.RoleTestDataRepository;
 import org.hamcrest.Matchers;
 import org.junit.After;
 import org.junit.Test;
@@ -50,6 +53,9 @@ public class UserControllerTest {
 
     @Autowired
     private TestDataRepository testDataRepository;
+
+    @Autowired
+    private RoleTestDataRepository roleTestDataRepository;
 
     private MediaType contentType = new MediaType("application", "json", Charset.forName("UTF-8"));
 
@@ -174,6 +180,36 @@ public class UserControllerTest {
         .andExpect(jsonPath("$.success.status", is(deleteResponseMsg.getStatus())));
 
         verify(userService, times(1)).deleteUserById(user.getId());
+    }
+
+    @Test
+    public void getAllRoles() throws Exception {
+        // Arrange
+        Role role1 = roleTestDataRepository.getRoles()
+                .get("role-1");
+        Role role2 = roleTestDataRepository.getRoles()
+                .get("role-1");
+        List<Role> roles = new ArrayList<Role>();
+
+        roles.add(role1);
+        roles.add(role2);
+
+        when(userService.getUserRoles()).thenReturn(roles);
+        RequestBuilder requestBuilder = MockMvcRequestBuilders.get("/users/roles")
+                .accept(MediaType.APPLICATION_JSON);
+
+        // Act
+        ResultActions resultActions = mockMvc.perform(requestBuilder);
+
+        resultActions
+                .andExpect(status().isOk())
+                .andExpect(content().contentType(contentType))
+                .andExpect(jsonPath("$.roles", Matchers.hasSize(2)))
+                .andExpect(jsonPath("$.roles[0].id", is(role1.getId())))
+                .andExpect(jsonPath("$.roles[0].role", is(role1.getRole())))
+                .andExpect(jsonPath("$.roles[1].id", is(role2.getId())))
+                .andExpect(jsonPath("$.roles[1].role", is(role2.getRole())));
+        verify(userService, times(1)).getUserRoles();
     }
     
     @After
