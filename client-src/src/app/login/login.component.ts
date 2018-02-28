@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthenticationService } from '../../shared/service/authentication/authentication.service';
+import {ToasterModule, ToasterService} from 'angular5-toaster';
+
 
 @Component({
   selector: 'app-login',
@@ -11,9 +13,13 @@ export class LoginComponent implements OnInit {
 
   model: any = {};
   loading = false;
-  error = '';
 
-  constructor(private router: Router, private authenticationService: AuthenticationService) { }
+  constructor(
+      private router: Router, 
+      private toasterService: ToasterService,
+      private authenticationService: AuthenticationService) { 
+
+      }
 
     ngOnInit() {
         // reset login status
@@ -29,8 +35,8 @@ export class LoginComponent implements OnInit {
                     this.router.navigate(['/dashboard']);
                 },
                 error => {
-                    this.error = 'Username or password is incorrect';
                     this.loading = false;
+                    this.toasterService.pop('error', 'Error', 'Username or password is incorrect');
                 });
     }
 }

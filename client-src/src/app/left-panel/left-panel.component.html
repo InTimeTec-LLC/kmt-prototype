@@ -1,6 +1,3 @@
-
-
-
 <div class="sidenav" *ngIf="isAuthenticated()">
     <div class="user-profile">
       <div class="user-image">
@@ -25,7 +22,7 @@
              <span>Knowledge Base</span>
              </a>
          </li>
-         <li>
+         <li *ngIf="userType === 'admin' || userType === 'manager'">
              <a href="#">
              <img src="https://upload.wikimedia.org/wikipedia/commons/c/c3/Circle-icons-camera.svg" class="menu-icon">
              <span>Dashboard</span>
@@ -43,7 +40,7 @@
                <span>Settings</span>
              </a>
              <ul class="menu-sub_list">
-               <li>            
+               <li *ngIf="userType === 'admin' || userType === 'manager'">            
                  <a href="userlist">User</a>
                </li>
                <li>  
