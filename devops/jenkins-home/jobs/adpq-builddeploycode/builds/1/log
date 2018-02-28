@@ -1,0 +1,466 @@
+Started by user [8mha:////4ILforTHmVRHGeZ574lrtvczhMbNdbawH/p7KPqb9L5BAAAAlx+LCAAAAAAAAP9b85aBtbiIQTGjNKU4P08vOT+vOD8nVc83PyU1x6OyILUoJzMv2y+/JJUBAhiZGBgqihhk0NSjKDWzXb3RdlLBUSYGJk8GtpzUvPSSDB8G5tKinBIGIZ+sxLJE/ZzEvHT94JKizLx0a6BxUmjGOUNodHsLgAzWEgZu/dLi1CL9xJTczDwAj6GcLcAAAAA=[0madmin
+Building in workspace /var/jenkins_home/workspace/adpq-builddeploycode
+Cloning the remote Git repository
+Cloning repository https://github.com/InTimeTec-LLC/kmt-prototype.git
+ > git init /var/jenkins_home/workspace/adpq-builddeploycode # timeout=10
+Fetching upstream changes from https://github.com/InTimeTec-LLC/kmt-prototype.git
+ > git --version # timeout=10
+ > git fetch --tags --progress https://github.com/InTimeTec-LLC/kmt-prototype.git +refs/heads/*:refs/remotes/origin/*
+ > git config remote.origin.url https://github.com/InTimeTec-LLC/kmt-prototype.git # timeout=10
+ > git config --add remote.origin.fetch +refs/heads/*:refs/remotes/origin/* # timeout=10
+ > git config remote.origin.url https://github.com/InTimeTec-LLC/kmt-prototype.git # timeout=10
+Fetching upstream changes from https://github.com/InTimeTec-LLC/kmt-prototype.git
+ > git fetch --tags --progress https://github.com/InTimeTec-LLC/kmt-prototype.git +refs/heads/*:refs/remotes/origin/*
+ > git rev-parse refs/remotes/origin/master^{commit} # timeout=10
+ > git rev-parse refs/remotes/origin/origin/master^{commit} # timeout=10
+Checking out Revision e43adaa9f72071e54b608fdd2fe1a719c2033e3e (refs/remotes/origin/master)
+ > git config core.sparsecheckout # timeout=10
+ > git checkout -f e43adaa9f72071e54b608fdd2fe1a719c2033e3e
+Commit message: "Merge pull request #12 from InTimeTec-LLC/usermanagemnet"
+First time build. Skipping changelog.
+[adpq-builddeploycode] $ /bin/bash /tmp/jenkins3246469899284379292.sh
+Downloading https://services.gradle.org/distributions/gradle-2.5-bin.zip
+......................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................
+Unzipping /root/.gradle/wrapper/dists/gradle-2.5-bin/7mk8vyobxfh3eazpg3pi2y9mv/gradle-2.5-bin.zip to /root/.gradle/wrapper/dists/gradle-2.5-bin/7mk8vyobxfh3eazpg3pi2y9mv
+Set executable permissions for: /root/.gradle/wrapper/dists/gradle-2.5-bin/7mk8vyobxfh3eazpg3pi2y9mv/gradle-2.5/bin/gradle
+Download https://repo1.maven.org/maven2/org/springframework/boot/spring-boot-gradle-plugin/1.5.8.RELEASE/spring-boot-gradle-plugin-1.5.8.RELEASE.pom
+Download https://repo1.maven.org/maven2/org/springframework/boot/spring-boot-tools/1.5.8.RELEASE/spring-boot-tools-1.5.8.RELEASE.pom
+Download https://repo1.maven.org/maven2/org/springframework/boot/spring-boot-parent/1.5.8.RELEASE/spring-boot-parent-1.5.8.RELEASE.pom
+Download https://repo1.maven.org/maven2/org/springframework/boot/spring-boot-dependencies/1.5.8.RELEASE/spring-boot-dependencies-1.5.8.RELEASE.pom
+Download https://repo1.maven.org/maven2/com/fasterxml/jackson/jackson-bom/2.8.10/jackson-bom-2.8.10.pom
+Download https://repo1.maven.org/maven2/com/fasterxml/jackson/jackson-parent/2.8/jackson-parent-2.8.pom
+Download https://repo1.maven.org/maven2/com/fasterxml/oss-parent/27/oss-parent-27.pom
+Download https://repo1.maven.org/maven2/org/apache/logging/log4j/log4j-bom/2.7/log4j-bom-2.7.pom
+Download https://repo1.maven.org/maven2/org/apache/apache/9/apache-9.pom
+Download https://repo1.maven.org/maven2/org/springframework/spring-framework-bom/4.3.12.RELEASE/spring-framework-bom-4.3.12.RELEASE.pom
+Download https://repo1.maven.org/maven2/org/springframework/data/spring-data-releasetrain/Ingalls-SR8/spring-data-releasetrain-Ingalls-SR8.pom
+Download https://repo1.maven.org/maven2/org/springframework/data/build/spring-data-build/1.9.8.RELEASE/spring-data-build-1.9.8.RELEASE.pom
+Download https://repo1.maven.org/maven2/org/springframework/integration/spring-integration-bom/4.3.12.RELEASE/spring-integration-bom-4.3.12.RELEASE.pom
+Download https://repo1.maven.org/maven2/org/springframework/security/spring-security-bom/4.2.3.RELEASE/spring-security-bom-4.2.3.RELEASE.pom
+Download https://plugins.gradle.org/m2/io/franzbecker/gradle-lombok/1.11/gradle-lombok-1.11.pom
+Download https://plugins.gradle.org/m2/net/ltgt/gradle/gradle-apt-plugin/0.10/gradle-apt-plugin-0.10.pom
+Download https://repo1.maven.org/maven2/org/ajoberstar/gradle-git/1.7.2/gradle-git-1.7.2.pom
+Download https://repo1.maven.org/maven2/org/springframework/boot/spring-boot-loader-tools/1.5.8.RELEASE/spring-boot-loader-tools-1.5.8.RELEASE.pom
+Download https://repo1.maven.org/maven2/io/spring/gradle/dependency-management-plugin/1.0.3.RELEASE/dependency-management-plugin-1.0.3.RELEASE.pom
+Download https://plugins.gradle.org/m2/org/ajoberstar/grgit/1.9.3/grgit-1.9.3.pom
+Download https://repo1.maven.org/maven2/com/github/zafarkhaja/java-semver/0.9.0/java-semver-0.9.0.pom
+Download https://repo1.maven.org/maven2/org/sonatype/oss/oss-parent/9/oss-parent-9.pom
+Download https://repo1.maven.org/maven2/org/springframework/spring-core/4.3.12.RELEASE/spring-core-4.3.12.RELEASE.pom
+Download https://repo1.maven.org/maven2/org/eclipse/jgit/org.eclipse.jgit/4.5.2.201704071617-r/org.eclipse.jgit-4.5.2.201704071617-r.pom
+Download https://repo1.maven.org/maven2/org/eclipse/jgit/org.eclipse.jgit-parent/4.5.2.201704071617-r/org.eclipse.jgit-parent-4.5.2.201704071617-r.pom
+Download https://repo1.maven.org/maven2/org/eclipse/jgit/org.eclipse.jgit.ui/4.5.2.201704071617-r/org.eclipse.jgit.ui-4.5.2.201704071617-r.pom
+Download https://repo1.maven.org/maven2/com/jcraft/jsch.agentproxy.jsch/0.0.9/jsch.agentproxy.jsch-0.0.9.pom
+Download https://repo1.maven.org/maven2/com/jcraft/jsch.agentproxy/0.0.9/jsch.agentproxy-0.0.9.pom
+Download https://repo1.maven.org/maven2/org/sonatype/oss/oss-parent/6/oss-parent-6.pom
+Download https://repo1.maven.org/maven2/com/jcraft/jsch.agentproxy.pageant/0.0.9/jsch.agentproxy.pageant-0.0.9.pom
+Download https://repo1.maven.org/maven2/com/jcraft/jsch.agentproxy.sshagent/0.0.9/jsch.agentproxy.sshagent-0.0.9.pom
+Download https://repo1.maven.org/maven2/com/jcraft/jsch.agentproxy.usocket-jna/0.0.9/jsch.agentproxy.usocket-jna-0.0.9.pom
+Download https://repo1.maven.org/maven2/com/jcraft/jsch.agentproxy.usocket-nc/0.0.9/jsch.agentproxy.usocket-nc-0.0.9.pom
+Download https://repo1.maven.org/maven2/com/jcraft/jsch/0.1.54/jsch-0.1.54.pom
+Download https://repo1.maven.org/maven2/org/slf4j/slf4j-api/1.7.25/slf4j-api-1.7.25.pom
+Download https://repo1.maven.org/maven2/org/slf4j/slf4j-parent/1.7.25/slf4j-parent-1.7.25.pom
+Download https://repo1.maven.org/maven2/commons-logging/commons-logging/1.2/commons-logging-1.2.pom
+Download https://repo1.maven.org/maven2/org/apache/commons/commons-parent/34/commons-parent-34.pom
+Download https://repo1.maven.org/maven2/org/apache/apache/13/apache-13.pom
+Download https://repo1.maven.org/maven2/com/googlecode/javaewah/JavaEWAH/0.7.9/JavaEWAH-0.7.9.pom
+Download https://repo1.maven.org/maven2/org/sonatype/oss/oss-parent/5/oss-parent-5.pom
+Download https://repo1.maven.org/maven2/org/apache/httpcomponents/httpclient/4.3.6/httpclient-4.3.6.pom
+Download https://repo1.maven.org/maven2/org/apache/httpcomponents/httpcomponents-client/4.3.6/httpcomponents-client-4.3.6.pom
+Download https://repo1.maven.org/maven2/org/apache/httpcomponents/project/7/project-7.pom
+Download https://repo1.maven.org/maven2/com/jcraft/jsch.agentproxy.core/0.0.9/jsch.agentproxy.core-0.0.9.pom
+Download https://repo1.maven.org/maven2/net/java/dev/jna/jna/4.1.0/jna-4.1.0.pom
+Download https://repo1.maven.org/maven2/net/java/dev/jna/jna-platform/4.1.0/jna-platform-4.1.0.pom
+Download https://repo1.maven.org/maven2/org/apache/httpcomponents/httpcore/4.3.3/httpcore-4.3.3.pom
+Download https://repo1.maven.org/maven2/org/apache/httpcomponents/httpcomponents-core/4.3.3/httpcomponents-core-4.3.3.pom
+Download https://repo1.maven.org/maven2/commons-codec/commons-codec/1.6/commons-codec-1.6.pom
+Download https://repo1.maven.org/maven2/org/apache/commons/commons-parent/22/commons-parent-22.pom
+Download https://repo1.maven.org/maven2/org/springframework/boot/spring-boot-gradle-plugin/1.5.8.RELEASE/spring-boot-gradle-plugin-1.5.8.RELEASE.jar
+Download https://plugins.gradle.org/m2/io/franzbecker/gradle-lombok/1.11/gradle-lombok-1.11.jar
+Download https://repo1.maven.org/maven2/net/java/dev/jna/jna-platform/4.1.0/jna-platform-4.1.0.jar
+Download https://plugins.gradle.org/m2/net/ltgt/gradle/gradle-apt-plugin/0.10/gradle-apt-plugin-0.10.jar
+Download https://repo1.maven.org/maven2/org/ajoberstar/gradle-git/1.7.2/gradle-git-1.7.2.jar
+Download https://repo1.maven.org/maven2/org/springframework/boot/spring-boot-loader-tools/1.5.8.RELEASE/spring-boot-loader-tools-1.5.8.RELEASE.jar
+Download https://repo1.maven.org/maven2/net/java/dev/jna/jna/4.1.0/jna-4.1.0.jar
+Download https://repo1.maven.org/maven2/io/spring/gradle/dependency-management-plugin/1.0.3.RELEASE/dependency-management-plugin-1.0.3.RELEASE.jar
+Download https://plugins.gradle.org/m2/org/ajoberstar/grgit/1.9.3/grgit-1.9.3.jar
+Download https://repo1.maven.org/maven2/org/apache/httpcomponents/httpcore/4.3.3/httpcore-4.3.3.jar
+Download https://repo1.maven.org/maven2/com/github/zafarkhaja/java-semver/0.9.0/java-semver-0.9.0.jar
+Download https://repo1.maven.org/maven2/commons-codec/commons-codec/1.6/commons-codec-1.6.jar
+Download https://repo1.maven.org/maven2/org/springframework/spring-core/4.3.12.RELEASE/spring-core-4.3.12.RELEASE.jar
+Download https://repo1.maven.org/maven2/org/eclipse/jgit/org.eclipse.jgit/4.5.2.201704071617-r/org.eclipse.jgit-4.5.2.201704071617-r.jar
+Download https://repo1.maven.org/maven2/org/eclipse/jgit/org.eclipse.jgit.ui/4.5.2.201704071617-r/org.eclipse.jgit.ui-4.5.2.201704071617-r.jar
+Download https://repo1.maven.org/maven2/com/jcraft/jsch.agentproxy.jsch/0.0.9/jsch.agentproxy.jsch-0.0.9.jar
+Download https://repo1.maven.org/maven2/com/jcraft/jsch.agentproxy.pageant/0.0.9/jsch.agentproxy.pageant-0.0.9.jar
+Download https://repo1.maven.org/maven2/com/jcraft/jsch.agentproxy.sshagent/0.0.9/jsch.agentproxy.sshagent-0.0.9.jar
+Download https://repo1.maven.org/maven2/com/jcraft/jsch.agentproxy.usocket-jna/0.0.9/jsch.agentproxy.usocket-jna-0.0.9.jar
+Download https://repo1.maven.org/maven2/com/jcraft/jsch.agentproxy.usocket-nc/0.0.9/jsch.agentproxy.usocket-nc-0.0.9.jar
+Download https://repo1.maven.org/maven2/com/jcraft/jsch/0.1.54/jsch-0.1.54.jar
+Download https://repo1.maven.org/maven2/org/slf4j/slf4j-api/1.7.25/slf4j-api-1.7.25.jar
+Download https://repo1.maven.org/maven2/commons-logging/commons-logging/1.2/commons-logging-1.2.jar
+Download https://repo1.maven.org/maven2/com/googlecode/javaewah/JavaEWAH/0.7.9/JavaEWAH-0.7.9.jar
+Download https://repo1.maven.org/maven2/org/apache/httpcomponents/httpclient/4.3.6/httpclient-4.3.6.jar
+Download https://repo1.maven.org/maven2/com/jcraft/jsch.agentproxy.core/0.0.9/jsch.agentproxy.core-0.0.9.jar
+Current version:1.0 buildDir:/var/jenkins_home/workspace/adpq-builddeploycode/server-src/build
+:compileJava
+Download https://repo1.maven.org/maven2/org/projectlombok/lombok/1.16.18/lombok-1.16.18.pom
+Download https://repo1.maven.org/maven2/org/springframework/boot/spring-boot-starter-data-mongodb/1.5.9.RELEASE/spring-boot-starter-data-mongodb-1.5.9.RELEASE.pom
+Download https://repo1.maven.org/maven2/org/springframework/boot/spring-boot-starters/1.5.9.RELEASE/spring-boot-starters-1.5.9.RELEASE.pom
+Download https://repo1.maven.org/maven2/org/springframework/boot/spring-boot-parent/1.5.9.RELEASE/spring-boot-parent-1.5.9.RELEASE.pom
+Download https://repo1.maven.org/maven2/org/springframework/boot/spring-boot-dependencies/1.5.9.RELEASE/spring-boot-dependencies-1.5.9.RELEASE.pom
+Download https://repo1.maven.org/maven2/org/springframework/spring-framework-bom/4.3.13.RELEASE/spring-framework-bom-4.3.13.RELEASE.pom
+Download https://repo1.maven.org/maven2/org/springframework/data/spring-data-releasetrain/Ingalls-SR9/spring-data-releasetrain-Ingalls-SR9.pom
+Download https://repo1.maven.org/maven2/org/springframework/data/build/spring-data-build/1.9.9.RELEASE/spring-data-build-1.9.9.RELEASE.pom
+Download https://repo1.maven.org/maven2/org/springframework/boot/spring-boot-starter-web/1.5.8.RELEASE/spring-boot-starter-web-1.5.8.RELEASE.pom
+Download https://repo1.maven.org/maven2/org/springframework/boot/spring-boot-starters/1.5.8.RELEASE/spring-boot-starters-1.5.8.RELEASE.pom
+Download https://repo1.maven.org/maven2/io/springfox/springfox-swagger2/2.7.0/springfox-swagger2-2.7.0.pom
+Download https://repo1.maven.org/maven2/io/springfox/springfox-swagger-ui/2.7.0/springfox-swagger-ui-2.7.0.pom
+Download https://repo1.maven.org/maven2/org/mock-server/mockserver-netty/5.2.3/mockserver-netty-5.2.3.pom
+Download https://repo1.maven.org/maven2/org/mock-server/mockserver/5.2.3/mockserver-5.2.3.pom
+Download https://repo1.maven.org/maven2/org/sonatype/oss/oss-parent/7/oss-parent-7.pom
+Download https://repo1.maven.org/maven2/org/springframework/boot/spring-boot-starter-parent/1.5.8.RELEASE/spring-boot-starter-parent-1.5.8.RELEASE.pom
+Download https://repo1.maven.org/maven2/org/springframework/boot/spring-boot-starter/1.5.8.RELEASE/spring-boot-starter-1.5.8.RELEASE.pom
+Download https://repo1.maven.org/maven2/org/mongodb/mongodb-driver/3.4.3/mongodb-driver-3.4.3.pom
+Download https://repo1.maven.org/maven2/org/springframework/data/spring-data-mongodb/1.10.8.RELEASE/spring-data-mongodb-1.10.8.RELEASE.pom
+Download https://repo1.maven.org/maven2/org/springframework/data/spring-data-mongodb-parent/1.10.8.RELEASE/spring-data-mongodb-parent-1.10.8.RELEASE.pom
+Download https://repo1.maven.org/maven2/org/springframework/data/build/spring-data-parent/1.9.8.RELEASE/spring-data-parent-1.9.8.RELEASE.pom
+Download https://repo1.maven.org/maven2/org/springframework/boot/spring-boot-starter-tomcat/1.5.8.RELEASE/spring-boot-starter-tomcat-1.5.8.RELEASE.pom
+Download https://repo1.maven.org/maven2/org/hibernate/hibernate-validator/5.3.5.Final/hibernate-validator-5.3.5.Final.pom
+Download https://repo1.maven.org/maven2/org/hibernate/hibernate-validator-parent/5.3.5.Final/hibernate-validator-parent-5.3.5.Final.pom
+Download https://repo1.maven.org/maven2/org/jboss/arquillian/arquillian-bom/1.1.11.Final/arquillian-bom-1.1.11.Final.pom
+Download https://repo1.maven.org/maven2/org/jboss/shrinkwrap/shrinkwrap-bom/1.2.3/shrinkwrap-bom-1.2.3.pom
+Download https://repo1.maven.org/maven2/org/jboss/shrinkwrap/resolver/shrinkwrap-resolver-bom/2.2.0/shrinkwrap-resolver-bom-2.2.0.pom
+Download https://repo1.maven.org/maven2/org/jboss/shrinkwrap/descriptors/shrinkwrap-descriptors-bom/2.0.0-alpha-8/shrinkwrap-descriptors-bom-2.0.0-alpha-8.pom
+Download https://repo1.maven.org/maven2/com/fasterxml/jackson/core/jackson-databind/2.8.10/jackson-databind-2.8.10.pom
+Download https://repo1.maven.org/maven2/org/springframework/spring-web/4.3.12.RELEASE/spring-web-4.3.12.RELEASE.pom
+Download https://repo1.maven.org/maven2/org/springframework/spring-webmvc/4.3.12.RELEASE/spring-webmvc-4.3.12.RELEASE.pom
+Download https://repo1.maven.org/maven2/io/swagger/swagger-annotations/1.5.13/swagger-annotations-1.5.13.pom
+Download https://repo1.maven.org/maven2/io/swagger/swagger-project/1.5.13/swagger-project-1.5.13.pom
+Download https://repo1.maven.org/maven2/io/swagger/swagger-models/1.5.13/swagger-models-1.5.13.pom
+Download https://repo1.maven.org/maven2/io/springfox/springfox-spi/2.7.0/springfox-spi-2.7.0.pom
+Download https://repo1.maven.org/maven2/io/springfox/springfox-schema/2.7.0/springfox-schema-2.7.0.pom
+Download https://repo1.maven.org/maven2/io/springfox/springfox-swagger-common/2.7.0/springfox-swagger-common-2.7.0.pom
+Download https://repo1.maven.org/maven2/io/springfox/springfox-spring-web/2.7.0/springfox-spring-web-2.7.0.pom
+Download https://repo1.maven.org/maven2/com/google/guava/guava/18.0/guava-18.0.pom
+Download https://repo1.maven.org/maven2/com/google/guava/guava-parent/18.0/guava-parent-18.0.pom
+Download https://repo1.maven.org/maven2/com/fasterxml/classmate/1.3.4/classmate-1.3.4.pom
+Download https://repo1.maven.org/maven2/com/fasterxml/oss-parent/24/oss-parent-24.pom
+Download https://repo1.maven.org/maven2/org/springframework/plugin/spring-plugin-core/1.2.0.RELEASE/spring-plugin-core-1.2.0.RELEASE.pom
+Download https://repo1.maven.org/maven2/org/springframework/plugin/spring-plugin/1.2.0.RELEASE/spring-plugin-1.2.0.RELEASE.pom
+Download https://repo1.maven.org/maven2/org/springframework/plugin/spring-plugin-metadata/1.2.0.RELEASE/spring-plugin-metadata-1.2.0.RELEASE.pom
+Download https://repo1.maven.org/maven2/org/mapstruct/mapstruct/1.1.0.Final/mapstruct-1.1.0.Final.pom
+Download https://repo1.maven.org/maven2/org/mapstruct/mapstruct-parent/1.1.0.Final/mapstruct-parent-1.1.0.Final.pom
+Download https://repo1.maven.org/maven2/org/jboss/arquillian/arquillian-bom/1.0.2.Final/arquillian-bom-1.0.2.Final.pom
+Download https://repo1.maven.org/maven2/org/jboss/shrinkwrap/shrinkwrap-bom/1.0.1/shrinkwrap-bom-1.0.1.pom
+Download https://repo1.maven.org/maven2/org/jboss/shrinkwrap/resolver/shrinkwrap-resolver-bom/1.0.0-beta-7/shrinkwrap-resolver-bom-1.0.0-beta-7.pom
+Download https://repo1.maven.org/maven2/org/jboss/shrinkwrap/descriptors/shrinkwrap-descriptors-bom/2.0.0-alpha-3/shrinkwrap-descriptors-bom-2.0.0-alpha-3.pom
+Download https://repo1.maven.org/maven2/org/mock-server/mockserver-client-java/5.2.3/mockserver-client-java-5.2.3.pom
+Download https://repo1.maven.org/maven2/org/mock-server/mockserver-core/5.2.3/mockserver-core-5.2.3.pom
+Download https://repo1.maven.org/maven2/io/netty/netty-buffer/4.1.17.Final/netty-buffer-4.1.17.Final.pom
+Download https://repo1.maven.org/maven2/io/netty/netty-parent/4.1.17.Final/netty-parent-4.1.17.Final.pom
+Download https://repo1.maven.org/maven2/io/netty/netty-codec/4.1.17.Final/netty-codec-4.1.17.Final.pom
+Download https://repo1.maven.org/maven2/io/netty/netty-codec-http/4.1.17.Final/netty-codec-http-4.1.17.Final.pom
+Download https://repo1.maven.org/maven2/io/netty/netty-common/4.1.17.Final/netty-common-4.1.17.Final.pom
+Download https://repo1.maven.org/maven2/io/netty/netty-handler/4.1.17.Final/netty-handler-4.1.17.Final.pom
+Download https://repo1.maven.org/maven2/io/netty/netty-transport/4.1.17.Final/netty-transport-4.1.17.Final.pom
+Download https://repo1.maven.org/maven2/org/bouncycastle/bcprov-jdk15on/1.58/bcprov-jdk15on-1.58.pom
+Download https://repo1.maven.org/maven2/ch/qos/logback/logback-classic/1.1.11/logback-classic-1.1.11.pom
+Download https://repo1.maven.org/maven2/ch/qos/logback/logback-parent/1.1.11/logback-parent-1.1.11.pom
+Download https://repo1.maven.org/maven2/janino/janino/2.5.10/janino-2.5.10.pom
+Download https://repo1.maven.org/maven2/org/mock-server/mockserver-logging/5.2.3/mockserver-logging-5.2.3.pom
+Download https://repo1.maven.org/maven2/junit/junit/4.12/junit-4.12.pom
+Download https://repo1.maven.org/maven2/org/springframework/boot/spring-boot/1.5.8.RELEASE/spring-boot-1.5.8.RELEASE.pom
+Download https://repo1.maven.org/maven2/org/springframework/boot/spring-boot-autoconfigure/1.5.8.RELEASE/spring-boot-autoconfigure-1.5.8.RELEASE.pom
+Download https://repo1.maven.org/maven2/org/springframework/boot/spring-boot-starter-logging/1.5.8.RELEASE/spring-boot-starter-logging-1.5.8.RELEASE.pom
+Download https://repo1.maven.org/maven2/org/yaml/snakeyaml/1.17/snakeyaml-1.17.pom
+Download https://repo1.maven.org/maven2/org/mongodb/mongodb-driver-core/3.4.3/mongodb-driver-core-3.4.3.pom
+Download https://repo1.maven.org/maven2/org/mongodb/bson/3.4.3/bson-3.4.3.pom
+Download https://repo1.maven.org/maven2/org/springframework/spring-tx/4.3.12.RELEASE/spring-tx-4.3.12.RELEASE.pom
+Download https://repo1.maven.org/maven2/org/springframework/spring-context/4.3.12.RELEASE/spring-context-4.3.12.RELEASE.pom
+Download https://repo1.maven.org/maven2/org/springframework/spring-beans/4.3.12.RELEASE/spring-beans-4.3.12.RELEASE.pom
+Download https://repo1.maven.org/maven2/org/springframework/spring-expression/4.3.12.RELEASE/spring-expression-4.3.12.RELEASE.pom
+Download https://repo1.maven.org/maven2/org/springframework/data/spring-data-commons/1.13.8.RELEASE/spring-data-commons-1.13.8.RELEASE.pom
+Download https://repo1.maven.org/maven2/org/slf4j/jcl-over-slf4j/1.7.25/jcl-over-slf4j-1.7.25.pom
+Download https://repo1.maven.org/maven2/org/apache/tomcat/embed/tomcat-embed-core/8.5.23/tomcat-embed-core-8.5.23.pom
+Download https://repo1.maven.org/maven2/org/apache/tomcat/embed/tomcat-embed-el/8.5.23/tomcat-embed-el-8.5.23.pom
+Download https://repo1.maven.org/maven2/org/apache/tomcat/embed/tomcat-embed-websocket/8.5.23/tomcat-embed-websocket-8.5.23.pom
+Download https://repo1.maven.org/maven2/javax/validation/validation-api/1.1.0.Final/validation-api-1.1.0.Final.pom
+Download https://repo1.maven.org/maven2/org/jboss/logging/jboss-logging/3.3.1.Final/jboss-logging-3.3.1.Final.pom
+Download https://repo1.maven.org/maven2/org/jboss/jboss-parent/15/jboss-parent-15.pom
+Download https://repo1.maven.org/maven2/com/fasterxml/jackson/core/jackson-annotations/2.8.0/jackson-annotations-2.8.0.pom
+Download https://repo1.maven.org/maven2/com/fasterxml/jackson/core/jackson-core/2.8.10/jackson-core-2.8.10.pom
+Download https://repo1.maven.org/maven2/org/springframework/spring-aop/4.3.12.RELEASE/spring-aop-4.3.12.RELEASE.pom
+Download https://repo1.maven.org/maven2/io/springfox/springfox-core/2.7.0/springfox-core-2.7.0.pom
+Download https://repo1.maven.org/maven2/org/reflections/reflections/0.9.11/reflections-0.9.11.pom
+Download https://repo1.maven.org/maven2/org/apache/commons/commons-lang3/3.7/commons-lang3-3.7.pom
+Download https://repo1.maven.org/maven2/org/apache/commons/commons-parent/42/commons-parent-42.pom
+Download https://repo1.maven.org/maven2/org/apache/apache/18/apache-18.pom
+Download https://repo1.maven.org/maven2/javax/servlet/javax.servlet-api/3.1.0/javax.servlet-api-3.1.0.pom
+Download https://repo1.maven.org/maven2/net/java/jvnet-parent/3/jvnet-parent-3.pom
+Download https://repo1.maven.org/maven2/io/netty/netty-codec-socks/4.1.17.Final/netty-codec-socks-4.1.17.Final.pom
+Download https://repo1.maven.org/maven2/com/jcraft/jzlib/1.1.3/jzlib-1.1.3.pom
+Download https://repo1.maven.org/maven2/org/bouncycastle/bcmail-jdk15on/1.58/bcmail-jdk15on-1.58.pom
+Download https://repo1.maven.org/maven2/org/bouncycastle/bcpkix-jdk15on/1.58/bcpkix-jdk15on-1.58.pom
+Download https://repo1.maven.org/maven2/org/apache/velocity/velocity-engine-scripting/2.0/velocity-engine-scripting-2.0.pom
+Download https://repo1.maven.org/maven2/org/apache/velocity/velocity-engine-parent/2.0/velocity-engine-parent-2.0.pom
+Download https://repo1.maven.org/maven2/org/apache/velocity/velocity-master/2/velocity-master-2.pom
+Download https://repo1.maven.org/maven2/org/apache/velocity/velocity-engine-core/2.0/velocity-engine-core-2.0.pom
+Download https://repo1.maven.org/maven2/org/skyscreamer/jsonassert/1.4.0/jsonassert-1.4.0.pom
+Download https://repo1.maven.org/maven2/com/github/java-json-tools/json-schema-validator/2.2.8/json-schema-validator-2.2.8.pom
+Download https://repo1.maven.org/maven2/javax/xml/bind/jaxb-api/2.3.0/jaxb-api-2.3.0.pom
+Download https://repo1.maven.org/maven2/javax/xml/bind/jaxb-api-parent/2.3.0/jaxb-api-parent-2.3.0.pom
+Download https://repo1.maven.org/maven2/net/java/jvnet-parent/5/jvnet-parent-5.pom
+Download https://repo1.maven.org/maven2/org/apache/commons/commons-text/1.1/commons-text-1.1.pom
+Download https://repo1.maven.org/maven2/commons-collections/commons-collections/3.2.2/commons-collections-3.2.2.pom
+Download https://repo1.maven.org/maven2/org/apache/commons/commons-parent/39/commons-parent-39.pom
+Download https://repo1.maven.org/maven2/org/apache/apache/16/apache-16.pom
+Download https://repo1.maven.org/maven2/commons-io/commons-io/2.6/commons-io-2.6.pom
+Download https://repo1.maven.org/maven2/io/netty/netty-resolver/4.1.17.Final/netty-resolver-4.1.17.Final.pom
+Download https://repo1.maven.org/maven2/ch/qos/logback/logback-core/1.1.11/logback-core-1.1.11.pom
+Download https://repo1.maven.org/maven2/org/hamcrest/hamcrest-core/1.3/hamcrest-core-1.3.pom
+Download https://repo1.maven.org/maven2/org/hamcrest/hamcrest-parent/1.3/hamcrest-parent-1.3.pom
+Download https://repo1.maven.org/maven2/org/slf4j/jul-to-slf4j/1.7.25/jul-to-slf4j-1.7.25.pom
+Download https://repo1.maven.org/maven2/org/slf4j/log4j-over-slf4j/1.7.25/log4j-over-slf4j-1.7.25.pom
+Download https://repo1.maven.org/maven2/org/apache/tomcat/tomcat-annotations-api/8.5.23/tomcat-annotations-api-8.5.23.pom
+Download https://repo1.maven.org/maven2/net/bytebuddy/byte-buddy/1.6.14/byte-buddy-1.6.14.pom
+Download https://repo1.maven.org/maven2/net/bytebuddy/byte-buddy-parent/1.6.14/byte-buddy-parent-1.6.14.pom
+Download https://repo1.maven.org/maven2/org/javassist/javassist/3.21.0-GA/javassist-3.21.0-GA.pom
+Download https://repo1.maven.org/maven2/com/vaadin/external/google/android-json/0.0.20131108.vaadin1/android-json-0.0.20131108.vaadin1.pom
+Download https://repo1.maven.org/maven2/com/github/java-json-tools/json-schema-core/1.2.8/json-schema-core-1.2.8.pom
+Download https://repo1.maven.org/maven2/javax/mail/mailapi/1.4.3/mailapi-1.4.3.pom
+Download https://repo1.maven.org/maven2/com/sun/mail/all/1.4.3/all-1.4.3.pom
+Download https://repo1.maven.org/maven2/joda-time/joda-time/2.9.9/joda-time-2.9.9.pom
+Download https://repo1.maven.org/maven2/com/googlecode/libphonenumber/libphonenumber/8.0.0/libphonenumber-8.0.0.pom
+Download https://repo1.maven.org/maven2/com/googlecode/libphonenumber/libphonenumber-parent/8.0.0/libphonenumber-parent-8.0.0.pom
+Download https://repo1.maven.org/maven2/com/google/code/findbugs/jsr305/3.0.1/jsr305-3.0.1.pom
+Download https://repo1.maven.org/maven2/net/sf/jopt-simple/jopt-simple/5.0.3/jopt-simple-5.0.3.pom
+Download https://repo1.maven.org/maven2/org/mozilla/rhino/1.7R4/rhino-1.7R4.pom
+Download https://repo1.maven.org/maven2/com/github/fge/jackson-coreutils/1.8/jackson-coreutils-1.8.pom
+Download https://repo1.maven.org/maven2/com/github/fge/uri-template/0.9/uri-template-0.9.pom
+Download https://repo1.maven.org/maven2/javax/activation/activation/1.1/activation-1.1.pom
+Download https://repo1.maven.org/maven2/com/github/fge/msg-simple/1.1/msg-simple-1.1.pom
+Download https://repo1.maven.org/maven2/com/github/fge/btf/1.2/btf-1.2.pom
+Download https://repo1.maven.org/maven2/com/google/guava/guava/20.0/guava-20.0.pom
+Download https://repo1.maven.org/maven2/com/google/guava/guava-parent/20.0/guava-parent-20.0.pom
+Download https://repo1.maven.org/maven2/org/springframework/boot/spring-boot-starter-data-mongodb/1.5.9.RELEASE/spring-boot-starter-data-mongodb-1.5.9.RELEASE.jar
+Download https://repo1.maven.org/maven2/org/springframework/boot/spring-boot-starter-web/1.5.8.RELEASE/spring-boot-starter-web-1.5.8.RELEASE.jar
+Download https://repo1.maven.org/maven2/io/springfox/springfox-swagger2/2.7.0/springfox-swagger2-2.7.0.jar
+Download https://repo1.maven.org/maven2/io/springfox/springfox-swagger-ui/2.7.0/springfox-swagger-ui-2.7.0.jar
+Download https://repo1.maven.org/maven2/org/mock-server/mockserver-netty/5.2.3/mockserver-netty-5.2.3.jar
+Download https://repo1.maven.org/maven2/org/projectlombok/lombok/1.16.18/lombok-1.16.18.jar
+Download https://repo1.maven.org/maven2/org/springframework/spring-context/4.3.12.RELEASE/spring-context-4.3.12.RELEASE.jar
+Download https://repo1.maven.org/maven2/org/springframework/boot/spring-boot-starter/1.5.8.RELEASE/spring-boot-starter-1.5.8.RELEASE.jar
+Download https://repo1.maven.org/maven2/org/mongodb/mongodb-driver/3.4.3/mongodb-driver-3.4.3.jar
+Download https://repo1.maven.org/maven2/org/springframework/data/spring-data-mongodb/1.10.8.RELEASE/spring-data-mongodb-1.10.8.RELEASE.jar
+Download https://repo1.maven.org/maven2/org/springframework/spring-beans/4.3.12.RELEASE/spring-beans-4.3.12.RELEASE.jar
+Download https://repo1.maven.org/maven2/org/springframework/boot/spring-boot-starter-tomcat/1.5.8.RELEASE/spring-boot-starter-tomcat-1.5.8.RELEASE.jar
+Download https://repo1.maven.org/maven2/org/hibernate/hibernate-validator/5.3.5.Final/hibernate-validator-5.3.5.Final.jar
+Download https://repo1.maven.org/maven2/com/fasterxml/jackson/core/jackson-databind/2.8.10/jackson-databind-2.8.10.jar
+Download https://repo1.maven.org/maven2/org/springframework/spring-web/4.3.12.RELEASE/spring-web-4.3.12.RELEASE.jar
+Download https://repo1.maven.org/maven2/org/springframework/spring-webmvc/4.3.12.RELEASE/spring-webmvc-4.3.12.RELEASE.jar
+Download https://repo1.maven.org/maven2/org/springframework/spring-expression/4.3.12.RELEASE/spring-expression-4.3.12.RELEASE.jar
+Download https://repo1.maven.org/maven2/io/swagger/swagger-annotations/1.5.13/swagger-annotations-1.5.13.jar
+Download https://repo1.maven.org/maven2/org/springframework/data/spring-data-commons/1.13.8.RELEASE/spring-data-commons-1.13.8.RELEASE.jar
+Download https://repo1.maven.org/maven2/io/swagger/swagger-models/1.5.13/swagger-models-1.5.13.jar
+Download https://repo1.maven.org/maven2/org/springframework/spring-tx/4.3.12.RELEASE/spring-tx-4.3.12.RELEASE.jar
+Download https://repo1.maven.org/maven2/io/springfox/springfox-spi/2.7.0/springfox-spi-2.7.0.jar
+Download https://repo1.maven.org/maven2/org/slf4j/jcl-over-slf4j/1.7.25/jcl-over-slf4j-1.7.25.jar
+Download https://repo1.maven.org/maven2/io/springfox/springfox-schema/2.7.0/springfox-schema-2.7.0.jar
+Download https://repo1.maven.org/maven2/org/apache/tomcat/embed/tomcat-embed-core/8.5.23/tomcat-embed-core-8.5.23.jar
+Download https://repo1.maven.org/maven2/io/springfox/springfox-swagger-common/2.7.0/springfox-swagger-common-2.7.0.jar
+Download https://repo1.maven.org/maven2/io/springfox/springfox-spring-web/2.7.0/springfox-spring-web-2.7.0.jar
+Download https://repo1.maven.org/maven2/org/apache/tomcat/embed/tomcat-embed-el/8.5.23/tomcat-embed-el-8.5.23.jar
+Download https://repo1.maven.org/maven2/org/apache/tomcat/embed/tomcat-embed-websocket/8.5.23/tomcat-embed-websocket-8.5.23.jar
+Download https://repo1.maven.org/maven2/com/fasterxml/classmate/1.3.4/classmate-1.3.4.jar
+Download https://repo1.maven.org/maven2/javax/validation/validation-api/1.1.0.Final/validation-api-1.1.0.Final.jar
+Download https://repo1.maven.org/maven2/org/jboss/logging/jboss-logging/3.3.1.Final/jboss-logging-3.3.1.Final.jar
+Download https://repo1.maven.org/maven2/com/fasterxml/jackson/core/jackson-annotations/2.8.0/jackson-annotations-2.8.0.jar
+Download https://repo1.maven.org/maven2/com/fasterxml/jackson/core/jackson-core/2.8.10/jackson-core-2.8.10.jar
+Download https://repo1.maven.org/maven2/org/springframework/spring-aop/4.3.12.RELEASE/spring-aop-4.3.12.RELEASE.jar
+Download https://repo1.maven.org/maven2/io/springfox/springfox-core/2.7.0/springfox-core-2.7.0.jar
+Download https://repo1.maven.org/maven2/org/reflections/reflections/0.9.11/reflections-0.9.11.jar
+Download https://repo1.maven.org/maven2/org/apache/commons/commons-lang3/3.7/commons-lang3-3.7.jar
+Download https://repo1.maven.org/maven2/javax/servlet/javax.servlet-api/3.1.0/javax.servlet-api-3.1.0.jar
+Download https://repo1.maven.org/maven2/io/netty/netty-codec-socks/4.1.17.Final/netty-codec-socks-4.1.17.Final.jar
+Download https://repo1.maven.org/maven2/com/jcraft/jzlib/1.1.3/jzlib-1.1.3.jar
+Download https://repo1.maven.org/maven2/org/bouncycastle/bcmail-jdk15on/1.58/bcmail-jdk15on-1.58.jar
+Download https://repo1.maven.org/maven2/org/springframework/plugin/spring-plugin-core/1.2.0.RELEASE/spring-plugin-core-1.2.0.RELEASE.jar
+Download https://repo1.maven.org/maven2/org/bouncycastle/bcpkix-jdk15on/1.58/bcpkix-jdk15on-1.58.jar
+Download https://repo1.maven.org/maven2/org/apache/velocity/velocity-engine-scripting/2.0/velocity-engine-scripting-2.0.jar
+Download https://repo1.maven.org/maven2/org/apache/velocity/velocity-engine-core/2.0/velocity-engine-core-2.0.jar
+Download https://repo1.maven.org/maven2/org/skyscreamer/jsonassert/1.4.0/jsonassert-1.4.0.jar
+Download https://repo1.maven.org/maven2/org/springframework/plugin/spring-plugin-metadata/1.2.0.RELEASE/spring-plugin-metadata-1.2.0.RELEASE.jar
+Download https://repo1.maven.org/maven2/com/github/java-json-tools/json-schema-validator/2.2.8/json-schema-validator-2.2.8.jar
+Download https://repo1.maven.org/maven2/javax/xml/bind/jaxb-api/2.3.0/jaxb-api-2.3.0.jar
+Download https://repo1.maven.org/maven2/org/apache/commons/commons-text/1.1/commons-text-1.1.jar
+Download https://repo1.maven.org/maven2/commons-collections/commons-collections/3.2.2/commons-collections-3.2.2.jar
+Download https://repo1.maven.org/maven2/commons-io/commons-io/2.6/commons-io-2.6.jar
+Download https://repo1.maven.org/maven2/org/mapstruct/mapstruct/1.1.0.Final/mapstruct-1.1.0.Final.jar
+Download https://repo1.maven.org/maven2/org/mock-server/mockserver-client-java/5.2.3/mockserver-client-java-5.2.3.jar
+Download https://repo1.maven.org/maven2/org/mock-server/mockserver-core/5.2.3/mockserver-core-5.2.3.jar
+Download https://repo1.maven.org/maven2/io/netty/netty-buffer/4.1.17.Final/netty-buffer-4.1.17.Final.jar
+Download https://repo1.maven.org/maven2/io/netty/netty-resolver/4.1.17.Final/netty-resolver-4.1.17.Final.jar
+Download https://repo1.maven.org/maven2/ch/qos/logback/logback-core/1.1.11/logback-core-1.1.11.jar
+Download https://repo1.maven.org/maven2/org/hamcrest/hamcrest-core/1.3/hamcrest-core-1.3.jar
+Download https://repo1.maven.org/maven2/io/netty/netty-codec/4.1.17.Final/netty-codec-4.1.17.Final.jar
+Download https://repo1.maven.org/maven2/org/slf4j/jul-to-slf4j/1.7.25/jul-to-slf4j-1.7.25.jar
+Download https://repo1.maven.org/maven2/org/slf4j/log4j-over-slf4j/1.7.25/log4j-over-slf4j-1.7.25.jar
+Download https://repo1.maven.org/maven2/org/apache/tomcat/tomcat-annotations-api/8.5.23/tomcat-annotations-api-8.5.23.jar
+Download https://repo1.maven.org/maven2/net/bytebuddy/byte-buddy/1.6.14/byte-buddy-1.6.14.jar
+Download https://repo1.maven.org/maven2/org/javassist/javassist/3.21.0-GA/javassist-3.21.0-GA.jar
+Download https://repo1.maven.org/maven2/io/netty/netty-codec-http/4.1.17.Final/netty-codec-http-4.1.17.Final.jar
+Download https://repo1.maven.org/maven2/com/vaadin/external/google/android-json/0.0.20131108.vaadin1/android-json-0.0.20131108.vaadin1.jar
+Download https://repo1.maven.org/maven2/com/github/java-json-tools/json-schema-core/1.2.8/json-schema-core-1.2.8.jar
+Download https://repo1.maven.org/maven2/io/netty/netty-common/4.1.17.Final/netty-common-4.1.17.Final.jar
+Download https://repo1.maven.org/maven2/javax/mail/mailapi/1.4.3/mailapi-1.4.3.jar
+Download https://repo1.maven.org/maven2/joda-time/joda-time/2.9.9/joda-time-2.9.9.jar
+Download https://repo1.maven.org/maven2/com/googlecode/libphonenumber/libphonenumber/8.0.0/libphonenumber-8.0.0.jar
+Download https://repo1.maven.org/maven2/io/netty/netty-handler/4.1.17.Final/netty-handler-4.1.17.Final.jar
+Download https://repo1.maven.org/maven2/com/google/code/findbugs/jsr305/3.0.1/jsr305-3.0.1.jar
+Download https://repo1.maven.org/maven2/io/netty/netty-transport/4.1.17.Final/netty-transport-4.1.17.Final.jar
+Download https://repo1.maven.org/maven2/org/bouncycastle/bcprov-jdk15on/1.58/bcprov-jdk15on-1.58.jar
+Download https://repo1.maven.org/maven2/net/sf/jopt-simple/jopt-simple/5.0.3/jopt-simple-5.0.3.jar
+Download https://repo1.maven.org/maven2/org/mozilla/rhino/1.7R4/rhino-1.7R4.jar
+Download https://repo1.maven.org/maven2/ch/qos/logback/logback-classic/1.1.11/logback-classic-1.1.11.jar
+Download https://repo1.maven.org/maven2/com/github/fge/jackson-coreutils/1.8/jackson-coreutils-1.8.jar
+Download https://repo1.maven.org/maven2/com/github/fge/uri-template/0.9/uri-template-0.9.jar
+Download https://repo1.maven.org/maven2/javax/activation/activation/1.1/activation-1.1.jar
+Download https://repo1.maven.org/maven2/com/github/fge/msg-simple/1.1/msg-simple-1.1.jar
+Download https://repo1.maven.org/maven2/janino/janino/2.5.10/janino-2.5.10.jar
+Download https://repo1.maven.org/maven2/org/mock-server/mockserver-logging/5.2.3/mockserver-logging-5.2.3.jar
+Download https://repo1.maven.org/maven2/junit/junit/4.12/junit-4.12.jar
+Download https://repo1.maven.org/maven2/com/github/fge/btf/1.2/btf-1.2.jar
+Download https://repo1.maven.org/maven2/org/springframework/boot/spring-boot/1.5.8.RELEASE/spring-boot-1.5.8.RELEASE.jar
+Download https://repo1.maven.org/maven2/com/google/guava/guava/20.0/guava-20.0.jar
+Download https://repo1.maven.org/maven2/org/springframework/boot/spring-boot-autoconfigure/1.5.8.RELEASE/spring-boot-autoconfigure-1.5.8.RELEASE.jar
+Download https://repo1.maven.org/maven2/org/springframework/boot/spring-boot-starter-logging/1.5.8.RELEASE/spring-boot-starter-logging-1.5.8.RELEASE.jar
+Download https://repo1.maven.org/maven2/org/yaml/snakeyaml/1.17/snakeyaml-1.17.jar
+Download https://repo1.maven.org/maven2/org/mongodb/mongodb-driver-core/3.4.3/mongodb-driver-core-3.4.3.jar
+Download https://repo1.maven.org/maven2/org/mongodb/bson/3.4.3/bson-3.4.3.jar
+:processResources UP-TO-DATE
+:classes
+:checkstyleMain
+Download https://repo1.maven.org/maven2/com/puppycrawl/tools/checkstyle/5.9/checkstyle-5.9.pom
+Download https://repo1.maven.org/maven2/antlr/antlr/2.7.7/antlr-2.7.7.pom
+Download https://repo1.maven.org/maven2/commons-beanutils/commons-beanutils-core/1.8.3/commons-beanutils-core-1.8.3.pom
+Download https://repo1.maven.org/maven2/org/apache/apache/4/apache-4.pom
+Download https://repo1.maven.org/maven2/commons-cli/commons-cli/1.2/commons-cli-1.2.pom
+Download https://repo1.maven.org/maven2/org/apache/commons/commons-parent/11/commons-parent-11.pom
+Download https://repo1.maven.org/maven2/com/google/guava/guava-jdk5/14.0.1/guava-jdk5-14.0.1.pom
+Download https://repo1.maven.org/maven2/com/google/guava/guava-parent-jdk5/14.0.1/guava-parent-jdk5-14.0.1.pom
+Download https://repo1.maven.org/maven2/com/puppycrawl/tools/checkstyle/5.9/checkstyle-5.9.jar
+Download https://repo1.maven.org/maven2/antlr/antlr/2.7.7/antlr-2.7.7.jar
+Download https://repo1.maven.org/maven2/commons-beanutils/commons-beanutils-core/1.8.3/commons-beanutils-core-1.8.3.jar
+Download https://repo1.maven.org/maven2/commons-cli/commons-cli/1.2/commons-cli-1.2.jar
+Download https://repo1.maven.org/maven2/com/google/guava/guava-jdk5/14.0.1/guava-jdk5-14.0.1.jar
+:compileTestJava
+Download https://repo1.maven.org/maven2/de/flapdoodle/embed/de.flapdoodle.embed.mongo/2.0.0/de.flapdoodle.embed.mongo-2.0.0.pom
+Download https://repo1.maven.org/maven2/cz/jirutka/spring/embedmongo-spring/1.3.1/embedmongo-spring-1.3.1.pom
+Download https://repo1.maven.org/maven2/cz/jirutka/maven/groovy-parent/1.1.8/groovy-parent-1.1.8.pom
+Download https://repo1.maven.org/maven2/cz/jirutka/maven/root-parent/1.1.8/root-parent-1.1.8.pom
+Download https://repo1.maven.org/maven2/org/springframework/boot/spring-boot-starter-test/1.5.8.RELEASE/spring-boot-starter-test-1.5.8.RELEASE.pom
+Download https://repo1.maven.org/maven2/de/flapdoodle/embed/de.flapdoodle.embed.process/2.0.1/de.flapdoodle.embed.process-2.0.1.pom
+Download https://repo1.maven.org/maven2/org/mongodb/mongo-java-driver/3.4.3/mongo-java-driver-3.4.3.pom
+Download https://repo1.maven.org/maven2/org/springframework/boot/spring-boot-test/1.5.8.RELEASE/spring-boot-test-1.5.8.RELEASE.pom
+Download https://repo1.maven.org/maven2/org/springframework/boot/spring-boot-test-autoconfigure/1.5.8.RELEASE/spring-boot-test-autoconfigure-1.5.8.RELEASE.pom
+Download https://repo1.maven.org/maven2/com/jayway/jsonpath/json-path/2.2.0/json-path-2.2.0.pom
+Download https://repo1.maven.org/maven2/org/assertj/assertj-core/2.6.0/assertj-core-2.6.0.pom
+Download https://repo1.maven.org/maven2/org/assertj/assertj-parent-pom/2.1.4/assertj-parent-pom-2.1.4.pom
+Download https://repo1.maven.org/maven2/org/mockito/mockito-core/1.10.19/mockito-core-1.10.19.pom
+Download https://repo1.maven.org/maven2/org/hamcrest/hamcrest-library/1.3/hamcrest-library-1.3.pom
+Download https://repo1.maven.org/maven2/org/springframework/spring-test/4.3.12.RELEASE/spring-test-4.3.12.RELEASE.pom
+Download https://repo1.maven.org/maven2/net/minidev/json-smart/2.2.1/json-smart-2.2.1.pom
+Download https://repo1.maven.org/maven2/org/objenesis/objenesis/2.1/objenesis-2.1.pom
+Download https://repo1.maven.org/maven2/org/objenesis/objenesis-parent/2.1/objenesis-parent-2.1.pom
+Download https://repo1.maven.org/maven2/net/minidev/accessors-smart/1.1/accessors-smart-1.1.pom
+Download https://repo1.maven.org/maven2/net/minidev/minidev-parent/2.2/minidev-parent-2.2.pom
+Download https://repo1.maven.org/maven2/org/ow2/asm/asm/5.0.3/asm-5.0.3.pom
+Download https://repo1.maven.org/maven2/org/ow2/asm/asm-parent/5.0.3/asm-parent-5.0.3.pom
+Download https://repo1.maven.org/maven2/org/ow2/ow2/1.3/ow2-1.3.pom
+Download https://repo1.maven.org/maven2/net/java/dev/jna/jna/4.2.2/jna-4.2.2.pom
+Download https://repo1.maven.org/maven2/net/java/dev/jna/jna-platform/4.2.2/jna-platform-4.2.2.pom
+Download https://repo1.maven.org/maven2/org/apache/commons/commons-compress/1.10/commons-compress-1.10.pom
+Download https://repo1.maven.org/maven2/org/apache/commons/commons-parent/38/commons-parent-38.pom
+Download https://repo1.maven.org/maven2/org/ow2/asm/asm/5.0.3/asm-5.0.3.jar
+Download https://repo1.maven.org/maven2/de/flapdoodle/embed/de.flapdoodle.embed.mongo/2.0.0/de.flapdoodle.embed.mongo-2.0.0.jar
+Download https://repo1.maven.org/maven2/cz/jirutka/spring/embedmongo-spring/1.3.1/embedmongo-spring-1.3.1.jar
+Download https://repo1.maven.org/maven2/org/springframework/boot/spring-boot-starter-test/1.5.8.RELEASE/spring-boot-starter-test-1.5.8.RELEASE.jar
+Download https://repo1.maven.org/maven2/net/java/dev/jna/jna/4.2.2/jna-4.2.2.jar
+Download https://repo1.maven.org/maven2/net/java/dev/jna/jna-platform/4.2.2/jna-platform-4.2.2.jar
+Download https://repo1.maven.org/maven2/org/apache/commons/commons-compress/1.10/commons-compress-1.10.jar
+Download https://repo1.maven.org/maven2/org/springframework/spring-test/4.3.12.RELEASE/spring-test-4.3.12.RELEASE.jar
+Download https://repo1.maven.org/maven2/net/minidev/json-smart/2.2.1/json-smart-2.2.1.jar
+Download https://repo1.maven.org/maven2/org/objenesis/objenesis/2.1/objenesis-2.1.jar
+Download https://repo1.maven.org/maven2/de/flapdoodle/embed/de.flapdoodle.embed.process/2.0.1/de.flapdoodle.embed.process-2.0.1.jar
+Download https://repo1.maven.org/maven2/org/mongodb/mongo-java-driver/3.4.3/mongo-java-driver-3.4.3.jar
+Download https://repo1.maven.org/maven2/org/springframework/boot/spring-boot-test/1.5.8.RELEASE/spring-boot-test-1.5.8.RELEASE.jar
+Download https://repo1.maven.org/maven2/org/springframework/boot/spring-boot-test-autoconfigure/1.5.8.RELEASE/spring-boot-test-autoconfigure-1.5.8.RELEASE.jar
+Download https://repo1.maven.org/maven2/com/jayway/jsonpath/json-path/2.2.0/json-path-2.2.0.jar
+Download https://repo1.maven.org/maven2/org/assertj/assertj-core/2.6.0/assertj-core-2.6.0.jar
+Download https://repo1.maven.org/maven2/org/mockito/mockito-core/1.10.19/mockito-core-1.10.19.jar
+Download https://repo1.maven.org/maven2/org/hamcrest/hamcrest-library/1.3/hamcrest-library-1.3.jar
+Download https://repo1.maven.org/maven2/net/minidev/accessors-smart/1.1/accessors-smart-1.1.jar
+:processTestResources UP-TO-DATE
+:testClasses
+:checkstyleTest
+:check
+
+BUILD SUCCESSFUL
+
+Total time: 25.633 secs
+
+This build could be faster, please consider using the Gradle Daemon: http://gradle.org/docs/2.5/userguide/gradle_daemon.html
+Current version:1.0 buildDir:/var/jenkins_home/workspace/adpq-builddeploycode/server-src/build
+:compileJava UP-TO-DATE
+:processResources UP-TO-DATE
+:classes UP-TO-DATE
+:compileTestJava UP-TO-DATE
+:processTestResources UP-TO-DATE
+:testClasses UP-TO-DATE
+:runUnitTests
+Download https://repo1.maven.org/maven2/org/jacoco/org.jacoco.agent/0.7.1.201405082137/org.jacoco.agent-0.7.1.201405082137.pom
+Download https://repo1.maven.org/maven2/org/jacoco/org.jacoco.build/0.7.1.201405082137/org.jacoco.build-0.7.1.201405082137.pom
+Download https://repo1.maven.org/maven2/org/jacoco/org.jacoco.agent/0.7.1.201405082137/org.jacoco.agent-0.7.1.201405082137.jar
+:jacocoTestReport SKIPPED
+
+BUILD SUCCESSFUL
+
+Total time: 10.128 secs
+
+This build could be faster, please consider using the Gradle Daemon: http://gradle.org/docs/2.5/userguide/gradle_daemon.html
+Current version:1.0 buildDir:/var/jenkins_home/workspace/adpq-builddeploycode/server-src/build
+:clean
+:compileJava
+:processResources UP-TO-DATE
+:classes
+:findMainClass
+:jar
+:bootRepackage
+:assemble
+:checkstyleMain
+:compileTestJava
+:processTestResources UP-TO-DATE
+:testClasses
+:checkstyleTest
+:test
+:jacocoTestReport
+Download https://repo1.maven.org/maven2/org/jacoco/org.jacoco.ant/0.7.1.201405082137/org.jacoco.ant-0.7.1.201405082137.pom
+Download https://repo1.maven.org/maven2/org/jacoco/org.jacoco.core/0.7.1.201405082137/org.jacoco.core-0.7.1.201405082137.pom
+Download https://repo1.maven.org/maven2/org/jacoco/org.jacoco.report/0.7.1.201405082137/org.jacoco.report-0.7.1.201405082137.pom
+Download https://repo1.maven.org/maven2/org/ow2/asm/asm-debug-all/5.0.1/asm-debug-all-5.0.1.pom
+Download https://repo1.maven.org/maven2/org/ow2/asm/asm-parent/5.0.1/asm-parent-5.0.1.pom
+Download https://repo1.maven.org/maven2/org/jacoco/org.jacoco.ant/0.7.1.201405082137/org.jacoco.ant-0.7.1.201405082137.jar
+Download https://repo1.maven.org/maven2/org/jacoco/org.jacoco.core/0.7.1.201405082137/org.jacoco.core-0.7.1.201405082137.jar
+Download https://repo1.maven.org/maven2/org/jacoco/org.jacoco.report/0.7.1.201405082137/org.jacoco.report-0.7.1.201405082137.jar
+Download https://repo1.maven.org/maven2/org/ow2/asm/asm-debug-all/5.0.1/asm-debug-all-5.0.1.jar
+:check
+:build
+:createDist UP-TO-DATE
+
+BUILD SUCCESSFUL
+
+Total time: 20.771 secs
+
+This build could be faster, please consider using the Gradle Daemon: http://gradle.org/docs/2.5/userguide/gradle_daemon.html
+cp: cannot stat 'build/libs/*.war': No such file or directory
+Build step 'Execute shell' marked build as failure
+Finished: FAILURE

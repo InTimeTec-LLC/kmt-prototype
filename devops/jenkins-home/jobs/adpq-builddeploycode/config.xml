@@ -29,20 +29,33 @@
   <builders>
     <hudson.tasks.Shell>
       <command>#!/bin/bash
+echo &quot;********** FRONT-END BUILD START **********&quot;
+cd ${WORKSPACE}/client-src
+echo &quot;********** NPM INSTALLATION **********&quot;
+npm install
+echo &quot;********** ANGULAR CLI INSTALLATION **********&quot;
+npm install @angular/cli
+echo &quot;********** NG BUILD START **********&quot;
+ng build
+echo &quot;********** COPYING DIST FOLDER TO STATIC IN SERVER-SRC **********&quot;
+if [[ -d &quot;../server-src/static&quot; ]]
+then
+        rm -rf ../server-src/static
+fi
+mkdir ../server-src/static
+cp -r dist/* ../server-src/static
 
-#cd ${WORKSPACE}/client-src
-#npm install
-#npm install @angular/cli
-#ng build
-#cp -r dist/ ../server-src/FOLDERNAME
-
+echo &quot;********** BACK-END BUILD START **********&quot;
 cd ${WORKSPACE}/server-src
+echo &quot;********** CHANGING THE MONGO DB IP IN application.properties with $HOSTIP **********&quot;
 sed -i &quot;s/^spring.data.mongodb.host.*/spring.data.mongodb.host=$HOSTIP/g&quot; config/application.properties
 chmod +x setenv.sh
 ./setenv.sh
 chmod +x gradlew
 ./gradlew -x test check
+echo &quot;********** RUNNING UNIT TEST CASES **********&quot;
 ./gradlew runUnitTests
+echo &quot;********** BUILD START **********&quot;
 ./gradlew clean build
 cp -r build/libs/*.war /var/jenkins_home/deployCodeFiles/</command>
     </hudson.tasks.Shell>

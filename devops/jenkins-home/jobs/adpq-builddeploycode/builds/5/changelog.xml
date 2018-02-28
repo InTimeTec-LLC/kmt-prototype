@@ -1,0 +1,22 @@
+commit 65316077c3f9063384e5a20d50fa320e0070fa0c
+tree 0a1a46d450a244a30b885d4a61a037103e2d4fa3
+parent 3c36857b7f24817f5d4acfa4247f350a022daaec
+author rohan.sahu <rohan.sahu@hp.com> 2018-02-27 19:34:10 -0800
+committer rohan.sahu <rohan.sahu@hp.com> 2018-02-27 19:34:19 -0800
+
+    Changed status field name to active and it's type to boolean
+
+
+
+:100644 100644 ef30fd4df7e3aabfa1c88e3cea05ad6d9d838209 9345a7b72b9878826d1d1ba115041ff5fa34c224 M	server-src/scripts/setUpDB.sh
+commit 3c36857b7f24817f5d4acfa4247f350a022daaec
+tree 285f1ffd4fd592eb7c39855460845401dde9c2e2
+parent f82e8d2dd44570bedc7f324090c9d4d69dedfcd4
+author rohan.sahu <rohan.sahu@hp.com> 2018-02-27 07:07:04 -0800
+committer rohan.sahu <rohan.sahu@hp.com> 2018-02-27 19:32:32 -0800
+
+    created script file for populating rola and admin account data in db
+
+
+
+:000000 100644 0000000000000000000000000000000000000000 ef30fd4df7e3aabfa1c88e3cea05ad6d9d838209 A	server-src/scripts/setUpDB.sh
