@@ -131,7 +131,7 @@ task createDist{
         println "Current version:${version} buildDir:${buildDir}"
         into ("${projectDir}/dist")
         from ("${buildDir}/libs/${project.name}-${version}.war"){
-            rename("${project.name}-${version}.war","${project.name}.war")
+            rename("${project.name}-${version}.war","ROOT.war")
         }
     }
     copy{
