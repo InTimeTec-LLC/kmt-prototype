@@ -16,7 +16,7 @@ mongo kmt_db --eval 'db.user.insert(
          "firstName": "kmt",
          "lastName": "admin",
          "password": "Admin123",
-         "status": "A"
+         "active": true
      }
 )'
 
