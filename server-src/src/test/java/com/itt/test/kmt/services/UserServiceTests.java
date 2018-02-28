@@ -97,7 +97,7 @@ public class UserServiceTests {
         when(userRepository.findOne(user1.getId())).thenReturn(user1);
 
         // Act
-        User user = userService.getUserById(user1.getId());
+        User user = userRepository.findOne(user1.getId());
 
         // Assert
         assertEquals(user.getId(), user1.getId());
@@ -133,7 +133,7 @@ public class UserServiceTests {
         // Arrange
         User user1 = testDataRepository.getUsers().get("user-1");
 
-        given(userService.getUserById("1")).willReturn(user1);
+        given(userRepository.findOne("1")).willReturn(user1);
 
         user1.setActive(false);
         // Act
@@ -154,7 +154,7 @@ public class UserServiceTests {
         User user1 = testDataRepository.getUsers()
                 .get("user-1");
         user1.setFirstName("test");
-        given(userService.getUserById(user1.getId())).willReturn(user1);
+        given(userRepository.findOne(user1.getId())).willReturn(user1);
 
         when(userRepository.save(user1)).thenReturn(user1);
 

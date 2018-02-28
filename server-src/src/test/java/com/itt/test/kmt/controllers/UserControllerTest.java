@@ -11,6 +11,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.HashMap;
 
 import com.itt.kmt.models.Role;
 import com.itt.test_data.RoleTestDataRepository;
@@ -32,6 +33,7 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.itt.kmt.models.User;
+import com.itt.kmt.repositories.UserRepository;
 import com.itt.kmt.response.models.ResponseMsg;
 import com.itt.kmt.services.UserService;
 import com.itt.test_data.TestDataRepository;
@@ -51,6 +53,9 @@ public class UserControllerTest {
     @MockBean
     private UserService userService;
 
+    @MockBean
+    private UserRepository userRepository;
+
     @Autowired
     private TestDataRepository testDataRepository;
 
@@ -63,7 +68,7 @@ public class UserControllerTest {
     public void getUser() throws Exception {
         // Arrange
         User user = testDataRepository.getUsers().get("user-1");
-        when(userService.getUserById(user.getId())).thenReturn(user);
+        when(userRepository.findOne(user.getId())).thenReturn(user);
         RequestBuilder requestBuilder = MockMvcRequestBuilders.get("/users/" + user.getId())
                 .accept(MediaType.APPLICATION_JSON);
 
@@ -78,7 +83,7 @@ public class UserControllerTest {
         .andExpect(jsonPath("$.user.email", is(user.getEmail())))
         .andExpect(jsonPath("$.user.userRole", is(user.getUserRole())));
 
-        verify(userService, times(1)).getUserById(user.getId());
+        verify(userRepository, times(1)).findOne(user.getId());
    }
 
     @Test
@@ -121,11 +126,13 @@ public class UserControllerTest {
         // Arrange
         User user = testDataRepository.getUsers()
                 .get("user-1");
-        ResponseMsg postResponseMsg = new ResponseMsg(true, "user added successfully");
+        ResponseMsg postResponseMsg = new ResponseMsg(true, "added successfully");
 
         when(userService.save(user)).thenReturn(user);
+        HashMap<String, User> map = new HashMap<String, User>();
+        map.put("user", user);
 
-        String content = new ObjectMapper().writeValueAsString(user);
+        String content = new ObjectMapper().writeValueAsString(map);
         // Act
         ResultActions resultActions = mockMvc.perform(MockMvcRequestBuilders.post("/users").
                    contentType(MediaType.APPLICATION_JSON).content(content));
@@ -150,13 +157,15 @@ public class UserControllerTest {
         user.setLastName(lastName);
 
         when(userService.updateUser(user, user.getId())).thenReturn(user);
+        HashMap<String, User> map = new HashMap<String, User>();
+        map.put("user", user);
 
-        String content = new ObjectMapper().writeValueAsString(user);
+        String content = new ObjectMapper().writeValueAsString(map);
         // Act
         ResultActions resultActions = mockMvc.perform(MockMvcRequestBuilders.put("/users/" + user.getId()).
                    contentType(MediaType.APPLICATION_JSON).content(content));
 
-        ResponseMsg updateResponseMsg = new ResponseMsg(true, "user updated successfully");
+        ResponseMsg updateResponseMsg = new ResponseMsg(true, "updated successfully");
         // Assert
         resultActions.andExpect(status().isOk())
         .andExpect(content().contentType(contentType))
@@ -172,7 +181,7 @@ public class UserControllerTest {
 
         ResultActions resultActions = mockMvc.perform(MockMvcRequestBuilders.delete("/users/" + user.getId()).
                    contentType(MediaType.APPLICATION_JSON));
-        ResponseMsg deleteResponseMsg = new ResponseMsg(true, "user deleted successfully");
+        ResponseMsg deleteResponseMsg = new ResponseMsg(true, "deleted successfully");
 
         resultActions.andExpect(status().isOk())
         .andExpect(content().contentType(contentType))
@@ -211,7 +220,7 @@ public class UserControllerTest {
                 .andExpect(jsonPath("$.roles[1].role", is(role2.getRole())));
         verify(userService, times(1)).getUserRoles();
     }
-    
+
     @After
     public void tearDown() {
 

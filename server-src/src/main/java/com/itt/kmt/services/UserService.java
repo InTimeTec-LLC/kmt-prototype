@@ -39,15 +39,6 @@ public class UserService {
         return repository.findByEmail(email);
     }
     /**
-     * Gets the User given the id.
-     * @param id Id of the User.
-     * @return User object matching the id.
-     */
-    public User getUserById(final String id) {
-        return repository.findOne(id);
-    }
-
-    /**
      * Gets all the Users.
      * @return List of all the users.
      */
@@ -73,10 +64,11 @@ public class UserService {
      * @param id Id of the User.
      */
     public void deleteUserById(final String id) {
-       User existingUser = getUserById(id);
+       User existingUser = repository.findOne(id);
        if (existingUser != null) {
            existingUser.setActive(false);
-           repository.save(existingUser);    
+
+           repository.save(existingUser);
         } else {
            throw new RuntimeException("user with the id does not exist");
         }
@@ -88,19 +80,19 @@ public class UserService {
      * @return user.
      */
     public User updateUser(final User user, final String id) {
-        User existingUser = getUserById(id);
+        User existingUser = repository.findOne(id);
 
         if (existingUser != null && !existingUser.isActive()) {
             throw new RuntimeException("user is not active");
         } else if (existingUser != null) {
 
-            if (existingUser.getFirstName().isEmpty()) {
+            if (!user.getFirstName().isEmpty()) {
                 existingUser.setFirstName(user.getFirstName());
             }
-            if (existingUser.getLastName().isEmpty()) {
+            if (!user.getLastName().isEmpty()) {
                 existingUser.setLastName(user.getLastName());
             }
-            if (existingUser.getUserRole().isEmpty()) {
+            if (!user.getUserRole().isEmpty()) {
                 existingUser.setUserRole(user.getUserRole());
             }
             return repository.save(existingUser);
