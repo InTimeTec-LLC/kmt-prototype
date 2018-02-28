@@ -53,7 +53,7 @@ export class EditUserComponent implements OnInit {
 
   ngOnInit() {
     this.user = this.fb.group({
-      firstName: ['', [Validators.required, Validators.minLength(10)]],
+      firstName: ['', [Validators.required, Validators.minLength(2)]],
       lastName: ['', Validators.required],
       password: ['', Validators.required],
       userRole: ['', Validators.required],
@@ -86,5 +86,16 @@ export class EditUserComponent implements OnInit {
   onCancle() {
     this.router.navigateByUrl('/userlist');
   }
+
+  onDeactivate() {
+    if (confirm('Are you sure to deactivate user ? ' + name)) {
+      this.userService.deleteUser(this.userId)
+    .subscribe( data => {
+                    this.toasterService.pop('success', 'Success', data.success.message);
+         },
+                  error => this.toasterService.pop('error', 'Error', error.failure.message));
+      }
+    }
+
 
 }
