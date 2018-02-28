@@ -10,6 +10,9 @@ import static org.mockito.Mockito.when;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.itt.kmt.models.Role;
+import com.itt.kmt.repositories.RoleRepository;
+import com.itt.test_data.RoleTestDataRepository;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
@@ -35,8 +38,14 @@ public class UserServiceTests {
     @Autowired
     private TestDataRepository testDataRepository;
 
+    @Autowired
+    private RoleTestDataRepository roleTestDataRepository;
+
     @MockBean
     private UserRepository userRepository;
+
+    @MockBean
+    private RoleRepository roleRepository;
 
     @Before
     public final void setUp() {
@@ -159,5 +168,26 @@ public class UserServiceTests {
         assertEquals(user.getLastName(), user1.getLastName());
         assertEquals(user.getUserRole(), user1.getUserRole());
         verify(userRepository, times(1)).save(user1);
+    }
+
+
+    @Test
+    public final void getAllRoles() {
+
+        // Arrange
+        Role role1 = roleTestDataRepository.getRoles()
+                .get("role-1");
+        Role role2 = roleTestDataRepository.getRoles()
+                .get("role-1");
+        List<Role> roles = new ArrayList<Role>();
+        roles.add(role1);
+        roles.add(role1);
+        when(roleRepository.findAll()).thenReturn(roles);
+
+        // Act
+        List<Role> role = userService.getUserRoles();
+        // Assert
+        assertTrue(roles.containsAll(role));
+        verify(roleRepository, times(1)).findAll();
     }
 }

@@ -1,12 +1,13 @@
 package com.itt.kmt.services;
 
-import java.util.List;
-
+import com.itt.kmt.models.Role;
+import com.itt.kmt.models.User;
+import com.itt.kmt.repositories.RoleRepository;
+import com.itt.kmt.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.itt.kmt.models.User;
-import com.itt.kmt.repositories.UserRepository;
+import java.util.List;
 
 /**
  * Service class that acts as an intermediary between controller and the
@@ -16,11 +17,18 @@ import com.itt.kmt.repositories.UserRepository;
  */
 @Service
 public class UserService {
+
     /**
-     * Instance of the basic Repository implementation.
+     * Instance of the basic User Repository implementation.
      */
     @Autowired
     private UserRepository repository;
+
+    /**
+     * Instance of the basic role Repository implementation.
+     */
+    @Autowired
+    private RoleRepository roleRepository;
     /**
      * Gets the User given the email.
      * 
@@ -99,5 +107,13 @@ public class UserService {
         } else {
             throw new RuntimeException("user does not exist");
         }
+    }
+
+    /**
+     * Get all the User Roles.
+     * @return List of all the User Roles.
+     */
+    public List<Role> getUserRoles() {
+       return (List<Role>) roleRepository.findAll();
     }
 }
