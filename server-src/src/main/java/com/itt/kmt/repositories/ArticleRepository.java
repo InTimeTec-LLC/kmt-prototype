@@ -1,10 +1,10 @@
-package com.itt.kmt.repository;
+package com.itt.kmt.repositories;
 
 import java.util.List;
 
+import com.itt.kmt.models.Article;
 import org.springframework.data.repository.CrudRepository;
 
-import com.itt.kmt.model.Article;
 
 
 /**

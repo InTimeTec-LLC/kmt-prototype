@@ -2,11 +2,11 @@ package com.itt.kmt.service;
 
 import java.util.List;
 
+import com.itt.kmt.models.Article;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.itt.kmt.model.Article;
-import com.itt.kmt.repository.ArticleRepository;
+import com.itt.kmt.repositories.ArticleRepository;
 
 
 /**
