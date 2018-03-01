@@ -1,9 +1,12 @@
-package com.itt.kmt.controller;
+package com.itt.kmt.controllers;
 
 import java.util.List;
 
+import com.itt.kmt.models.Article;
+import com.itt.kmt.response.models.ResponseMsg;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -11,7 +14,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.itt.kmt.model.Article;
 import com.itt.kmt.service.ArticleService;
 /**
  * This class is responsible for exposing REST APis for Article.
@@ -32,7 +34,7 @@ public class ArticleController {
      * @param id ID of the Article.
      * @return Article object that corresponds to Article id.
      */
-    @RequestMapping(value = "/{id}", method = RequestMethod.GET, produces = "application/json")
+    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public final Article getArticleById(@PathVariable(value = "id") final String id) {
         return articleService.getArticleById(id);
     }
@@ -43,9 +45,11 @@ public class ArticleController {
      * @param article Article to be added
      * @return Article object
      */
-    @RequestMapping(value = "/", method = RequestMethod.POST, produces = "application/json")
-    public final Article addArticle(@RequestBody final Article article) {
-        return articleService.save(article);
+    @RequestMapping(method = RequestMethod.POST, produces = "application/json")
+    public final ModelMap addArticle(@RequestBody final Article article) {
+        articleService.save(article);
+        ResponseMsg postResponseMsg = new ResponseMsg(true, "added successfully");
+        return new ModelMap().addAttribute("success", postResponseMsg);
     }
 
     /**
@@ -54,7 +58,7 @@ public class ArticleController {
      * @param name name depicts the key to search.
      * @return List<Article> objects.
      */
-    @RequestMapping(value = "/search", method = RequestMethod.GET, produces = "application/json")
+    @RequestMapping(value = "/search", method = RequestMethod.GET)
     public final List<Article>  getArticle(@RequestParam(value = "name") final String name) {
         return articleService.getArticleByNameOrContent(name);
     }
@@ -64,7 +68,7 @@ public class ArticleController {
      *
      * @return List<Article> a list of Article instances
      */
-    @RequestMapping(value = "/list", method = RequestMethod.GET, produces = "application/json")
+    @RequestMapping(method = RequestMethod.GET)
     public final List<Article> getArticleList() {
         return articleService.getArticles();
     }
@@ -75,10 +79,11 @@ public class ArticleController {
      * @param id ID of the Article.
      * @return Article that corresponds to id.
      */
-    @RequestMapping(value = "/delete/{id}", method = RequestMethod.DELETE, produces = "application/json")
-    public final HttpStatus delete(@PathVariable(value = "id") final String id) {
+    @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
+    public final ModelMap delete(@PathVariable(value = "id") final String id) {
         articleService.delete(id);
-        return HttpStatus.OK;
+        ResponseMsg deleteResponseMsg = new ResponseMsg(true, "deleted successfully");
+        return new ModelMap().addAttribute("success", deleteResponseMsg);
     }
 
     /**

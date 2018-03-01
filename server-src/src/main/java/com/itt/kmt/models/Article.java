@@ -1,5 +1,6 @@
-package com.itt.kmt.model;
+package com.itt.kmt.models;
 
+import lombok.Data;
 import org.joda.time.Instant;
 import org.springframework.data.annotation.CreatedBy;
 import org.springframework.data.annotation.CreatedDate;
@@ -7,9 +8,6 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.annotation.LastModifiedBy;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.annotation.Version;
-
-import lombok.Data;
-
 
 
 /**
