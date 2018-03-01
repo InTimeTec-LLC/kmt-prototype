@@ -128,11 +128,16 @@ public class LoginControllerTest extends AbstractShiroTest {
 
         User user = testDataRepository.getUsers()
                                       .get("user-1");
-        LoginResponseMsg loginResponseMsg = new LoginResponseMsg(
-            true, "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHAiOjE1MTk4NDY4NzAsImVtYWlsIjoiYWFhMUBnb" 
-                + "WFpbC5jb20ifQ.MY63G1AgD5LOE8loGIGYA_K9atPcUtF5R2DRZwkbdj4");
-        loginResponseMsg.setUser(user);
 
+        LoginResponseMsg loginResponseMsg = new LoginResponseMsg();
+
+        LoginResponseMsg.StatusMsg ic = loginResponseMsg.new StatusMsg();
+        ic.setStatus(Boolean.TRUE);
+        ic.setAccessToken("eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHAiOjE1MTk4NDY4NzAsImVtYWlsIjoiYWFhMUBnb" 
+                        + "WFpbC5jb20ifQ.MY63G1AgD5LOE8loGIGYA_K9atPcUtF5R2DRZwkbdj4");
+        loginResponseMsg.setUser(user);
+        loginResponseMsg.setSuccess(ic);
+        
         when(userService.getUserByEmail(user.getEmail())).thenReturn(user);
 
         HashMap<String, User> map = new HashMap<String, User>();

@@ -4,6 +4,8 @@ package com.itt.kmt.controllers;
 import com.itt.kmt.models.User;
 import com.itt.kmt.response.models.ResponseMsg;
 import com.itt.kmt.services.UserService;
+import com.itt.utility.Constants;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.ui.ModelMap;
@@ -37,19 +39,23 @@ public class LoginController {
      */
     @RequestMapping(value = "/login", method = RequestMethod.POST, produces = "application/json",
                     consumes = "application/json")
-    public LoginResponseMsg login(@RequestBody final User user) {
+    public LoginResponseMsg login(@RequestBody
+    final User user) {
 
         if (user != null) {
             User dbUser = userService.getUserByEmail(user.getEmail());
 
             if (dbUser != null && dbUser.getPassword()
                                         .equals(user.getPassword())) {
-                LoginResponseMsg responseMsg =
-                    new LoginResponseMsg(Boolean.TRUE, JWTUtil.sign(dbUser.getEmail(), dbUser.getPassword()));
+                LoginResponseMsg responseMsg = new LoginResponseMsg();
+
+                LoginResponseMsg.StatusMsg ic = responseMsg.new StatusMsg();
+                ic.setStatus(Boolean.TRUE);
+                ic.setAccessToken(JWTUtil.sign(dbUser.getEmail(), dbUser.getPassword()));
 
                 dbUser.setPassword(null);
                 responseMsg.setUser(dbUser);
-
+                responseMsg.setSuccess(ic);
                 return responseMsg;
             } else {
                 throw new UnauthorizedException();
@@ -68,7 +74,7 @@ public class LoginController {
     @ResponseStatus(HttpStatus.UNAUTHORIZED)
     public ModelMap unauthorized() {
 
-        ResponseMsg unauthorizedAccessMsg = new ResponseMsg(false, "Unauthorized access");
+        ResponseMsg unauthorizedAccessMsg = new ResponseMsg(false, Constants.UNAUTHORIZED_ACCESS_MSG);
         return new ModelMap().addAttribute("success", unauthorizedAccessMsg);
     }
 }
