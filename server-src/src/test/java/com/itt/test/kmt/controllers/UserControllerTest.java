@@ -125,7 +125,6 @@ public class UserControllerTest extends AbstractShiroTest {
         // 2. Bind the subject to the current thread:
         setSubject(subjectUnderTest);
     }
-
     /**
      * Gets the user.
      *
@@ -299,16 +298,60 @@ public class UserControllerTest extends AbstractShiroTest {
         verify(userService, times(1)).deleteUserById(user.getId());
     }
 
-    /**
-     * Gets the all roles.
-     *
-     * @return the all roles
-     * @throws Exception the exception
-     */
     @Test
-    public void getAllRoles()
-        throws Exception {
+    public void changeUserStatus() throws Exception {
+        // Arrange
+        User user = testDataRepository.getUsers()
+                .get("user-1");
 
+        user.setActive(true);
+
+        when(userService.changeUserStatus(user.getId(), user.isActive())).thenReturn(user);
+
+        String content = new ObjectMapper().writeValueAsString(null);
+        // Act
+        ResultActions resultActions = mockMvc.perform(MockMvcRequestBuilders.put("/users/state/" + user.getId() 
+                    + "/" + user.isActive()).
+                   contentType(MediaType.APPLICATION_JSON).content(content));
+
+        ResponseMsg activateResponseMsg = new ResponseMsg(true, "activated successfully");
+        // Assert
+        resultActions.andExpect(status().isOk())
+        .andExpect(content().contentType(contentType))
+        .andExpect(jsonPath("$.success.message", is(activateResponseMsg.getMessage())))
+        .andExpect(jsonPath("$.success.status", is(activateResponseMsg.getStatus())));
+
+        verify(userService, times(1)).changeUserStatus(user.getId(), true);
+    }
+    
+    @Test
+    public void changeUserStatusToDeactivate() throws Exception {
+        // Arrange
+        User user = testDataRepository.getUsers()
+                .get("user-3");
+
+        user.setActive(false);
+
+        when(userService.changeUserStatus(user.getId(), false)).thenReturn(user);
+
+        String content = new ObjectMapper().writeValueAsString(null);
+        // Act
+        ResultActions resultActions = mockMvc.perform(MockMvcRequestBuilders.put("/users/state/" + user.getId()
+                    + "/" + user.isActive()).
+                   contentType(MediaType.APPLICATION_JSON).content(content));
+
+        ResponseMsg activateResponseMsg = new ResponseMsg(true, "deactivated successfully");
+        // Assert
+        resultActions.andExpect(status().isOk())
+        .andExpect(content().contentType(contentType))
+        .andExpect(jsonPath("$.success.message", is(activateResponseMsg.getMessage())))
+        .andExpect(jsonPath("$.success.status", is(activateResponseMsg.getStatus())));
+
+        verify(userService, times(1)).changeUserStatus(user.getId(), user.isActive());
+    }
+
+    @Test
+    public void getAllRoles() throws Exception {
         // Arrange
         Role role1 = roleTestDataRepository.getRoles()
                                            .get("role-1");
