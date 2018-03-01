@@ -60,6 +60,9 @@ public class UserController {
     @RequiresPermissions("getUserById")
     public ModelMap getUser(@PathVariable("id") final String id) {
         User user = userRepository.findOne(id);
+        if (user == null) {
+            throw new RuntimeException("user with the id does not exist");
+        }
         return new ModelMap().addAttribute("user", user);
     }
     /**
