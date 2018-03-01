@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthenticationService } from '../../shared/service/authentication/authentication.service';
 import {ToasterModule, ToasterService} from 'angular5-toaster';
+import { MessageService } from '../../shared/service/message/message';
 
 
 @Component({
@@ -17,6 +18,7 @@ export class LoginComponent implements OnInit {
   constructor(
       private router: Router, 
       private toasterService: ToasterService,
+      private messageService: MessageService,
       private authenticationService: AuthenticationService) { 
 
       }
@@ -32,6 +34,7 @@ export class LoginComponent implements OnInit {
             .subscribe(
                 data => {
                     console.log(data);
+                    this.messageService.sendMessage('set user type');
                     this.router.navigate(['/dashboard']);
                 },
                 error => {
