@@ -6,7 +6,7 @@
 
   <div class="example-header">
     <mat-form-field>
-      <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
+      <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Search within the user">
     </mat-form-field>
   </div>
   
@@ -37,12 +37,18 @@
           <mat-header-cell *matHeaderCellDef mat-sort-header> Status </mat-header-cell>
           <mat-cell *matCellDef="let row"> {{row.status}} </mat-cell>
         </ng-container>
-  
-      <!-- Color Column -->
+
+      <!-- status Column -->
+      <ng-container matColumnDef="createdon">
+          <mat-header-cell *matHeaderCellDef mat-sort-header> Created On </mat-header-cell>
+          <mat-cell *matCellDef="let row"> {{row.createdOn}} </mat-cell>
+        </ng-container>
+
+        <!-- Color Column -->
       <ng-container matColumnDef="actions">
-        <mat-header-cell *matHeaderCellDef mat-sort-header> Actions </mat-header-cell>
-        <mat-cell *matCellDef="let row"><a [routerLink]="['/user/edit', row.id]">Edit</a></mat-cell>
-      </ng-container>
+          <mat-header-cell *matHeaderCellDef mat-sort-header> Actions </mat-header-cell>
+          <mat-cell *matCellDef="let row"><a [routerLink]="['/user/edit', row.id]">Edit</a></mat-cell>
+        </ng-container>
   
       <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
       <mat-row *matRowDef="let row; columns: displayedColumns;">
