@@ -71,3 +71,13 @@ table tr:nth-child(odd) {
     overflow: auto;
     max-height: 500px;
   }
+
+  .example-header[_ngcontent-c3] {
+      min-height: 60px;
+      padding: 8px 0px 0;
+  }
+
+  .mat-form-field[_ngcontent-c3] {
+      font-size: 14px;
+      width: 270px;
+  }

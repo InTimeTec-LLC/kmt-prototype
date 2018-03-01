@@ -14,7 +14,7 @@ import { Router } from '@angular/router';
 })
 
 export class UserListComponent implements OnInit {
-  displayedColumns = ['name', 'email', 'role', 'actions'];
+  displayedColumns = ['name', 'email', 'role', 'status', 'createdon', 'actions'];
   dataSource: MatTableDataSource<User>;
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
@@ -32,6 +32,7 @@ export class UserListComponent implements OnInit {
         this.userService.listUser()
         .subscribe(
             data => {
+                console.log(data.users);
                 this.createData(data.users);
             },
             error => {
@@ -68,7 +69,9 @@ export class UserListComponent implements OnInit {
         lastName: item.lastName,
         email: item.email,
         password: item.password,
-        userRole : item.userRole
+        userRole : item.userRole,
+        status : '',
+        createdOn : ''
     };
    }
 }
