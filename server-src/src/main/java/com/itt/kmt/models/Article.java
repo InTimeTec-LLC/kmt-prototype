@@ -1,12 +1,14 @@
 package com.itt.kmt.models;
 
 import lombok.Data;
+import org.joda.time.Instant;
+import org.springframework.data.annotation.CreatedBy;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.Id;
+import org.springframework.data.annotation.LastModifiedBy;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.annotation.Version;
 
-import java.util.List;
 
 /**
  * This class represents a Article.
@@ -15,7 +17,6 @@ import java.util.List;
  */
 @Data
 public class Article {
-
 
     /**
      * unique identifier.
@@ -30,47 +31,37 @@ public class Article {
     /**
      * lastModified date and time of the Article.
      */
-    @LastModifiedDate
+    @LastModifiedDate 
     private String lastModifiedTime;
-
     /**
      * last Modified user id  of the Article.
      */
-    private Object lastModifiedBy;
+    @LastModifiedBy 
+    private String lastModifiedBy;
+    /**
+     * owner of the Article.
+     */
+    @CreatedBy
+    private String owner;  
+    /**
+     * created date of the Article.
+     */
 
-    /**
-     * created by user id  of the Article.
-     */
-    private Object createdBy;
-    
-    /**
-     * List of attachment for Article.
-     */
-    private List<Attachment> attachments;
-
-    /**
-     * ArticleType of Article.
-     */
-    private Object articleType;
-
-    /**
-     * created time of the Article.
-     */
-    @CreatedDate
+    @CreatedDate 
     private String createdTime;
-
     /**
      * name of the Article.
      */
-    private String title;
+    private String name;
     /**
      * html content of the Article.
      */
-    private String description;
+    private String content;
     /**
      * Restriction of article.
+     * default value is false. 
      */
-    private Boolean restricted;
+    private Boolean isRestricted = false;
     /**
      * Restriction of article.
      * default value is false. 
@@ -79,31 +70,30 @@ public class Article {
     /**
      * User who can approve this article.
      */
-    private Object approver;
+    private String approver;
     /**
      * approval Status of this article.
      * default value is false. 
      */
     private Boolean approved = false;
-
     /**
      * approval Time of this article.
      */
-//    private String approvalTime;
-//    /**
-//     * set Approval Time.
-//     */
-//    public void setApprovalTime() {
-//        if (!approved && approvalTime == null) {
-//            approvalTime = Instant.now().toString();
-//        }
-//    }
+    private String approvalTime;
+    /**
+     * set Approval Time.
+     */
+    public void setApprovalTime() {
+        if (!approved && approvalTime == null) {
+            approvalTime = Instant.now().toString();
+        }
+    }
     /**
      * get Approval Time.
      * @return approvalTime, gets the Approval Time.
-//     */
-//    public String getApprovalTime() {
-//        return approvalTime;
-//    }
+     */
+    public String getApprovalTime() {
+        return approvalTime;
+    }
 
 }
