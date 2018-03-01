@@ -1,5 +1,6 @@
 package com.itt.kmt.model;
 
+import org.joda.time.Instant;
 import org.springframework.data.annotation.CreatedBy;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.Id;
@@ -47,7 +48,7 @@ public class Article {
     /**
      * created date of the Article.
      */
-    
+
     @CreatedDate 
     private String createdTime;
     /**
@@ -69,10 +70,32 @@ public class Article {
      */
     private Boolean needsApproval = false;
     /**
-     * Restriction of article.
+     * User who can approve this article.
+     */
+    private String approver;
+    /**
+     * approval Status of this article.
      * default value is false. 
      */
-    private ArticleApproval articleApproval;
- 
+    private Boolean approved = false;
+    /**
+     * approval Time of this article.
+     */
+    private String approvalTime;
+    /**
+     * set Approval Time.
+     */
+    public void setApprovalTime() {
+        if (!approved && approvalTime == null) {
+            approvalTime = Instant.now().toString();
+        }
+    }
+    /**
+     * get Approval Time.
+     * @return approvalTime, gets the Approval Time.
+     */
+    public String getApprovalTime() {
+        return approvalTime;
+    }
+
 }
-   
