@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthenticationService } from '../../shared/service/authentication/authentication.service';
-import {ToasterModule, ToasterService} from 'angular5-toaster';
+import {ToasterModule, ToasterService, ToasterConfig} from 'angular5-toaster';
 import { MessageService } from '../../shared/service/message/message';
 
 
@@ -15,13 +15,20 @@ export class LoginComponent implements OnInit {
   model: any = {};
   loading = false;
 
+  private toasterconfig : ToasterConfig = 
+        new ToasterConfig({
+            showCloseButton: false, 
+            tapToDismiss: false, 
+            timeout: 2000,
+            positionClass : 'toast-top-center',
+            animate : 'fade'
+        });
+
   constructor(
       private router: Router, 
       private toasterService: ToasterService,
       private messageService: MessageService,
-      private authenticationService: AuthenticationService) { 
-
-      }
+      private authenticationService: AuthenticationService) {}
 
     ngOnInit() {
        
@@ -38,7 +45,7 @@ export class LoginComponent implements OnInit {
                 },
                 error => {
                     this.loading = false;
-                    this.toasterService.pop('error', 'Error', 'Username or password is incorrect');
+                    this.toasterService.pop('error', '', 'Username or password is incorrect');
                 });
     }
 }
