@@ -88,11 +88,11 @@ public class UserService {
         } else if (existingUser == null) {
             throw new RuntimeException("user with the id does not exist");
         } else {
-            throw new RuntimeException("Operation not supported");
+            throw new RuntimeException("Operation not permitted");
         }
     }
     /**
-     * Activates inactive User.
+     * Updates User.
      * @param user user to be updated.
      * @param id id of the user to be updated.
      * @return user.
