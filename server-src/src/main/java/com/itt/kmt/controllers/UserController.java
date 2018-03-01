@@ -3,7 +3,7 @@ package com.itt.kmt.controllers;
 import java.util.HashMap;
 import java.util.List;
 
-import com.itt.kmt.models.Role;
+import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.itt.kmt.models.Role;
 import com.itt.kmt.models.User;
 import com.itt.kmt.repositories.UserRepository;
 import com.itt.kmt.response.models.ResponseMsg;
@@ -41,6 +42,7 @@ public class UserController {
      * @return ModelMap
      */
     @RequestMapping(method = RequestMethod.POST, produces = "application/json")
+    @RequiresPermissions("addUser")
     public final ModelMap add(@RequestBody
             final HashMap<String, User> map) {
         User user = map.get("user");
@@ -55,6 +57,7 @@ public class UserController {
      * @return ModelMap.
      */
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
+    @RequiresPermissions("getUserById")
     public ModelMap getUser(@PathVariable("id") final String id) {
         User user = userRepository.findOne(id);
         return new ModelMap().addAttribute("user", user);
@@ -64,6 +67,7 @@ public class UserController {
      * @return ModelMap.
      */
     @RequestMapping(method = RequestMethod.GET)
+    @RequiresPermissions("getAllUser")
     public ModelMap getAllUsers() {
         List<User> users = userService.getAllUsers();
         return new ModelMap().addAttribute("users", users);
@@ -74,6 +78,7 @@ public class UserController {
      * @return ModelMap.
      */
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
+    @RequiresPermissions("deleteUser")
     public ModelMap deleteUser(@PathVariable("id") final String id) {
         userService.deleteUserById(id);
         ResponseMsg deleteResponseMsg = new ResponseMsg(true, "deleted successfully");
@@ -86,6 +91,7 @@ public class UserController {
      * @return ModelMap.
      */
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT, produces = "application/json")
+    @RequiresPermissions("updateUser")
     public ModelMap updateUser(@RequestBody
             final HashMap<String, User> map, @PathVariable("id") final String id) {
         User user = map.get("user");
@@ -99,6 +105,7 @@ public class UserController {
      * @return ModelMap.
      */
     @RequestMapping(value = "/roles", method = RequestMethod.GET)
+    @RequiresPermissions("getAllRoles")
     public ModelMap getUserRoles() {
         List<Role> roleList = userService.getUserRoles();
         return new ModelMap().addAttribute("roles", roleList);
