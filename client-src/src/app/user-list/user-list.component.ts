@@ -2,6 +2,7 @@ import {Component, ViewChild, OnInit} from '@angular/core';
 import {MatPaginator, MatSort, MatTableDataSource} from '@angular/material';
 import { UserService } from '../../shared/service/user/user.service';
 import { User } from '../../shared/modals/user';
+import { Router } from '@angular/router';
 
 /**
  * @title Data table with sorting, pagination, and filtering.
@@ -19,7 +20,7 @@ export class UserListComponent implements OnInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
 
-  constructor(private userService: UserService) {
+  constructor(private userService: UserService, private router: Router) {
     
   }
 
@@ -36,6 +37,10 @@ export class UserListComponent implements OnInit {
             error => {
                 // Need to perform
             });
+    }
+
+    onTapNavigation(route) {
+        this.router.navigate([route]);
     }
 
     createData(data) {
