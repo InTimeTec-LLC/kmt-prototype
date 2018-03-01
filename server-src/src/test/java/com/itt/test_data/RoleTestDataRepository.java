@@ -57,7 +57,7 @@ public class RoleTestDataRepository {
             }
         } catch (Exception ex) {
             ex.printStackTrace();
-            log.error("Error loading book data", ex);
+            log.error("Error loading role data", ex);
         }
         return items;
     }

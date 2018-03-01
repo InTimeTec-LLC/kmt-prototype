@@ -61,7 +61,7 @@ public class TestDataRepository {
             }
         } catch (Exception ex) {
             ex.printStackTrace();
-            log.error("Error loading book data", ex);
+            log.error("Error loading user data", ex);
         }
         return items;
     }
