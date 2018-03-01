@@ -11,6 +11,7 @@ import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { JwtInterceptor } from './service/helper/jwt-interceptor';
 import { UserData } from '../mock/user-data';
 import { UserService } from './service/user/user.service';
+import { MessageService } from './service/message/message';
 
 @NgModule({
   imports: [CommonModule, FormsModule, ReactiveFormsModule, RouterModule, HttpClientModule],
@@ -35,7 +36,8 @@ export class SharedModule {
         fakeBackendProvider,
         AuthGuard,
         UserData,
-        UserService
+        UserService,
+        MessageService
       ]
     };
   }
