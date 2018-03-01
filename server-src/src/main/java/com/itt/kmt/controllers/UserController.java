@@ -60,6 +60,9 @@ public class UserController {
     @RequiresPermissions("getUserById")
     public ModelMap getUser(@PathVariable("id") final String id) {
         User user = userRepository.findOne(id);
+        if (user == null) {
+            throw new RuntimeException("user with the id does not exist");
+        }
         return new ModelMap().addAttribute("user", user);
     }
     /**
@@ -85,6 +88,25 @@ public class UserController {
         return new ModelMap().addAttribute("success", deleteResponseMsg);
     }
     /**
+     * REST API to change status of a User.
+     * @param id id of the user.
+     * @param active status of the user.
+     * @return ModelMap.
+     */
+    @RequestMapping(value = "/state/{id}/{active}", method = RequestMethod.PUT, produces = "application/json")
+    public ModelMap changeUserStatus(@PathVariable("id") final String id, 
+            @PathVariable("active") final boolean active) {
+        userService.changeUserStatus(id, active);
+        ResponseMsg activateResponseMsg;
+        if (active) {
+            activateResponseMsg = new ResponseMsg(true, "activated successfully");
+        } else {
+            activateResponseMsg = new ResponseMsg(true, "deactivated successfully"); 
+        }
+
+        return new ModelMap().addAttribute("success", activateResponseMsg);
+    }
+    /**
      * REST API to update a User.
      * @param map the map that contains the user to be updated.
      * @param id Id of the user to be updated.
@@ -99,7 +121,6 @@ public class UserController {
         ResponseMsg updateResponseMsg = new ResponseMsg(true, "updated successfully");
         return new ModelMap().addAttribute("success", updateResponseMsg);
     }
-
     /**
      * REST API to return all Roles.
      * @return ModelMap.

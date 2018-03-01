@@ -170,6 +170,46 @@ public class UserServiceTests {
         verify(userRepository, times(1)).save(user1);
     }
 
+    @Test
+    public final void changeUserStatus() {
+
+        // Arrange
+        User user1 = testDataRepository.getUsers()
+                .get("user-1");
+        user1.setActive(false);
+        given(userRepository.findOne(user1.getId())).willReturn(user1);
+
+        when(userRepository.save(user1)).thenReturn(user1);
+
+        // Act
+        User user = userService.changeUserStatus(user1.getId(), true);
+
+        // Assert
+        assertEquals(user.isActive(), user1.isActive());
+
+        verify(userRepository, times(1)).save(user1);
+    }
+    
+    @Test
+    public final void changeUserStatustoDeactivate() {
+
+        // Arrange
+        User user1 = testDataRepository.getUsers()
+                .get("user-3");
+        user1.setActive(true);
+        given(userRepository.findOne(user1.getId())).willReturn(user1);
+
+        when(userRepository.save(user1)).thenReturn(user1);
+
+        // Act
+        User user = userService.changeUserStatus(user1.getId(), false);
+
+        // Assert
+        assertEquals(user.isActive(), user1.isActive());
+
+        verify(userRepository, times(1)).save(user1);
+    }
+
 
     @Test
     public final void getAllRoles() {
