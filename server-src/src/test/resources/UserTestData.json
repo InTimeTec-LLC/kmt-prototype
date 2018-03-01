@@ -24,6 +24,6 @@
             "firstName": "Rakshit",
             "userRole":"user",
             "password":"password@123",
-            "active"  : true
+            "active"  : false
         }
 }

@@ -74,6 +74,24 @@ public class UserService {
         }
     }
     /**
+     * Changes the User status given the id and isActive status to be updated.
+     * @param id Id of the User.
+     * @param isActive isActive status of the User.
+     * @return User.
+     */
+    public User changeUserStatus(final String id, final boolean isActive) {
+       User existingUser = repository.findOne(id);
+
+       if (existingUser != null && existingUser.isActive() != isActive) {
+           existingUser.setActive(isActive);
+           return repository.save(existingUser);
+        } else if (existingUser == null) {
+            throw new RuntimeException("user with the id does not exist");
+        } else {
+            throw new RuntimeException("Operation not supported");
+        }
+    }
+    /**
      * Activates inactive User.
      * @param user user to be updated.
      * @param id id of the user to be updated.
