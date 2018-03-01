@@ -22,7 +22,7 @@
              <span>Knowledge Base</span>
              </a>
          </li>
-         <li *ngIf="userType === 'admin' || userType === 'manager'">
+         <li>
              <a (click)="onTapNavigation('')">
              <img src="https://upload.wikimedia.org/wikipedia/commons/c/c3/Circle-icons-camera.svg" class="menu-icon">
              <span>Dashboard</span>
@@ -40,7 +40,7 @@
                <span>Settings</span>
              </a>
              <ul class="menu-sub_list">
-               <li *ngIf="userType === 'admin' || userType === 'manager'">            
+               <li *ngIf="userType === 'admin'">            
                  <a (click)="onTapNavigation('/userlist')">User</a>
                </li>
                <li>  
