@@ -1,7 +1,7 @@
 <div class="sidenav" *ngIf="isAuthenticated()">
     <div class="user-profile">
       <div class="user-image">
-     <a href="#"> <img src="https://upload.wikimedia.org/wikipedia/commons/c/c3/Circle-icons-camera.svg" class="circle"></a>
+     <a (click)="onTapNavigation('')"> <img src="https://upload.wikimedia.org/wikipedia/commons/c/c3/Circle-icons-camera.svg" class="circle"></a>
       </div>
       <div class="user-information">
      <span class="user"><a>{{ getUserName() }}</a></span>
