@@ -50,7 +50,7 @@ export class LeftPanelComponent implements OnInit {
 
   logout() {
     this.auth.logout();
-    this.router.navigateByUrl('login');
+    this.onTapNavigation('/login');
   }
 
 }
