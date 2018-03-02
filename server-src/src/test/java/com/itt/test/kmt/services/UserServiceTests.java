@@ -133,7 +133,7 @@ public class UserServiceTests {
         // Arrange
         User user1 = testDataRepository.getUsers().get("user-1");
 
-        given(userRepository.findOne("1")).willReturn(user1);
+        given(userRepository.findOne(user1.getId())).willReturn(user1);
 
         user1.setActive(false);
         // Act
@@ -170,6 +170,42 @@ public class UserServiceTests {
         verify(userRepository, times(1)).save(user1);
     }
 
+    @Test(expected = RuntimeException.class)
+    public final void updateNonActiveUser() {
+
+        // Arrange
+        User user2 = testDataRepository.getUsers()
+                .get("user-2");
+        user2.setActive(false);
+        given(userRepository.findOne(user2.getId())).willReturn(user2);
+        user2.setFirstName("test");
+        when(userService.updateUser(user2, user2.getId())).thenThrow(new RuntimeException("user is not active"));
+
+        // Act
+        User user = userService.updateUser(user2, user2.getId());
+
+        // Assert
+        verify(userRepository, times(1)).save(user2);
+    }
+
+    @Test(expected = RuntimeException.class)
+    public final void updateNonExistantUser() {
+
+        // Arrange
+        User user3 = testDataRepository.getUsers()
+                .get("user-3");
+
+        given(userRepository.findOne(user3.getId())).willReturn(null);
+        user3.setFirstName("test");
+        when(userService.updateUser(user3, user3.getId())).thenThrow(new RuntimeException("user does not exist"));
+
+        // Act
+        User user = userService.updateUser(user3, user3.getId());
+
+        // Assert
+        verify(userRepository, times(1)).save(user3);
+    }
+
     @Test
     public final void changeUserStatus() {
 
@@ -190,7 +226,7 @@ public class UserServiceTests {
         verify(userRepository, times(1)).save(user1);
     }
     
-    @Test
+    @Test()
     public final void changeUserStatustoDeactivate() {
 
         // Arrange
@@ -210,6 +246,42 @@ public class UserServiceTests {
         verify(userRepository, times(1)).save(user1);
     }
 
+    @Test(expected = RuntimeException.class)
+    public final void activateActiveUser() {
+
+        // Arrange
+        User user1 = testDataRepository.getUsers()
+                .get("user-1");
+        user1.setActive(true);
+
+        when(userRepository.findOne(user1.getId()))
+        .thenReturn(user1);
+        when(userService.changeUserStatus(user1.getId(), true))
+        .thenThrow(new RuntimeException("Operation not permitted"));
+        userService.changeUserStatus(user1.getId(), true);
+
+        // Assert
+        assertEquals(user1.isActive(), true);
+
+        verify(userService, times(1)).changeUserStatus(user1.getId(), true);
+    }
+
+    @Test(expected = RuntimeException.class)
+    public final void activateNonExistingUser() {
+
+        // Arrange
+        User user1 = testDataRepository.getUsers()
+                .get("user-1");
+
+        when(userRepository.findOne(user1.getId()))
+        .thenReturn(null);
+        when(userService.changeUserStatus(user1.getId(), true))
+        .thenThrow(new RuntimeException("user with the id does not exist"));
+        userService.changeUserStatus(user1.getId(), true);
+
+        // Assert
+        verify(userService, times(1)).changeUserStatus(user1.getId(), true);
+    }
 
     @Test
     public final void getAllRoles() {
