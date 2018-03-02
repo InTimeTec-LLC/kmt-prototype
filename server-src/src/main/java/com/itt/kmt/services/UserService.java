@@ -7,6 +7,7 @@ import com.itt.kmt.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -53,6 +54,7 @@ public class UserService {
     public User save(final User user) {
         User existingUser = getUserByEmail(user.getEmail());
         if (existingUser == null) {
+            user.setDateJoined(new Date());
             user.setActive(true);
             return repository.save(user);
         } else {
