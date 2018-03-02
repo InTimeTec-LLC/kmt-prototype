@@ -43,7 +43,7 @@ public class UserController {
      */
     @RequestMapping(method = RequestMethod.POST, produces = "application/json")
     @RequiresPermissions("addUser")
-    public final ModelMap add(@RequestBody
+    public ModelMap add(@RequestBody
             final HashMap<String, User> map) {
         User user = map.get("user");
         userService.save(user);
