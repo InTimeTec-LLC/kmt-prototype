@@ -11,14 +11,15 @@ import org.springframework.boot.web.support.SpringBootServletInitializer;
 import org.springframework.context.ApplicationContext;
 
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.mongodb.config.EnableMongoAuditing;
 
 /**
  * Application class.
  */
-@SpringBootApplication
-@Slf4j
-public class Application extends SpringBootServletInitializer  implements CommandLineRunner {
 
+@Slf4j
+@EnableMongoAuditing
+@SpringBootApplication
     @Override
     protected SpringApplicationBuilder configure(final SpringApplicationBuilder application) {
         return application.sources(Application.class);
