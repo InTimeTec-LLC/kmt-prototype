@@ -102,6 +102,4 @@ export class EditUserComponent implements OnInit {
                   error => this.toasterService.pop('error', 'Error', error.failure.message));
       }
     }
-
-
 }

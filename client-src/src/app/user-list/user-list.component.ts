@@ -3,6 +3,7 @@ import {MatPaginator, MatSort, MatTableDataSource} from '@angular/material';
 import { UserService } from '../../shared/service/user/user.service';
 import { User } from '../../shared/modals/user';
 import { Router } from '@angular/router';
+import {ToasterModule, ToasterService, ToasterConfig} from 'angular5-toaster';
 
 /**
  * @title Data table with sorting, pagination, and filtering.
@@ -20,7 +21,16 @@ export class UserListComponent implements OnInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
 
-  constructor(private userService: UserService, private router: Router) {
+  private toasterconfig : ToasterConfig = 
+        new ToasterConfig({
+            showCloseButton: false, 
+            tapToDismiss: false, 
+            timeout: 2000,
+            positionClass : 'toast-top-center',
+            animate : 'fade'
+        });
+
+  constructor(private userService: UserService, private router: Router, private toasterService: ToasterService) {
     
   }
 
@@ -29,15 +39,20 @@ export class UserListComponent implements OnInit {
     }
 
     onTapActions(status, userId) {
-        this.userService.activateDeactivateUsers(status, userId)
-        .subscribe(
-            data => {
-                console.log(data);
-                this.getUserList();
-            },
-            error => {
-                console.log(error);
-            });
+        let type = 'deactivate';
+        if(status) type = 'activate';
+        if (confirm("Would you like to "+ type +" the user?")) {
+            this.userService.activateDeactivateUsers(status, userId).subscribe(
+                data => {
+                    console.log(data);
+                    this.toasterService.pop('success', '', data.success.message);
+                    this.getUserList();
+                },
+                error => {
+                    this.toasterService.pop('error', '', error.success.message);
+                    console.log(error);
+                });
+            }
     }
 
     getUserList() {
