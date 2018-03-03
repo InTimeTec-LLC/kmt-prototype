@@ -25,6 +25,6 @@ public interface ArticleRepository extends CrudRepository<Article, String> {
      * @param content key to be searched in content of Article
      * @return Article Object matching the search parameter
      */
-    List<Article> findByNameLikeOrContentLike(String name, String content);
+//    List<Article> findByNameLikeOrContentLike(String name, String content);
 
 }
