@@ -28,7 +28,7 @@
   <mat-form-field>
     <mat-select formControlName="userRole" placeholder="Role">
         <mat-option>Select Role</mat-option>
-        <mat-option [value]="role.role" *ngFor="let role of roles">
+        <mat-option [value]="role.role | lowercase" *ngFor="let role of roles">
           {{ role.role | titlecase}}
         </mat-option>
     </mat-select>
