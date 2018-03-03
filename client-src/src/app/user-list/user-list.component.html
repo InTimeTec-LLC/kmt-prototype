@@ -35,7 +35,10 @@
        <!-- status Column -->
        <ng-container matColumnDef="status">
           <mat-header-cell *matHeaderCellDef mat-sort-header> Status </mat-header-cell>
-          <mat-cell *matCellDef="let row"> {{row.status}} </mat-cell>
+          <mat-cell *matCellDef="let row"> 
+              <span *ngIf="!row.status">Deactivated</span>
+              <span *ngIf="row.status">Activated</span>
+          </mat-cell>
         </ng-container>
 
       <!-- status Column -->
@@ -47,7 +50,11 @@
         <!-- Color Column -->
       <ng-container matColumnDef="actions">
           <mat-header-cell *matHeaderCellDef mat-sort-header> Actions </mat-header-cell>
-          <mat-cell *matCellDef="let row"><a [routerLink]="['/user/edit', row.id]">Edit</a></mat-cell>
+          <mat-cell *matCellDef="let row">
+            <a [routerLink]="['/user/edit', row.id]">Edit</a> |
+            <a *ngIf="row.status" (click)="onTapActions(false, row.id)">Deactivate</a>
+            <a *ngIf="!row.status" (click)="onTapActions(true, row.id)">Activate</a> 
+          </mat-cell>
         </ng-container>
   
       <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>

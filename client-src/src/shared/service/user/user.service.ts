@@ -40,6 +40,11 @@ export class UserService {
     .catch(this.handleErrorObservable);
   }
 
+  activateDeactivateUsers (status, userId) : Observable<any> {
+    return this.http.put(this.apiUrl+"/state/"+userId+"/"+status, {})
+    .catch(this.handleErrorObservable);
+  }
+
 
   /**
    * Returns an Observable for the HTTP GET request for the JSON resource.

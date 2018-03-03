@@ -28,11 +28,22 @@ export class UserListComponent implements OnInit {
         this.getUserList();
     }
 
+    onTapActions(status, userId) {
+        this.userService.activateDeactivateUsers(status, userId)
+        .subscribe(
+            data => {
+                console.log(data);
+                this.getUserList();
+            },
+            error => {
+                console.log(error);
+            });
+    }
+
     getUserList() {
         this.userService.listUser()
         .subscribe(
             data => {
-                console.log(data.users);
                 this.createData(data.users);
             },
             error => {
@@ -51,6 +62,7 @@ export class UserListComponent implements OnInit {
             users.push(this.createNewUser(data[i])); 
         }
 
+        console.log(users);
         this.dataSource = new MatTableDataSource(users);
         this.dataSource.paginator = this.paginator;
         this.dataSource.sort = this.sort;
@@ -70,7 +82,7 @@ export class UserListComponent implements OnInit {
         email: item.email,
         password: item.password,
         userRole : item.userRole,
-        status : '',
+        status : item.active,
         createdOn : ''
     };
    }
