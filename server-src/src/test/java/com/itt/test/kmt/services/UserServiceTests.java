@@ -24,9 +24,11 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import com.itt.kmt.models.User;
 import com.itt.kmt.repositories.UserRepository;
+import com.itt.kmt.services.MailService;
 import com.itt.kmt.services.UserService;
 import com.itt.test_category.ServicesTests;
 import com.itt.test_data.TestDataRepository;
+import com.itt.utility.EmailConstants;
 
 @Category(ServicesTests.class)
 @RunWith(SpringRunner.class)
@@ -47,6 +49,9 @@ public class UserServiceTests {
     @MockBean
     private RoleRepository roleRepository;
 
+    @MockBean
+    private MailService mailService;
+
     @Before
     public final void setUp() {
 
@@ -59,7 +64,8 @@ public class UserServiceTests {
         User user1 = testDataRepository.getUsers()
                 .get("user-1");
         when(userRepository.save(user1)).thenReturn(user1);
-
+        when(mailService.sendUserCreatedMail(user1.getId(),
+                EmailConstants.PARAM_PORTAL_LOGIN_LINK)).thenReturn(true);
         // Act
         User user = userService.save(user1);
 
@@ -240,7 +246,7 @@ public class UserServiceTests {
 
         verify(userRepository, times(1)).save(user1);
     }
-    
+
     @Test()
     public final void changeUserStatustoDeactivate() {
 
