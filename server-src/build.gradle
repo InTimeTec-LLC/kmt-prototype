@@ -41,7 +41,7 @@ checkstyle {
 war {
     baseName = project.name
     version =  "${version}"
-    from 'static'
+    
 }
 task myJavadocs(type: Javadoc) {
     source = sourceSets.main.allJava
