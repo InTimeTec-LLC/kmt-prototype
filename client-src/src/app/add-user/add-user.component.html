@@ -1,7 +1,7 @@
 <div class="container">
     <toaster-container></toaster-container>
     <div class="add-heading"><h2 class="heading-margin">Add User</h2></div>
-    <form  (ngSubmit)="onSubmit(user)" [formGroup]="user">
+    <form  (ngSubmit)="onSubmit(user)" [formGroup]="user" #formDir="ngForm">
         <div class="lower-container">
             <div class="form-box">
           <mat-form-field>
@@ -23,13 +23,13 @@
           </div>
         
           <mat-form-field>
-            <mat-select formControlName="userRole" placeholder="Role">
-                <mat-option value="">Select</mat-option>
-                <mat-option value="user">User</mat-option>
-              <mat-option value="manager">Manager</mat-option>
-              <mat-option value="admin">Admin</mat-option>
-            </mat-select>
-          </mat-form-field>
+              <mat-select formControlName="userRole" placeholder="Role">
+                  <mat-option>Select Role</mat-option>
+                  <mat-option [value]="role.role" *ngFor="let role of roles">
+                    {{ role.role | titlecase}}
+                  </mat-option>
+              </mat-select>
+            </mat-form-field>
           <div class="error" 
             *ngIf="user.get('userRole').touched 
             && user.get('userRole').hasError('required')">
@@ -71,7 +71,7 @@
             </div>
         <div class="button-postion">
           <button type="button" mat-raised-button (click)="onCancle()">Cancel</button>
-          <button mat-raised-button type="submit">Save</button>
+          <button mat-raised-button type="submit" [disabled]="user.invalid">Save</button>
         </div>
         
           <div *ngIf="addUserName" [ngClass] = "'success'"> {{addUserName}} created. </div>

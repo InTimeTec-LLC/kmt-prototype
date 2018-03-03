@@ -40,13 +40,35 @@ export class UserService {
     .catch(this.handleErrorObservable);
   }
 
+
+  /**
+   * Returns an Observable for the HTTP GET request for the JSON resource.
+   * @return {any[]} The Observable for the HTTP request.
+   */
+
+  listRoles (): Observable<any> {
+    return this.http.get(this.apiUrl + '/roles')
+    .catch(this.handleErrorObservable);
+  }
+
+ /**
+   * Returns an Observable for the HTTP GET request for the JSON resource.
+   * @return {any[]} The Observable for the HTTP request.
+   */
+
+  listApprovers (): Observable<any> {
+    return this.http.get(this.apiUrl + '/approvers')
+    .catch(this.handleErrorObservable);
+  }
+
+ 
   /**
    * Returns an Observable for the HTTP POST request for the JSON resource.
    * @return {User} The Observable for the HTTP request.
    */
 
   createUser (userInfo: User): Observable<any> {
-        return this.http.post(this.apiUrl, userInfo, this.httpOptions)
+        return this.http.post(this.apiUrl, {'user': userInfo}, this.httpOptions)
                    .catch(this.handleErrorObservable);
   }
 
@@ -56,7 +78,7 @@ export class UserService {
    */
 
   updateUser (id: String, userInfo: User): Observable<any> {
-    return this.http.put(this.apiUrl + '/' + id, userInfo, this.httpOptions)
+    return this.http.put(this.apiUrl + '/' + id, {'user': userInfo}, this.httpOptions)
                .catch(this.handleErrorObservable);
   }
 
