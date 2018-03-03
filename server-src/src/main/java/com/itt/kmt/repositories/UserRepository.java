@@ -29,8 +29,9 @@ public interface UserRepository extends CrudRepository<User, String> {
     * return the object instance.
     *
     * @param userRole of the User
+    * @param active status of user
     * @return List<User> Object matching the userRole parameter
     */
-   List<User> findByUserRole(String userRole);
+   List<User> findByUserRole(String userRole, boolean active);
    
 }

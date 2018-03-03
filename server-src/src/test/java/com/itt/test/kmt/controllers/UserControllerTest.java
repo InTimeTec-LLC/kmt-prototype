@@ -199,6 +199,55 @@ public class UserControllerTest extends AbstractShiroTest {
     }
 
     /**
+     * Gets the all users.
+     *
+     * @return the all users
+     * @throws Exception the exception
+     */
+    @Test
+    public void getAllAdminsAndManagers()
+        throws Exception {
+
+        User userOne = testDataRepository.getUsers()
+                                         .get("user-1");
+        User userTwo = testDataRepository.getUsers()
+                                         .get("user-2");
+
+        ArrayList<User> admins = new ArrayList<User>();
+        admins.add(userOne);
+        ArrayList<User> managers = new ArrayList<User>();
+        managers.add(userTwo);
+        ArrayList<User> adminsAndManagers = new ArrayList<User>();
+        adminsAndManagers.addAll(admins);
+        adminsAndManagers.addAll(managers);
+        ArrayList<String> roles = new ArrayList<String>();
+        roles.add("admin");
+        roles.add("manager");
+
+        when(userService.getAllActiveUsersByRoles(roles)).thenReturn(adminsAndManagers);
+        RequestBuilder requestBuilder = MockMvcRequestBuilders.get("/users/approvers")
+                                                              .accept(MediaType.APPLICATION_JSON);
+
+        // Act
+        ResultActions resultActions = mockMvc.perform(requestBuilder);
+
+        resultActions.andExpect(status().isOk())
+                     .andExpect(content().contentType(contentType))
+                     .andExpect(jsonPath("$.users", Matchers.hasSize(2)))
+                     .andExpect(jsonPath("$.users[0].id", is(userOne.getId())))
+                     .andExpect(jsonPath("$.users[0].firstName", is(userOne.getFirstName())))
+                     .andExpect(jsonPath("$.users[0].lastName", is(userOne.getLastName())))
+                     .andExpect(jsonPath("$.users[0].email", is(userOne.getEmail())))
+                     .andExpect(jsonPath("$.users[0].userRole", is(userOne.getUserRole())))
+                     .andExpect(jsonPath("$.users[1].id", is(userTwo.getId())))
+                     .andExpect(jsonPath("$.users[1].firstName", is(userTwo.getFirstName())))
+                     .andExpect(jsonPath("$.users[1].lastName", is(userTwo.getLastName())))
+                     .andExpect(jsonPath("$.users[1].email", is(userTwo.getEmail())))
+                     .andExpect(jsonPath("$.users[1].userRole", is(userTwo.getUserRole())));
+        verify(userService, times(1)).getAllActiveUsersByRoles(roles);
+    }
+
+    /**
      * Adds the.
      *
      * @throws Exception the exception
@@ -271,31 +320,6 @@ public class UserControllerTest extends AbstractShiroTest {
                      .andExpect(jsonPath("$.success.status", is(updateResponseMsg.getStatus())));
 
         verify(userService, times(1)).updateUser(user, user.getId());
-    }
-
-    /**
-     * Delete user.
-     *
-     * @throws Exception the exception
-     */
-    @Test
-    public void deleteUser()
-        throws Exception {
-
-        User user = testDataRepository.getUsers()
-                                      .get("user-1");
-
-        ResultActions resultActions = mockMvc.perform(
-            MockMvcRequestBuilders.delete("/users/" + user.getId())
-                                  .contentType(MediaType.APPLICATION_JSON));
-        ResponseMsg deleteResponseMsg = new ResponseMsg(true, "deleted successfully");
-
-        resultActions.andExpect(status().isOk())
-                     .andExpect(content().contentType(contentType))
-                     .andExpect(jsonPath("$.success.message", is(deleteResponseMsg.getMessage())))
-                     .andExpect(jsonPath("$.success.status", is(deleteResponseMsg.getStatus())));
-
-        verify(userService, times(1)).deleteUserById(user.getId());
     }
     /**
      * Update status of the user.
