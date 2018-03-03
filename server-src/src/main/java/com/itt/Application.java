@@ -6,6 +6,8 @@ import java.util.Arrays;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.builder.SpringApplicationBuilder;
+import org.springframework.boot.web.support.SpringBootServletInitializer;
 import org.springframework.context.ApplicationContext;
 
 import lombok.extern.slf4j.Slf4j;
@@ -15,7 +17,12 @@ import lombok.extern.slf4j.Slf4j;
  */
 @SpringBootApplication
 @Slf4j
-public class Application implements CommandLineRunner {
+public class Application extends SpringBootServletInitializer  implements CommandLineRunner {
+
+    @Override
+    protected SpringApplicationBuilder configure(final SpringApplicationBuilder application) {
+        return application.sources(Application.class);
+    }
 
     /**
      * Repository instance for DB Entity.
