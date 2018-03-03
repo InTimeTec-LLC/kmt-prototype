@@ -28,7 +28,7 @@ public class ShiroConfig {
      *
      * @return the manager
      */
-    @Bean("securityManager")
+    @Bean(name = "securityManager")
     public DefaultWebSecurityManager getManager() {
 
         DefaultWebSecurityManager manager = new DefaultWebSecurityManager();
@@ -47,7 +47,7 @@ public class ShiroConfig {
      * @param securityManager the security manager
      * @return the shiro filter factory bean
      */
-    @Bean("shiroFilter")
+    @Bean(name = "shiroFilter")
     public ShiroFilterFactoryBean factory(final DefaultWebSecurityManager securityManager) {
 
         ShiroFilterFactoryBean factoryBean = new ShiroFilterFactoryBean();
