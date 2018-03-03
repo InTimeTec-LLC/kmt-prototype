@@ -51,7 +51,7 @@ import {ToasterModule, ToasterService} from 'angular5-toaster';
     HttpModule,
     SharedModule.forRoot(),
     InMemoryWebApiModule.forRoot(ArticleData, {
-      passThruUnknownUrl: false
+      passThruUnknownUrl: true
     }),
     AppRoutingModule,
     MaterialModule,
