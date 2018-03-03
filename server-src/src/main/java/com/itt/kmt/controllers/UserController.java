@@ -94,6 +94,7 @@ public class UserController {
      * @return ModelMap.
      */
     @RequestMapping(value = "/state/{id}/{active}", method = RequestMethod.PUT, produces = "application/json")
+    @RequiresPermissions("changeUserStatus")
     public ModelMap changeUserStatus(@PathVariable("id") final String id, 
             @PathVariable("active") final boolean active) {
         userService.changeUserStatus(id, active);
