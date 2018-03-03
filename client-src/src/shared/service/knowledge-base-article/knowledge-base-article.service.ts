@@ -40,6 +40,18 @@ export class KnowledgeBaseArticleService {
   }
 
   /**
+   * Returns an Observable for the HTTP GET request for the JSON resource.
+   * @return {any[]} The Observable for the HTTP request.
+   */
+
+  listKnowledgeBaseArticleTypes (): Observable<any[]> {
+    // let url = this.apiUrl + '/types';
+    const url  = 'api/types';
+    return this.http.get(url)
+    .catch(this.handleErrorObservable);
+  }
+
+  /**
    * Returns an Observable for the HTTP POST request for the JSON resource.
    * @return {KnowledgeBaseArticle} The Observable for the HTTP request.
    */
