@@ -29,6 +29,8 @@
 
         ./gradlew bootRun
 
+5. Populate DB initial data by running setUpDB.sh, find setUpDB.sh in path - {workspace}/kmt-prototype/server-src/scripts/
+
 5. REST API will be exposed on http://localhost:8080/
         
 6. Swagger UI URL: http://localhost:8080/swagger-ui.html
