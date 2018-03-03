@@ -9,7 +9,7 @@ import {ToasterModule, ToasterService} from 'angular5-toaster';
 @Component({
   selector: 'app-edit-user',
   templateUrl: './edit-user.component.html',
-  styleUrls: ['./edit-user.component.scss']
+  styleUrls: ['./edit-user.component.scss'],
 })
 
 export class EditUserComponent implements OnInit {
@@ -19,6 +19,7 @@ export class EditUserComponent implements OnInit {
   userName: String;
   user: FormGroup;
   userId: String;
+  roles: any[];
 
 
   get cpwd() {
@@ -49,6 +50,11 @@ export class EditUserComponent implements OnInit {
         });
       }
     });
+
+    this.userService.listRoles().subscribe((data: any) => {
+        this.roles = data.roles;
+      });
+
   }
 
   ngOnInit() {
