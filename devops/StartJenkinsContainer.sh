@@ -89,5 +89,6 @@ then
         sudo docker stop $isJenkinsImageExist
         sudo docker	 rm $isJenkinsImageExist
 fi
-HOSTVM_IP=$(ip -f inet -o addr show eth0|cut -d\  -f 7 | cut -d/ -f 1)
+#HOSTVM_IP=$(ip -f inet -o addr show eth0|cut -d\  -f 7 | cut -d/ -f 1)
+HOSTVM_IP=$(wget -qO- http://ipecho.net/plain ; echo)
 sudo docker run -d --name adpq-jenkins -p 9010:8080 -p 50000:50000 -v /var/jenkins-home:/var/jenkins_home -v /var/run/docker.sock:/var/run/docker.sock -v $(which docker):/usr/bin/docker -v /home/ubuntu/tomcatDeployFiles:/var/jenkins_home/deployCodeFiles/ -e HOSTIP=$HOSTVM_IP -u root yashittdocker/adpq-jenkins:$jenkinsContainerTag
