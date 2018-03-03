@@ -57,11 +57,13 @@ export class UserService {
    */
 
   listApprovers (): Observable<any> {
-    return this.http.get(this.apiUrl + '/approvers')
+    // let url = this.apiUrl + '/approvers';
+    const url  = 'api/approvers';
+    return this.http.get(url)
     .catch(this.handleErrorObservable);
   }
 
- 
+
   /**
    * Returns an Observable for the HTTP POST request for the JSON resource.
    * @return {User} The Observable for the HTTP request.
