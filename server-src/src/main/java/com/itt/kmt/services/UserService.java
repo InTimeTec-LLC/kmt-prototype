@@ -7,6 +7,7 @@ import com.itt.kmt.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -53,6 +54,7 @@ public class UserService {
     public User save(final User user) {
         User existingUser = getUserByEmail(user.getEmail());
         if (existingUser == null) {
+            user.setDateJoined(new Date());
             user.setActive(true);
             return repository.save(user);
         } else {
@@ -74,7 +76,25 @@ public class UserService {
         }
     }
     /**
-     * Activates inactive User.
+     * Changes the User status given the id and isActive status to be updated.
+     * @param id Id of the User.
+     * @param isActive isActive status of the User.
+     * @return User.
+     */
+    public User changeUserStatus(final String id, final boolean isActive) {
+       User existingUser = repository.findOne(id);
+
+       if (existingUser != null && existingUser.isActive() != isActive) {
+           existingUser.setActive(isActive);
+           return repository.save(existingUser);
+        } else if (existingUser == null) {
+            throw new RuntimeException("user with the id does not exist");
+        } else {
+            throw new RuntimeException("Operation not permitted");
+        }
+    }
+    /**
+     * Updates User.
      * @param user user to be updated.
      * @param id id of the user to be updated.
      * @return user.
@@ -108,4 +128,13 @@ public class UserService {
     public List<Role> getUserRoles() {
        return (List<Role>) roleRepository.findAll();
     }
+
+    public User getByID(String id){
+        User user = repository.findOne(id);
+        if (user == null) {
+            throw new RuntimeException("user with the id does not exist");
+        }
+        return user;
+    }
+
 }

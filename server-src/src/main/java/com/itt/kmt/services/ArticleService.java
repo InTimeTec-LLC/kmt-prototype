@@ -1,8 +1,11 @@
-package com.itt.kmt.service;
+package com.itt.kmt.services;
 
 import java.util.List;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.itt.kmt.models.Article;
+import com.itt.kmt.models.User;
+import com.itt.kmt.models.UserResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -25,6 +28,9 @@ public class ArticleService {
     @Autowired
     private ArticleRepository articleRepository;
 
+    @Autowired
+    private UserService userService;
+
     /**
      * Gets the Article given the id.
      * 
@@ -33,9 +39,11 @@ public class ArticleService {
      */
     public Article getArticleById(final String id) {
         Article article = articleRepository.findOne(id);
+
         if (article == null) {
-            throw new RuntimeException("No users found");
+            throw new RuntimeException("No articles found");
         }
+
         return article;
     }
 
@@ -47,11 +55,11 @@ public class ArticleService {
      * @return Article object matching the name
      */
     public List<Article> getArticleByNameOrContent(final String name) {
-        List<Article> articles = articleRepository.findByTitleLikeOrDescriptionLike(name, name);
-        if (articles == null) {
-            throw new RuntimeException("No Users Found for search element :" + name);
-        }
-        return articles;
+//        List<Article> articles = articleRepository.findByNameLikeOrContentLike(name, name);
+//        if (articles == null) {
+//            throw new RuntimeException("No Users Found for search element :" + name);
+//        }
+        return null;
     }
 
     /**
@@ -61,6 +69,16 @@ public class ArticleService {
      * @return Article object with id included.
      */
     public Article save(final Article article) {
+
+        if(article.getCreatedBy() != null){
+            User createdByUser = userService.getByID(article.getCreatedBy().toString());
+            article.setCreatedBy(convertUserIntoUserResponse(createdByUser));
+        }
+        if(article.getApprover() != null){
+            User approved = userService.getByID(article.getApprover().toString());
+            article.setCreatedBy(convertUserIntoUserResponse(approved));
+        }
+
         return articleRepository.save(article);
     }
 
@@ -84,19 +102,18 @@ public class ArticleService {
      * @return Article
      */
     public Article updateArticle(final String id, final Article updateArticle) {
-        /*Article article = articleRepository.findOne(id);
+        Article article = articleRepository.findOne(id);
         if (article == null) {
             throw new RuntimeException("Article not found");
         }
-        article.setOwner(updateArticle.getOwner());
-        article.setName(updateArticle.getName());
-        article.setIsRestricted(updateArticle.getIsRestricted());
+//        article.setU(updateArticle.getOwner());
+        article.setTitle(updateArticle.getTitle());
+        article.setRestricted(updateArticle.getRestricted());
         article.setNeedsApproval(updateArticle.getNeedsApproval());
-        article.setContent(updateArticle.getContent());
+        article.setDescription(updateArticle.getDescription());
         article.setApprover(updateArticle.getApprover());
         article.setApproved(updateArticle.getApproved());
-        return articleRepository.save(article);*/
-        return null;
+        return articleRepository.save(article);
     }
 
     /**
@@ -106,5 +123,11 @@ public class ArticleService {
      */
     public List<Article> getArticles() {
         return (List<Article>) articleRepository.findAll();
+    }
+
+    private UserResponse convertUserIntoUserResponse(User user){
+
+        UserResponse userResponse = new UserResponse(user.getFirstName(), user.getLastName(), user.getEmail());
+        return userResponse;
     }
 }

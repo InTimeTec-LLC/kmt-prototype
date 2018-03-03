@@ -1,11 +1,12 @@
 package com.itt.kmt.controllers;
 
+import java.util.HashMap;
 import java.util.List;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.itt.kmt.models.Article;
 import com.itt.kmt.response.models.ResponseMsg;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -14,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.itt.kmt.service.ArticleService;
+import com.itt.kmt.services.ArticleService;
 /**
  * This class is responsible for exposing REST APis for Article.
  */
@@ -35,20 +36,22 @@ public class ArticleController {
      * @return Article object that corresponds to Article id.
      */
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
-    public final Article getArticleById(@PathVariable(value = "id") final String id) {
+    public final Article getArticleById(@PathVariable(value = "id") final String id){
         return articleService.getArticleById(id);
     }
 
     /**
      * REST API to add a new Article.
      *
-     * @param article Article to be added
-     * @return Article object
+     * @param articleMap from which we can take article to be added
+     * @return Success object
      */
     @RequestMapping(method = RequestMethod.POST, produces = "application/json")
-    public final ModelMap addArticle(@RequestBody final Article article) {
+    public final ModelMap addArticle(@RequestBody
+    final HashMap<String, Article> articleMap) {
+        Article article = articleMap.get("article");
         articleService.save(article);
-        ResponseMsg postResponseMsg = new ResponseMsg(true, "added successfully");
+        ResponseMsg postResponseMsg = new ResponseMsg(true, "Article has been added successfully");
         return new ModelMap().addAttribute("success", postResponseMsg);
     }
 

@@ -9,12 +9,15 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ApplicationContext;
 
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.mongodb.config.EnableMongoAuditing;
 
 /**
  * Application class.
  */
-@SpringBootApplication
+
 @Slf4j
+@EnableMongoAuditing
+@SpringBootApplication
 public class Application implements CommandLineRunner {
 
     /**
