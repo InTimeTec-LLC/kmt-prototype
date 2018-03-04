@@ -40,7 +40,9 @@ export class AddArticleComponent implements OnInit {
      articleType: ['', Validators.required],
      approver: ['', Validators.required],
      createdBy: '',
-     restricted: ''
+     restricted: '',
+     needsApproval: false,
+     approved: false
     });
 
     this.article.patchValue({

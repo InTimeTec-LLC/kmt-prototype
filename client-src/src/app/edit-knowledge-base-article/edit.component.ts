@@ -46,7 +46,7 @@ export class EditArticleComponent implements OnInit {
           this.article.setValue({
             title: data.title,
             description: data.description,
-            modifiedBy: this.auth.getUserId(),
+            lastModifiedBy: this.auth.getUserId(),
             approver: data.approver.id,
             articleType: data.articleType.id,
             restricted: data.restricted,
@@ -69,7 +69,7 @@ export class EditArticleComponent implements OnInit {
      description: ['', Validators.required],
      articleType: ['', Validators.required],
      approver: ['', Validators.required],
-     modifiedBy: '',
+     lastModifiedBy: '',
      restricted: '',
      createdByUser: '',
      lastModified: '',
