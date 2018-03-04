@@ -18,3 +18,14 @@ export class UpdateKnowledgeBaseArticle {
   needsApproval: boolean;
   approved: boolean;
 }
+
+export class Aritcles {
+  id: string;
+  type: string;
+  title: string;
+  content: string;
+  size: number;
+  totalPages: number;
+  totalElements : number;
+  numberOfElements : number;
+}
