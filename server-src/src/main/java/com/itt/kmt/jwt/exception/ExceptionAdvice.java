@@ -56,7 +56,10 @@ public class ExceptionAdvice {
     @ExceptionHandler(Exception.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public ModelMap globalException(final HttpServletRequest request, final Throwable ex) {
+<<<<<<< c6d2e8d21cbcb263e7ec37ce92546dacb4d8ca5c
         ex.printStackTrace();
+=======
+>>>>>>> Refactoring and adding article type in response
         return new ModelMap().addAttribute("success", new ResponseMsg(Boolean.FALSE, Constants.BAD_REQUEST_MSG));
     }
 }
