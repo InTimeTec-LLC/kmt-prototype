@@ -7,6 +7,8 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.itt.kmt.models.Article;
 import com.itt.kmt.response.models.ResponseMsg;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -72,8 +74,8 @@ public class ArticleController {
      * @return List<Article> a list of Article instances
      */
     @RequestMapping(method = RequestMethod.GET)
-    public final List<Article> getArticleList() {
-        return articleService.getArticles();
+    public final Page<Article> getArticleList(Pageable page) {
+        return articleService.getArticles(page);
     }
 
     /**

@@ -4,7 +4,7 @@ import java.util.List;
 
 import com.itt.kmt.models.Article;
 import org.springframework.data.repository.CrudRepository;
-
+import org.springframework.data.repository.PagingAndSortingRepository;
 
 
 /**
@@ -14,7 +14,7 @@ import org.springframework.data.repository.CrudRepository;
  * count, delete and deleteAll. Please refer to the javadocs for more details.
  */
 
-public interface ArticleRepository extends CrudRepository<Article, String> {
+public interface ArticleRepository extends PagingAndSortingRepository<Article, String> {
     /**
      * Finds a List of Article object that matches the name parameter. Spring
      * automatically formulates appropriate query depending on the name of the
