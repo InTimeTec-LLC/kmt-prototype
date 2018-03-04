@@ -76,9 +76,18 @@ public class ArticleService {
             User approver = userService.getUserByID(article.getApprover().toString());
             article.setApprover(convertUserIntoUserResponse(approver));
         }
-
+        if (article.getArticleType() != null) {
+            article.setArticleType(getArticleTypeByID(article.getArticleType().toString()));
+        }
         return articleRepository.save(article);
     }
+
+    private ArticleType getArticleTypeByID(String string) {
+
+        return articleTypeRepository.findOne(string);
+    }
+
+
 
     /**
      * Convert user object into article response user format.
@@ -164,7 +173,9 @@ public class ArticleService {
             User approver = userService.getUserByID(updateArticle.getApprover().toString());
             article.setApprover(convertUserIntoUserResponse(approver));
         }
-        article.setArticleType(updateArticle.getArticleType());
+        if (updateArticle.getArticleType() != null) {
+            updateArticle.setArticleType(getArticleTypeByID(updateArticle.getArticleType().toString()));
+        }
         article.setTitle(updateArticle.getTitle());
         article.setRestricted(updateArticle.getRestricted());
         article.setNeedsApproval(updateArticle.getNeedsApproval());
