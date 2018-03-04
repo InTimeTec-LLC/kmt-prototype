@@ -22,9 +22,9 @@ a{
   font-size: 8pt;
   float: right;
 }
-.example-container{  
+/*.example-container{  
 width: 982px;
-}
+}*/
 
 .container{
   width: 76%;
@@ -54,7 +54,30 @@ a {
   font-size: 12px;
 }
 
-.mat-form-field-invalid .mat-input-element, .mat-warn .mat-input-element{
-  caret-color:#000!important;
-  color: #000!important;
+/**user management**/
+
+.filter-popup  .mat-dialog-content mat-form-field .mat-input-wrapper .mat-form-field-infix{
+  width:100% 
 }
+.filter-popup h1{
+ font-size: 17px;
+}
+.filter-popup .mat-dialog-actions .final_apply{
+  background-color: #33b7fc;
+  color: #fff;
+  float: right;
+}
+
+.filter-popup .mat-dialog-actions{  
+  display: block;
+}
+
+
+.filter_clear .mat-button-wrapper{ 
+    color: #155d82;
+    font-size: 13px;
+    text-decoration: underline;
+}
+.filter_clear:hover{
+background-color: #fff;
+}    

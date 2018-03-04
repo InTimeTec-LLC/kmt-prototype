@@ -135,6 +135,16 @@ li {
     display: block;
 }
 
+.sidenav-menu ul li Ul {
+    background-color: #151515;
+}
+.sidenav-menu:hover ul li Ul {
+    background-color: #000000;
+}
+.sidenav-menu ul li Ul li a {
+    padding-left: 46px;
+}
+
 .menu-sub_list {
     margin-top: 0;
     margin-bottom: 0;
