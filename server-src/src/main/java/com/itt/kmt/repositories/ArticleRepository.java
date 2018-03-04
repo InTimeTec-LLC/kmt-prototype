@@ -1,7 +1,9 @@
 package com.itt.kmt.repositories;
 
-import com.itt.kmt.models.Article;
+import org.springframework.data.domain.Page;
 import org.springframework.data.repository.PagingAndSortingRepository;
+
+import com.itt.kmt.models.Article;
 
 
 /**
@@ -22,7 +24,7 @@ public interface ArticleRepository extends PagingAndSortingRepository<Article, S
      * @param content key to be searched in content of Article
      * @return Article Object matching the search parameter
      */
-    List<Article> findByTitleLikeOrDescriptionLike(String title, String description);
+    //Page<Article> findByTitleLikeOrDescriptionLike(String title, String description);
 //    List<Article> findByNameLikeOrContentLike(String name, String content);
 
 }
