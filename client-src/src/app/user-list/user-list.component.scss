@@ -40,7 +40,7 @@ table tr:nth-child(odd) {
   .add-user-button a {
     text-decoration: none;
     padding: 10px 21px;
-    background-color: #ffa834;
+    background-color: #33b7fc;
     display: block;
     color: #fff;
 }
@@ -62,11 +62,6 @@ table tr:nth-child(odd) {
     padding: 8px 24px 0;
   }
   
-  .mat-form-field {
-    font-size: 14px;
-    width: 100%;
-  }
-  
   .mat-table {
     overflow: auto;
     max-height: 500px;
@@ -81,8 +76,22 @@ table tr:nth-child(odd) {
       font-size: 14px;
       width: 270px;
   }
-
-  a {
-    color: rgb(0, 0, 238);
-    cursor: pointer;
+  .final_apply{
+    text-decoration: none;
+    background-color: #33b7fc;
+    display: block;
+    color: #fff;
+  }
+  .filter_icon{
+    vertical-align: text-top;
+    margin-left: 11px;
+  }
+  .list_table mat-header-row mat-header-cell,
+  .list_table mat-row mat-cell{
+    font-size: 12px;
+    padding-right: 9px;
+  }
+  .list_table mat-header-row mat-header-cell{
+    color: #000;
+    font-weight: bold;
   }

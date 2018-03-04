@@ -9,12 +9,12 @@
     <mat-form-field>
       <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Search within the table">
     </mat-form-field>
-    <img src="../../assets/filter-icon.png" (click)="onTapFilterIcon()">
+    <img src="../../assets/images/filter-icon.png" (click)="onTapFilterIcon()" alt="Filtericon" class="filter_icon">
   </div>
   
   <div class="example-container-1 mat-elevation-z8">
   
-    <mat-table [dataSource]="dataSource" matSort>
+    <mat-table [dataSource]="dataSource" matSort class="list_table">
   
       <!-- ID Column -->
       <ng-container matColumnDef="name">
