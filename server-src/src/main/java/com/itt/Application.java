@@ -11,15 +11,14 @@ import org.springframework.boot.web.support.SpringBootServletInitializer;
 import org.springframework.context.ApplicationContext;
 
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.data.mongodb.config.EnableMongoAuditing;
 
 /**
  * Application class.
  */
-
-@Slf4j
-@EnableMongoAuditing
 @SpringBootApplication
+@Slf4j
+public class Application extends SpringBootServletInitializer  implements CommandLineRunner {
+
     @Override
     protected SpringApplicationBuilder configure(final SpringApplicationBuilder application) {
         return application.sources(Application.class);
@@ -53,7 +52,7 @@ import org.springframework.data.mongodb.config.EnableMongoAuditing;
      */
     @Override
     public final void run(final String... args)
-        throws Exception {
+            throws Exception {
 
         AppConfig appConfig = AppConfig.getInstance();
         log.info("Environment Type:" + appConfig.getEnvType());
@@ -62,7 +61,7 @@ import org.springframework.data.mongodb.config.EnableMongoAuditing;
     /**
      * The bean method that lists all the registered beans. uncomment Bean
      * annotation if you want to list the registered beans.
-     * 
+     *
      * @param ctx Spring Application Context
      * @return Instance of CommandLineRunner bean
      */

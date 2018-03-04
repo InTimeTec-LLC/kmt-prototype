@@ -8,10 +8,6 @@
         "createdTime": "Tue Feb 27 17:14:43 IST 2018",
         "title": "article-1",
         "description": "<html>hello<hello>",
-        "articleType" :  {
-            "id" : "1",
-           "type" : "how to"
-        },
         "restricted": false,
         "needsApproval": false,
         "approved": false
@@ -26,10 +22,6 @@
          "createdTime": "Tue Feb 27 17:14:43 IST 2018",
          "title": "article-2",
          "description": "<html>hello</html>",
-         "articleType" :  {
-             "id" : "1",
-            "type" : "how to"
-         },
          "restricted": true,
          "needsApproval": true,
          "approved": true,
@@ -43,10 +35,6 @@
         "createdTime": "Tue Feb 27 17:14:43 IST 2018",
         "title": "article-3",
         "description": "<html>hello</html>",
-        "articleType" :  {
-            "id" : "1",
-           "type" : "document"
-        },
         "restricted": true,
         "needsApproval": true,
         "approved": true

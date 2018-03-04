@@ -51,7 +51,7 @@ public class Article {
     /**
      * ArticleType of Article.
      */
-    private ArticleType articleType;
+    private Object articleType;
 
     /**
      * created time of the Article.

@@ -56,6 +56,9 @@ public class ArticleService {
             User approver = userService.getUserByID(article.getApprover().toString());
             article.setApprover(convertUserIntoUserResponse(approver));
         }
+        if (article.getArticleType() != null) {
+            article.setArticleType(getArticleTypeByID(article.getArticleType().toString()));
+        }
 
         return articleRepository.save(article);
     }
@@ -78,5 +81,15 @@ public class ArticleService {
      */
     public List<ArticleType> getArticleTypes() {
         return (List<ArticleType>) articleTypeRepository.findAll();
+    }
+
+    /**
+     * Get Article Type with ID.
+     * @param id Article ID.
+     * @return Article Type.
+     */
+    private ArticleType getArticleTypeByID(final String id) {
+
+        return articleTypeRepository.findOne(id);
     }
 }
