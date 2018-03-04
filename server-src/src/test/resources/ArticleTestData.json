@@ -1,0 +1,54 @@
+{
+    "article-1":  {
+        "id": "1",
+        "version": "1",
+        "lastModifiedTime": "Tue Feb 24 17:14:43 IST 2018",
+        "lastModifiedBy": "1",
+        "createdBy":"1",
+        "createdTime": "Tue Feb 27 17:14:43 IST 2018",
+        "title": "article-1",
+        "description": "<html>hello<hello>",
+        "articleType" :  {
+            "id" : "1",
+           "type" : "how to"
+        },
+        "restricted": false,
+        "needsApproval": false,
+        "approved": false
+        }
+    },
+   "article-2":  {
+         "id": "2",
+         "version": "1",
+         "lastModifiedTime": "Tue Feb 24 17:14:43 IST 2018",
+         "lastModifiedBy": "1",
+         "createdBy": "1",
+         "createdTime": "Tue Feb 27 17:14:43 IST 2018",
+         "title": "article-2",
+         "description": "<html>hello</html>",
+         "articleType" :  {
+             "id" : "1",
+            "type" : "how to"
+         },
+         "restricted": true,
+         "needsApproval": true,
+         "approved": true,
+     },
+   "article-3": {
+        "id": "3",
+        "version": "1",
+        "lastModifiedTime": "Tue Feb 24 17:14:43 IST 2018",
+        "lastModifiedBy": "1",
+        "createdBy": "1",
+        "createdTime": "Tue Feb 27 17:14:43 IST 2018",
+        "title": "article-3",
+        "description": "<html>hello</html>",
+        "articleType" :  {
+            "id" : "1",
+           "type" : "document"
+        },
+        "restricted": true,
+        "needsApproval": true,
+        "approved": true
+    }
+}
