@@ -55,9 +55,9 @@ export class ListArticleComponent implements OnInit {
         this.kbContentService.listKnowledgeBaseArticle()
         .subscribe(
             data => {
-                this.articleList = JSON.parse(JSON.stringify(data));
+                this.articleList = JSON.parse(JSON.stringify(data)).content;
                 console.log(this.articleList);
-                //this.createData(data);
+                this.createData(this.articleList);
             },
             error => {
                 this.toasterService.pop('error', '', error.success.message);
@@ -99,7 +99,7 @@ export class ListArticleComponent implements OnInit {
               filteType = filterStatus;
             }
 
-            // this.createData(filteType);
+            this.createData(filteType);
         });
     }
 
@@ -125,8 +125,9 @@ export class ListArticleComponent implements OnInit {
   createNewUser(item:any): Aritcles {
     return {
         id: item.id,
-        type: '',
-        title: '',
+        type: item.articleType.type,
+        title: item.title,
+        status: item.approved,
         content: '',
         size: 20,
         totalPages: 1,
