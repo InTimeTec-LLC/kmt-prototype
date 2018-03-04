@@ -19,6 +19,7 @@ const httpOptions = {
 @Injectable()
 export class KnowledgeBaseArticleService {
 
+  types: any[];
   /**
    * Creates a new KnowledgeBaseContentervice with the injected HttpClient.
    * @param {HttpClient} http - The injected HttpClient.
@@ -33,10 +34,18 @@ export class KnowledgeBaseArticleService {
    * @return {KnowledgeBaseArticle[]} The Observable for the HTTP request.
    */
 
-   listKnowledgeBaseArticle (): Observable<KnowledgeBaseArticle[]> {
+   listKnowledgeBaseArticle (): Observable<any[]> {
     return this.http.get(this.apiUrl)
     .catch(this.handleErrorObservable);
 
+  }
+
+  setTypes(data) {
+    this.types = data;
+  }
+
+  getTypes() {
+    return this.types;
   }
 
   /**
