@@ -10,7 +10,9 @@
 			"getAllRoles",
 			"addContent",
 			"updateContent",
-			"deleteContent"
+			"deleteContent",
+			"getAllRoles",
+			"getAllArticleType"
 		]
 	},
 	{
@@ -18,7 +20,9 @@
 		"permissions": [
 			"addContent",
 			"updateContent",
-			"deleteContent"
+			"deleteContent",
+			"getAllRoles",
+			"getAllArticleType"
 		]
 	},
 	{
@@ -26,7 +30,9 @@
 		"permissions": [
 			"addContent",
 			"updateContent",
-			"deleteContent"
+			"deleteContent",
+			"getAllRoles",
+			"getAllArticleType"
 		]
 	}
 ]

@@ -40,7 +40,6 @@ public class Article {
      */
     private Object lastModifiedBy;
 
-
     /**
      * created by user id  of the Article.
      */

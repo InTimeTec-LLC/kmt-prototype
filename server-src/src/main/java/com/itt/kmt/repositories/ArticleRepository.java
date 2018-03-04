@@ -1,9 +1,6 @@
 package com.itt.kmt.repositories;
 
-import java.util.List;
-
 import com.itt.kmt.models.Article;
-import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.PagingAndSortingRepository;
 
 
