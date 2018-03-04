@@ -16,6 +16,7 @@ import { AuthenticationService } from '../authentication/authentication.service'
 @Injectable()
 export class UserService {
   httpOptions: any;
+  roles: any[];
   /**
    * Creates a new KnowledgeBaseContentervice with the injected HttpClient.
    * @param {HttpClient} http - The injected HttpClient.
@@ -54,6 +55,14 @@ export class UserService {
   listRoles (): Observable<any> {
     return this.http.get(this.apiUrl + '/roles')
     .catch(this.handleErrorObservable);
+  }
+
+  setRoles(data) {
+    this.roles = data;
+  }
+
+  getRoles() {
+    return this.roles;
   }
 
  /**
