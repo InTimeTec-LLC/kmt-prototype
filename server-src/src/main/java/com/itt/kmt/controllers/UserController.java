@@ -1,5 +1,6 @@
 package com.itt.kmt.controllers;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -76,16 +77,19 @@ public class UserController {
         return new ModelMap().addAttribute("users", users);
     }
     /**
-     * REST API to delete a User.
-     * @param id Id of the user to be deleted.
+     * REST Interface for Admin and Managers retrieval.
      * @return ModelMap.
      */
-    @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
-    @RequiresPermissions("deleteUser")
-    public ModelMap deleteUser(@PathVariable("id") final String id) {
-        userService.deleteUserById(id);
-        ResponseMsg deleteResponseMsg = new ResponseMsg(true, "deleted successfully");
-        return new ModelMap().addAttribute("success", deleteResponseMsg);
+    @RequestMapping(value = "/approvers", method = RequestMethod.GET)
+    @RequiresPermissions("getAllApprovers")
+    public ModelMap getAllApprovers() {
+        List<User> adminAndmanager = new ArrayList<User>();
+        List<String> roles = new ArrayList<String>();
+        roles.add("admin");
+        roles.add("manager");
+        adminAndmanager.addAll(userService.getAllActiveUsersByRoles(roles));
+
+        return new ModelMap().addAttribute("users", adminAndmanager);
     }
     /**
      * REST API to change status of a User.
@@ -94,6 +98,7 @@ public class UserController {
      * @return ModelMap.
      */
     @RequestMapping(value = "/state/{id}/{active}", method = RequestMethod.PUT, produces = "application/json")
+    @RequiresPermissions("changeUserStatus")
     public ModelMap changeUserStatus(@PathVariable("id") final String id, 
             @PathVariable("active") final boolean active) {
         userService.changeUserStatus(id, active);
