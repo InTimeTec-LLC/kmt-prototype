@@ -128,4 +128,17 @@ public class UserService {
     public List<Role> getUserRoles() {
        return (List<Role>) roleRepository.findAll();
     }
+
+    /**
+     * Get the User by ID.
+     * @param id Id of the User.
+     * @return User.
+     */
+    public User getUserByID(final String id) {
+        User user = repository.findOne(id);
+        if (user == null) {
+            throw new RuntimeException("user with the id does not exist");
+        }
+        return user;
+    }
 }

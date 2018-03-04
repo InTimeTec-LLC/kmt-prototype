@@ -12,7 +12,8 @@
 			"updateContent",
 			"deleteContent",
 			"changeUserStatus",
-			"getAllApprovers"
+			"getAllApprovers",
+			"getAllArticleType"
 		]
 	},
 	{
@@ -21,7 +22,8 @@
 			"addContent",
 			"updateContent",
 			"deleteContent",
-			"getAllApprovers"
+			"getAllApprovers",
+			"getAllArticleType"
 		]
 	},
 	{
@@ -30,7 +32,8 @@
 			"addContent",
 			"updateContent",
 			"deleteContent",
-			"getAllApprovers"
+			"getAllApprovers",
+			"getAllArticleType"
 		]
 	}
 ]
