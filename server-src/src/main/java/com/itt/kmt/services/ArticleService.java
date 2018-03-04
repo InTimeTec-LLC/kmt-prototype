@@ -2,13 +2,15 @@ package com.itt.kmt.services;
 
 import java.util.List;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.itt.kmt.models.Article;
 import com.itt.kmt.models.User;
 import com.itt.kmt.models.UserResponse;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import com.itt.kmt.repositories.ArticlePagingAndSortingRepository;
 import com.itt.kmt.repositories.ArticleRepository;
 
 
@@ -27,6 +29,12 @@ public class ArticleService {
      */
     @Autowired
     private ArticleRepository articleRepository;
+    
+    /**
+     * Instance of the basic Repository implementation.
+     */
+    @Autowired
+    private ArticlePagingAndSortingRepository articlePagingAndSortingRepository;
 
     @Autowired
     private UserService userService;
@@ -119,16 +127,21 @@ public class ArticleService {
      * 
      * @return List<Article> get list of articles.
      */
-    public List<Article> getArticles(String assigned, String createdBy) {
+    public List<Article> getArticles(String assigned, String createdBy, Pageable page) {
         if (assigned != null && createdBy == null) {
-            return articleRepository.findByApprover(assigned);
+            return articlePagingAndSortingRepository.findByApprover(assigned, page);
         } else if (assigned == null && createdBy != null) {
-            return articleRepository.findByCreatedBy(createdBy);
+            return articlePagingAndSortingRepository.findByCreatedBy(createdBy, page);
         } else if (assigned != null && createdBy != null) {
             throw new RuntimeException("Article cant be approved by owner");
         } else {
-            return (List<Article>) articleRepository.findAll();
+            return (List<Article>) articlePagingAndSortingRepository.findAll(page);
         }
+/*
+    public Page<Article> getArticles(Pageable page) {
+
+        return (Page<Article>) articleRepository.findAll(page);
+*/
     }
 
     private UserResponse convertUserIntoUserResponse(User user){

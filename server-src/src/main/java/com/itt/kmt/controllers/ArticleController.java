@@ -7,6 +7,8 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.itt.kmt.models.Article;
 import com.itt.kmt.response.models.ResponseMsg;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -45,12 +47,12 @@ public class ArticleController {
      *
      * @param id ID of the Article.
      * @return Article object that corresponds to Article id.
-     */
+     
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public final ModelMap getArticleById(@PathVariable(value = "id") final String id){
         return new ModelMap().addAttribute("article", articleService.getArticleById(id));
     }
-    
+    */
 
     /**
      * REST API to add a new Article.
@@ -86,7 +88,12 @@ public class ArticleController {
     //assigned=<userID>&createdBy=<userID> to get list of articles based on createdBy and assigned user
     @RequestMapping(method = RequestMethod.GET,params = { "assigned", "createdBy" })
     public final List<Article> getArticleList(@RequestParam("assigned") String assigned,@RequestParam("createdBy") String createdBy) {
-        return articleService.getArticles(assigned,createdBy);
+        return articleService.getArticles(assigned,createdBy,page);
+/*
+    @RequestMapping(method = RequestMethod.GET)
+    public final Page<Article> getArticleList(Pageable page) {
+        return articleService.getArticles(page);
+*/
     }
 
     /**
