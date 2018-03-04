@@ -25,7 +25,7 @@ export class KnowledgeBaseArticleService {
    * @param {HttpClient} http - The injected HttpClient.
    * @constructor
    */
-  private apiUrl = 'api/articles';  // URL to web api environment.API_ENDPOINT
+  private apiUrl = environment.API_ENDPOINT + 'articles';  // URL to web api environment.API_ENDPOINT
 
   constructor(private http: HttpClient) { }
 
@@ -54,8 +54,7 @@ export class KnowledgeBaseArticleService {
    */
 
   listKnowledgeBaseArticleTypes (): Observable<any[]> {
-    // let url = this.apiUrl + '/types';
-    const url  = 'api/types';
+     const url = this.apiUrl + '/types';
     return this.http.get(url)
     .catch(this.handleErrorObservable);
   }

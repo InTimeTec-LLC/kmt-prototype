@@ -237,6 +237,6 @@ export class ArticleData implements InMemoryDbService {
                   };
 
 
-    return {articles, types, approvers, updateArticles};
+    return {};
   }
 }

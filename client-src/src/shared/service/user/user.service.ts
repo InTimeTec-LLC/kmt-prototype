@@ -41,8 +41,8 @@ export class UserService {
     .catch(this.handleErrorObservable);
   }
 
-  activateDeactivateUsers (status, userId) : Observable<any> {
-    return this.http.put(this.apiUrl+"/state/"+userId+"/"+status, {})
+  activateDeactivateUsers (status, userId): Observable<any> {
+    return this.http.put(this.apiUrl + '/state/' + userId + '/' + status, {})
     .catch(this.handleErrorObservable);
   }
 
@@ -71,9 +71,8 @@ export class UserService {
    */
 
   listApprovers (): Observable<any> {
-    // let url = this.apiUrl + '/approvers';
-    const url  = 'api/approvers';
-    return this.http.get(url)
+     const url = this.apiUrl + '/approvers';
+     return this.http.get(url)
     .catch(this.handleErrorObservable);
   }
 
