@@ -1,16 +1,15 @@
 package com.itt.kmt.services;
 
-import java.util.List;
-
 import com.itt.kmt.models.Article;
+import com.itt.kmt.models.ArticleType;
 import com.itt.kmt.models.User;
 import com.itt.kmt.models.UserResponse;
+import com.itt.kmt.repositories.ArticleRepository;
+import com.itt.kmt.repositories.ArticleTypeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import com.itt.kmt.repositories.ArticleRepository;
+import java.util.List;
 
 
 /**
@@ -29,107 +28,55 @@ public class ArticleService {
     @Autowired
     private ArticleRepository articleRepository;
 
+    /**
+     * Instance of user service.
+     */
     @Autowired
     private UserService userService;
 
     /**
-     * Gets the Article given the id.
-     * 
-     * @param id ID of the Article
-     * @return Article object matching the id
+     * Instance of the basic Article Type repository.
      */
-    public Article getArticleById(final String id) {
-        Article article = articleRepository.findOne(id);
-
-        if (article == null) {
-            throw new RuntimeException("No articles found");
-        }
-
-        return article;
-    }
-
-
-    /**
-     * Gets the Article given the name.
-     * 
-     * @param name Name of the Article
-     * @return Article object matching the name
-     */
-    public List<Article> getArticleByNameOrContent(final String name) {
-//        List<Article> articles = articleRepository.findByNameLikeOrContentLike(name, name);
-//        if (articles == null) {
-//            throw new RuntimeException("No Users Found for search element :" + name);
-//        }
-        return null;
-    }
+    @Autowired
+    private ArticleTypeRepository articleTypeRepository;
 
     /**
      * Saves the Article to database.
      * 
      * @param article Article object to be saved
-     * @return Article object with id included.
+     * @return Article object with userResponse included.
      */
     public Article save(final Article article) {
 
-        if(article.getCreatedBy() != null){
-            User createdByUser = userService.getByID(article.getCreatedBy().toString());
+        if (article.getCreatedBy() != null) {
+            User createdByUser = userService.getUserByID(article.getCreatedBy().toString());
             article.setCreatedBy(convertUserIntoUserResponse(createdByUser));
         }
-        if(article.getApprover() != null){
-            User approved = userService.getByID(article.getApprover().toString());
-            article.setCreatedBy(convertUserIntoUserResponse(approved));
+        if (article.getApprover() != null) {
+            User approver = userService.getUserByID(article.getApprover().toString());
+            article.setApprover(convertUserIntoUserResponse(approver));
         }
 
         return articleRepository.save(article);
     }
 
     /**
-     * Deletes the DBEntity(Article) from the database.
-     * 
-     * @param id of Article to be deleted.
+     * Convert user object into article response user format.
+     *
+     * @param user User object to be converted
+     * @return article user response details.
      */
-    public void delete(final String id) {
-        articleRepository.delete(id);
-        if (articleRepository.exists(id)) {
-            throw new RuntimeException("article deletion Failed");
-        }
-    }
-
-    /**
-     * updates the DBEntity(Article) from the database.
-     * 
-     * @param id of Article to be updated.
-     * @param updateArticle , Article object that needs to be updated.
-     * @return Article
-     */
-    public Article updateArticle(final String id, final Article updateArticle) {
-        Article article = articleRepository.findOne(id);
-        if (article == null) {
-            throw new RuntimeException("Article not found");
-        }
-//        article.setU(updateArticle.getOwner());
-        article.setTitle(updateArticle.getTitle());
-        article.setRestricted(updateArticle.getRestricted());
-        article.setNeedsApproval(updateArticle.getNeedsApproval());
-        article.setDescription(updateArticle.getDescription());
-        article.setApprover(updateArticle.getApprover());
-        article.setApproved(updateArticle.getApproved());
-        return articleRepository.save(article);
-    }
-
-    /**
-     * Get all available articles the DBEntity(Article) from the database.
-     * 
-     * @return List<Article> get list of articles.
-     */
-    public Page<Article> getArticles(Pageable page) {
-
-        return (Page<Article>) articleRepository.findAll(page);
-    }
-
-    private UserResponse convertUserIntoUserResponse(User user){
-
-        UserResponse userResponse = new UserResponse(user.getFirstName(), user.getLastName(), user.getEmail());
+    private UserResponse convertUserIntoUserResponse(final User user) {
+        UserResponse userResponse = new UserResponse(user.getId(),
+                user.getFirstName(), user.getLastName(), user.getEmail());
         return userResponse;
+    }
+
+    /**
+     * Get all the Article Types.
+     * @return List of all the Article Type.
+     */
+    public List<ArticleType> getArticleTypes() {
+        return (List<ArticleType>) articleTypeRepository.findAll();
     }
 }
