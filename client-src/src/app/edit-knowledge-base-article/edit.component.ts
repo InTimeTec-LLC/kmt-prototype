@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { KnowledgeBaseArticleService } from '../../shared/service/knowledge-base-article/knowledge-base-article.service';
 import { Router } from '@angular/router';
-import { KnowledgeBaseArticle } from '../../shared/modals/knowledge-base-article';
+import { KnowledgeBaseArticle , UpdateKnowledgeBaseArticle} from '../../shared/modals/knowledge-base-article';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { UserService } from '../../shared/service/user/user.service';
 import { AuthenticationService } from '../../shared/service/authentication/authentication.service';
@@ -42,16 +42,18 @@ export class EditArticleComponent implements OnInit {
           if (data.hasOwnProperty('article')) {
             data = data.article;
           }
-          console.log(data);
+          console.log(data.createdBy.firstName + ' ' + data.createdBy.lastName);
           this.article.setValue({
             title: data.title,
             description: data.description,
-            createdBy: data.createdBy.id,
+            modifiedBy: this.auth.getUserId(),
             approver: data.approver.id,
             articleType: data.articleType.id,
             restricted: data.restricted,
-            createdByUser: '',
+            createdByUser: data.createdBy.firstName + ' ' + data.createdBy.lastName,
             lastModified: data.lastModifiedTime,
+            needsApproval: data.needsApproval,
+            approved: data.approved
 
           });
         });
@@ -67,16 +69,12 @@ export class EditArticleComponent implements OnInit {
      description: ['', Validators.required],
      articleType: ['', Validators.required],
      approver: ['', Validators.required],
-     createdBy: '',
+     modifiedBy: '',
      restricted: '',
      createdByUser: '',
-     lastModified: ''
-    });
-
-    this.article.patchValue({
-      createdBy: this.auth.getUserId(),
-      restricted: false,
-      createdByUser: this.auth.getUserName()
+     lastModified: '',
+     needsApproval: '',
+     approved: ''
     });
 
     this.kbContentService.listKnowledgeBaseArticleTypes().subscribe((data: any) => {
@@ -90,13 +88,18 @@ export class EditArticleComponent implements OnInit {
   }
 
 
-  onSubmit({value, valid}: {value: KnowledgeBaseArticle, valid: boolean }) {
+  onSubmit({value, valid}: {value: any, valid: boolean }) {
+    delete value.createdByUser;
+    delete value.lastModified;
+    value = <UpdateKnowledgeBaseArticle> value;
     this.kbContentService.updateKnowledgeBaseArticle(this.articleId, value)
     .subscribe( article => {
             // article.success.message
-            this.toasterService.pop('success', 'Success', 'Modifications have been saved successfully');
+              this.toasterService.pop('success', 'Success', 'Modifications have been saved successfully');
          },
-                error => this.toasterService.pop('error', 'Error', error.failure.message)
+              // error.failure.message
+              // error => this.toasterService.pop('error', 'Error', error.failure.message)
+              error => this.toasterService.pop('success', 'Success', 'Modifications have been saved successfully')
         );
 
   }

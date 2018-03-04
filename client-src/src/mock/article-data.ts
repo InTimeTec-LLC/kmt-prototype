@@ -190,6 +190,18 @@ export class ArticleData implements InMemoryDbService {
                 }
     ];
 
+    const updateArticles = [
+      {id: 1, title: 'Test1', description: 'description1', approved: false,
+      approver: 1, articleType: 1,
+      modifiedBy: '5a963d93ded2991644edef8c', needsApproval: true, restricted: false},
+      {id: 2, title: 'Test1', description: 'description2', approved: false,
+      approver: 2, articleType: 2,
+      modifiedBy: '5a963d93ded2991644edef8c', needsApproval: true, restricted: false},
+      {id: 3, title: 'Test1', description: 'description3', approved: false,
+      approver: 3, articleType: 3,
+      modifiedBy: '5a963d93ded2991644edef8c', needsApproval: true, restricted: false}
+    ];
+
     const users = [
       {id: 1, firstName: 'Test1', lastName: 'Kumar', password: '123456',
       userRole: 'manager', email: 'test1@test.com'},
@@ -225,6 +237,6 @@ export class ArticleData implements InMemoryDbService {
                   };
 
 
-    return {articles, types, approvers};
+    return {articles, types, approvers, updateArticles};
   }
 }
