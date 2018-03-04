@@ -1,5 +1,6 @@
 package com.itt.kmt.services;
 
+import com.itt.kmt.jwt.JWTUtil;
 import com.itt.kmt.models.Role;
 import com.itt.kmt.models.User;
 import com.itt.kmt.repositories.RoleRepository;
@@ -52,6 +53,15 @@ public class UserService {
      */
     public List<User> getAllUsers() {
         return (List<User>) repository.findAll();
+    }
+    /**
+     * Gets the logged in User.
+     * @param jwtToken jwtToken of the logged in User.
+     * @return User who has logged in.
+     */
+    public User getLoggedInUser(final String jwtToken) {
+        String email = JWTUtil.getemail(jwtToken);
+        return getUserByEmail(email);
     }
     /**
      * Gets all the active admins and managers.
