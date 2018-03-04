@@ -205,7 +205,7 @@ public class UserControllerTest extends AbstractShiroTest {
      * @throws Exception the exception
      */
     @Test
-    public void getAllAdminsAndManagers()
+    public void getAllApprovers()
         throws Exception {
 
         User userOne = testDataRepository.getUsers()

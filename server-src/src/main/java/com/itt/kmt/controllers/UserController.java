@@ -81,8 +81,8 @@ public class UserController {
      * @return ModelMap.
      */
     @RequestMapping(value = "/approvers", method = RequestMethod.GET)
-    @RequiresPermissions("getAllUser")
-    public ModelMap getAllAdminsAndManagers() {
+    @RequiresPermissions("getAllApprovers")
+    public ModelMap getAllApprovers() {
         List<User> adminAndmanager = new ArrayList<User>();
         List<String> roles = new ArrayList<String>();
         roles.add("admin");
