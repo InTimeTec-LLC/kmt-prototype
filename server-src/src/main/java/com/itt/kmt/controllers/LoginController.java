@@ -39,7 +39,6 @@ public class LoginController {
                     consumes = "application/json")
     public LoginResponseMsg login(@RequestBody final User user) {
 
-        if (user != null) {
             User dbUser = userService.getUserByEmail(user.getEmail());
 
             if (dbUser != null && dbUser.getPassword()
@@ -54,9 +53,6 @@ public class LoginController {
             } else {
                 throw new UnauthorizedException();
             }
-        } else {
-            throw new UnauthorizedException();
-        }
     }
 
     /**

@@ -78,8 +78,14 @@ jacocoTestReport {
         html.destination "${buildDir}/reports/jacoco/html"
     }
     executionData = files('build/jacoco/test.exec')
+    afterEvaluate {
+        classDirectories = files(classDirectories.files.collect {
+            fileTree(dir: it, exclude: [
+                    '**/*jwt**'
+            ])
+        })
+    }
 }
-
 
 //Generates a new POM.xml for maven builds
 task writeNewPom << {
@@ -109,6 +115,7 @@ task repositoryTests(type: Test, dependsOn: testClasses){
  */
 task runUnitTests(type: Test){
     exclude '**/*Integ*Test*'
+    exclude '**/*jwt*'
     finalizedBy jacocoTestReport 
 }
 task integrationTests(type: Test) {
