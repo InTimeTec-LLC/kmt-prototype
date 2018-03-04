@@ -129,22 +129,37 @@ public class UserServiceTests {
     }
 
     @Test
-    public final void deleteUserById() {
+    public final void getAllActiveUsersByRoles() {
+
         // Arrange
-        User user1 = testDataRepository.getUsers().get("user-1");
+        User user1 = testDataRepository.getUsers()
+                .get("user-1");
 
-        given(userRepository.findOne(user1.getId())).willReturn(user1);
+        List<User> admins = new ArrayList<User>();
+        admins.add(user1);
 
-        user1.setActive(false);
+        User user2 = testDataRepository.getUsers()
+                .get("user-2");
+
+        List<User> managers = new ArrayList<User>();
+        managers.add(user2);
+
+        List<User> adminsAndManagers = new ArrayList<User>();
+        adminsAndManagers.addAll(admins);
+        adminsAndManagers.addAll(managers);
+
+        List<String> roles = new ArrayList<String>();
+        roles.add("admin");
+        roles.add("manager");
+
+        when(userRepository.findByUserRole("admin", true)).thenReturn(admins);
+        when(userRepository.findByUserRole("manager", true)).thenReturn(managers);
+
         // Act
-        when(userRepository.save(user1)).thenReturn(user1);
-        User user = userRepository.save(user1);
-
+        List<User> user = userService.getAllActiveUsersByRoles(roles);
         // Assert
-        assertEquals(user.getId(), user1.getId());
-        assertEquals(user.isActive(), false);
-        verify(userRepository, times(1)).save(user1);
-
+        assertTrue(adminsAndManagers.containsAll(user));
+        verify(userRepository, times(1)).findByUserRole("admin", true);
     }
 
     @Test

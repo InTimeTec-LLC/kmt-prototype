@@ -7,6 +7,7 @@ import com.itt.kmt.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -47,6 +48,19 @@ public class UserService {
         return (List<User>) repository.findAll();
     }
     /**
+     * Gets all the active admins and managers.
+     * @param roles roles by which active users are retrieved.
+     * @return List of all the users.
+     */
+    public List<User> getAllActiveUsersByRoles(final List<String> roles) {
+        List<User> listOfActiveUsersByRoles = new ArrayList<User>();
+        for (String role : roles) {
+            List<User> users = repository.findByUserRole(role, true);
+            listOfActiveUsersByRoles.addAll(users);
+        }
+        return listOfActiveUsersByRoles;
+    }
+    /**
      * Saves the User.
      * @param user User object to be saved.
      * @return Users saved.
@@ -59,20 +73,6 @@ public class UserService {
             return repository.save(user);
         } else {
             throw new RuntimeException("user already exists");
-        }
-    }
-    /**
-     * deletes User given the id.
-     * @param id Id of the User.
-     */
-    public void deleteUserById(final String id) {
-       User existingUser = repository.findOne(id);
-       if (existingUser != null) {
-           existingUser.setActive(false);
-
-           repository.save(existingUser);
-        } else {
-           throw new RuntimeException("user with the id does not exist");
         }
     }
     /**
