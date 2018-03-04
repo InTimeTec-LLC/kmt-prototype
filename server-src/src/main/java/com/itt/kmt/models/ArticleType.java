@@ -1,10 +1,10 @@
 package com.itt.kmt.models;
 
-<<<<<<< e228bf1867c95ddf1315bdd0522a560b7c87b6a5
 import lombok.Data;
 import org.springframework.data.annotation.Id;
 
 import java.io.Serializable;
+
 
 =======
 >>>>>>> Article new schema changes
@@ -13,7 +13,6 @@ import java.io.Serializable;
  *
  * @author Rohan Sahu
  */
-<<<<<<< e228bf1867c95ddf1315bdd0522a560b7c87b6a5
 
 @Data
 public class ArticleType implements Serializable {
@@ -29,7 +28,7 @@ public class ArticleType implements Serializable {
      * user role.
      */
     private String type;
+    private String type;
 =======
-public class ArticleType {
 >>>>>>> Article new schema changes
 }

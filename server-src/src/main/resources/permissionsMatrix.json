@@ -12,7 +12,7 @@
 			"updateContent",
 			"deleteContent",
 			"changeUserStatus",
-			"getAllApprovers",
+			"getAllApprovers"
 			"getAllRoles",
 			"getAllArticleType"
 		]
@@ -23,7 +23,7 @@
 			"addContent",
 			"updateContent",
 			"deleteContent",
-			"getAllApprovers",
+			"getAllApprovers"
 			"getAllRoles",
 			"getAllArticleType"
 		]
@@ -34,7 +34,7 @@
 			"addContent",
 			"updateContent",
 			"deleteContent",
-			"getAllApprovers",
+			"getAllApprovers"
 			"getAllRoles",
 			"getAllArticleType"
 		]
