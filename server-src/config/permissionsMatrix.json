@@ -11,7 +11,8 @@
 			"addContent",
 			"updateContent",
 			"deleteContent",
-			"changeUserStatus"
+			"changeUserStatus",
+			"getAllApprovers"
 		]
 	},
 	{
@@ -19,7 +20,8 @@
 		"permissions": [
 			"addContent",
 			"updateContent",
-			"deleteContent"
+			"deleteContent",
+			"getAllApprovers"
 		]
 	},
 	{
@@ -27,7 +29,8 @@
 		"permissions": [
 			"addContent",
 			"updateContent",
-			"deleteContent"
+			"deleteContent",
+			"getAllApprovers"
 		]
 	}
 ]
