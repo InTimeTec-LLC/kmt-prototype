@@ -36,9 +36,21 @@ public class ArticleController {
      * @return Article object that corresponds to Article id.
      */
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
-    public final Article getArticleById(@PathVariable(value = "id") final String id){
-        return articleService.getArticleById(id);
+    public final ModelMap getArticleById(@PathVariable(value = "id") final String id){
+        return new ModelMap().addAttribute("article", articleService.getArticleById(id));
     }
+    
+    /**
+     * REST Interface for Article retrieval by id.
+     *
+     * @param id ID of the Article.
+     * @return Article object that corresponds to Article id.
+     */
+    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
+    public final ModelMap getArticleById(@PathVariable(value = "id") final String id){
+        return new ModelMap().addAttribute("article", articleService.getArticleById(id));
+    }
+    
 
     /**
      * REST API to add a new Article.
@@ -71,9 +83,10 @@ public class ArticleController {
      *
      * @return List<Article> a list of Article instances
      */
-    @RequestMapping(method = RequestMethod.GET)
-    public final List<Article> getArticleList() {
-        return articleService.getArticles();
+    //assigned=<userID>&createdBy=<userID> to get list of articles based on createdBy and assigned user
+    @RequestMapping(method = RequestMethod.GET,params = { "assigned", "createdBy" })
+    public final List<Article> getArticleList(@RequestParam("assigned") String assigned,@RequestParam("createdBy") String createdBy) {
+        return articleService.getArticles(assigned,createdBy);
     }
 
     /**

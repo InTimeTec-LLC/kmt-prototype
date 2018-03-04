@@ -1,0 +1,18 @@
+{
+  "article":  {
+    "id": "5a97c04633d2c86f1d4abb8a",
+    "version": 1,
+    "lastModifiedTime": "Tue Feb 24 17:14:43 IST 2018",
+    "lastModifiedBy": null,
+    "createdBy": null,
+    "createdTime": "Tue Feb 27 17:14:43 IST 2018",
+    "title": "string",
+    "description": "html string",
+    "articleType" :  null,
+    "restricted": true,
+    "needsApproval": true,
+    "approver":null, 
+    "approved": true,
+     "attachments" :null
+    }
+}

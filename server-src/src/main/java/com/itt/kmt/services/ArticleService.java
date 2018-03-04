@@ -39,11 +39,9 @@ public class ArticleService {
      */
     public Article getArticleById(final String id) {
         Article article = articleRepository.findOne(id);
-
         if (article == null) {
             throw new RuntimeException("No articles found");
         }
-
         return article;
     }
 
@@ -55,10 +53,10 @@ public class ArticleService {
      * @return Article object matching the name
      */
     public List<Article> getArticleByNameOrContent(final String name) {
-//        List<Article> articles = articleRepository.findByNameLikeOrContentLike(name, name);
-//        if (articles == null) {
-//            throw new RuntimeException("No Users Found for search element :" + name);
-//        }
+        //        List<Article> articles = articleRepository.findByNameLikeOrContentLike(name, name);
+        //        if (articles == null) {
+        //            throw new RuntimeException("No Users Found for search element :" + name);
+        //        }
         return null;
     }
 
@@ -106,7 +104,7 @@ public class ArticleService {
         if (article == null) {
             throw new RuntimeException("Article not found");
         }
-//        article.setU(updateArticle.getOwner());
+        //        article.setU(updateArticle.getOwner());
         article.setTitle(updateArticle.getTitle());
         article.setRestricted(updateArticle.getRestricted());
         article.setNeedsApproval(updateArticle.getNeedsApproval());
@@ -121,8 +119,16 @@ public class ArticleService {
      * 
      * @return List<Article> get list of articles.
      */
-    public List<Article> getArticles() {
-        return (List<Article>) articleRepository.findAll();
+    public List<Article> getArticles(String assigned, String createdBy) {
+        if (assigned != null && createdBy == null) {
+            return articleRepository.findByApprover(assigned);
+        } else if (assigned == null && createdBy != null) {
+            return articleRepository.findByCreatedBy(createdBy);
+        } else if (assigned != null && createdBy != null) {
+            throw new RuntimeException("Article cant be approved by owner");
+        } else {
+            return (List<Article>) articleRepository.findAll();
+        }
     }
 
     private UserResponse convertUserIntoUserResponse(User user){

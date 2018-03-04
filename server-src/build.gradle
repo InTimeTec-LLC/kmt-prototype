@@ -77,7 +77,7 @@ jacocoTestReport {
         csv.enabled false
         html.destination "${buildDir}/reports/jacoco/html"
     }
-    executionData = files('build/jacoco/test.exec')
+    executionData = files('build/jacoco/runUnitTests.exec')
 }
 
 

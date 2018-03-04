@@ -2,6 +2,7 @@
 package com.itt.test_data;
 
 import java.io.IOException;
+import java.lang.reflect.Field;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Set;
@@ -9,7 +10,9 @@ import java.util.Set;
 import org.springframework.context.annotation.Configuration;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.itt.kmt.models.Article;
 import com.itt.kmt.models.User;
 import com.itt.mock.ResourceFileLoader;
 
@@ -20,7 +23,8 @@ import lombok.extern.slf4j.Slf4j;
 public class TestDataRepository {
 
     private static HashMap<String, User> users;
-
+    private static HashMap<String, Article> articles;
+    
     public TestDataRepository() {
     }
 
@@ -30,6 +34,14 @@ public class TestDataRepository {
             users = getTestDataMap(User.class, "UserTestData.json");
         }
         return users;
+    }
+    
+    public synchronized HashMap<String, Article> getArticles() {
+
+        if (articles == null) {
+            articles = getTestDataMap(Article.class, "ArticleTestData.json");
+        }
+        return articles;
     }
 
     /**
@@ -49,9 +61,12 @@ public class TestDataRepository {
             String testData = ResourceFileLoader.loadResource(testDataFileName);
 
             ObjectMapper mapper = new ObjectMapper();
+            JsonNode node = mapper.readTree(testData);
+            Field[] fields = classT.getClass().getDeclaredFields();
+            
             HashMap testDataMap = mapper.readValue(testData, HashMap.class);
             Set keys = testDataMap.keySet();
-
+            
             Iterator iterator = keys.iterator();
             while (iterator.hasNext()) {
                 String name = (String) iterator.next();

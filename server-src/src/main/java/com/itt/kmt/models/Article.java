@@ -1,14 +1,15 @@
 package com.itt.kmt.models;
 
-import lombok.Data;
+//import org.springframework.data.mongodb.core.mapping.Document;
+import java.util.Date;
+import java.util.List;
 
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.annotation.Version;
-import org.springframework.data.mongodb.core.mapping.Document;
 
-import java.util.List;
+import lombok.Data;
 
 /**
  * This class represents a Article.
