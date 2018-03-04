@@ -53,30 +53,30 @@ export class KnowledgeBaseArticleService {
 
   /**
    * Returns an Observable for the HTTP POST request for the JSON resource.
-   * @return {KnowledgeBaseArticle} The Observable for the HTTP request.
+   * @return {any} The Observable for the HTTP request.
    */
 
-  createKnowledgeBaseArticle (articleInfo: KnowledgeBaseArticle): Observable<KnowledgeBaseArticle> {
+  createKnowledgeBaseArticle (articleInfo: KnowledgeBaseArticle): Observable<any> {
         return this.http.post(this.apiUrl, articleInfo, httpOptions)
                    .catch(this.handleErrorObservable);
 }
 
   /**
    * Returns an Observable for the HTTP POST request for the JSON resource.
-   * @return {KnowledgeBaseArticle} The Observable for the HTTP request.
+   * @return {any} The Observable for the HTTP request.
    */
 
-  updateKnowledgeBaseArticle (id: Number, articleInfo: KnowledgeBaseArticle): Observable<KnowledgeBaseArticle> {
+  updateKnowledgeBaseArticle (id: Number, articleInfo: KnowledgeBaseArticle): Observable<any> {
     return this.http.put(this.apiUrl + '/' + id, articleInfo, httpOptions)
                .catch(this.handleErrorObservable);
   }
 
   /**
    * Returns an Observable for the HTTP POST request for the JSON resource.
-   * @return {KnowledgeBaseArticle} The Observable for the HTTP request.
+   * @return {any} The Observable for the HTTP request.
    */
 
-  reteriveKnowledgeBaseArticleById(articleId: Number): Observable<KnowledgeBaseArticle> {
+  reteriveKnowledgeBaseArticleById(articleId: Number): Observable<any> {
     return this.http.get(this.apiUrl + '/' + articleId).catch(this.handleErrorObservable);
 }
 

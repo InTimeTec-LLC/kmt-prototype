@@ -3,6 +3,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { AddArticleComponent } from './add-knowledge-base-article/add.component';
 import { EditArticleComponent } from './edit-knowledge-base-article/edit.component';
+import { ViewKnowledgeBaseArticleComponent } from './view-knowledge-base-article/view-knowledge-base-article.component';
 import { LoginComponent } from './login/login.component';
 import { AuthGuard } from '../shared/service/helper/auth-guards';
 import { AddUserComponent } from './add-user/add-user.component';
@@ -25,6 +26,11 @@ const routes:  Routes = [
       path: 'article/add',
       component: AddArticleComponent,
       data: { title: 'Add Article' }
+    },
+    {
+      path: 'article-list',
+      component: ViewKnowledgeBaseArticleComponent,
+      data: { title: 'Articles' }
     },
     {
       path: 'article/edit/:id',

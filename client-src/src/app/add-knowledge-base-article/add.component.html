@@ -27,7 +27,7 @@
               <label>Description: </label>
               <quill-editor 
                   #description id="description" 
-                  style="height: 300px"
+                  [style]="{'height': '200px', 'background-color': 'lightgrey'}"
                   placeholder="Description"
                   formControlName="description">
               </quill-editor>

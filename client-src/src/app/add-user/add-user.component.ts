@@ -37,7 +37,7 @@ export class AddUserComponent implements OnInit {
 
   ngOnInit() {
     this.user = this.fb.group({
-      firstName: ['', [Validators.required, Validators.minLength(2)]],
+      firstName: ['', [Validators.required]],
       lastName: ['', Validators.required],
       password: ['', Validators.required],
       userRole: ['', Validators.required],

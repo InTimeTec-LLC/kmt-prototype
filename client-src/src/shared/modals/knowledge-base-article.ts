@@ -1,8 +1,8 @@
 export class KnowledgeBaseArticle {
   title: string;
   description: string;
-  createdBy: number;
-  approver: number;
-  articleType: number;
+  createdBy: string;
+  approver: string;
+  articleType: string;
   restricted: boolean;
 }

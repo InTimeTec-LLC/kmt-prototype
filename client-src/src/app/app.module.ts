@@ -18,6 +18,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { HttpModule } from '@angular/http';
 import { AddUserComponent } from './add-user/add-user.component';
 import { EditUserComponent } from './edit-user/edit-user.component';
+import { ViewKnowledgeBaseArticleComponent } from './view-knowledge-base-article/view-knowledge-base-article.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MainComponent } from './main/main.component';
 import { LeftPanelComponent } from './left-panel/left-panel.component';
@@ -42,7 +43,8 @@ import {ToasterModule, ToasterService} from 'angular5-toaster';
     MainComponent,
     UserListComponent,
     EditUserComponent,
-    UserListFilter
+    UserListFilter,
+    ViewKnowledgeBaseArticleComponent
   ],
   imports: [
     BrowserModule,
