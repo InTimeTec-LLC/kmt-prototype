@@ -1,10 +1,17 @@
 /* You can add global styles to this file, and also import other style files */
 @import '~@angular/material/prebuilt-themes/deeppurple-amber.css';
 
+html{
+  Height:100%;
+}
 body { 
-  font-family: Roboto, Arial, sans-serif;
+  font-family: Source Sans Pro, Arial, sans-serif;
   margin: 0;
   font-size: 14px;
+  height:100%
+}
+a{
+  cursor: pointer;
 }
 
 .basic-container {
@@ -29,7 +36,7 @@ a {
 }
 
 .add-heading {
-  background-color: #ffa834;
+  background-color: #33b7fc;
   color: #fff;
   margin-top: 10px;
   padding:  10px;
