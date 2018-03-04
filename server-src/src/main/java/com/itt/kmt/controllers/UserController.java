@@ -30,11 +30,6 @@ public class UserController {
      */
     @Autowired
     private UserService userService;
-    /**
-     * repository implementation for DB entity that provides retrieval methods.
-     */
-    @Autowired
-    private UserRepository userRepository;
 
     /**
      * REST API to add a new User.
@@ -60,10 +55,7 @@ public class UserController {
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     @RequiresPermissions("getUserById")
     public ModelMap getUser(@PathVariable("id") final String id) {
-        User user = userRepository.findOne(id);
-        if (user == null) {
-            throw new RuntimeException("user with the id does not exist");
-        }
+        User user = userService.getUserByID(id);
         return new ModelMap().addAttribute("user", user);
     }
     /**
