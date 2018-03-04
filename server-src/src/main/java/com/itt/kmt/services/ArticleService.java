@@ -2,11 +2,12 @@ package com.itt.kmt.services;
 
 import java.util.List;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.itt.kmt.models.Article;
 import com.itt.kmt.models.User;
 import com.itt.kmt.models.UserResponse;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.itt.kmt.repositories.ArticleRepository;
@@ -121,8 +122,9 @@ public class ArticleService {
      * 
      * @return List<Article> get list of articles.
      */
-    public List<Article> getArticles() {
-        return (List<Article>) articleRepository.findAll();
+    public Page<Article> getArticles(Pageable page) {
+
+        return (Page<Article>) articleRepository.findAll(page);
     }
 
     private UserResponse convertUserIntoUserResponse(User user){
