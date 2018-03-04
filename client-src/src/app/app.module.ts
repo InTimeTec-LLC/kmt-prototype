@@ -26,7 +26,7 @@ import { ContentComponent } from './content/content.component';
 import { UserListComponent, UserListFilter } from './user-list/user-list.component';
 import { MaterialModule } from '../shared/material.module';
 import {ToasterModule, ToasterService} from 'angular5-toaster';
-
+import { ViewKnowledgeBaseArticleComponent } from './view-knowledge-base-article/view-knowledge-base-article.component';
 
 @NgModule({
   declarations: [
@@ -42,7 +42,8 @@ import {ToasterModule, ToasterService} from 'angular5-toaster';
     MainComponent,
     UserListComponent,
     EditUserComponent,
-    UserListFilter
+    UserListFilter,
+    ViewKnowledgeBaseArticleComponent
   ],
   imports: [
     BrowserModule,

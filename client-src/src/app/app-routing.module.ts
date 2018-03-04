@@ -8,6 +8,7 @@ import { AuthGuard } from '../shared/service/helper/auth-guards';
 import { AddUserComponent } from './add-user/add-user.component';
 import { UserListComponent } from './user-list/user-list.component';
 import { EditUserComponent } from './edit-user/edit-user.component';
+import { ViewKnowledgeBaseArticleComponent } from './view-knowledge-base-article/view-knowledge-base-article.component';
 
 const routes:  Routes = [
     {
@@ -46,6 +47,10 @@ const routes:  Routes = [
     { path: 'user/edit/:id',
       component: EditUserComponent,
       data: { title: 'Edit User' }
+    },
+    { path: 'article-detail/:id',
+      component: ViewKnowledgeBaseArticleComponent,
+      data: { title: 'Article Detail' }
     },
   ];
 
