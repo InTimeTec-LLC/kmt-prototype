@@ -1,5 +1,5 @@
 <h1 mat-dialog-title>Show only items where:</h1>
-<div mat-dialog-content>
+<div mat-dialog-content >
     <mat-form-field>
         <mat-select placeholder="Status" [(value)]="selectedStatus">
             <mat-option>None</mat-option>
@@ -14,7 +14,7 @@
             </mat-select>
         </mat-form-field>
 </div>
-<div mat-dialog-actions>
-    <button mat-button (click)="onCancelClick()">Clear All</button>
-    <button mat-button [mat-dialog-close]="{status: selectedStatus, role: selectedRole}" cdkFocusInitial>Apply</button>
+<div mat-dialog-actions >
+    <button mat-button class="filter_clear" (click)="onCancelClick()">Clear All</button>
+    <button mat-button class="final_apply" [mat-dialog-close]="{status: selectedStatus, role: selectedRole}" cdkFocusInitial>Apply</button>
 </div>
