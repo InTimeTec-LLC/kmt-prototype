@@ -4,6 +4,7 @@ import com.itt.kmt.models.Role;
 import com.itt.kmt.models.User;
 import com.itt.kmt.repositories.RoleRepository;
 import com.itt.kmt.repositories.UserRepository;
+import com.itt.utility.EmailConstants;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -31,6 +32,11 @@ public class UserService {
      */
     @Autowired
     private RoleRepository roleRepository;
+    /**
+     * Instance of mail service.
+     */
+    @Autowired
+    private MailService mailService;
     /**
      * Gets the User given the email.
      * 
@@ -69,8 +75,9 @@ public class UserService {
         User existingUser = getUserByEmail(user.getEmail());
         if (existingUser == null) {
             user.setDateJoined(new Date());
-            user.setActive(true);
-            return repository.save(user);
+            User savedUser = repository.save(user);
+            mailService.sendUserCreatedMail(savedUser.getId(), EmailConstants.PARAM_PORTAL_LOGIN_LINK);
+            return savedUser;
         } else {
             throw new RuntimeException("user already exists");
         }
