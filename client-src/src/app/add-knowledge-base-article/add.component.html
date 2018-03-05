@@ -3,15 +3,16 @@
     <div class="add-heading"><h2 class="heading-margin">Add Article</h2></div>
     <form  (ngSubmit)="onSubmit(article)" [formGroup]="article" #formDir="ngForm">
         <div class="lower-container">
-        <div class="form-box">
+        <div class="form-box form-field-error">
           <mat-form-field>
             <input formControlName="title" matInput placeholder="Title">
-          </mat-form-field>
-          <div class="error" 
+            <span class="error" 
             *ngIf="article.get('title').touched 
             && article.get('title').hasError('required')">
               Title is required
-          </div>
+           </span>
+          </mat-form-field>
+          
           
 
           <mat-form-field>
@@ -21,13 +22,17 @@
                     {{ type.type | titlecase}}
                   </mat-option>
               </mat-select>
+              <span class="error" 
+            *ngIf="article.get('articleType').touched 
+            && article.get('articleType').hasError('required')">
+            Article Type is required
+           </span>
           </mat-form-field>
         
-          <div>
+          <div class="article-description">
               <label>Description: </label>
               <quill-editor 
-                  #description id="description" 
-                  [style]="{'height': '200px', 'background-color': 'lightgrey'}"
+                  #description id="description"
                   placeholder="Description"
                   formControlName="description">
               </quill-editor>
@@ -49,6 +54,11 @@
                     {{ approver.firstName | titlecase}}
                   </mat-option>
               </mat-select>
+              <span class="error" 
+            *ngIf="article.get('approver').touched 
+            && article.get('approver').hasError('required')">
+            Approver is required
+           </span>
           </mat-form-field>
           
         </div>

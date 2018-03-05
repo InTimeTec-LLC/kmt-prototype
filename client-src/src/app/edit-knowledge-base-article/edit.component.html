@@ -3,15 +3,15 @@
   <div class="add-heading"><h2 class="heading-margin">Edit Article</h2></div>
   <form  (ngSubmit)="onSubmit(article)" [formGroup]="article" #formDir="ngForm">
       <div class="lower-container">
-      <div class="form-box">
+      <div class="form-box form-field-error">
         <mat-form-field>
           <input formControlName="title" matInput placeholder="Title">
-        </mat-form-field>
-        <div class="error" 
+          <span class="error" 
           *ngIf="article.get('title').touched 
           && article.get('title').hasError('required')">
             Title is required
-        </div>
+        </span>
+        </mat-form-field>
         
 
         <mat-form-field>
@@ -23,11 +23,10 @@
             </mat-select>
         </mat-form-field>
       
-        <div>
-            <label class="grey">Description: </label>
+        <div class="article-description">
+            <label>Description: </label>
             <quill-editor 
                 #description id="description" 
-                [style]="{'height': '200px', 'background-color': 'lightgrey'}"
                 placeholder="Description"
                 formControlName="description">
             </quill-editor>
@@ -57,7 +56,7 @@
         <mat-form-field>
           <input formControlName="createdByUser" matInput placeholder="Created By" readonly>
         </mat-form-field>
-        <mat-checkbox formControlName="restricted" >Restricted Article</mat-checkbox>
+        <mat-checkbox class="restricted-checkbox" formControlName="restricted" >Restricted Article</mat-checkbox>
        
       </div>
       <div class="button-postion">

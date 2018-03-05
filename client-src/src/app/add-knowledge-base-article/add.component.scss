@@ -18,10 +18,22 @@
 }
 
 .button-postion {
-  float: right;
-  
+  float: right;  
 }
 
 .ql-editor{
   height: 300px;
+}
+.article-description label {
+  color: rgb(121, 120, 120);
+  display: block;
+  padding: 20px 0;
+}
+.article-description {
+  margin-bottom:20px;
+}
+.article-description .error{
+  color: #ff1010;
+  font-size: 12px;
+  padding-top: 10px
 }
