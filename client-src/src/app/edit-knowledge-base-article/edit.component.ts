@@ -5,7 +5,7 @@ import { KnowledgeBaseArticle , UpdateKnowledgeBaseArticle} from '../../shared/m
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { UserService } from '../../shared/service/user/user.service';
 import { AuthenticationService } from '../../shared/service/authentication/authentication.service';
-import {ToasterModule, ToasterService} from 'angular5-toaster';
+import {ToasterModule, ToasterService, ToasterConfig} from 'angular5-toaster';
 import {ActivatedRoute} from '@angular/router';
 
 @Component({
@@ -22,6 +22,14 @@ export class EditArticleComponent implements OnInit {
   types: any[];
   approvers: any[];
   articleId: any;
+  private toasterconfig: ToasterConfig =
+        new ToasterConfig({
+            showCloseButton: false,
+            tapToDismiss: false,
+            timeout: 2000,
+            positionClass : 'toast-top-center',
+            animate : 'fade'
+        });
 
 
 
@@ -95,17 +103,17 @@ export class EditArticleComponent implements OnInit {
     this.kbContentService.updateKnowledgeBaseArticle(this.articleId, value)
     .subscribe( article => {
             // article.success.message
-              this.toasterService.pop('success', 'Success', 'Modifications have been saved successfully');
+              this.toasterService.pop('success', 'Success', article.success.message);
          },
               // error.failure.message
-              // error => this.toasterService.pop('error', 'Error', error.failure.message)
-              error => this.toasterService.pop('success', 'Success', 'Modifications have been saved successfully')
+               error => this.toasterService.pop('error', 'Error', error.failure.message)
+              // error => this.toasterService.pop('success', 'Success', 'Modifications have been saved successfully')
         );
 
   }
 
   onCancle() {
-    this.router.navigateByUrl('/article-list');
+    this.router.navigateByUrl('/articlelist');
   }
 
 

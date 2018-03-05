@@ -1,7 +1,7 @@
 
 
 <div class="container">
-  <toaster-container></toaster-container>  
+  <toaster-container [toasterconfig]="toasterconfig"></toaster-container>  
   <div class="add-heading"><h2 class="heading-margin">Edit User</h2></div>
 
 <form  (ngSubmit)="onSubmit(user)" [formGroup]="user" #formDir="ngForm">

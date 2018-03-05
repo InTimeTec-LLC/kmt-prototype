@@ -1,0 +1,53 @@
+.left-container{
+    float: left;
+    width: 45%;
+    padding: 20px;
+}
+.right-container{
+    float: right;
+    width: 45%;
+    padding: 20px;
+}
+.description p{
+text-align: justify;
+}
+.left-container div{
+margin-bottom:20px 
+}
+.left-container label,
+.right-container label{
+    color: #000;
+    font-weight: bold;
+    display: inline-block;
+    width:200px;
+}
+.right-lower-container{
+    float: left;
+}
+.lastModified-container,
+.createdBy-container{
+    font-size: 12px;
+    float: right;
+    margin-bottom: 26px;
+}
+.related-article{
+    float: left;
+    width:100%;
+}
+.related-article p{
+    margin: 0px;
+    color: #606060;
+    font-weight: bold;
+    font-size: 19px;
+    border-bottom: 2px solid #adadad;
+    padding-bottom: 7px;
+}
+.related-article ul{
+    padding-left: 19px;
+}
+.related-article ul li{
+    color:#1464f6;
+}
+.article_view{
+    float: left;
+}

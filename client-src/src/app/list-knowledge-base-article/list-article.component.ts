@@ -122,7 +122,7 @@ export class ListArticleComponent implements OnInit {
         this.dataSource.filter = filterValue;
     }
 
-  createNewUser(item: any): Aritcles {
+  createNewUser(item: any): any {
     return {
         id: item.id,
         type: item.articleType.type,

@@ -11,6 +11,7 @@ import { UserListComponent } from './user-list/user-list.component';
 import { ListArticleComponent } from './list-knowledge-base-article/list-article.component';
 import { EditUserComponent } from './edit-user/edit-user.component';
 
+
 const routes:  Routes = [
     {
       path: 'dashboard',
@@ -33,7 +34,7 @@ const routes:  Routes = [
       data: { title: 'Add Article' }
     },
     {
-      path: 'article-list',
+      path: 'article-detail/:id',
       component: ViewKnowledgeBaseArticleComponent,
       data: { title: 'Articles' }
     },

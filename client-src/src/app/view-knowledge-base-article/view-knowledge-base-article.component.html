@@ -1,3 +1,41 @@
-<p>
-  view-knowledge-base-article works!
-</p>
+<div class="container">
+    <div class="add-heading"><h2 class="heading-margin">{{article.title}}</h2></div>
+    <div class="example-container article_view">
+    <div class="left-container">
+        <div class="type">
+          <label>Type</label>
+          <span>{{article.articleType.type}}</span>
+        </div>
+        <div class="reviewed">
+          <label>Reviewed By</label>
+          <span>{{article.approver.firstName}}  {{article.approver.lastName}}</span>
+        </div>
+        <div class="description">
+            <label>Description</label>
+            <p [innerHTML]="article.description"></p>
+        </div>
+    </div>
+      <div class="right-container">
+          <div class="right-lower-container">
+            <div class="lastModified-container">
+            <label>Last Modified</label>
+            <span>{{article.lastModified}}</span>
+            </div>
+          <div class="createdBy-container">
+              <label>Created By</label>
+              <span>{{article.createdBy.firstName}}  {{article.createdBy.lastName}}</span>
+          </div>
+        </div>
+        <div class="related-article">
+            <p>Related Articles</p>
+            <ul>
+              <li>Lorem ipsum dolor sit amet, consectetur</li>
+              <li>Lorem ipsum dolor sit amet, consectetur</li>
+              <li>Lorem ipsum dolor sit amet, consectetur</li>
+              <li>Lorem ipsum dolor sit amet, consectetur</li>
+              <li>Lorem ipsum dolor sit amet, consectetur</li>
+            </ul>
+          </div>
+      </div>
+  </div>
+</div>

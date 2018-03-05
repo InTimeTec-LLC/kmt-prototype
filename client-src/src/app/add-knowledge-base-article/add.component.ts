@@ -5,7 +5,7 @@ import { KnowledgeBaseArticle } from '../../shared/modals/knowledge-base-article
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { UserService } from '../../shared/service/user/user.service';
 import { AuthenticationService } from '../../shared/service/authentication/authentication.service';
-import {ToasterModule, ToasterService} from 'angular5-toaster';
+import {ToasterModule, ToasterService, ToasterConfig} from 'angular5-toaster';
 
 @Component({
   selector: 'app-add-kb-article',
@@ -20,6 +20,14 @@ export class AddArticleComponent implements OnInit {
   article: FormGroup;
   types: any[];
   approvers: any[];
+  private toasterconfig: ToasterConfig =
+        new ToasterConfig({
+            showCloseButton: false,
+            tapToDismiss: false,
+            timeout: 2000,
+            positionClass : 'toast-top-center',
+            animate : 'fade'
+        });
 
 
 
@@ -74,7 +82,7 @@ export class AddArticleComponent implements OnInit {
   }
 
   onCancle() {
-    this.router.navigateByUrl('/article-list');
+    this.router.navigateByUrl('/articlelist');
   }
 
 
