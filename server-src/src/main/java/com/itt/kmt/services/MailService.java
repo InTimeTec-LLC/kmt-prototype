@@ -14,7 +14,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.ui.freemarker.FreeMarkerTemplateUtils;
 
 import com.itt.kmt.models.User;
-import com.itt.kmt.repositories.UserRepository;
 import com.itt.utility.EmailConstants;
 
 import freemarker.template.Configuration;
@@ -38,7 +37,7 @@ public class MailService {
      * Instance of the user repository.
      */
     @Autowired
-    private UserRepository userRepository;
+    private UserService userService;
     /**
      * Instance of free marker configuration.
      */
@@ -57,7 +56,7 @@ public class MailService {
     public boolean sendUserCreatedMail(final String userID, final String loginLink) {
 
         Map<String, String> model = new HashMap<String, String>();
-        User user = userRepository.findOne(userID);
+        User user = userService.getUserByID(userID);
 
         model.put(EmailConstants.PARAM_USER_FIRST_NAME, user.getFirstName());
         model.put(EmailConstants.PARAM_USER_MAIL_ID, user.getEmail());
@@ -79,7 +78,7 @@ public class MailService {
      * 
      * @return boolean
      */
-    public boolean sendMail(final String templateName, final Map<String, String> model) {
+    private boolean sendMail(final String templateName, final Map<String, String> model) {
 
         boolean status = true;
 

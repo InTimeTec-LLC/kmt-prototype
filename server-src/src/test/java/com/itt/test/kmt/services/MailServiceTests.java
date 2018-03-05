@@ -12,12 +12,13 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import com.itt.kmt.models.User;
-import com.itt.kmt.repositories.UserRepository;
 import com.itt.kmt.services.MailService;
-
+import com.itt.kmt.services.UserService;
 import com.itt.test_category.ServicesTests;
 import com.itt.test_data.TestDataRepository;
 
@@ -33,7 +34,10 @@ public class MailServiceTests {
     private TestDataRepository testDataRepository;
 
     @MockBean
-    private UserRepository userRepository;
+    private UserService userService;
+
+    @MockBean
+    private JavaMailSender javaMailSender;
 
     @Before
     public final void setUp() {
@@ -45,13 +49,15 @@ public class MailServiceTests {
 
         // Arrange
         User user = testDataRepository.getUsers().get("user-1");
+
         // when()
-        when(userRepository.findOne(user.getId())).thenReturn(user);
+        when(javaMailSender.createMimeMessage()).thenReturn(new JavaMailSenderImpl().createMimeMessage());
+        when(userService.getUserByID(user.getId())).thenReturn(user);
 
         boolean status = mailService.sendUserCreatedMail(user.getId(), "login link");
         //assert
         assertTrue(status);
 
-        verify(userRepository, times(1)).findOne(user.getId());
+        verify(userService, times(1)).getUserByID(user.getId());
     }
 }

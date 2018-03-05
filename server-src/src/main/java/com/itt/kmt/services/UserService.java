@@ -75,6 +75,7 @@ public class UserService {
         User existingUser = getUserByEmail(user.getEmail());
         if (existingUser == null) {
             user.setDateJoined(new Date());
+            user.setActive(true);
             User savedUser = repository.save(user);
             mailService.sendUserCreatedMail(savedUser.getId(), EmailConstants.PARAM_PORTAL_LOGIN_LINK);
             return savedUser;
