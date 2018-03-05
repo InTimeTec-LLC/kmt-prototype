@@ -11,11 +11,14 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-import java.nio.charset.Charset;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.itt.kmt.models.Role;
+import com.itt.kmt.models.User;
+import com.itt.kmt.response.models.ResponseMsg;
+import com.itt.kmt.services.UserService;
+import com.itt.test_data.RoleTestDataRepository;
+import com.itt.test_data.TestDataRepository;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.shiro.subject.Subject;
 import org.apache.shiro.util.ThreadContext;
 import org.apache.shiro.web.mgt.DefaultWebSecurityManager;
@@ -39,16 +42,11 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.itt.kmt.models.Role;
-import com.itt.kmt.models.User;
-import com.itt.kmt.response.models.ResponseMsg;
-import com.itt.kmt.services.UserService;
-import com.itt.test_data.RoleTestDataRepository;
-import com.itt.test_data.TestDataRepository;
+import java.nio.charset.Charset;
+import java.util.ArrayList;
+import java.util.HashMap;
 import com.itt.utility.Constants;
 
-import lombok.extern.slf4j.Slf4j;
 
 /**
  * The Class UserControllerTest.

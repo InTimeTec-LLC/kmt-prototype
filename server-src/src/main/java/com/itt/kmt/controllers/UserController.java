@@ -1,9 +1,9 @@
 package com.itt.kmt.controllers;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-
+import com.itt.kmt.models.Role;
+import com.itt.kmt.models.User;
+import com.itt.kmt.response.models.ResponseMsg;
+import com.itt.kmt.services.UserService;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -16,10 +16,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.itt.kmt.models.Role;
-import com.itt.kmt.models.User;
-import com.itt.kmt.response.models.ResponseMsg;
-import com.itt.kmt.services.UserService;
+import java.util.ArrayList;
+import java.util.HashMap;
 import com.itt.utility.Constants;
 
 /**

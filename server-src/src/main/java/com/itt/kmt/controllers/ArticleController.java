@@ -1,7 +1,6 @@
 package com.itt.kmt.controllers;
 
 import com.itt.kmt.models.Article;
-import com.itt.kmt.models.ArticleType;
 import com.itt.kmt.response.models.ResponseMsg;
 import com.itt.kmt.services.ArticleService;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
@@ -13,7 +12,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.HashMap;
-import java.util.List;
 /**
  * This class is responsible for exposing REST APis for Article.
  */
@@ -50,10 +48,8 @@ public class ArticleController {
     @RequestMapping(value = "/types", method = RequestMethod.GET)
     @RequiresPermissions("getAllArticleType")
     public ModelMap getArticleTypes() {
-        List<ArticleType> roleList = articleService.getArticleTypes();
-        return new ModelMap().addAttribute("types", roleList);
+        return new ModelMap().addAttribute("types", articleService.getArticleTypes());
     }
-
 }
 
 
