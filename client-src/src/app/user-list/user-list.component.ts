@@ -66,6 +66,7 @@ export class UserListComponent implements OnInit {
         .subscribe(
             data => {
                 this.userList = JSON.parse(JSON.stringify(data.users));
+                console.log(data.users);
                 this.createData(data.users);
             },
             error => {
@@ -139,7 +140,7 @@ export class UserListComponent implements OnInit {
         password: item.password,
         userRole : item.userRole,
         status : item.active,
-        createdOn : ''
+        createdOn : item.dateJoined
     };
    }
 }
