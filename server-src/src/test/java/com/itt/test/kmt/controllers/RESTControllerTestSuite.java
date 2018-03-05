@@ -9,7 +9,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 @RunWith(Suite.class)
 @SpringBootTest
 @SuiteClasses({
-    UserControllerTest.class
+    UserControllerTest.class,
+    LoginControllerTest.class
 })
 public class RESTControllerTestSuite {
 }
