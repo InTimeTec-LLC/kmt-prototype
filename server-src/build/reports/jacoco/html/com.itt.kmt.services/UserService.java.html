@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>UserService.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">kmt-prototype</a> &gt; <a href="index.source.html" class="el_package">com.itt.kmt.services</a> &gt; <span class="el_source">UserService.java</span></div><h1>UserService.java</h1><pre class="source lang-java linenums">package com.itt.kmt.services;
+
+import com.itt.kmt.models.Role;
+import com.itt.kmt.models.User;
+import com.itt.kmt.repositories.RoleRepository;
+import com.itt.kmt.repositories.UserRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+
+/**
+ * Service class that acts as an intermediary between controller and the
+ * database for all basic CRUD operations. The business logic should reside in
+ * service class.
+ * @author Rakshit Rajeev
+ */
+@Service
+<span class="fc" id="L19">public class UserService {</span>
+
+    /**
+     * Instance of the basic User Repository implementation.
+     */
+    @Autowired
+    private UserRepository repository;
+
+    /**
+     * Instance of the basic role Repository implementation.
+     */
+    @Autowired
+    private RoleRepository roleRepository;
+    /**
+     * Gets the User given the email.
+     * 
+     * @param email Email of the User.
+     * @return User object matching the email.
+     */
+    public User getUserByEmail(final String email) {
+<span class="fc" id="L39">        return repository.findByEmail(email);</span>
+    }
+    /**
+     * Gets all the Users.
+     * @return List of all the users.
+     */
+    public List&lt;User&gt; getAllUsers() {
+<span class="fc" id="L46">        return (List&lt;User&gt;) repository.findAll();</span>
+    }
+    /**
+     * Saves the User.
+     * @param user User object to be saved.
+     * @return Users saved.
+     */
+    public User save(final User user) {
+<span class="fc" id="L54">        User existingUser = getUserByEmail(user.getEmail());</span>
+<span class="pc bpc" id="L55" title="1 of 2 branches missed.">        if (existingUser == null) {</span>
+<span class="fc" id="L56">            user.setActive(true);</span>
+<span class="fc" id="L57">            return repository.save(user);</span>
+        } else {
+<span class="nc" id="L59">            throw new RuntimeException(&quot;user already exists&quot;);</span>
+        }
+    }
+    /**
+     * deletes User given the id.
+     * @param id Id of the User.
+     */
+    public void deleteUserById(final String id) {
+<span class="nc" id="L67">       User existingUser = repository.findOne(id);</span>
+<span class="nc bnc" id="L68" title="All 2 branches missed.">       if (existingUser != null) {</span>
+<span class="nc" id="L69">           existingUser.setActive(false);</span>
+
+<span class="nc" id="L71">           repository.save(existingUser);</span>
+        } else {
+<span class="nc" id="L73">           throw new RuntimeException(&quot;user with the id does not exist&quot;);</span>
+        }
+<span class="nc" id="L75">    }</span>
+    /**
+     * Activates inactive User.
+     * @param user user to be updated.
+     * @param id id of the user to be updated.
+     * @return user.
+     */
+    public User updateUser(final User user, final String id) {
+<span class="fc" id="L83">        User existingUser = repository.findOne(id);</span>
+
+<span class="pc bpc" id="L85" title="2 of 4 branches missed.">        if (existingUser != null &amp;&amp; !existingUser.isActive()) {</span>
+<span class="nc" id="L86">            throw new RuntimeException(&quot;user is not active&quot;);</span>
+<span class="pc bpc" id="L87" title="1 of 2 branches missed.">        } else if (existingUser != null) {</span>
+
+<span class="pc bpc" id="L89" title="1 of 2 branches missed.">            if (!user.getFirstName().isEmpty()) {</span>
+<span class="fc" id="L90">                existingUser.setFirstName(user.getFirstName());</span>
+            }
+<span class="pc bpc" id="L92" title="1 of 2 branches missed.">            if (!user.getLastName().isEmpty()) {</span>
+<span class="fc" id="L93">                existingUser.setLastName(user.getLastName());</span>
+            }
+<span class="pc bpc" id="L95" title="1 of 2 branches missed.">            if (!user.getUserRole().isEmpty()) {</span>
+<span class="fc" id="L96">                existingUser.setUserRole(user.getUserRole());</span>
+            }
+<span class="fc" id="L98">            return repository.save(existingUser);</span>
+        } else {
+<span class="nc" id="L100">            throw new RuntimeException(&quot;user does not exist&quot;);</span>
+        }
+    }
+
+    /**
+     * Get all the User Roles.
+     * @return List of all the User Roles.
+     */
+    public List&lt;Role&gt; getUserRoles() {
+<span class="fc" id="L109">       return (List&lt;Role&gt;) roleRepository.findAll();</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.1.201405082137</span></div></body></html>

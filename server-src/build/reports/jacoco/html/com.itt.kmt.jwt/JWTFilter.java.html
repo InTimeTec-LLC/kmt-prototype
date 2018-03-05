@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>JWTFilter.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">kmt-prototype</a> &gt; <a href="index.source.html" class="el_package">com.itt.kmt.jwt</a> &gt; <span class="el_source">JWTFilter.java</span></div><h1>JWTFilter.java</h1><pre class="source lang-java linenums">
+package com.itt.kmt.jwt;
+
+import java.io.IOException;
+
+import javax.servlet.ServletRequest;
+import javax.servlet.ServletResponse;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import org.apache.shiro.web.filter.authc.BasicHttpAuthenticationFilter;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.RequestMethod;
+
+/**
+ * The Class JWTFilter.
+ */
+<span class="fc" id="L20">public class JWTFilter extends BasicHttpAuthenticationFilter {</span>
+
+    /** The logger. */
+<span class="fc" id="L23">    private Logger logger = LoggerFactory.getLogger(this.getClass());</span>
+
+    /*
+     * (non-Javadoc)
+     * @see org.apache.shiro.web.filter.authc.BasicHttpAuthenticationFilter#
+     * isLoginAttempt(javax.servlet.ServletRequest,
+     * javax.servlet.ServletResponse)
+     */
+    @Override
+    protected boolean isLoginAttempt(final ServletRequest request, final ServletResponse response) {
+
+<span class="nc" id="L34">        HttpServletRequest req = (HttpServletRequest) request;</span>
+<span class="nc" id="L35">        String authorization = req.getHeader(&quot;Authorization&quot;);</span>
+<span class="nc bnc" id="L36" title="All 2 branches missed.">        return authorization != null;</span>
+    }
+
+    /*
+     * (non-Javadoc)
+     * @see
+     * org.apache.shiro.web.filter.authc.AuthenticatingFilter#executeLogin(javax
+     * .servlet.ServletRequest, javax.servlet.ServletResponse)
+     */
+    @Override
+    protected boolean executeLogin(final ServletRequest request, final ServletResponse response)
+        throws Exception {
+
+<span class="nc" id="L49">        HttpServletRequest httpServletRequest = (HttpServletRequest) request;</span>
+<span class="nc" id="L50">        String authorization = httpServletRequest.getHeader(&quot;Authorization&quot;);</span>
+<span class="nc" id="L51">        JWTToken token = new JWTToken(authorization);</span>
+<span class="nc" id="L52">        getSubject(request, response).login(token);</span>
+<span class="nc" id="L53">        return true;</span>
+    }
+
+    /*
+     * (non-Javadoc)
+     * @see org.apache.shiro.web.filter.authc.BasicHttpAuthenticationFilter#
+     * isAccessAllowed(javax.servlet.ServletRequest,
+     * javax.servlet.ServletResponse, java.lang.Object)
+     */
+    @Override
+    protected boolean isAccessAllowed(
+        final ServletRequest request, final ServletResponse response, final Object mappedValue) {
+
+<span class="nc bnc" id="L66" title="All 2 branches missed.">        if (isLoginAttempt(request, response)) {</span>
+            try {
+<span class="nc" id="L68">                executeLogin(request, response);</span>
+<span class="nc" id="L69">            } catch (Exception e) {</span>
+<span class="nc" id="L70">                response401(request, response);</span>
+<span class="nc" id="L71">            }</span>
+        }
+<span class="nc" id="L73">        return true;</span>
+    }
+
+    /*
+     * (non-Javadoc)
+     * @see
+     * org.apache.shiro.web.filter.PathMatchingFilter#preHandle(javax.servlet.
+     * ServletRequest, javax.servlet.ServletResponse)
+     */
+    @Override
+    protected boolean preHandle(final ServletRequest request, final ServletResponse response)
+        throws Exception {
+
+<span class="nc" id="L86">        HttpServletRequest httpServletRequest = (HttpServletRequest) request;</span>
+<span class="nc" id="L87">        HttpServletResponse httpServletResponse = (HttpServletResponse) response;</span>
+<span class="nc" id="L88">        httpServletResponse.setHeader(&quot;Access-control-Allow-Origin&quot;, httpServletRequest.getHeader(&quot;Origin&quot;));</span>
+<span class="nc" id="L89">        httpServletResponse.setHeader(&quot;Access-Control-Allow-Methods&quot;, &quot;GET,POST,OPTIONS,PUT,DELETE&quot;);</span>
+<span class="nc" id="L90">        httpServletResponse.setHeader(</span>
+<span class="nc" id="L91">            &quot;Access-Control-Allow-Headers&quot;, httpServletRequest.getHeader(&quot;Access-Control-Request-Headers&quot;));</span>
+<span class="nc" id="L92">        if (httpServletRequest.getMethod()</span>
+<span class="nc bnc" id="L93" title="All 2 branches missed.">                              .equals(RequestMethod.OPTIONS.name())) {</span>
+<span class="nc" id="L94">            httpServletResponse.setStatus(HttpStatus.OK.value());</span>
+<span class="nc" id="L95">            return false;</span>
+        }
+<span class="nc" id="L97">        return super.preHandle(request, response);</span>
+    }
+
+    /**
+     * Response 401.
+     *
+     * @param req the req
+     * @param resp the resp
+     */
+    private void response401(final ServletRequest req, final ServletResponse resp) {
+
+        try {
+<span class="nc" id="L109">            HttpServletResponse httpServletResponse = (HttpServletResponse) resp;</span>
+<span class="nc" id="L110">            httpServletResponse.sendRedirect(&quot;/api/users/401&quot;);</span>
+<span class="nc" id="L111">        } catch (IOException e) {</span>
+<span class="nc" id="L112">            logger.error(e.getMessage());</span>
+<span class="nc" id="L113">        }</span>
+<span class="nc" id="L114">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.1.201405082137</span></div></body></html>

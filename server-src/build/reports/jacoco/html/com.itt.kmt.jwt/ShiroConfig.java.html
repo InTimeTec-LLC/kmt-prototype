@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>ShiroConfig.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">kmt-prototype</a> &gt; <a href="index.source.html" class="el_package">com.itt.kmt.jwt</a> &gt; <span class="el_source">ShiroConfig.java</span></div><h1>ShiroConfig.java</h1><pre class="source lang-java linenums">
+package com.itt.kmt.jwt;
+
+import java.util.HashMap;
+import java.util.Map;
+
+import javax.servlet.Filter;
+
+import org.apache.shiro.mgt.DefaultSessionStorageEvaluator;
+import org.apache.shiro.mgt.DefaultSubjectDAO;
+import org.apache.shiro.spring.LifecycleBeanPostProcessor;
+import org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor;
+import org.apache.shiro.spring.web.ShiroFilterFactoryBean;
+import org.apache.shiro.web.mgt.DefaultWebSecurityManager;
+import org.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreator;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.DependsOn;
+
+/**
+ * The Class ShiroConfig.
+ */
+@Configuration
+<span class="fc" id="L24">public class ShiroConfig {</span>
+
+    /**
+     * Gets the manager.
+     *
+     * @return the manager
+     */
+    @Bean(name = &quot;securityManager&quot;)
+    public DefaultWebSecurityManager getManager() {
+
+<span class="fc" id="L34">        DefaultWebSecurityManager manager = new DefaultWebSecurityManager();</span>
+<span class="fc" id="L35">        manager.setRealm(new MyRealm());</span>
+<span class="fc" id="L36">        DefaultSubjectDAO subjectDAO = new DefaultSubjectDAO();</span>
+<span class="fc" id="L37">        DefaultSessionStorageEvaluator defaultSessionStorageEvaluator = new DefaultSessionStorageEvaluator();</span>
+<span class="fc" id="L38">        defaultSessionStorageEvaluator.setSessionStorageEnabled(false);</span>
+<span class="fc" id="L39">        subjectDAO.setSessionStorageEvaluator(defaultSessionStorageEvaluator);</span>
+<span class="fc" id="L40">        manager.setSubjectDAO(subjectDAO);</span>
+<span class="fc" id="L41">        return manager;</span>
+    }
+
+    /**
+     * Factory.
+     *
+     * @param securityManager the security manager
+     * @return the shiro filter factory bean
+     */
+    @Bean(name = &quot;shiroFilter&quot;)
+    public ShiroFilterFactoryBean factory(final DefaultWebSecurityManager securityManager) {
+
+<span class="fc" id="L53">        ShiroFilterFactoryBean factoryBean = new ShiroFilterFactoryBean();</span>
+<span class="fc" id="L54">        Map&lt;String, Filter&gt; filterMap = new HashMap&lt;&gt;();</span>
+<span class="fc" id="L55">        filterMap.put(&quot;jwt&quot;, new JWTFilter());</span>
+<span class="fc" id="L56">        factoryBean.setFilters(filterMap);</span>
+<span class="fc" id="L57">        factoryBean.setSecurityManager(securityManager);</span>
+<span class="fc" id="L58">        factoryBean.setUnauthorizedUrl(&quot;/401&quot;);</span>
+<span class="fc" id="L59">        Map&lt;String, String&gt; filterRuleMap = new HashMap&lt;&gt;();</span>
+<span class="fc" id="L60">        filterRuleMap.put(&quot;/**&quot;, &quot;jwt&quot;);</span>
+<span class="fc" id="L61">        filterRuleMap.put(&quot;/401&quot;, &quot;anon&quot;);</span>
+<span class="fc" id="L62">        factoryBean.setFilterChainDefinitionMap(filterRuleMap);</span>
+<span class="fc" id="L63">        return factoryBean;</span>
+    }
+
+    /**
+     * Default advisor auto proxy creator.
+     *
+     * @return the default advisor auto proxy creator
+     */
+    @Bean
+    @DependsOn(&quot;lifecycleBeanPostProcessor&quot;)
+    public DefaultAdvisorAutoProxyCreator defaultAdvisorAutoProxyCreator() {
+
+<span class="fc" id="L75">        return new DefaultAdvisorAutoProxyCreator();</span>
+    }
+
+    /**
+     * Lifecycle bean post processor.
+     *
+     * @return the lifecycle bean post processor
+     */
+    @Bean
+    public LifecycleBeanPostProcessor lifecycleBeanPostProcessor() {
+
+<span class="fc" id="L86">        return new LifecycleBeanPostProcessor();</span>
+    }
+
+    /**
+     * Authorization attribute source advisor.
+     *
+     * @param securityManager the security manager
+     * @return the authorization attribute source advisor
+     */
+    @Bean
+    public AuthorizationAttributeSourceAdvisor authorizationAttributeSourceAdvisor(
+        final DefaultWebSecurityManager securityManager) {
+
+<span class="fc" id="L99">        AuthorizationAttributeSourceAdvisor advisor = new AuthorizationAttributeSourceAdvisor();</span>
+<span class="fc" id="L100">        advisor.setSecurityManager(securityManager);</span>
+<span class="fc" id="L101">        return advisor;</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.1.201405082137</span></div></body></html>

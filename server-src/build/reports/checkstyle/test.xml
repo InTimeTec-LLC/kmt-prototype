@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<checkstyle version="5.9">
+<file name="F:\GIT\_ADPQ\kmt-prototype\server-src\src\test\java\com\itt\jmtemplate\config\MongoConfig.java">
+</file>
+<file name="F:\GIT\_ADPQ\kmt-prototype\server-src\src\test\java\com\itt\jmtemplate\config\TestApplicationConfig.java">
+</file>
+<file name="F:\GIT\_ADPQ\kmt-prototype\server-src\src\test\java\com\itt\test\kmt\controllers\AbstractShiroTest.java">
+</file>
+<file name="F:\GIT\_ADPQ\kmt-prototype\server-src\src\test\java\com\itt\test\kmt\controllers\LoginControllerTest.java">
+</file>
+<file name="F:\GIT\_ADPQ\kmt-prototype\server-src\src\test\java\com\itt\test\kmt\controllers\RESTControllerTestSuite.java">
+</file>
+<file name="F:\GIT\_ADPQ\kmt-prototype\server-src\src\test\java\com\itt\test\kmt\controllers\UserControllerTest.java">
+</file>
+<file name="F:\GIT\_ADPQ\kmt-prototype\server-src\src\test\java\com\itt\test\kmt\repositories\UserRepositoryTests.java">
+</file>
+<file name="F:\GIT\_ADPQ\kmt-prototype\server-src\src\test\java\com\itt\test\kmt\services\UserServiceTests.java">
+</file>
+<file name="F:\GIT\_ADPQ\kmt-prototype\server-src\src\test\java\com\itt\test_category\IntegrationTests.java">
+</file>
+<file name="F:\GIT\_ADPQ\kmt-prototype\server-src\src\test\java\com\itt\test_category\RepositoryTests.java">
+</file>
+<file name="F:\GIT\_ADPQ\kmt-prototype\server-src\src\test\java\com\itt\test_category\ServicesTests.java">
+</file>
+<file name="F:\GIT\_ADPQ\kmt-prototype\server-src\src\test\java\com\itt\test_data\RoleTestDataRepository.java">
+</file>
+<file name="F:\GIT\_ADPQ\kmt-prototype\server-src\src\test\java\com\itt\test_data\TestDataRepository.java">
+</file>
+</checkstyle>
