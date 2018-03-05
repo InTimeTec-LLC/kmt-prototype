@@ -130,11 +130,11 @@ public class UserService {
     }
 
     /**
-     * Get the User by ID
+     * Get the User by ID.
      * @param id Id of the User.
      * @return User.
      */
-    public User getUserByID(String id){
+    public User getUserByID(final String id) {
         User user = repository.findOne(id);
         if (user == null) {
             throw new RuntimeException("user with the id does not exist");

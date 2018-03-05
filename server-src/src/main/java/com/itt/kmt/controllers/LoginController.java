@@ -39,10 +39,8 @@ public class LoginController {
      */
     @RequestMapping(value = "/login", method = RequestMethod.POST, produces = "application/json",
                     consumes = "application/json")
-    public LoginResponseMsg login(@RequestBody
-    final User user) {
+    public LoginResponseMsg login(@RequestBody final User user) {
 
-        if (user != null) {
             User dbUser = userService.getUserByEmail(user.getEmail());
 
             if (dbUser != null && dbUser.getPassword()
@@ -60,9 +58,6 @@ public class LoginController {
             } else {
                 throw new UnauthorizedException();
             }
-        } else {
-            throw new UnauthorizedException();
-        }
     }
 
     /**

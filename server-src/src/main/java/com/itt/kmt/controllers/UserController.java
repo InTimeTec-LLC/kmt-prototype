@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.itt.kmt.models.Role;
 import com.itt.kmt.models.User;
-import com.itt.kmt.repositories.UserRepository;
 import com.itt.kmt.response.models.ResponseMsg;
 import com.itt.kmt.services.UserService;
 import com.itt.utility.Constants;
