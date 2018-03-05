@@ -26,6 +26,7 @@ export class Aritcles {
   type: string;
   title: string;
   content: string;
+  status : Boolean;
   size: number;
   totalPages: number;
   totalElements: number;
