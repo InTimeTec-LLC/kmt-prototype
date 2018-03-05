@@ -74,7 +74,7 @@ public class MyRealm extends AuthorizingRealm {
 
             try {
                 List<PermissionMatrix> permissionMatrix = objectMapper.readValue(
-                        new File("config/permissionsMatrix.json"), new TypeReference<List<PermissionMatrix>>() {
+                        new File(getClass().getClassLoader().getResource("permissionsMatrix.json").getFile()), new TypeReference<List<PermissionMatrix>>() {
                         });
                 for (PermissionMatrix permission : permissionMatrix) {
                     if (role.equals(permission.getRole())) {
