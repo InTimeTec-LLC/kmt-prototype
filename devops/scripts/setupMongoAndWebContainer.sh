@@ -23,4 +23,4 @@ then
 fi
 docker build --build-arg tag=$mongoContainerTag -f ${WORKSPACE}/devops/dockerFiles/mongo/dockerfile .
 docker build --rm --pull=true --build-arg tag=$mongoContainerTag -t yashittdocker/adpq-mongo -f ${WORKSPACE}/devops/dockerFiles/mongo/dockerfile .
-docker run -d --name adpq-mongo -v ${WORKSPACE}/devops/mongoconfig/data/db/:/data/db -p 27017:27017 yashittdocker/adpq-mongo:$mongoContainerTag
+docker run -d --name adpq-mongo -v /home/ubuntu/deployfiles/kmt-prototype/devops/mongoconfig/data/db/:/data/db -p 27017:27017 yashittdocker/adpq-mongo:$mongoContainerTag
