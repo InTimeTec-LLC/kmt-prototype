@@ -70,10 +70,6 @@ public class UserControllerTest extends AbstractShiroTest {
     @MockBean
     private UserService userService;
 
-    /** The user repository. */
-    @MockBean
-    private UserRepository userRepository;
-
     /** The test data repository. */
     @Autowired
     private TestDataRepository testDataRepository;
@@ -138,7 +134,7 @@ public class UserControllerTest extends AbstractShiroTest {
         // Arrange
         User user = testDataRepository.getUsers()
                                       .get("user-1");
-        when(userRepository.findOne(user.getId())).thenReturn(user);
+        when(userService.getUserByID(user.getId())).thenReturn(user);
         RequestBuilder requestBuilder = MockMvcRequestBuilders.get("/users/" + user.getId())
                                                               .accept(MediaType.APPLICATION_JSON);
 
@@ -153,7 +149,7 @@ public class UserControllerTest extends AbstractShiroTest {
                      .andExpect(jsonPath("$.user.email", is(user.getEmail())))
                      .andExpect(jsonPath("$.user.userRole", is(user.getUserRole())));
 
-        verify(userRepository, times(1)).findOne(user.getId());
+        verify(userService, times(1)).getUserByID(user.getId());
     }
 
     /**
