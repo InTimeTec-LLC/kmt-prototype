@@ -4,9 +4,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-import javax.servlet.ServletRequest;
-import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -71,9 +70,9 @@ public class UserController {
      */
     @RequestMapping(method = RequestMethod.GET)
     @RequiresPermissions("getAllUser")
-    public ModelMap getAllUsers(final ServletRequest request, final ServletResponse response) {
-        HttpServletRequest req = (HttpServletRequest) request;
-        String jwtToken = req.getHeader("Authorization");
+    public ModelMap getAllUsers(final HttpServletRequest request, final HttpServletResponse response) {
+
+        String jwtToken = request.getHeader("Authorization");
         User loggedInUser = userService.getLoggedInUser(jwtToken);
 
         List<User> users = userService.getAllUsers();
@@ -89,9 +88,9 @@ public class UserController {
      */
     @RequestMapping(value = "/approvers", method = RequestMethod.GET)
     @RequiresPermissions("getAllApprovers")
-    public ModelMap getAllApprovers(final ServletRequest request, final ServletResponse response) {
-        HttpServletRequest req = (HttpServletRequest) request;
-        String jwtToken = req.getHeader("Authorization");
+    public ModelMap getAllApprovers(final HttpServletRequest request, final HttpServletResponse response) {
+
+        String jwtToken = request.getHeader("Authorization");
         User loggedInUser = userService.getLoggedInUser(jwtToken);
 
         List<User> adminAndmanager = new ArrayList<User>();

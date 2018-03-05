@@ -95,7 +95,7 @@ public class UserServiceTests {
     }
 
     @Test
-    public final void getUserById() {
+    public final void getUserByID() {
 
         // Arrange
         User user1 = testDataRepository.getUsers()
@@ -103,7 +103,7 @@ public class UserServiceTests {
         when(userRepository.findOne(user1.getId())).thenReturn(user1);
 
         // Act
-        User user = userRepository.findOne(user1.getId());
+        User user = userService.getUserByID(user1.getId());
 
         // Assert
         assertEquals(user.getId(), user1.getId());
@@ -111,6 +111,22 @@ public class UserServiceTests {
         assertEquals(user.getFirstName(), user1.getFirstName());
         assertEquals(user.getLastName(), user1.getLastName());
         assertEquals(user.getUserRole(), user1.getUserRole());
+        verify(userRepository, times(1)).findOne(user1.getId());
+    }
+
+    @Test(expected = RuntimeException.class)
+    public final void getNonExistingUser() {
+
+        // Arrange
+        User user1 = testDataRepository.getUsers()
+                .get("user-1");
+        when(userRepository.findOne(user1.getId())).thenReturn(null);
+        when(userService.getUserByID(user1.getId())).thenThrow(new RuntimeException("user with the id does not exist"));
+
+        // Act
+        userService.getUserByID(user1.getId());
+
+        // Assert
         verify(userRepository, times(1)).findOne(user1.getId());
     }
 
