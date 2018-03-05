@@ -42,10 +42,19 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
-import java.nio.charset.Charset;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.itt.kmt.models.Role;
+import com.itt.kmt.models.User;
+import com.itt.kmt.response.models.ResponseMsg;
+import com.itt.kmt.services.UserService;
+import com.itt.test_data.RoleTestDataRepository;
+import com.itt.test_data.TestDataRepository;
+import com.itt.utility.Constants;
+
+import lombok.extern.slf4j.Slf4j;
 import java.util.ArrayList;
 import java.util.HashMap;
-import com.itt.utility.Constants;
+import java.util.List;
 
 
 /**
