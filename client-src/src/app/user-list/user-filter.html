@@ -1,0 +1,22 @@
+<div class="filter-popup">
+<h1 mat-dialog-title>Show only items where:</h1>
+<div mat-dialog-content >
+    <mat-form-field>
+        <mat-select placeholder="Status" [(value)]="selectedStatus">
+            <mat-option>None</mat-option>
+            <mat-option *ngFor="let status of statusList" [value]="status">{{status}}</mat-option>
+        </mat-select>
+    </mat-form-field>
+    <br>
+    <mat-form-field>
+            <mat-select placeholder="Role" [(value)]="selectedRole">
+                <mat-option>None</mat-option>
+                <mat-option *ngFor="let role of roleList" [value]="role.role">{{role.role}}</mat-option>
+            </mat-select>
+        </mat-form-field>
+</div>
+<div mat-dialog-actions >
+    <button mat-button class="filter_clear" (click)="onCancelClick()">Clear All</button>
+    <button mat-button class="final_apply" [mat-dialog-close]="{status: selectedStatus, role: selectedRole}" cdkFocusInitial>Apply</button>
+</div>
+</div>

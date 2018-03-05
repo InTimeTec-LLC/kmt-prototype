@@ -1,21 +1,21 @@
 
-<toaster-container></toaster-container>
-<div class="app-header">
-    <h1 class="heading ">Login</h1>
-</div>
+<div class="login-body">
+<toaster-container [toasterconfig]="toasterconfig"></toaster-container>
+<!--><div class="app-header">
+    <h1 class="heading ">KMT Prototype</h1>
+</div>-->
 <!-- Application header ends -->
- <div class="login-body">
-<mat-grid-list cols="3">
-    <mat-grid-tile></mat-grid-tile>
+ <div >
+<!--<mat-grid-list cols="3">-->
+   <!-- <mat-grid-tile></mat-grid-tile>-->
  
     <!-- Writing markup for login starts -->
-    <mat-grid-tile class='login-element'>
+    <!--<mat-grid-tile class="login-element">-->
         <div class="login-container">
  
             <!-- Template Header starts -->
             <div class="login-box-header">
-                <h2>Login </h2>
-                
+                <span>Login</span>                 
             </div>
             <!-- Template Header ends -->
  
@@ -23,7 +23,7 @@
             <div class="login-box-body ">
                 <form class="example-form" name="form" >
                     <mat-form-field class="example-full-width">
-                        <label>Email</label> 
+                        <label>Email</label>
                         <input matInput type="email" name="username" [(ngModel)]="model.username" #username="ngModel" required>
                     </mat-form-field>
 
@@ -31,9 +31,7 @@
                         <label>Password</label>
                         <input matInput type="password" class="form-control" name="password" [(ngModel)]="model.password" #password="ngModel" required>
                     </mat-form-field>
-                    <div class="login-forgot">
-                        <a href='#'> Forgot Password</a>
-                    </div>
+                
                     <div class="login-button" (click)="login()">
                         <button mat-raised-button color="primary" class="login-button">
                           Login
@@ -46,17 +44,17 @@
             <!-- Template Body ends -->
             
         </div>
-    </mat-grid-tile>
+    <!--</mat-grid-tile>-->
     <!-- Writing markup for login ends -->
-    <mat-grid-tile></mat-grid-tile>
+    <!--<mat-grid-tile></mat-grid-tile>-->
  
-</mat-grid-list>
+<!--</mat-grid-list>-->
+</div>
 </div>
 
 <!-- Application footer starts -->
 <div class="footer">
-        <a href="#"> Term & Conditions </a>
-        <a href="#">  Privacy policay </a><span>  @copyright 2018</span>
+        <span>  @copyright 2018</span>
       </div> 
 <!-- Application footer ends -->
 

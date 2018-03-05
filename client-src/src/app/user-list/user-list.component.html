@@ -1,38 +1,20 @@
+<toaster-container [toasterconfig]="toasterconfig"></toaster-container>
 <div class="container">
   <div class="add-user-button"><a (click)="onTapNavigation('/user/add')">Add User</a></div>
   <div class="Container-table">
     <div class="add-heading"><h2 class="heading-margin">User Settings</h2></div>
     <div class="example-container">
-    <!-- <table class="table">
-    <thead>
-      <tr>
-        <th>First Name</th>
-        <th>Last Name</th>
-        <th>Email</th>
-        <th>Role</th>
-        <th>Action</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let user of listOfUsers">
-        <td> {{ user.firstName }}</td>
-        <td> {{ user.lastName }}</td>
-        <td> {{ user.email }}</td>
-        <td> {{ user.userRole }}</td>
-        <td><a [routerLink]="['/user/edit', user.id]">Edit</a></td>
-      </tr>
-     </tbody> 
-  </table>-->
 
   <div class="example-header">
     <mat-form-field>
-      <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
+      <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Search within the table">
     </mat-form-field>
+    <img src="../../assets/images/filter-icon.png" (click)="onTapFilterIcon()" alt="Filtericon" class="filter_icon">
   </div>
   
   <div class="example-container-1 mat-elevation-z8">
   
-    <mat-table [dataSource]="dataSource" matSort>
+    <mat-table [dataSource]="dataSource" matSort class="list_table">
   
       <!-- ID Column -->
       <ng-container matColumnDef="name">
@@ -55,14 +37,27 @@
        <!-- status Column -->
        <ng-container matColumnDef="status">
           <mat-header-cell *matHeaderCellDef mat-sort-header> Status </mat-header-cell>
-          <mat-cell *matCellDef="let row"> {{row.status}} </mat-cell>
+          <mat-cell *matCellDef="let row"> 
+              <span *ngIf="!row.status">Deactivated</span>
+              <span *ngIf="row.status">Activated</span>
+          </mat-cell>
         </ng-container>
-  
-      <!-- Color Column -->
+
+      <!-- status Column -->
+      <ng-container matColumnDef="createdon">
+          <mat-header-cell *matHeaderCellDef mat-sort-header> Created On </mat-header-cell>
+          <mat-cell *matCellDef="let row"> {{row.createdOn}} </mat-cell>
+        </ng-container>
+
+        <!-- Color Column -->
       <ng-container matColumnDef="actions">
-        <mat-header-cell *matHeaderCellDef mat-sort-header> Actions </mat-header-cell>
-        <mat-cell *matCellDef="let row"><a [routerLink]="['/user/edit', row.id]">Edit</a></mat-cell>
-      </ng-container>
+          <mat-header-cell *matHeaderCellDef mat-sort-header> Actions </mat-header-cell>
+          <mat-cell *matCellDef="let row">
+            <a [routerLink]="['/user/edit', row.id]">Edit</a> |
+            <a *ngIf="row.status" (click)="onTapActions(false, row.id)">Deactivate</a>
+            <a *ngIf="!row.status" (click)="onTapActions(true, row.id)">Activate</a> 
+          </mat-cell>
+        </ng-container>
   
       <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
       <mat-row *matRowDef="let row; columns: displayedColumns;">

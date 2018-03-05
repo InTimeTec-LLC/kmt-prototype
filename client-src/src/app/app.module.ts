@@ -10,7 +10,7 @@ import { AddArticleComponent } from './add-knowledge-base-article/add.component'
 import { EditArticleComponent } from './edit-knowledge-base-article/edit.component';
 import { SharedModule } from '../shared/shared.module';
 import { LoginComponent } from './login/login.component';
-//import { InMemoryWebApiModule } from 'angular-in-memory-web-api';
+import { InMemoryWebApiModule } from 'angular-in-memory-web-api';
 import { ArticleData } from '../mock/article-data';
 import { AppRoutingModule } from './app-routing.module';
 import { AuthGuard } from '../shared/service/helper/auth-guards';
@@ -23,7 +23,7 @@ import { MainComponent } from './main/main.component';
 import { LeftPanelComponent } from './left-panel/left-panel.component';
 import { FooterComponent } from './footer/footer.component';
 import { ContentComponent } from './content/content.component';
-import { UserListComponent } from './user-list/user-list.component';
+import { UserListComponent, UserListFilter } from './user-list/user-list.component';
 import { MaterialModule } from '../shared/material.module';
 import {ToasterModule, ToasterService} from 'angular5-toaster';
 
@@ -41,7 +41,8 @@ import {ToasterModule, ToasterService} from 'angular5-toaster';
     ContentComponent,
     MainComponent,
     UserListComponent,
-    EditUserComponent
+    EditUserComponent,
+    UserListFilter
   ],
   imports: [
     BrowserModule,
@@ -50,7 +51,9 @@ import {ToasterModule, ToasterService} from 'angular5-toaster';
     HttpClientModule ,
     HttpModule,
     SharedModule.forRoot(),
-    //InMemoryWebApiModule.forRoot(ArticleData),
+    InMemoryWebApiModule.forRoot(ArticleData, {
+      passThruUnknownUrl: true
+    }),
     AppRoutingModule,
     MaterialModule,
     ReactiveFormsModule,
@@ -58,6 +61,7 @@ import {ToasterModule, ToasterService} from 'angular5-toaster';
     ToasterModule
 
   ],
+  entryComponents: [UserListFilter],
   providers: [],
   bootstrap: [AppComponent]
 })

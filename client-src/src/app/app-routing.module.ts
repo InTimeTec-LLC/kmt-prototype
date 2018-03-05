@@ -24,12 +24,12 @@ const routes:  Routes = [
     {
       path: 'article/add',
       component: AddArticleComponent,
-      data: { title: 'Add knowledge Base Article' }
+      data: { title: 'Add Article' }
     },
     {
       path: 'article/edit/:id',
       component: EditArticleComponent,
-      data: { title: 'Edit Knowledge Base Article' }
+      data: { title: 'Edit Article' }
     },
     { path: 'user/add',
       component: AddUserComponent,
@@ -51,7 +51,7 @@ const routes:  Routes = [
 
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes, { enableTracing: true })],
+  imports: [RouterModule.forRoot(routes, { enableTracing: false })],
   exports: [RouterModule]
 })
 export class AppRoutingModule { }

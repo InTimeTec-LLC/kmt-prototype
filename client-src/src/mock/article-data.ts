@@ -35,6 +35,17 @@ export class ArticleData implements InMemoryDbService {
       userRole: 'manager', email: 'Test11@test.com'}
   ];
 
-    return {articles, users};
+  const types = { 'types':  [{id: 1, type: 'Type1'}, {id: 2, type: 'Type2'}, {id: 3, type: 'Type3'}]};
+
+  const approvers = { 'users': [
+                              {id: 1, firstName: 'Manish', lastName: 'Tripathi'},
+                              {id: 2, firstName: 'Harish', lastName: 'Patidar'},
+                              {id: 3, firstName: 'Rohan', lastName: 'Rogers'}
+                    ]
+                  }
+
+
+
+    return {articles, types, approvers};
   }
 }

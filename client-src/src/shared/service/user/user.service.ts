@@ -16,6 +16,7 @@ import { AuthenticationService } from '../authentication/authentication.service'
 @Injectable()
 export class UserService {
   httpOptions: any;
+  roles: any[];
   /**
    * Creates a new KnowledgeBaseContentervice with the injected HttpClient.
    * @param {HttpClient} http - The injected HttpClient.
@@ -40,13 +41,50 @@ export class UserService {
     .catch(this.handleErrorObservable);
   }
 
+  activateDeactivateUsers (status, userId) : Observable<any> {
+    return this.http.put(this.apiUrl+"/state/"+userId+"/"+status, {})
+    .catch(this.handleErrorObservable);
+  }
+
+
+  /**
+   * Returns an Observable for the HTTP GET request for the JSON resource.
+   * @return {any[]} The Observable for the HTTP request.
+   */
+
+  listRoles (): Observable<any> {
+    return this.http.get(this.apiUrl + '/roles')
+    .catch(this.handleErrorObservable);
+  }
+
+  setRoles(data) {
+    this.roles = data;
+  }
+
+  getRoles() {
+    return this.roles;
+  }
+
+ /**
+   * Returns an Observable for the HTTP GET request for the JSON resource.
+   * @return {any[]} The Observable for the HTTP request.
+   */
+
+  listApprovers (): Observable<any> {
+    // let url = this.apiUrl + '/approvers';
+    const url  = 'api/approvers';
+    return this.http.get(url)
+    .catch(this.handleErrorObservable);
+  }
+
+
   /**
    * Returns an Observable for the HTTP POST request for the JSON resource.
    * @return {User} The Observable for the HTTP request.
    */
 
   createUser (userInfo: User): Observable<any> {
-        return this.http.post(this.apiUrl, userInfo, this.httpOptions)
+        return this.http.post(this.apiUrl, {'user': userInfo}, this.httpOptions)
                    .catch(this.handleErrorObservable);
   }
 
@@ -56,7 +94,7 @@ export class UserService {
    */
 
   updateUser (id: String, userInfo: User): Observable<any> {
-    return this.http.put(this.apiUrl + '/' + id, userInfo, this.httpOptions)
+    return this.http.put(this.apiUrl + '/' + id, {'user': userInfo}, this.httpOptions)
                .catch(this.handleErrorObservable);
   }
 

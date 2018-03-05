@@ -4,7 +4,7 @@
   <toaster-container></toaster-container>  
   <div class="add-heading"><h2 class="heading-margin">Edit User</h2></div>
 
-<form  (ngSubmit)="onSubmit(user)" [formGroup]="user">
+<form  (ngSubmit)="onSubmit(user)" [formGroup]="user" #formDir="ngForm">
 
 <div class="example-container">
   <mat-form-field>
@@ -27,10 +27,10 @@
 
   <mat-form-field>
     <mat-select formControlName="userRole" placeholder="Role">
-        <mat-option value="">Select</mat-option>
-        <mat-option value="user">User</mat-option>
-        <mat-option value="manager">Manager</mat-option>
-        <mat-option value="admin">Admin</mat-option>
+        <mat-option>Select Role</mat-option>
+        <mat-option [value]="role.role | lowercase" *ngFor="let role of roles">
+          {{ role.role | titlecase}}
+        </mat-option>
     </mat-select>
   </mat-form-field>
   <div class="error" 
@@ -72,9 +72,9 @@
       Password and Confirm Password should match
   </div>
 <div class="button-postion">
-  <button type="button" mat-raised-button (click)="onDeactivate()">Deactivate</button>
+  <!--<button type="button" mat-raised-button (click)="onDeactivate()">Deactivate</button>-->
   <button type="button" mat-raised-button (click)="onCancle()">Cancel</button>
-  <button mat-raised-button type="submit">Save</button>
+  <button mat-raised-button type="submit" [disabled]="user.invalid">Save</button>
 </div>
   <div *ngIf="userName" [ngClass] = "'success'"> {{userName}} created. </div>
 </div>

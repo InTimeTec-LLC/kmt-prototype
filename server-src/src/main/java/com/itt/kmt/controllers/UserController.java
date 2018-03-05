@@ -1,5 +1,6 @@
 package com.itt.kmt.controllers;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -30,11 +31,6 @@ public class UserController {
      */
     @Autowired
     private UserService userService;
-    /**
-     * repository implementation for DB entity that provides retrieval methods.
-     */
-    @Autowired
-    private UserRepository userRepository;
 
     /**
      * REST API to add a new User.
@@ -60,7 +56,7 @@ public class UserController {
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     @RequiresPermissions("getUserById")
     public ModelMap getUser(@PathVariable("id") final String id) {
-        User user = userRepository.findOne(id);
+        User user = userService.getUserByID(id);
         return new ModelMap().addAttribute("user", user);
     }
     /**
@@ -74,16 +70,39 @@ public class UserController {
         return new ModelMap().addAttribute("users", users);
     }
     /**
-     * REST API to delete a User.
-     * @param id Id of the user to be deleted.
+     * REST Interface for Admin and Managers retrieval.
      * @return ModelMap.
      */
-    @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
-    @RequiresPermissions("deleteUser")
-    public ModelMap deleteUser(@PathVariable("id") final String id) {
-        userService.deleteUserById(id);
-        ResponseMsg deleteResponseMsg = new ResponseMsg(true, Constants.USER_DELETED_SUCCESS_MSG);
-        return new ModelMap().addAttribute("success", deleteResponseMsg);
+    @RequestMapping(value = "/approvers", method = RequestMethod.GET)
+    @RequiresPermissions("getAllApprovers")
+    public ModelMap getAllApprovers() {
+        List<User> adminAndmanager = new ArrayList<User>();
+        List<String> roles = new ArrayList<String>();
+        roles.add("admin");
+        roles.add("manager");
+        adminAndmanager.addAll(userService.getAllActiveUsersByRoles(roles));
+
+        return new ModelMap().addAttribute("users", adminAndmanager);
+    }
+    /**
+     * REST API to change status of a User.
+     * @param id id of the user.
+     * @param active status of the user.
+     * @return ModelMap.
+     */
+    @RequestMapping(value = "/state/{id}/{active}", method = RequestMethod.PUT, produces = "application/json")
+    @RequiresPermissions("changeUserStatus")
+    public ModelMap changeUserStatus(@PathVariable("id") final String id, 
+            @PathVariable("active") final boolean active) {
+        userService.changeUserStatus(id, active);
+        ResponseMsg activateResponseMsg;
+        if (active) {
+            activateResponseMsg = new ResponseMsg(true, "activated successfully");
+        } else {
+            activateResponseMsg = new ResponseMsg(true, "deactivated successfully"); 
+        }
+
+        return new ModelMap().addAttribute("success", activateResponseMsg);
     }
     /**
      * REST API to update a User.
@@ -100,7 +119,6 @@ public class UserController {
         ResponseMsg updateResponseMsg = new ResponseMsg(true, Constants.DEFAULT_UPDATE_SUCCESS_MSG);
         return new ModelMap().addAttribute("success", updateResponseMsg);
     }
-
     /**
      * REST API to return all Roles.
      * @return ModelMap.

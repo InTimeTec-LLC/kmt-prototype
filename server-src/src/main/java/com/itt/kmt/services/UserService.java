@@ -7,6 +7,8 @@ import com.itt.kmt.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -46,6 +48,19 @@ public class UserService {
         return (List<User>) repository.findAll();
     }
     /**
+     * Gets all the active admins and managers.
+     * @param roles roles by which active users are retrieved.
+     * @return List of all the users.
+     */
+    public List<User> getAllActiveUsersByRoles(final List<String> roles) {
+        List<User> listOfActiveUsersByRoles = new ArrayList<User>();
+        for (String role : roles) {
+            List<User> users = repository.findByUserRole(role, true);
+            listOfActiveUsersByRoles.addAll(users);
+        }
+        return listOfActiveUsersByRoles;
+    }
+    /**
      * Saves the User.
      * @param user User object to be saved.
      * @return Users saved.
@@ -53,6 +68,7 @@ public class UserService {
     public User save(final User user) {
         User existingUser = getUserByEmail(user.getEmail());
         if (existingUser == null) {
+            user.setDateJoined(new Date());
             user.setActive(true);
             return repository.save(user);
         } else {
@@ -60,21 +76,25 @@ public class UserService {
         }
     }
     /**
-     * deletes User given the id.
+     * Changes the User status given the id and isActive status to be updated.
      * @param id Id of the User.
+     * @param isActive isActive status of the User.
+     * @return User.
      */
-    public void deleteUserById(final String id) {
+    public User changeUserStatus(final String id, final boolean isActive) {
        User existingUser = repository.findOne(id);
-       if (existingUser != null) {
-           existingUser.setActive(false);
 
-           repository.save(existingUser);
+       if (existingUser != null && existingUser.isActive() != isActive) {
+           existingUser.setActive(isActive);
+           return repository.save(existingUser);
+        } else if (existingUser == null) {
+            throw new RuntimeException("user with the id does not exist");
         } else {
-           throw new RuntimeException("user with the id does not exist");
+            throw new RuntimeException("Operation not permitted");
         }
     }
     /**
-     * Activates inactive User.
+     * Updates User.
      * @param user user to be updated.
      * @param id id of the user to be updated.
      * @return user.
@@ -107,5 +127,18 @@ public class UserService {
      */
     public List<Role> getUserRoles() {
        return (List<Role>) roleRepository.findAll();
+    }
+
+    /**
+     * Get the User by ID
+     * @param id Id of the User.
+     * @return User.
+     */
+    public User getUserByID(String id){
+        User user = repository.findOne(id);
+        if (user == null) {
+            throw new RuntimeException("user with the id does not exist");
+        }
+        return user;
     }
 }

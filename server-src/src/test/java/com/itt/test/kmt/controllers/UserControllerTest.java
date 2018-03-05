@@ -71,10 +71,6 @@ public class UserControllerTest extends AbstractShiroTest {
     @MockBean
     private UserService userService;
 
-    /** The user repository. */
-    @MockBean
-    private UserRepository userRepository;
-
     /** The test data repository. */
     @Autowired
     private TestDataRepository testDataRepository;
@@ -126,7 +122,6 @@ public class UserControllerTest extends AbstractShiroTest {
         // 2. Bind the subject to the current thread:
         setSubject(subjectUnderTest);
     }
-
     /**
      * Gets the user.
      *
@@ -140,7 +135,7 @@ public class UserControllerTest extends AbstractShiroTest {
         // Arrange
         User user = testDataRepository.getUsers()
                                       .get("user-1");
-        when(userRepository.findOne(user.getId())).thenReturn(user);
+        when(userService.getUserByID(user.getId())).thenReturn(user);
         RequestBuilder requestBuilder = MockMvcRequestBuilders.get("/users/" + user.getId())
                                                               .accept(MediaType.APPLICATION_JSON);
 
@@ -155,7 +150,7 @@ public class UserControllerTest extends AbstractShiroTest {
                      .andExpect(jsonPath("$.user.email", is(user.getEmail())))
                      .andExpect(jsonPath("$.user.userRole", is(user.getUserRole())));
 
-        verify(userRepository, times(1)).findOne(user.getId());
+        verify(userService, times(1)).getUserByID(user.getId());
     }
 
     /**
@@ -198,6 +193,55 @@ public class UserControllerTest extends AbstractShiroTest {
                      .andExpect(jsonPath("$.users[1].email", is(userTwo.getEmail())))
                      .andExpect(jsonPath("$.users[1].userRole", is(userTwo.getUserRole())));
         verify(userService, times(1)).getAllUsers();
+    }
+
+    /**
+     * Gets the all users.
+     *
+     * @return the all users
+     * @throws Exception the exception
+     */
+    @Test
+    public void getAllApprovers()
+        throws Exception {
+
+        User userOne = testDataRepository.getUsers()
+                                         .get("user-1");
+        User userTwo = testDataRepository.getUsers()
+                                         .get("user-2");
+
+        ArrayList<User> admins = new ArrayList<User>();
+        admins.add(userOne);
+        ArrayList<User> managers = new ArrayList<User>();
+        managers.add(userTwo);
+        ArrayList<User> adminsAndManagers = new ArrayList<User>();
+        adminsAndManagers.addAll(admins);
+        adminsAndManagers.addAll(managers);
+        ArrayList<String> roles = new ArrayList<String>();
+        roles.add("admin");
+        roles.add("manager");
+
+        when(userService.getAllActiveUsersByRoles(roles)).thenReturn(adminsAndManagers);
+        RequestBuilder requestBuilder = MockMvcRequestBuilders.get("/users/approvers")
+                                                              .accept(MediaType.APPLICATION_JSON);
+
+        // Act
+        ResultActions resultActions = mockMvc.perform(requestBuilder);
+
+        resultActions.andExpect(status().isOk())
+                     .andExpect(content().contentType(contentType))
+                     .andExpect(jsonPath("$.users", Matchers.hasSize(2)))
+                     .andExpect(jsonPath("$.users[0].id", is(userOne.getId())))
+                     .andExpect(jsonPath("$.users[0].firstName", is(userOne.getFirstName())))
+                     .andExpect(jsonPath("$.users[0].lastName", is(userOne.getLastName())))
+                     .andExpect(jsonPath("$.users[0].email", is(userOne.getEmail())))
+                     .andExpect(jsonPath("$.users[0].userRole", is(userOne.getUserRole())))
+                     .andExpect(jsonPath("$.users[1].id", is(userTwo.getId())))
+                     .andExpect(jsonPath("$.users[1].firstName", is(userTwo.getFirstName())))
+                     .andExpect(jsonPath("$.users[1].lastName", is(userTwo.getLastName())))
+                     .andExpect(jsonPath("$.users[1].email", is(userTwo.getEmail())))
+                     .andExpect(jsonPath("$.users[1].userRole", is(userTwo.getUserRole())));
+        verify(userService, times(1)).getAllActiveUsersByRoles(roles);
     }
 
     /**
@@ -274,42 +318,98 @@ public class UserControllerTest extends AbstractShiroTest {
 
         verify(userService, times(1)).updateUser(user, user.getId());
     }
-
     /**
-     * Delete user.
+     * Update status of the user.
      *
      * @throws Exception the exception
      */
     @Test
-    public void deleteUser()
-        throws Exception {
-
+    public void changeUserStatus() throws Exception {
+        // Arrange
         User user = testDataRepository.getUsers()
-                                      .get("user-1");
+                .get("user-1");
+        user.setActive(true);
+        when(userService.changeUserStatus(user.getId(), user.isActive())).thenReturn(user);
 
-        ResultActions resultActions = mockMvc.perform(
-            MockMvcRequestBuilders.delete("/users/" + user.getId())
-                                  .contentType(MediaType.APPLICATION_JSON));
-        ResponseMsg deleteResponseMsg = new ResponseMsg(true, Constants.USER_DELETED_SUCCESS_MSG);
+        String content = new ObjectMapper().writeValueAsString(null);
+        // Act
+        ResultActions resultActions = mockMvc.perform(MockMvcRequestBuilders.put("/users/state/" + user.getId() 
+                    + "/" + user.isActive()).
+                   contentType(MediaType.APPLICATION_JSON).content(content));
 
+        ResponseMsg activateResponseMsg = new ResponseMsg(true, "activated successfully");
+        // Assert
         resultActions.andExpect(status().isOk())
-                     .andExpect(content().contentType(contentType))
-                     .andExpect(jsonPath("$.success.message", is(deleteResponseMsg.getMessage())))
-                     .andExpect(jsonPath("$.success.status", is(deleteResponseMsg.getStatus())));
+        .andExpect(content().contentType(contentType))
+        .andExpect(jsonPath("$.success.message", is(activateResponseMsg.getMessage())))
+        .andExpect(jsonPath("$.success.status", is(activateResponseMsg.getStatus())));
 
-        verify(userService, times(1)).deleteUserById(user.getId());
+        verify(userService, times(1)).changeUserStatus(user.getId(), true);
+    }
+    /**
+     * Update status of the user.
+     *
+     * @throws Exception the exception
+     */
+    @Test
+    public void activateActiveUser() throws Exception {
+        // Arrange
+        User user = testDataRepository.getUsers()
+                .get("user-1");
+
+        user.setActive(true);
+
+        when(userService.changeUserStatus(user.getId(), user.isActive()))
+            .thenThrow(new RuntimeException("Operation not permitted"));
+
+        String content = new ObjectMapper().writeValueAsString(null);
+        // Act
+        ResultActions resultActions = mockMvc.perform(MockMvcRequestBuilders.put("/users/state/" + user.getId() 
+                    + "/" + user.isActive()).
+                   contentType(MediaType.APPLICATION_JSON).content(content));
+
+        ResponseMsg activateResponseMsg = new ResponseMsg(false, "Bad Request");
+        // Assert
+        resultActions.andExpect(status().isBadRequest())
+        .andExpect(content().contentType(contentType))
+        .andExpect(jsonPath("$.success.message", is(activateResponseMsg.getMessage())))
+        .andExpect(jsonPath("$.success.status", is(activateResponseMsg.getStatus())));
+
+        verify(userService, times(1)).changeUserStatus(user.getId(), true);
+    }
+    /**
+     * Update status of the user.
+     *
+     * @throws Exception the exception
+     */
+    @Test
+    public void changeUserStatusToDeactivate() throws Exception {
+        // Arrange
+        User user = testDataRepository.getUsers()
+                .get("user-3");
+
+        user.setActive(false);
+
+        when(userService.changeUserStatus(user.getId(), false)).thenReturn(user);
+
+        String content = new ObjectMapper().writeValueAsString(null);
+        // Act
+        ResultActions resultActions = mockMvc.perform(MockMvcRequestBuilders.put("/users/state/" + user.getId()
+                    + "/" + user.isActive()).
+                   contentType(MediaType.APPLICATION_JSON).content(content));
+
+        ResponseMsg activateResponseMsg = new ResponseMsg(true, "deactivated successfully");
+        // Assert
+        resultActions.andExpect(status().isOk())
+        .andExpect(content().contentType(contentType))
+        .andExpect(jsonPath("$.success.message", is(activateResponseMsg.getMessage())))
+        .andExpect(jsonPath("$.success.status", is(activateResponseMsg.getStatus())));
+
+        verify(userService, times(1)).changeUserStatus(user.getId(), user.isActive());
     }
 
-    /**
-     * Gets the all roles.
-     *
-     * @return the all roles
-     * @throws Exception the exception
-     */
     @Test
-    public void getAllRoles()
-        throws Exception {
-
+    public void getAllRoles() throws Exception {
         // Arrange
         Role role1 = roleTestDataRepository.getRoles()
                                            .get("role-1");

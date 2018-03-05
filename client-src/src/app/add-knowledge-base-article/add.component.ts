@@ -3,6 +3,7 @@ import { KnowledgeBaseArticleService } from '../../shared/service/knowledge-base
 import { Router } from '@angular/router';
 import { KnowledgeBaseArticle } from '../../shared/modals/knowledge-base-article';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { UserService } from '../../shared/service/user/user.service';
 
 @Component({
   selector: 'app-add-kb-article',
@@ -15,12 +16,17 @@ export class AddArticleComponent implements OnInit {
   errorMessage: String;
   articleTitle: String;
   article: FormGroup;
+  types: any[];
+  approvers: any[];
 
 
 
   constructor(
     private kbContentService: KnowledgeBaseArticleService,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private router: Router,
+    private userService: UserService
+
   ) {
   }
 
@@ -28,6 +34,16 @@ export class AddArticleComponent implements OnInit {
     this.article = this.fb.group({
       title: ['', [Validators.required, Validators.minLength(2)]],
      description: ['', Validators.required],
+     articleType: ['', Validators.required],
+     approver: ['', Validators.required],
+    });
+
+    this.kbContentService.listKnowledgeBaseArticleTypes().subscribe((data: any) => {
+        this.types = data.types;
+    });
+
+    this.userService.listApprovers().subscribe((data: any) => {
+      this.approvers = data.users;
     });
 
   }
@@ -40,6 +56,10 @@ export class AddArticleComponent implements OnInit {
          },
                   error => this.errorMessage = <any>error);
 
+  }
+
+  onCancle() {
+    this.router.navigateByUrl('/userlist');
   }
 
 

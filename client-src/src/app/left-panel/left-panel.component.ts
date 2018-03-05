@@ -19,6 +19,7 @@ export class LeftPanelComponent implements OnInit {
   constructor(private auth: AuthenticationService, private router: Router,private messageService: MessageService) { 
      this.userType = this.auth.getUserType(); 
      this.subscription = this.messageService.getMessage().subscribe(message => { 
+        console.log("LeftPanelComponent subscribe");
         this.userType = this.auth.getUserType();
      });
   }

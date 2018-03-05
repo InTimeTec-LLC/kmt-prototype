@@ -17,6 +17,7 @@ export class AddUserComponent implements OnInit {
   errorMessage: String;
   addUserName: String;
   user: FormGroup;
+  roles: any[];
 
 
   get cpwd() {
@@ -29,6 +30,9 @@ export class AddUserComponent implements OnInit {
     private router: Router,
     private toasterService: ToasterService
   ) {
+    this.userService.listRoles().subscribe((data: any) => {
+      this.roles = data.roles;
+    });
   }
 
   ngOnInit() {
@@ -70,5 +74,6 @@ export class AddUserComponent implements OnInit {
   onCancle() {
     this.router.navigateByUrl('/userlist');
   }
+
 
 }
