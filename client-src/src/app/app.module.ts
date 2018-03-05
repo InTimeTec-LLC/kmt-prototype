@@ -23,8 +23,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MainComponent } from './main/main.component';
 import { LeftPanelComponent } from './left-panel/left-panel.component';
 import { FooterComponent } from './footer/footer.component';
-import { ListArticleComponent, ArticleListFilter } from './list-knowledge-base-article/list-article.component';
-import { UserListComponent, UserListFilter } from './user-list/user-list.component';
+import { ListArticleComponent, ArticleListFilterComponent } from './list-knowledge-base-article/list-article.component';
+import { UserListComponent, UserListFilterComponent } from './user-list/user-list.component';
 import { MaterialModule } from '../shared/material.module';
 import {ToasterModule, ToasterService} from 'angular5-toaster';
 
@@ -43,8 +43,8 @@ import {ToasterModule, ToasterService} from 'angular5-toaster';
     MainComponent,
     UserListComponent,
     EditUserComponent,
-    UserListFilter,
-    ArticleListFilter,
+    UserListFilterComponent,
+    ArticleListFilterComponent,
     ViewKnowledgeBaseArticleComponent
   ],
   imports: [
@@ -64,7 +64,7 @@ import {ToasterModule, ToasterService} from 'angular5-toaster';
     ToasterModule
 
   ],
-  entryComponents: [UserListFilter, ArticleListFilter],
+  entryComponents: [UserListFilterComponent, ArticleListFilterComponent],
   providers: [],
   bootstrap: [AppComponent]
 })

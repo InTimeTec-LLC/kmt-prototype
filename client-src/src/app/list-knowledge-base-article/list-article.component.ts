@@ -24,17 +24,17 @@ export class ListArticleComponent implements OnInit {
   @ViewChild(MatSort) sort: MatSort;
 
   articleList: any;
-  private toasterconfig : ToasterConfig = 
+  private toasterconfig: ToasterConfig =
         new ToasterConfig({
-            showCloseButton: false, 
-            tapToDismiss: false, 
+            showCloseButton: false,
+            tapToDismiss: false,
             timeout: 2000,
             positionClass : 'toast-top-center',
             animate : 'fade'
         });
 
   constructor(
-    private router: Router, 
+    private router: Router,
     private toasterService: ToasterService,
     private kbContentService: KnowledgeBaseArticleService,
     public dialog: MatDialog) {
@@ -48,7 +48,6 @@ export class ListArticleComponent implements OnInit {
     }
 
     onTapActions() {
-        
     }
 
     getUserList() {
@@ -69,31 +68,33 @@ export class ListArticleComponent implements OnInit {
     }
 
     onTapFilterIcon() {
-        let dialogRef = this.dialog.open(ArticleListFilter, {
+        const dialogRef = this.dialog.open(ArticleListFilterComponent, {
             width: '274px',
             data: {}
         });
-      
+
         dialogRef.afterClosed().subscribe(result => {
             let filterStatus = [];
             let filteType = [];
             if(result && result.status !== undefined) {
                 if(result.status === 'Published') {
-                    this.articleList.forEach(function(element){
-                        if(element.active) filterStatus.push(element);
+                    this.articleList.forEach(function(element) {
+                        if (element.active) {
+                            filterStatus.push(element);
+                        }
                     }.bind(this));
-                } else if(result.status === 'Unpublished') {
-                    this.articleList.forEach(function(element){
-                        if(!element.active) filterStatus.push(element);
+                } else if (result.status === 'Unpublished') {
+                    this.articleList.forEach(function(element) {
+                        if (!element.active) { filterStatus.push(element); }
                     }.bind(this));
                 }
             } else {
               filterStatus = this.articleList;
             }
 
-            if(result && result.type !== undefined) {
+            if (result && result.type !== undefined) {
               filterStatus.forEach(function(element){
-                    if(element.type === String(result.type).toLowerCase()) filteType.push(element);
+                    if (element.type === String(result.type).toLowerCase()) { filteType.push(element); }
                 }.bind(this));
             } else {
               filteType = filterStatus;
@@ -105,9 +106,8 @@ export class ListArticleComponent implements OnInit {
 
     createData(data) {
         const aritcles: Aritcles[] = [];
-        for (let i = 0; i < data.length; i++) 
-        { 
-          aritcles.push(this.createNewUser(data[i])); 
+        for (let i = 0; i < data.length; i++) {
+          aritcles.push(this.createNewUser(data[i]));
         }
 
         console.log(aritcles);
@@ -122,7 +122,7 @@ export class ListArticleComponent implements OnInit {
         this.dataSource.filter = filterValue;
     }
 
-  createNewUser(item:any): Aritcles {
+  createNewUser(item: any): Aritcles {
     return {
         id: item.id,
         type: item.articleType.type,
@@ -138,10 +138,10 @@ export class ListArticleComponent implements OnInit {
 }
 
 @Component({
-    selector: 'article-filter',
+    selector: 'app-article-filter',
     templateUrl: 'article-filter.html',
   })
-  export class ArticleListFilter {
+  export class ArticleListFilterComponent {
     statusList = ['Published', 'Unpublished'];
     typesList: any[];
     selectedStatus: any;
@@ -149,7 +149,7 @@ export class ListArticleComponent implements OnInit {
 
     constructor(
       private kbContentService: KnowledgeBaseArticleService,
-        private dialogRef: MatDialogRef<ArticleListFilter>,
+        private dialogRef: MatDialogRef<ArticleListFilterComponent>,
         @Inject(MAT_DIALOG_DATA) public data: any) {
             this.typesList = this.kbContentService.getTypes();
             console.log(this.typesList);
