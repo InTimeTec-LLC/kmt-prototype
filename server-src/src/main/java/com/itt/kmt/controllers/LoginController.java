@@ -44,7 +44,7 @@ public class LoginController {
             User dbUser = userService.getUserByEmail(user.getEmail());
 
             if (dbUser != null && dbUser.getPassword()
-                                        .equals(user.getPassword())) {
+                                        .equals(user.getPassword()) && dbUser.isActive()) {
                 LoginResponseMsg responseMsg = new LoginResponseMsg();
 
                 LoginResponseMsg.StatusMsg ic = responseMsg.new StatusMsg();
