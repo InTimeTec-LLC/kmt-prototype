@@ -39,8 +39,8 @@ checkstyle {
 }
 
 war {
-    baseName = project.name
-    version =  "${version}"
+    baseName = 'ROOT'
+    version =  null
     from 'static'
 }
 task myJavadocs(type: Javadoc) {
@@ -142,8 +142,8 @@ task createDist{
     copy{
         println "Current version:${version} buildDir:${buildDir}"
         into ("${projectDir}/dist")
-        from ("${buildDir}/libs/${project.name}-${version}.war"){
-            rename("${project.name}-${version}.war","ROOT.war")
+        from ("${buildDir}/libs/ROOT.war"){
+             rename("ROOT.war","ROOT.war")
         }
     }
     copy{
