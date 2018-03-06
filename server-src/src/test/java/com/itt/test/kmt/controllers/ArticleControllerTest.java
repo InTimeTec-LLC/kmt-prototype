@@ -1,11 +1,11 @@
 package com.itt.test.kmt.controllers;
 
 import static org.hamcrest.core.Is.is;
-import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.RETURNS_DEEP_STUBS;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
+import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -19,6 +19,7 @@ import com.itt.test_data.ArticleTestDataRepository;
 import com.itt.test_data.ArticleTypeTestDataRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.shiro.subject.Subject;
+
 import org.apache.shiro.util.ThreadContext;
 import org.apache.shiro.web.mgt.DefaultWebSecurityManager;
 import org.hamcrest.Matchers;
@@ -26,6 +27,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureWebMvc;
@@ -92,6 +94,9 @@ public class ArticleControllerTest extends AbstractShiroTest {
     @Autowired
     private WebApplicationContext wac;
 
+    private static final int PAGE_NUMBER = 0; 
+    private static final int PAGE_SIZE = 10;
+
     /**
      * Sets the up.
      *
@@ -106,7 +111,7 @@ public class ArticleControllerTest extends AbstractShiroTest {
 
         this.mockMvc = MockMvcBuilders.webAppContextSetup(ctx)
                 .build();
-        DefaultWebSecurityManager securityManger = mock(DefaultWebSecurityManager.class, RETURNS_DEEP_STUBS);
+        DefaultWebSecurityManager securityManger = Mockito.mock(DefaultWebSecurityManager.class, RETURNS_DEEP_STUBS);
         ThreadContext.bind(securityManger);
         // 1. Create a mock authenticated Subject instance for the test to run:
         subjectUnderTest = new Subject.Builder((DefaultWebSecurityManager) getSecurityManager()).buildSubject();
@@ -143,15 +148,15 @@ public class ArticleControllerTest extends AbstractShiroTest {
 
         resultActions = mockMvc.perform(
                 MockMvcRequestBuilders.post("/articles")
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .content(content));
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(content));
 
         // Assert
         resultActions.andExpect(status().isOk())
-                .andExpect(
-                        content().contentType(new MediaType("application", "json", Charset.forName("UTF-8"))))
-                .andExpect(jsonPath("$.success.message", is(postResponseMsg.getMessage())))
-                .andExpect(jsonPath("$.success.status", is(postResponseMsg.getStatus())));
+        .andExpect(
+                content().contentType(new MediaType("application", "json", Charset.forName("UTF-8"))))
+        .andExpect(jsonPath("$.success.message", is(postResponseMsg.getMessage())))
+        .andExpect(jsonPath("$.success.status", is(postResponseMsg.getStatus())));
     }
 
     @Test
@@ -174,15 +179,83 @@ public class ArticleControllerTest extends AbstractShiroTest {
         resultActions = mockMvc.perform(requestBuilder);
 
         resultActions.andExpect(status().isOk())
-                .andExpect(content().contentType(contentType))
-                .andExpect(jsonPath("$.types", Matchers.hasSize(2)))
-                .andExpect(jsonPath("$.types[0].id", is(articleType1.getId())))
-                .andExpect(jsonPath("$.types[0].type", is(articleType1.getType())))
-                .andExpect(jsonPath("$.types[1].id", is(articleType2.getId())))
-                .andExpect(jsonPath("$.types[1].type", is(articleType2.getType())));
-        verify(articleService, times(1)).getArticleTypes();
+        .andExpect(content().contentType(contentType))
+        .andExpect(jsonPath("$.types", Matchers.hasSize(2)))
+        .andExpect(jsonPath("$.types[0].id", is(articleType1.getId())))
+        .andExpect(jsonPath("$.types[0].type", is(articleType1.getType())))
+        .andExpect(jsonPath("$.types[1].id", is(articleType2.getId())))
+        .andExpect(jsonPath("$.types[1].type", is(articleType2.getType())));
+        //verify(articleService, times(1)).getArticleTypes();
     }
 
+    @Test
+    public void updateArticleTest() throws Exception {
+
+        // Arrange
+        Article article = articleTestDataRepository.getArticles()
+                .get("article-1");
+        article.setVersion(article.getVersion() + 1);
+        ResponseMsg putResponseMsg = new ResponseMsg(true, "Modifications have been saved successfully");
+
+        when(articleService.updateArticle(article.getId(), article)).thenReturn(article);
+        HashMap<String, Article> map = new HashMap<String, Article>();
+        map.put("article", article);
+
+        // Act
+        ResultActions resultActions = mockMvc.perform(
+                MockMvcRequestBuilders.put("/articles/" + article.getId())
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(new ObjectMapper().writeValueAsString(map)));
+
+        // Assert
+        resultActions.andExpect(status().isOk())
+        .andExpect(
+                content().contentType(new MediaType("application", "json", Charset.forName("UTF-8"))))
+        .andExpect(jsonPath("$.success.message", is(putResponseMsg.getMessage())))
+        .andExpect(jsonPath("$.success.status", is(putResponseMsg.getStatus())));
+        verify(articleService, times(1)).updateArticle(article.getId(), article);
+    }
+
+    /*
+     *  @RequestMapping(value = "/{id}", method = RequestMethod.GET)
+    public ModelMap getArticleById(@PathVariable(value = "id") final String id) {
+        return new ModelMap().addAttribute("article", articleService.getArticleById(id));
+    }
+     * */
+    @Test
+    public void getArticleByIdTest() throws Exception {
+        // Arrange
+        Article article = articleTestDataRepository.getArticles()
+                .get("article-1");
+
+        when(articleService.getArticleById(article.getId())).thenReturn(article);
+
+        // Act
+        ResultActions resultActions = mockMvc.perform(
+                MockMvcRequestBuilders.get("/articles/" + article.getId())
+                .contentType(MediaType.APPLICATION_JSON));
+
+        // Assert
+        resultActions.andExpect(status().isOk())
+        .andExpect(
+                content().contentType(new MediaType("application", "json", Charset.forName("UTF-8"))))
+        .andExpect(jsonPath("$.article.id", is(article.getId())));
+        // verify(articleService, times(1)).updateArticle(article.getId(),article);
+    }
+    /*
+     *  @RequestMapping(method = RequestMethod.GET)
+    public Page<Article>  getArticles(@PageableDefault(value = PAGE_SIZE)final Pageable page) {
+        return articleService.getAllArticles(page);
+    }
+     * */
+    @Test
+    public void getArticlesTest() throws Exception {
+        mockMvc.perform(
+                MockMvcRequestBuilders.get("/articles").param("size", "10")
+                .accept(MediaType.APPLICATION_JSON))
+        .andDo(print())
+        .andExpect(status().isOk());
+    }
     /**
      * Tear down.
      */
