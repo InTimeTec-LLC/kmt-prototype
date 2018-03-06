@@ -17,7 +17,7 @@ public final class Constants {
     public static final String DEFAULT_UPDATE_SUCCESS_MSG = "Modifications have been saved successfully";
 
     /** The Constant USER_CREATE_SUCCESS_MSG. */
-    public static final String USER_ADDED_SUCCESS_MSG = "User has been added successfully";
+    public static final String USER_ADDED_SUCCESS_MSG = "User has been created successfully";
 
     /** The Constant USER_DELETE_SUCCESS_MSG. */
     public static final String USER_DELETED_SUCCESS_MSG = "User has been deleted successfully";
