@@ -1,12 +1,12 @@
-
 package com.itt.test.kmt.controllers;
 
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.RETURNS_DEEP_STUBS;
 import static org.mockito.Mockito.when;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import java.nio.charset.Charset;
-import java.util.HashMap;
 
 import org.apache.shiro.subject.Subject;
 import org.apache.shiro.util.ThreadContext;
@@ -22,8 +22,9 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.mock.web.MockHttpSession;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.RequestBuilder;
 import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
@@ -44,10 +45,12 @@ import lombok.extern.slf4j.Slf4j;
 /**
  * The Class LoginControllerTest.
  */
-@RunWith(SpringJUnit4ClassRunner.class)
+@RunWith(SpringRunner.class)
 @SpringBootTest
 @AutoConfigureMockMvc
 @AutoConfigureWebMvc
+
+/** The Constant log. */
 
 /** The Constant log. */
 @Slf4j
@@ -128,28 +131,114 @@ public class LoginControllerTest extends AbstractShiroTest {
 
         User user = testDataRepository.getUsers()
                                       .get("user-1");
-        LoginResponseMsg loginResponseMsg = new LoginResponseMsg(
-            true, "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHAiOjE1MTk4NDY4NzAsImVtYWlsIjoiYWFhMUBnb" 
-                + "WFpbC5jb20ifQ.MY63G1AgD5LOE8loGIGYA_K9atPcUtF5R2DRZwkbdj4");
+        LoginResponseMsg loginResponseMsg = new LoginResponseMsg();
+
+        LoginResponseMsg.StatusMsg ic = loginResponseMsg.new StatusMsg();
+        ic.setStatus(Boolean.TRUE);
+        ic.setAccessToken("eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHAiOjE1MTk4NDY4NzAsImVtYWlsIjoiYWFhMUBnb" 
+                        + "WFpbC5jb20ifQ.MY63G1AgD5LOE8loGIGYA_K9atPcUtF5R2DRZwkbdj4");
         loginResponseMsg.setUser(user);
+        loginResponseMsg.setSuccess(ic);
 
         when(userService.getUserByEmail(user.getEmail())).thenReturn(user);
-
-        HashMap<String, User> map = new HashMap<String, User>();
-        map.put("user", user);
 
         String content = new ObjectMapper().writeValueAsString(user);
         ResultActions resultActions = null;
 
         // Act
         MockHttpServletRequestBuilder cc = MockMvcRequestBuilders.post("/login")
-                                                                 .contentType(MediaType.APPLICATION_JSON);
+                                                                 .contentType(MediaType.APPLICATION_JSON)
+                                                                 .content(content);
+
+        resultActions = mockMvc.perform(cc);
+
+        // to-do: Need to assert with status and response
+        resultActions.andExpect(
+            MockMvcResultMatchers.content()
+                                 .contentType(new MediaType("application", "json", Charset.forName("UTF-8"))))
+                     .andExpect(status().isBadRequest());
+    }
+
+    /**
+     * unauthorizedLogin.
+     *
+     * @throws Exception the exception
+     */
+    @Test
+    public void invalidEmail()
+        throws Exception {
+
+        User user = testDataRepository.getUsers()
+                                      .get("user-1");
+
+        when(userService.getUserByEmail(user.getEmail())).thenReturn(user);
+
+        user.setEmail("invalid@email.com");
+        String content = new ObjectMapper().writeValueAsString(user);
+        ResultActions resultActions = null;
+
+        // Act
+        MockHttpServletRequestBuilder cc = MockMvcRequestBuilders.post("/login")
+                                                                 .contentType(MediaType.APPLICATION_JSON)
+                                                                 .content(content);
+
         resultActions = mockMvc.perform(cc);
 
         // to-do: Need to assert with status and response
         resultActions.andExpect(
             MockMvcResultMatchers.content()
                                  .contentType(new MediaType("application", "json", Charset.forName("UTF-8"))));
+    }
+
+    /**
+     * unauthorizedLogin.
+     *
+     * @throws Exception the exception
+     */
+    @Test
+    public void invalidPassword()
+        throws Exception {
+
+        User user = testDataRepository.getUsers()
+                                      .get("user-1");
+
+        when(userService.getUserByEmail(user.getEmail())).thenReturn(user);
+
+        user.setPassword("invalidpassword");
+        String content = new ObjectMapper().writeValueAsString(user);
+        ResultActions resultActions = null;
+
+        // Act
+        MockHttpServletRequestBuilder cc = MockMvcRequestBuilders.post("/login")
+                                                                 .contentType(MediaType.APPLICATION_JSON)
+                                                                 .content(content);
+
+        resultActions = mockMvc.perform(cc);
+
+        // to-do: Need to assert with status and response
+        resultActions.andExpect(
+            MockMvcResultMatchers.content()
+                                 .contentType(new MediaType("application", "json", Charset.forName("UTF-8"))));
+    }
+
+    /**
+     * Unauthorized.
+     *
+     * @throws Exception the exception
+     */
+    @Test
+    public void unauthorized()
+        throws Exception {
+
+        RequestBuilder requestBuilder = MockMvcRequestBuilders.get("/401")
+                                                              .accept(MediaType.APPLICATION_JSON);
+
+        // Act
+        ResultActions resultActions = mockMvc.perform(requestBuilder);
+
+        resultActions.andExpect(status().isUnauthorized())
+                     .andExpect(content().contentType(contentType));
+
     }
 
     /**

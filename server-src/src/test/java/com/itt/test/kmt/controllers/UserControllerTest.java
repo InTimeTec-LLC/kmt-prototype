@@ -42,11 +42,11 @@ import org.springframework.web.context.WebApplicationContext;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.itt.kmt.models.Role;
 import com.itt.kmt.models.User;
-import com.itt.kmt.repositories.UserRepository;
 import com.itt.kmt.response.models.ResponseMsg;
 import com.itt.kmt.services.UserService;
 import com.itt.test_data.RoleTestDataRepository;
 import com.itt.test_data.TestDataRepository;
+import com.itt.utility.Constants;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -255,7 +255,7 @@ public class UserControllerTest extends AbstractShiroTest {
         // Arrange
         User user = testDataRepository.getUsers()
                                       .get("user-1");
-        ResponseMsg postResponseMsg = new ResponseMsg(true, "added successfully");
+        ResponseMsg postResponseMsg = new ResponseMsg(true, Constants.USER_ADDED_SUCCESS_MSG);
 
         when(userService.save(user)).thenReturn(user);
         HashMap<String, User> map = new HashMap<String, User>();
@@ -308,7 +308,7 @@ public class UserControllerTest extends AbstractShiroTest {
                                   .contentType(MediaType.APPLICATION_JSON)
                                   .content(content));
 
-        ResponseMsg updateResponseMsg = new ResponseMsg(true, "updated successfully");
+        ResponseMsg updateResponseMsg = new ResponseMsg(true, Constants.DEFAULT_UPDATE_SUCCESS_MSG);
         // Assert
         resultActions.andExpect(status().isOk())
                      .andExpect(content().contentType(contentType))
@@ -327,9 +327,7 @@ public class UserControllerTest extends AbstractShiroTest {
         // Arrange
         User user = testDataRepository.getUsers()
                 .get("user-1");
-
         user.setActive(true);
-
         when(userService.changeUserStatus(user.getId(), user.isActive())).thenReturn(user);
 
         String content = new ObjectMapper().writeValueAsString(null);

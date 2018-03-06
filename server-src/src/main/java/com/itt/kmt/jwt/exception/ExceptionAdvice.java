@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import com.itt.kmt.response.models.ResponseMsg;
+import com.itt.utility.Constants;
 
 /**
  * The Class ExceptionAdvice.
@@ -28,7 +29,8 @@ public class ExceptionAdvice {
     @ExceptionHandler(ShiroException.class)
     public ModelMap handle401(final ShiroException e) {
 
-        return new ModelMap().addAttribute("success", new ResponseMsg(Boolean.FALSE, "Unauthorized access"));
+        return new ModelMap().addAttribute(
+            "success", new ResponseMsg(Boolean.FALSE, Constants.UNAUTHORIZED_ACCESS_MSG));
     }
 
     /**
@@ -40,7 +42,8 @@ public class ExceptionAdvice {
     @ExceptionHandler(UnauthorizedException.class)
     public ModelMap handle401() {
 
-        return new ModelMap().addAttribute("success", new ResponseMsg(Boolean.FALSE, "Unauthorized access"));
+        return new ModelMap().addAttribute(
+            "success", new ResponseMsg(Boolean.FALSE, Constants.UNAUTHORIZED_ACCESS_MSG));
     }
 
     /**
@@ -54,6 +57,6 @@ public class ExceptionAdvice {
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public ModelMap globalException(final HttpServletRequest request, final Throwable ex) {
 
-        return new ModelMap().addAttribute("success", new ResponseMsg(Boolean.FALSE, "Bad Request"));
+        return new ModelMap().addAttribute("success", new ResponseMsg(Boolean.FALSE, Constants.BAD_REQUEST_MSG));
     }
 }

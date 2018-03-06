@@ -15,9 +15,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.itt.kmt.models.Role;
 import com.itt.kmt.models.User;
-import com.itt.kmt.repositories.UserRepository;
 import com.itt.kmt.response.models.ResponseMsg;
 import com.itt.kmt.services.UserService;
+import com.itt.utility.Constants;
 
 /**
  * This class is responsible for exposing REST APis for User.
@@ -43,7 +43,7 @@ public class UserController {
             final HashMap<String, User> map) {
         User user = map.get("user");
         userService.save(user);
-        ResponseMsg postResponseMsg = new ResponseMsg(true, "added successfully");
+        ResponseMsg postResponseMsg = new ResponseMsg(true, Constants.USER_ADDED_SUCCESS_MSG);
         return new ModelMap().addAttribute("success", postResponseMsg);
     }
     /**
@@ -115,7 +115,7 @@ public class UserController {
             final HashMap<String, User> map, @PathVariable("id") final String id) {
         User user = map.get("user");
         userService.updateUser(user, id);
-        ResponseMsg updateResponseMsg = new ResponseMsg(true, "updated successfully");
+        ResponseMsg updateResponseMsg = new ResponseMsg(true, Constants.DEFAULT_UPDATE_SUCCESS_MSG);
         return new ModelMap().addAttribute("success", updateResponseMsg);
     }
     /**
