@@ -7,17 +7,9 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-import com.itt.kmt.models.Article;
-import com.itt.kmt.models.ArticleType;
-import com.itt.kmt.models.User;
-import com.itt.kmt.repositories.ArticleRepository;
-import com.itt.kmt.repositories.ArticleTypeRepository;
-import com.itt.kmt.services.ArticleService;
-import com.itt.kmt.services.UserService;
-import com.itt.test_category.ServicesTests;
-import com.itt.test_data.ArticleTestDataRepository;
-import com.itt.test_data.ArticleTypeTestDataRepository;
-import com.itt.test_data.TestDataRepository;
+import java.util.ArrayList;
+import java.util.List;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
@@ -30,8 +22,18 @@ import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import java.util.ArrayList;
-import java.util.List;
+import com.itt.kmt.models.Article;
+import com.itt.kmt.models.ArticleType;
+import com.itt.kmt.models.User;
+import com.itt.kmt.repositories.ArticleRepository;
+import com.itt.kmt.repositories.ArticleTypeRepository;
+import com.itt.kmt.services.ArticleService;
+import com.itt.kmt.services.UserService;
+import com.itt.test_category.ServicesTests;
+import com.itt.test_data.ArticleTestDataRepository;
+import com.itt.test_data.ArticleTypeTestDataRepository;
+import com.itt.test_data.TestDataRepository;
+import com.itt.utility.Constants;
 
 @Category(ServicesTests.class)
 @RunWith(SpringRunner.class)
@@ -64,10 +66,6 @@ public class ArticleServiceTests {
     @MockBean
     private ArticleTypeRepository articleTypeRepository;
 
-    private static final int PAGE_NUMBER = 0;
-    private static final int PAGE_SIZE = 10;
-    
-    
     @Before
     public final void setUp() {
 
@@ -120,21 +118,6 @@ public class ArticleServiceTests {
         verify(articleTypeRepository, times(1)).findAll();
     }
 
-    /*  @Test
-    public final void getArticleTypeByIDTest() throws Exception{
-        Article article1 = articleTestDataRepository.getArticles()
-                .get("article-1");
-        when(articleRepository.findByIsbn(book1.getIsbn())).thenReturn(books);
-        return articleTypeRepository.findOne(id);
-
-    }
-    public Page<Article> getAllArticles(final Pageable page) {
-
-       return articleRepository.findAll(page);
-
-    }
-
-     */
     @Test 
     public final void getAllArticlesTest() throws Exception {
         List<Article> articleList = new ArrayList<Article>();
@@ -142,28 +125,13 @@ public class ArticleServiceTests {
         articleList.add(articleTestDataRepository.getArticles().get("article-2"));
 
         Page<Article> page = new PageImpl<Article>(articleList);
-        when(articleRepository.findAll(new PageRequest(PAGE_NUMBER, PAGE_SIZE))).thenReturn(page);
-        Page<Article> firstPage = articleService.getAllArticles(new PageRequest(PAGE_NUMBER, PAGE_SIZE));
+        when(articleRepository.findAll(new PageRequest(Constants.PAGE_NUMBER, Constants.PAGE_SIZE))).thenReturn(page);
+        Page<Article> firstPage = articleService.getAllArticles(new PageRequest(Constants.PAGE_NUMBER, Constants.PAGE_SIZE));
 
         // Assert
         assertThat(firstPage.getTotalPages()).isEqualTo(1);
-        verify(articleRepository, times(1)).findAll(new PageRequest(PAGE_NUMBER, PAGE_SIZE));
+        verify(articleRepository, times(1)).findAll(new PageRequest(Constants.PAGE_NUMBER, Constants.PAGE_SIZE));
     }
-    /*
-     *  public Article getArticleById(final String id) {
-
-        Article article = articleRepository.findOne(id);
-       if (article == null) {
-
-            throw new RuntimeException("No articles found");
-
-        }
-
-        return article;
-
-    }
-
-     * */
     @Test
     public void getArticleByIdTest() throws Exception {
         Article article = articleTestDataRepository.getArticles().get("article-1");
@@ -181,22 +149,6 @@ public class ArticleServiceTests {
         articleService.getArticleById(article.getId());
     }
 
-    /*
-     * public Article updateArticle(final String id, final Article updatedArticle) {
-       Article article = articleRepository.findOne(id);
-        if (article == null) {
-            throw new RuntimeException("Article not found");
-        }
-        //        article.setU(updatedArticle.getOwner());
-        article.setTitle(updatedArticle.getTitle());
-        article.setRestricted(updatedArticle.getRestricted());
-        article.setNeedsApproval(updatedArticle.getNeedsApproval());
-        article.setDescription(updatedArticle.getDescription());
-        article.setApprover(updatedArticle.getApprover());
-        article.setApproved(updatedArticle.getApproved());
-        return articleRepository.save(article);
-    }
-     */
     @Test
     public void updateArticleTest() {
         Article article = articleTestDataRepository.getArticles().get("article-1");

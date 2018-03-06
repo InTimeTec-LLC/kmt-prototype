@@ -2,7 +2,6 @@
 package com.itt.test.kmt.controllers;
 
 import static org.hamcrest.core.Is.is;
-import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.RETURNS_DEEP_STUBS;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
@@ -11,14 +10,11 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.itt.kmt.models.Role;
-import com.itt.kmt.models.User;
-import com.itt.kmt.response.models.ResponseMsg;
-import com.itt.kmt.services.UserService;
-import com.itt.test_data.RoleTestDataRepository;
-import com.itt.test_data.TestDataRepository;
-import lombok.extern.slf4j.Slf4j;
+import java.nio.charset.Charset;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+
 import org.apache.shiro.subject.Subject;
 import org.apache.shiro.util.ThreadContext;
 import org.apache.shiro.web.mgt.DefaultWebSecurityManager;
@@ -27,6 +23,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureWebMvc;
@@ -52,9 +49,6 @@ import com.itt.test_data.TestDataRepository;
 import com.itt.utility.Constants;
 
 import lombok.extern.slf4j.Slf4j;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
 
 
 /**
@@ -116,7 +110,7 @@ public class UserControllerTest extends AbstractShiroTest {
 
         this.mockMvc = MockMvcBuilders.webAppContextSetup(ctx)
                                       .build();
-        DefaultWebSecurityManager securityManger = mock(DefaultWebSecurityManager.class, RETURNS_DEEP_STUBS);
+        DefaultWebSecurityManager securityManger = Mockito.mock(DefaultWebSecurityManager.class, RETURNS_DEEP_STUBS);
         ThreadContext.bind(securityManger);
         // 1. Create a mock authenticated Subject instance for the test to run:
         subjectUnderTest = new Subject.Builder((DefaultWebSecurityManager) getSecurityManager()).buildSubject();

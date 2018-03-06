@@ -1,9 +1,9 @@
 package com.itt.kmt.controllers;
 
-import com.itt.kmt.models.Role;
-import com.itt.kmt.models.User;
-import com.itt.kmt.response.models.ResponseMsg;
-import com.itt.kmt.services.UserService;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.apache.shiro.authz.annotation.RequiresPermissions;

@@ -94,9 +94,6 @@ public class ArticleControllerTest extends AbstractShiroTest {
     @Autowired
     private WebApplicationContext wac;
 
-    private static final int PAGE_NUMBER = 0; 
-    private static final int PAGE_SIZE = 10;
-
     /**
      * Sets the up.
      *
@@ -240,14 +237,8 @@ public class ArticleControllerTest extends AbstractShiroTest {
         .andExpect(
                 content().contentType(new MediaType("application", "json", Charset.forName("UTF-8"))))
         .andExpect(jsonPath("$.article.id", is(article.getId())));
-        // verify(articleService, times(1)).updateArticle(article.getId(),article);
     }
-    /*
-     *  @RequestMapping(method = RequestMethod.GET)
-    public Page<Article>  getArticles(@PageableDefault(value = PAGE_SIZE)final Pageable page) {
-        return articleService.getAllArticles(page);
-    }
-     * */
+    
     @Test
     public void getArticlesTest() throws Exception {
         mockMvc.perform(
