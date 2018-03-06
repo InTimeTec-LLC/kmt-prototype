@@ -48,7 +48,7 @@ public class MailServiceTests {
     public final void sendMailTest() {
 
         // Arrange
-        User user = testDataRepository.getUsers().get("user-1");
+        User user = testDataRepository.getUsers().get("user-2");
 
         // when()
         when(javaMailSender.createMimeMessage()).thenReturn(new JavaMailSenderImpl().createMimeMessage());
