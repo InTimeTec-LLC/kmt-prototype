@@ -1,1 +1,1 @@
-java -jar kmt-prototype.jar
+java -jar ROOT.jar
