@@ -2,7 +2,6 @@ package com.itt.test.kmt.services;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
-import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -10,9 +9,6 @@ import static org.mockito.Mockito.when;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.itt.kmt.models.Role;
-import com.itt.kmt.repositories.RoleRepository;
-import com.itt.test_data.RoleTestDataRepository;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
@@ -22,11 +18,14 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import com.itt.kmt.models.Role;
 import com.itt.kmt.models.User;
+import com.itt.kmt.repositories.RoleRepository;
 import com.itt.kmt.repositories.UserRepository;
 import com.itt.kmt.services.MailService;
 import com.itt.kmt.services.UserService;
 import com.itt.test_category.ServicesTests;
+import com.itt.test_data.RoleTestDataRepository;
 import com.itt.test_data.TestDataRepository;
 import com.itt.utility.EmailConstants;
 
@@ -61,73 +60,77 @@ public class UserServiceTests {
     public final void save() {
 
         // Arrange
-        User user1 = testDataRepository.getUsers()
+        User user = testDataRepository.getUsers()
                 .get("user-1");
-        when(userRepository.save(user1)).thenReturn(user1);
-        when(mailService.sendUserCreatedMail(user1.getId(),
+
+        when(userRepository.save(user)).thenReturn(user);
+        when(mailService.sendUserCreatedMail(user.getId(),
                 EmailConstants.PARAM_PORTAL_LOGIN_LINK)).thenReturn(true);
+
+        when(userRepository.save(user)).thenReturn(user);
+
         // Act
-        User user = userService.save(user1);
+        User createdUser = userService.save(user);
 
         // Assert
-        assertEquals(user.getEmail(), user1.getEmail());
-        assertEquals(user.getFirstName(), user1.getFirstName());
-        assertEquals(user.getLastName(), user1.getLastName());
-        assertEquals(user.getUserRole(), user1.getUserRole());
-        verify(userRepository, times(1)).save(user1);
+        assertEquals(createdUser.getEmail(), user.getEmail());
+        assertEquals(createdUser.getFirstName(), user.getFirstName());
+        assertEquals(createdUser.getLastName(), user.getLastName());
+        assertEquals(createdUser.getUserRole(), user.getUserRole());
+        verify(userRepository, times(1)).save(user);
     }
 
     @Test
     public final void getUserByEmail() {
         // Arrange
-        User user1 = testDataRepository.getUsers()
+        User user = testDataRepository.getUsers()
                 .get("user-1");
-        when(userRepository.findByEmail(user1.getEmail())).thenReturn(user1);
+        when(userRepository.findByEmail(user.getEmail())).thenReturn(user);
 
         // Act
-        User user = userService.getUserByEmail(user1.getEmail());
+        User userRecieved = userService.getUserByEmail(user.getEmail());
         // Assert
-        assertEquals(user.getEmail(), user1.getEmail());
-        assertEquals(user.getFirstName(), user1.getFirstName());
-        assertEquals(user.getLastName(), user1.getLastName());
-        assertEquals(user.getUserRole(), user1.getUserRole());
-        verify(userRepository, times(1)).findByEmail(user1.getEmail());
+        assertEquals(userRecieved.getEmail(), user.getEmail());
+        assertEquals(userRecieved.getFirstName(), user.getFirstName());
+        assertEquals(userRecieved.getLastName(), user.getLastName());
+        assertEquals(userRecieved.getUserRole(), user.getUserRole());
+        verify(userRepository, times(1)).findByEmail(user.getEmail());
     }
 
     @Test
     public final void getUserByID() {
 
         // Arrange
-        User user1 = testDataRepository.getUsers()
+        User user = testDataRepository.getUsers()
                 .get("user-1");
-        when(userRepository.findOne(user1.getId())).thenReturn(user1);
+        when(userRepository.findOne(user.getId())).thenReturn(user);
 
         // Act
-        User user = userService.getUserByID(user1.getId());
+        User userRecieved = userService.getUserByID(user.getId());
 
         // Assert
-        assertEquals(user.getId(), user1.getId());
-        assertEquals(user.getEmail(), user1.getEmail());
-        assertEquals(user.getFirstName(), user1.getFirstName());
-        assertEquals(user.getLastName(), user1.getLastName());
-        assertEquals(user.getUserRole(), user1.getUserRole());
-        verify(userRepository, times(1)).findOne(user1.getId());
+        assertEquals(userRecieved.getId(), user.getId());
+        assertEquals(userRecieved.getEmail(), user.getEmail());
+        assertEquals(userRecieved.getFirstName(), user.getFirstName());
+        assertEquals(userRecieved.getLastName(), user.getLastName());
+        assertEquals(userRecieved.getUserRole(), user.getUserRole());
+        verify(userRepository, times(1)).findOne(user.getId());
     }
 
     @Test(expected = RuntimeException.class)
     public final void getNonExistingUser() {
 
         // Arrange
-        User user1 = testDataRepository.getUsers()
+        User user = testDataRepository.getUsers()
                 .get("user-1");
-        when(userRepository.findOne(user1.getId())).thenReturn(null);
-        when(userService.getUserByID(user1.getId())).thenThrow(new RuntimeException("user with the id does not exist"));
+        when(userRepository.findOne(user.getId())).thenReturn(null);
+        when(userService.getUserByID(user.getId())).thenThrow(new RuntimeException("user with the id does not exist"));
 
         // Act
-        userService.getUserByID(user1.getId());
+        userService.getUserByID(user.getId());
 
         // Assert
-        verify(userRepository, times(1)).findOne(user1.getId());
+        verify(userRepository, times(1)).findOne(user.getId());
     }
 
     @Test
@@ -144,9 +147,9 @@ public class UserServiceTests {
         when(userRepository.findAll()).thenReturn(users);
 
         // Act
-        List<User> user = userService.getAllUsers();
+        List<User> usersListRecieved = userService.getAllUsers();
         // Assert
-        assertTrue(users.containsAll(user));
+        assertTrue(users.containsAll(usersListRecieved));
         verify(userRepository, times(1)).findAll();
     }
 
@@ -178,9 +181,9 @@ public class UserServiceTests {
         when(userRepository.findByUserRole("manager", true)).thenReturn(managers);
 
         // Act
-        List<User> user = userService.getAllActiveUsersByRoles(roles);
+        List<User> usersListRecieved = userService.getAllActiveUsersByRoles(roles);
         // Assert
-        assertTrue(adminsAndManagers.containsAll(user));
+        assertTrue(adminsAndManagers.containsAll(usersListRecieved));
         verify(userRepository, times(1)).findByUserRole("admin", true);
     }
 
@@ -188,136 +191,137 @@ public class UserServiceTests {
     public final void updateUser() {
 
         // Arrange
-        User user1 = testDataRepository.getUsers()
+        User user = testDataRepository.getUsers()
                 .get("user-1");
-        user1.setFirstName("test");
-        given(userRepository.findOne(user1.getId())).willReturn(user1);
+        user.setFirstName("test");
+        when(userRepository.findOne(user.getId())).thenReturn(user);
 
-        when(userRepository.save(user1)).thenReturn(user1);
+        when(userRepository.save(user)).thenReturn(user);
 
         // Act
-        User user = userService.updateUser(user1, user1.getId());
+        User updatedUser = userService.updateUser(user, user.getId());
 
         // Assert
-        assertEquals(user.getId(), user1.getId());
-        assertEquals(user.getEmail(), user1.getEmail());
-        assertEquals(user.getFirstName(), user1.getFirstName());
-        assertEquals(user.getLastName(), user1.getLastName());
-        assertEquals(user.getUserRole(), user1.getUserRole());
-        verify(userRepository, times(1)).save(user1);
+        assertEquals(updatedUser.getId(), user.getId());
+        assertEquals(updatedUser.getEmail(), user.getEmail());
+        assertEquals(updatedUser.getFirstName(), user.getFirstName());
+        assertEquals(updatedUser.getLastName(), user.getLastName());
+        assertEquals(updatedUser.getUserRole(), user.getUserRole());
+        verify(userRepository, times(1)).save(user);
     }
 
     @Test(expected = RuntimeException.class)
     public final void updateNonActiveUser() {
 
         // Arrange
-        User user2 = testDataRepository.getUsers()
+        User user = testDataRepository.getUsers()
                 .get("user-2");
-        user2.setActive(false);
-        given(userRepository.findOne(user2.getId())).willReturn(user2);
-        user2.setFirstName("test");
-        when(userService.updateUser(user2, user2.getId())).thenThrow(new RuntimeException("user is not active"));
+        user.setActive(false);
+        when(userRepository.findOne(user.getId())).thenReturn(user);
+        user.setFirstName("test");
+        when(userService.updateUser(user, user.getId())).thenThrow(new RuntimeException("user is not active"));
 
         // Act
-        User user = userService.updateUser(user2, user2.getId());
+        userService.updateUser(user, user.getId());
 
         // Assert
-        verify(userRepository, times(1)).save(user2);
+        verify(userRepository, times(1)).save(user);
     }
 
     @Test(expected = RuntimeException.class)
     public final void updateNonExistantUser() {
 
         // Arrange
-        User user3 = testDataRepository.getUsers()
+        User user = testDataRepository.getUsers()
                 .get("user-3");
 
-        given(userRepository.findOne(user3.getId())).willReturn(null);
-        user3.setFirstName("test");
-        when(userService.updateUser(user3, user3.getId())).thenThrow(new RuntimeException("user does not exist"));
+        when(userRepository.findOne(user.getId())).thenReturn(null);
+        user.setFirstName("test");
+        when(userService.updateUser(user, user.getId())).thenThrow(new RuntimeException("user does not exist"));
 
         // Act
-        User user = userService.updateUser(user3, user3.getId());
+        userService.updateUser(user, user.getId());
 
         // Assert
-        verify(userRepository, times(1)).save(user3);
+        verify(userRepository, times(1)).save(user);
     }
 
     @Test
     public final void changeUserStatus() {
 
         // Arrange
-        User user1 = testDataRepository.getUsers()
+        User user = testDataRepository.getUsers()
                 .get("user-1");
-        user1.setActive(false);
-        given(userRepository.findOne(user1.getId())).willReturn(user1);
+        user.setActive(false);
+        when(userRepository.findOne(user.getId())).thenReturn(user);
 
-        when(userRepository.save(user1)).thenReturn(user1);
+        when(userRepository.save(user)).thenReturn(user);
 
         // Act
-        User user = userService.changeUserStatus(user1.getId(), true);
+        User updatedUser = userService.changeUserStatus(user.getId(), true);
 
         // Assert
-        assertEquals(user.isActive(), user1.isActive());
+        assertEquals(updatedUser.isActive(), true);
 
-        verify(userRepository, times(1)).save(user1);
+        verify(userRepository, times(1)).save(user);
     }
 
     @Test()
-    public final void changeUserStatustoDeactivate() {
+    public final void changeUserStatusToDeactivate() {
 
         // Arrange
-        User user1 = testDataRepository.getUsers()
+        User user = testDataRepository.getUsers()
                 .get("user-3");
-        user1.setActive(true);
-        given(userRepository.findOne(user1.getId())).willReturn(user1);
+        user.setActive(true);
 
-        when(userRepository.save(user1)).thenReturn(user1);
+        when(userRepository.findOne(user.getId())).thenReturn(user);
+
+        when(userRepository.save(user)).thenReturn(user);
 
         // Act
-        User user = userService.changeUserStatus(user1.getId(), false);
+        User updatedUser = userService.changeUserStatus(user.getId(), false);
 
         // Assert
-        assertEquals(user.isActive(), user1.isActive());
+        assertEquals(updatedUser.isActive(), false);
 
-        verify(userRepository, times(1)).save(user1);
+        verify(userRepository, times(1)).save(user);
     }
 
     @Test(expected = RuntimeException.class)
     public final void activateActiveUser() {
 
         // Arrange
-        User user1 = testDataRepository.getUsers()
+        User user = testDataRepository.getUsers()
                 .get("user-1");
-        user1.setActive(true);
+        user.setActive(true);
 
-        when(userRepository.findOne(user1.getId()))
-        .thenReturn(user1);
-        when(userService.changeUserStatus(user1.getId(), true))
+        when(userRepository.findOne(user.getId()))
+        .thenReturn(user);
+        when(userService.changeUserStatus(user.getId(), true))
         .thenThrow(new RuntimeException("Operation not permitted"));
-        userService.changeUserStatus(user1.getId(), true);
+        userService.changeUserStatus(user.getId(), true);
 
         // Assert
-        assertEquals(user1.isActive(), true);
+        assertEquals(user.isActive(), true);
 
-        verify(userService, times(1)).changeUserStatus(user1.getId(), true);
+        verify(userService, times(1)).changeUserStatus(user.getId(), true);
     }
 
     @Test(expected = RuntimeException.class)
     public final void activateNonExistingUser() {
 
         // Arrange
-        User user1 = testDataRepository.getUsers()
+        User user = testDataRepository.getUsers()
                 .get("user-1");
 
-        when(userRepository.findOne(user1.getId()))
+        when(userRepository.findOne(user.getId()))
         .thenReturn(null);
-        when(userService.changeUserStatus(user1.getId(), true))
+        when(userService.changeUserStatus(user.getId(), true))
         .thenThrow(new RuntimeException("user with the id does not exist"));
-        userService.changeUserStatus(user1.getId(), true);
+        userService.changeUserStatus(user.getId(), true);
 
         // Assert
-        verify(userService, times(1)).changeUserStatus(user1.getId(), true);
+        verify(userService, times(1)).changeUserStatus(user.getId(), true);
     }
 
     @Test

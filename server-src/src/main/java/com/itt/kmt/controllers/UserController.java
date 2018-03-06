@@ -93,14 +93,14 @@ public class UserController {
         String jwtToken = request.getHeader("Authorization");
         User loggedInUser = userService.getLoggedInUser(jwtToken);
 
-        List<User> adminAndmanager = new ArrayList<User>();
+        List<User> adminAndManager = new ArrayList<User>();
         List<String> roles = new ArrayList<String>();
         roles.add("admin");
         roles.add("manager");
-        adminAndmanager.addAll(userService.getAllActiveUsersByRoles(roles));
-        adminAndmanager.remove(loggedInUser);
+        adminAndManager.addAll(userService.getAllActiveUsersByRoles(roles));
+        adminAndManager.remove(loggedInUser);
 
-        return new ModelMap().addAttribute("users", adminAndmanager);
+        return new ModelMap().addAttribute("users", adminAndManager);
     }
     /**
      * REST API to change status of a User.
