@@ -4,6 +4,9 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.ModelMap;
@@ -60,28 +63,44 @@ public class UserController {
     }
     /**
      * REST Interface for users retrieval.
+     * @param request request sent.
+     * @param response response received.
      * @return ModelMap.
+     * @throws Exception.
      */
     @RequestMapping(method = RequestMethod.GET)
     @RequiresPermissions("getAllUser")
-    public ModelMap getAllUsers() {
+    public ModelMap getAllUsers(final HttpServletRequest request, final HttpServletResponse response) {
+
+        String jwtToken = request.getHeader("Authorization");
+        User loggedInUser = userService.getLoggedInUser(jwtToken);
+
         List<User> users = userService.getAllUsers();
+        users.remove(loggedInUser);
+
         return new ModelMap().addAttribute("users", users);
     }
     /**
      * REST Interface for Admin and Managers retrieval.
+     * @param request request sent.
+     * @param response response received.
      * @return ModelMap.
      */
     @RequestMapping(value = "/approvers", method = RequestMethod.GET)
     @RequiresPermissions("getAllApprovers")
-    public ModelMap getAllApprovers() {
-        List<User> adminAndmanager = new ArrayList<User>();
+    public ModelMap getAllApprovers(final HttpServletRequest request, final HttpServletResponse response) {
+
+        String jwtToken = request.getHeader("Authorization");
+        User loggedInUser = userService.getLoggedInUser(jwtToken);
+
+        List<User> adminAndManager = new ArrayList<User>();
         List<String> roles = new ArrayList<String>();
         roles.add("admin");
         roles.add("manager");
-        adminAndmanager.addAll(userService.getAllActiveUsersByRoles(roles));
+        adminAndManager.addAll(userService.getAllActiveUsersByRoles(roles));
+        adminAndManager.remove(loggedInUser);
 
-        return new ModelMap().addAttribute("users", adminAndmanager);
+        return new ModelMap().addAttribute("users", adminAndManager);
     }
     /**
      * REST API to change status of a User.
