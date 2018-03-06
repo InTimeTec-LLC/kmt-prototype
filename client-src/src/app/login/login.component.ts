@@ -31,7 +31,6 @@ export class LoginComponent implements OnInit {
       private authenticationService: AuthenticationService) {}
 
     ngOnInit() {
-
     }
 
     login() {
