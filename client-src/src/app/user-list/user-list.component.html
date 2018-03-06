@@ -46,7 +46,7 @@
       <!-- status Column -->
       <ng-container matColumnDef="createdon">
           <mat-header-cell *matHeaderCellDef mat-sort-header> Created On </mat-header-cell>
-          <mat-cell *matCellDef="let row"> {{row.createdOn}} </mat-cell>
+          <mat-cell *matCellDef="let row"> {{row.createdOn | date }} </mat-cell>
         </ng-container>
 
         <!-- Color Column -->

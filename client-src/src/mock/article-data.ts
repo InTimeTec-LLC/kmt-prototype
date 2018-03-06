@@ -2,12 +2,204 @@ import { InMemoryDbService } from 'angular-in-memory-web-api';
 
 export class ArticleData implements InMemoryDbService {
   createDb() {
-    const articles = [
-        {id: 1, title: 'Test Title1', description: 'Test Description1'},
-        {id: 2, title: 'Test Title2', description: 'Test Description2'},
-        {id: 3, title: 'Test Title3', description: 'Test Description3'},
-        {id: 4, title: 'Test Title4', description: 'Test Description4'},
-        {id: 5, title: 'Test Title5', description: 'Test Description5'}
+    const articles =  [
+      {
+        'id': 1,
+        'version': 1,
+        'lastModifiedTime': 'Tue Feb 24 17:14:43 IST 2018',
+        'lastModifiedBy': {
+          'firstName': 'manish',
+          'lastName': 'kumar',
+          'email': 'manish.2184@gmail.com',
+        },
+        'createdBy': {
+          'firstName': 'Rohan',
+          'lastName': 'Kumar',
+          'email': 'rohan@test.com',
+        },
+        'createdTime': 'Tue Feb 27 17:14:43 IST 2018',
+        'title': 'string',
+        'description': 'html string',
+        'articleType' :  {
+            'id' : 1,
+            'type':  'Type1',
+        },
+        'restricted': false,
+        'needsApproval': true,
+        'approver': {
+          'id': 2,
+          'firstName': 'Manish',
+          'lastName': 'Kumar',
+          'email': 'manish.2184@gmail.com',
+        },
+        'approved': true,
+         'attachments' : [{
+         'id': '1232323454',
+        'filename': 'test.jpg',
+         'Url' : 'http://localhost/static/test.jpg'
+            }]
+        },
+
+        {
+          'id': 2,
+          'version': 1,
+          'lastModifiedTime': 'Tue Feb 24 17:14:43 IST 2018',
+          'lastModifiedBy': {
+            'firstName': 'manish',
+            'lastName': 'kumar',
+            'email': 'manish.2184@gmail.com',
+          },
+          'createdBy': {
+            'firstName': 'Rohan',
+            'lastName': 'Kumar',
+            'email': 'rohan@test.com',
+            'id': 2,
+          },
+          'createdTime': 'Tue Feb 27 17:14:43 IST 2018',
+          'title': 'string',
+          'description': 'html string',
+          'articleType' :  {
+              'id' : 1,
+              'type':  'Type1',
+          },
+          'restricted': false,
+          'needsApproval': true,
+          'approver': {
+            'id': 2,
+            'firstName': 'Manish',
+            'lastName': 'Kumar',
+            'email': 'manish.2184@gmail.com',
+          },
+          'approved': true,
+           'attachments' : [{
+           'id': '1232323454',
+          'filename': 'test.jpg',
+           'Url' : 'http://localhost/static/test.jpg'
+              }]
+          },
+          {
+            'id': 3,
+            'version': 1,
+            'lastModifiedTime': 'Tue Feb 24 17:14:43 IST 2018',
+            'lastModifiedBy': {
+              'firstName': 'manish',
+              'lastName': 'kumar',
+              'email': 'manish.2184@gmail.com',
+            },
+            'createdBy': {
+              'firstName': 'Rohan',
+              'lastName': 'Kumar',
+              'email': 'rohan@test.com',
+            },
+            'createdTime': 'Tue Feb 27 17:14:43 IST 2018',
+            'title': 'string',
+            'description': 'html string',
+            'articleType' :  {
+                'id' : 1,
+                'type':  'Type1',
+            },
+            'restricted': false,
+            'needsApproval': true,
+            'approver': {
+              'id': 2,
+              'firstName': 'Manish',
+              'lastName': 'Kumar',
+              'email': 'manish.2184@gmail.com',
+            },
+            'approved': true,
+             'attachments' : [{
+             'id': '1232323454',
+            'filename': 'test.jpg',
+             'Url' : 'http://localhost/static/test.jpg'
+                }]
+            },
+
+            {
+              'id': '4',
+              'version': 1,
+              'lastModifiedTime': 'Tue Feb 24 17:14:43 IST 2018',
+              'lastModifiedBy': {
+                'firstName': 'manish',
+                'lastName': 'kumar',
+                'email': 'manish.2184@gmail.com',
+              },
+              'createdBy': {
+                'id': 1,
+                'firstName': 'Rohan',
+                'lastName': 'Kumar',
+                'email': 'rohan@test.com',
+              },
+              'createdTime': 'Tue Feb 27 17:14:43 IST 2018',
+              'title': 'string',
+              'description': 'html string',
+              'articleType' :  {
+                  'id' : 1,
+                  'type':  'Type1',
+              },
+              'restricted': false,
+              'needsApproval': true,
+              'approver': {
+                'id': 2,
+                'firstName': 'Manish',
+                'lastName': 'Kumar',
+                'email': 'manish.2184@gmail.com',
+              },
+              'approved': true,
+               'attachments' : [{
+               'id': '1232323454',
+              'filename': 'test.jpg',
+               'Url' : 'http://localhost/static/test.jpg'
+                  }]
+              },
+              {
+                'id': '5',
+                'version': 1,
+                'lastModifiedTime': 'Tue Feb 24 17:14:43 IST 2018',
+                'lastModifiedBy': {
+                  'firstName': 'manish',
+                  'lastName': 'kumar',
+                  'email': 'manish.2184@gmail.com',
+                },
+                'createdBy': {
+                  'id': 2,
+                  'firstName': 'Rohan',
+                  'lastName': 'Kumar',
+                  'email': 'rohan@test.com',
+                },
+                'createdTime': 'Tue Feb 27 17:14:43 IST 2018',
+                'title': 'string',
+                'description': 'html string',
+                'articleType' :  {
+                    'id' : 1,
+                    'type':  'Type1',
+                },
+                'restricted': false,
+                'needsApproval': true,
+                'approver': {
+                  'id': 2,
+                  'firstName': 'Manish',
+                  'lastName': 'Kumar',
+                  'email': 'manish.2184@gmail.com',
+                },
+                'approved': true,
+                 'attachments' : [{
+                 'id': '1232323454',
+                'filename': 'test.jpg',
+                 'Url' : 'http://localhost/static/test.jpg'
+                    }]
+                }
+    ];
+
+    const updateArticles = [
+      {id: 1, title: 'Test1', description: 'description1', approved: false,
+      approver: 1, articleType: 1,
+      modifiedBy: '5a963d93ded2991644edef8c', needsApproval: true, restricted: false},
+      {id: 2, title: 'Test1', description: 'description2', approved: false,
+      approver: 2, articleType: 2,
+      modifiedBy: '5a963d93ded2991644edef8c', needsApproval: true, restricted: false},
+      {id: 3, title: 'Test1', description: 'description3', approved: false,
+      approver: 3, articleType: 3,
+      modifiedBy: '5a963d93ded2991644edef8c', needsApproval: true, restricted: false}
     ];
 
     const users = [
@@ -42,10 +234,9 @@ export class ArticleData implements InMemoryDbService {
                               {id: 2, firstName: 'Harish', lastName: 'Patidar'},
                               {id: 3, firstName: 'Rohan', lastName: 'Rogers'}
                     ]
-                  }
+                  };
 
 
-
-    return {articles, types, approvers};
+    return {};
   }
 }

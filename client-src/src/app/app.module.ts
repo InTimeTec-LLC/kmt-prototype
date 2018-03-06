@@ -18,12 +18,13 @@ import { HttpClientModule } from '@angular/common/http';
 import { HttpModule } from '@angular/http';
 import { AddUserComponent } from './add-user/add-user.component';
 import { EditUserComponent } from './edit-user/edit-user.component';
+import { ViewKnowledgeBaseArticleComponent } from './view-knowledge-base-article/view-knowledge-base-article.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MainComponent } from './main/main.component';
 import { LeftPanelComponent } from './left-panel/left-panel.component';
 import { FooterComponent } from './footer/footer.component';
-import { ContentComponent } from './content/content.component';
-import { UserListComponent, UserListFilter } from './user-list/user-list.component';
+import { ListArticleComponent, ArticleListFilterComponent } from './list-knowledge-base-article/list-article.component';
+import { UserListComponent, UserListFilterComponent } from './user-list/user-list.component';
 import { MaterialModule } from '../shared/material.module';
 import {ToasterModule, ToasterService} from 'angular5-toaster';
 
@@ -38,11 +39,13 @@ import {ToasterModule, ToasterService} from 'angular5-toaster';
     AddUserComponent,
     FooterComponent,
     LeftPanelComponent,
-    ContentComponent,
+    ListArticleComponent,
     MainComponent,
     UserListComponent,
     EditUserComponent,
-    UserListFilter
+    UserListFilterComponent,
+    ArticleListFilterComponent,
+    ViewKnowledgeBaseArticleComponent
   ],
   imports: [
     BrowserModule,
@@ -61,7 +64,7 @@ import {ToasterModule, ToasterService} from 'angular5-toaster';
     ToasterModule
 
   ],
-  entryComponents: [UserListFilter],
+  entryComponents: [UserListFilterComponent, ArticleListFilterComponent],
   providers: [],
   bootstrap: [AppComponent]
 })

@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 import { User } from '../../shared/modals/user';
 import { AbstractControl, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import {ActivatedRoute} from '@angular/router';
-import {ToasterModule, ToasterService} from 'angular5-toaster';
+import {ToasterModule, ToasterService, ToasterConfig} from 'angular5-toaster';
 
 @Component({
   selector: 'app-edit-user',
@@ -20,6 +20,14 @@ export class EditUserComponent implements OnInit {
   user: FormGroup;
   userId: String;
   roles: any[];
+  private toasterconfig: ToasterConfig =
+        new ToasterConfig({
+            showCloseButton: false,
+            tapToDismiss: false,
+            timeout: 2000,
+            positionClass : 'toast-top-center',
+            animate : 'fade'
+        });
 
 
   get cpwd() {

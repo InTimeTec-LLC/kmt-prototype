@@ -15,23 +15,22 @@ export class LoginComponent implements OnInit {
   model: any = {};
   loading = false;
 
-  private toasterconfig : ToasterConfig = 
+  private toasterconfig: ToasterConfig =
         new ToasterConfig({
-            showCloseButton: false, 
-            tapToDismiss: false, 
+            showCloseButton: false,
+            tapToDismiss: false,
             timeout: 2000,
             positionClass : 'toast-top-center',
             animate : 'fade'
         });
 
   constructor(
-      private router: Router, 
+      private router: Router,
       private toasterService: ToasterService,
       private messageService: MessageService,
       private authenticationService: AuthenticationService) {}
 
     ngOnInit() {
-       
     }
 
     login() {

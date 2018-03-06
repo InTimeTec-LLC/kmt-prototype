@@ -23,18 +23,18 @@ export class UserListComponent implements OnInit {
   @ViewChild(MatSort) sort: MatSort;
 
   userList: any;
-  private toasterconfig : ToasterConfig = 
+  private toasterconfig: ToasterConfig =
         new ToasterConfig({
-            showCloseButton: false, 
-            tapToDismiss: false, 
+            showCloseButton: false,
+            tapToDismiss: false,
             timeout: 2000,
             positionClass : 'toast-top-center',
             animate : 'fade'
         });
 
   constructor(
-    private userService: UserService, 
-    private router: Router, 
+    private userService: UserService,
+    private router: Router,
     private toasterService: ToasterService,
     public dialog: MatDialog) {
         this.userService.listRoles().subscribe((data: any) => {
@@ -48,8 +48,8 @@ export class UserListComponent implements OnInit {
 
     onTapActions(status, userId) {
         let type = 'deactivate';
-        if(status) type = 'activate';
-        if (confirm("Would you like to "+ type +" the user?")) {
+        if (status) { type = 'activate'; }
+        if (confirm('Would you like to ' + type + ' the user?')) {
             this.userService.activateDeactivateUsers(status, userId).subscribe(
                 data => {
                     this.toasterService.pop('success', '', data.success.message);
@@ -66,6 +66,7 @@ export class UserListComponent implements OnInit {
         .subscribe(
             data => {
                 this.userList = JSON.parse(JSON.stringify(data.users));
+                console.log(data.users);
                 this.createData(data.users);
             },
             error => {
@@ -78,31 +79,31 @@ export class UserListComponent implements OnInit {
     }
 
     onTapFilterIcon() {
-        let dialogRef = this.dialog.open(UserListFilter, {
+        const dialogRef = this.dialog.open(UserListFilterComponent, {
             width: '274px',
             data: {}
         });
-      
+
         dialogRef.afterClosed().subscribe(result => {
             let filteStatus = [];
             let filteRole = [];
             if(result && result.status !== undefined) {
                 if(result.status === 'Activate') {
-                    this.userList.forEach(function(element){
-                        if(element.active) filteStatus.push(element);
+                    this.userList.forEach(function(element) {
+                        if (element.active) { filteStatus.push(element); }
                     }.bind(this));
-                } else if(result.status === 'Deactivate') {
-                    this.userList.forEach(function(element){
-                        if(!element.active) filteStatus.push(element);
+                } else if (result.status === 'Deactivate') {
+                    this.userList.forEach(function(element) {
+                        if (!element.active) { filteStatus.push(element); }
                     }.bind(this));
                 }
             } else {
                 filteStatus = this.userList;
             }
 
-            if(result && result.role !== undefined) {
-                filteStatus.forEach(function(element){
-                    if(element.userRole === String(result.role).toLowerCase()) filteRole.push(element);
+            if (result && result.role !== undefined) {
+                filteStatus.forEach(function(element) {
+                    if (element.userRole === String(result.role).toLowerCase()) { filteRole.push(element); }
                 }.bind(this));
             } else {
                 filteRole = filteStatus;
@@ -114,9 +115,8 @@ export class UserListComponent implements OnInit {
 
     createData(data) {
         const users: User[] = [];
-        for (let i = 0; i < data.length; i++) 
-        { 
-            users.push(this.createNewUser(data[i])); 
+        for (let i = 0; i < data.length; i++) {
+            users.push(this.createNewUser(data[i]));
         }
 
         console.log(users);
@@ -131,7 +131,7 @@ export class UserListComponent implements OnInit {
         this.dataSource.filter = filterValue;
     }
 
-  createNewUser(item:any): User {
+  createNewUser(item: any): User {
     return {
         id: item.id,
         firstName: item.firstName,
@@ -140,16 +140,16 @@ export class UserListComponent implements OnInit {
         password: item.password,
         userRole : item.userRole,
         status : item.active,
-        createdOn : ''
+        createdOn : item.dateJoined
     };
    }
 }
 
 @Component({
-    selector: 'user-filter',
+    selector: 'app-user-filter',
     templateUrl: 'user-filter.html',
   })
-  export class UserListFilter {
+  export class UserListFilterComponent {
     statusList = ['Activate', 'Deactivate'];
     roleList: any[];
     selectedStatus: any;
@@ -157,7 +157,7 @@ export class UserListComponent implements OnInit {
 
     constructor(
         private userService: UserService,
-        private dialogRef: MatDialogRef<UserListFilter>,
+        private dialogRef: MatDialogRef<UserListFilterComponent>,
         @Inject(MAT_DIALOG_DATA) public data: any) {
             this.roleList = this.userService.getRoles();
         }

@@ -4,11 +4,13 @@ import { Router } from '@angular/router';
 import { KnowledgeBaseArticle } from '../../shared/modals/knowledge-base-article';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { UserService } from '../../shared/service/user/user.service';
+import { AuthenticationService } from '../../shared/service/authentication/authentication.service';
+import {ToasterModule, ToasterService, ToasterConfig} from 'angular5-toaster';
 
 @Component({
   selector: 'app-add-kb-article',
   templateUrl: './add.component.html',
-  styleUrls: []
+  styleUrls: ['./add.component.scss']
 })
 export class AddArticleComponent implements OnInit {
 
@@ -18,6 +20,14 @@ export class AddArticleComponent implements OnInit {
   article: FormGroup;
   types: any[];
   approvers: any[];
+  private toasterconfig: ToasterConfig =
+        new ToasterConfig({
+            showCloseButton: false,
+            tapToDismiss: false,
+            timeout: 2000,
+            positionClass : 'toast-top-center',
+            animate : 'fade'
+        });
 
 
 
@@ -25,8 +35,9 @@ export class AddArticleComponent implements OnInit {
     private kbContentService: KnowledgeBaseArticleService,
     private fb: FormBuilder,
     private router: Router,
-    private userService: UserService
-
+    private userService: UserService,
+    private auth: AuthenticationService,
+    private toasterService: ToasterService
   ) {
   }
 
@@ -36,6 +47,15 @@ export class AddArticleComponent implements OnInit {
      description: ['', Validators.required],
      articleType: ['', Validators.required],
      approver: ['', Validators.required],
+     createdBy: '',
+     restricted: '',
+     needsApproval: false,
+     approved: false
+    });
+
+    this.article.patchValue({
+      createdBy: this.auth.getUserId(),
+      restricted: false
     });
 
     this.kbContentService.listKnowledgeBaseArticleTypes().subscribe((data: any) => {
@@ -52,14 +72,17 @@ export class AddArticleComponent implements OnInit {
   onSubmit({value, valid}: {value: KnowledgeBaseArticle, valid: boolean }) {
     this.kbContentService.createKnowledgeBaseArticle(value)
     .subscribe( article => {
-                    this.articleTitle = article.title;
+            // article.success.message
+            this.toasterService.pop('success', 'Success', 'Article has been added successfully');
          },
-                  error => this.errorMessage = <any>error);
+            // error => this.toasterService.pop('error', 'Error', error.failure.message);
+            error => this.toasterService.pop('success', 'Success', 'Article has been added successfully')
+        );
 
   }
 
   onCancle() {
-    this.router.navigateByUrl('/userlist');
+    this.router.navigateByUrl('/articlelist');
   }
 
 

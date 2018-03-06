@@ -1,26 +1,28 @@
 <div class="container">
-    <toaster-container></toaster-container>
+    <toaster-container [toasterconfig]="toasterconfig"></toaster-container>
     <div class="add-heading"><h2 class="heading-margin">Add User</h2></div>
     <form  (ngSubmit)="onSubmit(user)" [formGroup]="user" #formDir="ngForm">
         <div class="lower-container">
-        <div class="form-box">
+        <div class="form-box form-field-error">
           <mat-form-field>
             <input formControlName="firstName" matInput placeholder="First Name">
-          </mat-form-field>
-          <div class="error" 
+            <span class="error" 
             *ngIf="user.get('firstName').touched 
             && user.get('firstName').hasError('required')">
               First Name is required
-          </div>
+        </span>
+          </mat-form-field>
+          
         
           <mat-form-field>
             <input formControlName="lastName" matInput placeholder="Last Name">
-          </mat-form-field>
-          <div class="error" 
+            <span class="error" 
             *ngIf="user.get('lastName').touched 
             && user.get('lastName').hasError('required')">
               Last Name is required
-          </div>
+        </span> 
+          </mat-form-field>
+          
         
           <mat-form-field>
               <mat-select formControlName="userRole" placeholder="Role">
@@ -29,45 +31,50 @@
                     {{ role.role | titlecase}}
                   </mat-option>
               </mat-select>
-            </mat-form-field>
-          <div class="error" 
+              <span div class="error" 
             *ngIf="user.get('userRole').touched 
             && user.get('userRole').hasError('required')">
               Role is required
-          </div>
+          </span>
+            </mat-form-field>
+          
         
           <mat-form-field>
             <input formControlName="email" matInput placeholder="Email">
-          </mat-form-field>
-          <div class="error" 
+            <div class="error" 
             *ngIf="user.get('email').touched 
             && user.get('email').hasError('email')">
               Please provide correct email
           </div>
+          </mat-form-field>
+          
         
           <mat-form-field>
             <input formControlName="password" type="password" matInput placeholder="Password">
-          </mat-form-field>
-          <div class="error" 
+            <span class="error" 
             *ngIf="user.get('password').touched 
             && user.get('password').hasError('required')">
               Password is required
-          </div>
+          </span>
+          </mat-form-field>
+          
           <span *ngIf="cpwd.hasError('invalid')"> Invalid Password </span>
         
           <mat-form-field>
             <input formControlName="confirmPassword" type="password" matInput placeholder="Confirm Password">
-          </mat-form-field>
-          <div class="error" 
+            <span class="error" 
             *ngIf="user.get('confirmPassword').touched 
             && user.get('confirmPassword').hasError('required')">
               Confirm Password is required
-          </div>
-          <div class="error" 
-            *ngIf="user.get('confirmPassword').touched 
-            && user.get('confirmPassword').hasError('notEquivalent')">
-              Password and Confirm Password should match
-          </div>
+        </span>
+        <span class="error" 
+        *ngIf="user.get('confirmPassword').touched 
+        && user.get('confirmPassword').hasError('notEquivalent')">
+          Password and Confirm Password should match
+  </span>
+          </mat-form-field>
+          
+          
             </div>
         <div class="button-postion">
           <button type="button" mat-raised-button (click)="onCancle()">Cancel</button>

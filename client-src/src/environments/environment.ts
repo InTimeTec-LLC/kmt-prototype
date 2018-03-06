@@ -5,5 +5,6 @@
 
 export const environment = {
   API_ENDPOINT: 'http://localhost:8080/api/',
-  production: false
+  production: false,
+  responseThroughMockAPI: true
 };

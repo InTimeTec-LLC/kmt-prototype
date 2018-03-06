@@ -14,14 +14,14 @@ export class AuthenticationService {
 
     login(username: string, password: string) {
         return this.http.post<any>(environment.API_ENDPOINT + 'login', { email: username, password: password })
-            .map(user => {
+            .map(data => {
                 // login successful if there's a jwt token in the response
-                if (user && user.accessToken) {
+                if (data && data.success && data.success.status) {
                     // store user details and jwt token in local storage to keep user logged in between page refreshes
-                    localStorage.setItem('currentUser', JSON.stringify(user));
+                    localStorage.setItem('currentUser', JSON.stringify(data));
                 }
 
-                return user;
+                return data;
             });
     }
 
@@ -33,7 +33,7 @@ export class AuthenticationService {
 
     isAuthenticated(): boolean {
         const currentUser = JSON.parse(localStorage.getItem('currentUser'));
-         if (currentUser && currentUser.accessToken) {
+         if (currentUser && currentUser.success && currentUser.success.accessToken) {
              return true;
          }
          return false;
@@ -41,7 +41,7 @@ export class AuthenticationService {
 
     getUserName(): string {
         const currentUser = JSON.parse(localStorage.getItem('currentUser'));
-         if (currentUser && currentUser.user && currentUser.accessToken) {
+         if (currentUser && currentUser.success && currentUser.success.status) {
              return currentUser.user.firstName + ' ' + currentUser.user.lastName;
          }
          return null;
@@ -49,7 +49,7 @@ export class AuthenticationService {
 
     getUserType(): string {
         const currentUser = JSON.parse(localStorage.getItem('currentUser'));
-         if (currentUser && currentUser.user && currentUser.user.userRole) {
+         if (currentUser && currentUser.success && currentUser.success.status) {
              return currentUser.user.userRole;
          }
          return undefined;
@@ -57,8 +57,16 @@ export class AuthenticationService {
 
     getAccessToken(): string {
         const currentUser = JSON.parse(localStorage.getItem('currentUser'));
-         if (currentUser && currentUser.accessToken) {
-             return currentUser.accessToken;
+         if (currentUser && currentUser.success && currentUser.success.accessToken) {
+             return currentUser.success.accessToken;
+         }
+         return null;
+    }
+
+    getUserId(): string {
+        const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+         if (currentUser && currentUser.user && currentUser.accessToken) {
+             return currentUser.user.id;
          }
          return null;
     }

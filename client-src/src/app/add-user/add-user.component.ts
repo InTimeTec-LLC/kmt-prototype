@@ -3,7 +3,7 @@ import { UserService } from '../../shared/service/user/user.service';
 import { Router } from '@angular/router';
 import { User } from '../../shared/modals/user';
 import { AbstractControl, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import {ToasterModule, ToasterService} from 'angular5-toaster';
+import {ToasterModule, ToasterService, ToasterConfig} from 'angular5-toaster';
 
 @Component({
   selector: 'app-add-user',
@@ -18,6 +18,15 @@ export class AddUserComponent implements OnInit {
   addUserName: String;
   user: FormGroup;
   roles: any[];
+  private toasterconfig: ToasterConfig =
+        new ToasterConfig({
+            showCloseButton: false,
+            tapToDismiss: false,
+            timeout: 2000,
+            positionClass : 'toast-top-center',
+            animate : 'fade'
+        });
+
 
 
   get cpwd() {
@@ -37,7 +46,7 @@ export class AddUserComponent implements OnInit {
 
   ngOnInit() {
     this.user = this.fb.group({
-      firstName: ['', [Validators.required, Validators.minLength(2)]],
+      firstName: ['', [Validators.required]],
       lastName: ['', Validators.required],
       password: ['', Validators.required],
       userRole: ['', Validators.required],
