@@ -6,8 +6,6 @@ import org.springframework.data.annotation.Id;
 import java.io.Serializable;
 
 
-=======
->>>>>>> Article new schema changes
 /**
  * This class represents a Article Type.
  *
@@ -25,10 +23,7 @@ public class ArticleType implements Serializable {
     private String id;
 
     /**
-     * user role.
+     * article type.
      */
     private String type;
-    private String type;
-=======
->>>>>>> Article new schema changes
 }

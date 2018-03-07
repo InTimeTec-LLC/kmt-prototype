@@ -11,7 +11,6 @@
         "restricted": false,
         "needsApproval": false,
         "approved": false
-        }
     },
    "article-2":  {
          "id": "2",
@@ -24,7 +23,7 @@
          "description": "<html>hello</html>",
          "restricted": true,
          "needsApproval": true,
-         "approved": true,
+         "approved": true
      },
    "article-3": {
         "id": "3",

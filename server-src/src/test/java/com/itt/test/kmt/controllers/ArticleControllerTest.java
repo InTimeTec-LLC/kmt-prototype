@@ -17,6 +17,7 @@ import com.itt.kmt.response.models.ResponseMsg;
 import com.itt.kmt.services.ArticleService;
 import com.itt.test_data.ArticleTestDataRepository;
 import com.itt.test_data.ArticleTypeTestDataRepository;
+import com.itt.utility.Constants;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.shiro.subject.Subject;
 
@@ -133,7 +134,7 @@ public class ArticleControllerTest extends AbstractShiroTest {
         // Arrange
         Article article = articleTestDataRepository.getArticles()
                 .get("article-1");
-        ResponseMsg postResponseMsg = new ResponseMsg(true, "Article has been added successfully");
+        ResponseMsg postResponseMsg = new ResponseMsg(true, Constants.ARTICLE_CREATED_MESSAGE);
 
         when(articleService.save(article)).thenReturn(article);
         HashMap<String, Article> map = new HashMap<String, Article>();
@@ -182,7 +183,6 @@ public class ArticleControllerTest extends AbstractShiroTest {
         .andExpect(jsonPath("$.types[0].type", is(articleType1.getType())))
         .andExpect(jsonPath("$.types[1].id", is(articleType2.getId())))
         .andExpect(jsonPath("$.types[1].type", is(articleType2.getType())));
-        //verify(articleService, times(1)).getArticleTypes();
     }
 
     @Test
@@ -190,7 +190,7 @@ public class ArticleControllerTest extends AbstractShiroTest {
 
         // Arrange
         Article article = articleTestDataRepository.getArticles()
-                .get("article-1");
+                .get("article-3");
         article.setVersion(article.getVersion() + 1);
         ResponseMsg putResponseMsg = new ResponseMsg(true, "Modifications have been saved successfully");
 
@@ -213,12 +213,7 @@ public class ArticleControllerTest extends AbstractShiroTest {
         verify(articleService, times(1)).updateArticle(article.getId(), article);
     }
 
-    /*
-     *  @RequestMapping(value = "/{id}", method = RequestMethod.GET)
-    public ModelMap getArticleById(@PathVariable(value = "id") final String id) {
-        return new ModelMap().addAttribute("article", articleService.getArticleById(id));
-    }
-     * */
+
     @Test
     public void getArticleByIdTest() throws Exception {
         // Arrange

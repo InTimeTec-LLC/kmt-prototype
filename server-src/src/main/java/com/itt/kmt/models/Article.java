@@ -86,24 +86,4 @@ public class Article {
      */
     private Boolean approved = false;
 
-    /**
-     * approval Time of this article.
-     */
-//    private String approvalTime;
-//    /**
-//     * set Approval Time.
-//     */
-//    public void setApprovalTime() {
-//        if (!approved && approvalTime == null) {
-//            approvalTime = Instant.now().toString();
-//        }
-//    }
-    /**
-     * get Approval Time.
-     * @return approvalTime, gets the Approval Time.
-//     */
-//    public String getApprovalTime() {
-//        return approvalTime;
-//    }
-
 }

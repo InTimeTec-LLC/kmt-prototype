@@ -3,6 +3,7 @@ package com.itt.kmt.controllers;
 import java.util.HashMap;
 import java.util.List;
 
+import com.itt.utility.Constants;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -27,11 +28,6 @@ import com.itt.kmt.services.ArticleService;
 public class ArticleController {
 
     /**
-     * Default page size of pagination Object.
-     */
-    private static final int PAGE_SIZE = 10;
-
-    /**
      * Service implementation for DB entity that provides retrieval methods.
      */
     @Autowired
@@ -47,7 +43,7 @@ public class ArticleController {
     public ModelMap addArticle(@RequestBody
             final HashMap<String, Article> articleMap) {
         articleService.save(articleMap.get("article"));
-        ResponseMsg postResponseMsg = new ResponseMsg(true, "Article has been added successfully");
+        ResponseMsg postResponseMsg = new ResponseMsg(true, Constants.ARTICLE_CREATED_MESSAGE);
         return new ModelMap().addAttribute("success", postResponseMsg);
     }
     /**
@@ -62,7 +58,7 @@ public class ArticleController {
             @RequestBody final HashMap<String, Article> articleMap) {
         articleService.updateArticle(id, articleMap.get("article"));
         return new ModelMap().addAttribute("success",
-                new ResponseMsg(true, "Modifications have been saved successfully"));
+                new ResponseMsg(true, Constants.DEFAULT_UPDATE_SUCCESS_MSG));
     }
     /**
      * REST Interface for Article retrieval by id.
@@ -82,12 +78,12 @@ public class ArticleController {
      * @return Page<Article> objects.
      */
     @RequestMapping(method = RequestMethod.GET)
-    public Page<Article>  getArticles(@PageableDefault(value = PAGE_SIZE)final Pageable page) {
+    public Page<Article>  getArticles(@PageableDefault(value = Constants.PAGE_SIZE)final Pageable page) {
         return articleService.getAllArticles(page);
     }
 
     /**
-     * REST API to return all Roles.
+     * REST API to return all Article types.
      * @return ModelMap.
      */
     @RequestMapping(value = "/types", method = RequestMethod.GET)
@@ -98,11 +94,3 @@ public class ArticleController {
     }
 
 }
-
-
-
-
-
-
-
-

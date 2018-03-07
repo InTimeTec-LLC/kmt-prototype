@@ -106,13 +106,7 @@ public class ArticleService {
         if (article == null) {
             throw new RuntimeException("Article not found");
         }
-        article.setTitle(updatedArticle.getTitle());
-        article.setRestricted(updatedArticle.getRestricted());
-        article.setNeedsApproval(updatedArticle.getNeedsApproval());
-        article.setDescription(updatedArticle.getDescription());
-        article.setApprover(updatedArticle.getApprover());
-        article.setApproved(false);
-        return articleRepository.save(article);
+        return articleRepository.save(updateArticle(article, updatedArticle));
     }
     /**
      * Get all available articles the DBEntity(Article) from the database.
@@ -123,6 +117,7 @@ public class ArticleService {
     public Page<Article> getAllArticles(final Pageable page) {
         return articleRepository.findAll(page);
     }
+
     /**
      * Gets the Article given the id.
      * 
@@ -134,6 +129,39 @@ public class ArticleService {
         if (article == null) {
             throw new RuntimeException("No articles found");
         }
+        return article;
+    }
+
+
+    /**
+     * Update the Article after validation.
+     *
+     * @param article object of the Article
+     * @param updatedArticle object of the Article
+     * @return Article object matching the id
+     */
+    private Article updateArticle(final Article article, final Article updatedArticle) {
+
+        if (!updatedArticle.getTitle().isEmpty()) {
+            article.setTitle(updatedArticle.getTitle());
+        }
+        if (updatedArticle.getRestricted() != null) {
+            article.setRestricted(updatedArticle.getRestricted());
+        }
+        if (updatedArticle.getNeedsApproval() != null) {
+            article.setNeedsApproval(updatedArticle.getNeedsApproval());
+        }
+        if (!updatedArticle.getDescription().isEmpty()) {
+            article.setDescription(updatedArticle.getDescription());
+        }
+        if (updatedArticle.getNeedsApproval() != null) {
+            article.setNeedsApproval(updatedArticle.getNeedsApproval());
+        }
+        if (updatedArticle.getApprover() != null) {
+            article.setApprover(updatedArticle.getApprover());
+        }
+        article.setApproved(false);
+
         return article;
     }
 

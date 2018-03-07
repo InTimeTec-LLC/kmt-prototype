@@ -126,12 +126,15 @@ public class ArticleServiceTests {
 
         Page<Article> page = new PageImpl<Article>(articleList);
         when(articleRepository.findAll(new PageRequest(Constants.PAGE_NUMBER, Constants.PAGE_SIZE))).thenReturn(page);
-        Page<Article> firstPage = articleService.getAllArticles(new PageRequest(Constants.PAGE_NUMBER, Constants.PAGE_SIZE));
+        Page<Article> firstPage = articleService
+                .getAllArticles(new PageRequest(Constants.PAGE_NUMBER, Constants.PAGE_SIZE));
 
         // Assert
         assertThat(firstPage.getTotalPages()).isEqualTo(1);
-        verify(articleRepository, times(1)).findAll(new PageRequest(Constants.PAGE_NUMBER, Constants.PAGE_SIZE));
+        verify(articleRepository, times(1))
+                .findAll(new PageRequest(Constants.PAGE_NUMBER, Constants.PAGE_SIZE));
     }
+
     @Test
     public void getArticleByIdTest() throws Exception {
         Article article = articleTestDataRepository.getArticles().get("article-1");
