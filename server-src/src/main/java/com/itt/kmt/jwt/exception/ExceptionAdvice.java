@@ -3,6 +3,7 @@ package com.itt.kmt.jwt.exception;
 
 import javax.servlet.http.HttpServletRequest;
 
+import lombok.extern.slf4j.Slf4j;
 import org.apache.shiro.ShiroException;
 import org.springframework.http.HttpStatus;
 import org.springframework.ui.ModelMap;
@@ -16,6 +17,7 @@ import com.itt.utility.Constants;
 /**
  * The Class ExceptionAdvice.
  */
+@Slf4j
 @RestControllerAdvice
 public class ExceptionAdvice {
 
@@ -56,7 +58,7 @@ public class ExceptionAdvice {
     @ExceptionHandler(Exception.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public ModelMap globalException(final HttpServletRequest request, final Throwable ex) {
-
+        log.debug("Failed due to exception : " + ex.getMessage());
         return new ModelMap().addAttribute("success", new ResponseMsg(Boolean.FALSE, Constants.BAD_REQUEST_MSG));
     }
 }

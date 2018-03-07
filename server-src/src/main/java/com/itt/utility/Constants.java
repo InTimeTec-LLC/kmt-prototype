@@ -28,4 +28,13 @@ public final class Constants {
     /** The Constant BAD_REQUEST_MSG. */
     public static final String BAD_REQUEST_MSG = "Bad request";
 
+    /** Default Page number. **/
+    public static final int PAGE_NUMBER = 0;
+    
+    /** Default Page Size. **/
+    public static final int PAGE_SIZE = 10;
+
+    /** The Constant ARTICLE_CREATED_MESSAGE. */
+    public static final String ARTICLE_CREATED_MESSAGE = "Knowledge Article has been created successfully";
+
 }

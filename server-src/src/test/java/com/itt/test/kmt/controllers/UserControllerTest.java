@@ -2,7 +2,6 @@
 package com.itt.test.kmt.controllers;
 
 import static org.hamcrest.core.Is.is;
-import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.RETURNS_DEEP_STUBS;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
@@ -24,6 +23,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureWebMvc;
@@ -49,6 +49,7 @@ import com.itt.test_data.TestDataRepository;
 import com.itt.utility.Constants;
 
 import lombok.extern.slf4j.Slf4j;
+
 
 /**
  * The Class UserControllerTest.
@@ -109,7 +110,7 @@ public class UserControllerTest extends AbstractShiroTest {
 
         this.mockMvc = MockMvcBuilders.webAppContextSetup(ctx)
                                       .build();
-        DefaultWebSecurityManager securityManger = mock(DefaultWebSecurityManager.class, RETURNS_DEEP_STUBS);
+        DefaultWebSecurityManager securityManger = Mockito.mock(DefaultWebSecurityManager.class, RETURNS_DEEP_STUBS);
         ThreadContext.bind(securityManger);
         // 1. Create a mock authenticated Subject instance for the test to run:
         subjectUnderTest = new Subject.Builder((DefaultWebSecurityManager) getSecurityManager()).buildSubject();

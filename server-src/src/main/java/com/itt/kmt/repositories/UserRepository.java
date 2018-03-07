@@ -1,10 +1,9 @@
 package com.itt.kmt.repositories;
 
-import java.util.List;
-
+import com.itt.kmt.models.User;
 import org.springframework.data.repository.CrudRepository;
 
-import com.itt.kmt.models.User;
+import java.util.List;
 /**
  * UserRepostory interface, declares the methods exposed by the repository.
  * Following default methods are provided by CrudRepository and can be used as
