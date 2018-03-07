@@ -24,42 +24,81 @@
   <disabled>false</disabled>
   <blockBuildWhenDownstreamBuilding>false</blockBuildWhenDownstreamBuilding>
   <blockBuildWhenUpstreamBuilding>false</blockBuildWhenUpstreamBuilding>
-  <triggers/>
+  <triggers>
+    <hudson.triggers.SCMTrigger>
+      <spec>*/5 * * * *</spec>
+      <ignorePostCommitHooks>false</ignorePostCommitHooks>
+    </hudson.triggers.SCMTrigger>
+  </triggers>
   <concurrentBuild>false</concurrentBuild>
   <builders>
     <hudson.tasks.Shell>
       <command>#!/bin/bash
-echo &quot;********** FRONT-END BUILD START **********&quot;
-cd ${WORKSPACE}/client-src
-echo &quot;********** NPM INSTALLATION **********&quot;
-npm install
-echo &quot;********** ANGULAR CLI INSTALLATION **********&quot;
-npm install @angular/cli
-echo &quot;********** NG BUILD START **********&quot;
-ng build
-echo &quot;********** COPYING DIST FOLDER TO STATIC IN SERVER-SRC **********&quot;
-if [[ -d &quot;../server-src/static&quot; ]]
-then
-        rm -rf ../server-src/static
-fi
-mkdir ../server-src/static
-cp -r dist/* ../server-src/static
 
-echo &quot;********** BACK-END BUILD START **********&quot;
+isContainerRunning=$(docker ps -q -f &quot;name=adpq-web&quot;)
+if [ &quot;$isContainerRunning&quot; == &quot;&quot; ]
+then
+        #docker stop $isContainerRunning
+        #docker rm $isContainerRunning
+        echo &quot;running web&quot;
+        tomcatDeployLocation=$USERDIR&quot;/devops/tomcatDeployFiles&quot;
+        docker run -d --name adpq-web -p 8080:8080 -v $tomcatDeployLocation:/usr/local/tomcat/webapps/ yashittdocker/adpq-web:latest
+fi
+
+
+isContainerRunning=$(docker ps -q -f &quot;name=adpq-mongo&quot;)
+if [ &quot;$isContainerRunning&quot; == &quot;&quot; ]
+then
+        #docker stop $isContainerRunning
+        #docker rm $isContainerRunning
+        echo &quot;running mongo&quot;
+        mongoDbFiles=$USERDIR&quot;/devops/packageRepo/kmt-prototype/devops/mongoconfig/data/db/&quot;
+        docker run -d --name adpq-mongo -v $mongoDbFiles:/data/db -p 27017:27017 yashittdocker/adpq-mongo:latest_1.1
+fi
+
+
+echo &quot;********* FRONT-END BUILD START *********&quot;
+cd ${WORKSPACE}/client-src
+REDIRECT_URL=&quot;&apos;http://$HOSTIP:8080/api/&apos;,&quot;
+echo $REDIRECT_URL
+sed -i &quot;s#API_ENDPOINT.*#API_ENDPOINT:$REDIRECT_URL#g&quot; src/environments/environment.prod.ts
+echo &quot;********* NPM INSTALLATION *********&quot;
+npm install
+echo &quot;********* NG BUILD START *********&quot;
+ng build --prod --aot=false
+echo &quot;********* COPYING DIST FOLDER TO src/main/webapp IN SERVER-SRC *********&quot;
+if [[ -d &quot;../server-src/src/main/webapp&quot; ]]
+then
+rm -rf ../server-src/src/main/webapp
+fi
+mkdir ../server-src/src/main/webapp
+cp -r dist/* ../server-src/src/main/webapp
+
+echo &quot;********* BACK-END BUILD START *********&quot;
 cd ${WORKSPACE}/server-src
-echo &quot;********** CHANGING THE MONGO DB IP IN application.properties with $HOSTIP **********&quot;
-sed -i &quot;s/^spring.data.mongodb.host.*/spring.data.mongodb.host=$HOSTIP/g&quot; config/application.properties
+echo &quot;********* CHANGING THE MONGO DB IP IN application.properties with $HOSTIP *********&quot;
+#sed -i &quot;s/^spring.data.mongodb.host.*/spring.data.mongodb.host=$HOSTIP/g&quot; config/application.properties
+sed -i &quot;s#^spring.data.mongodb.uri.*#spring.data.mongodb.uri=mongodb://$HOSTIP/kmt_db#g&quot; src/main/resources/application.properties
 chmod +x setenv.sh
 ./setenv.sh
 chmod +x gradlew
 ./gradlew -x test check
-echo &quot;********** RUNNING UNIT TEST CASES **********&quot;
+echo &quot;********* RUNNING UNIT TEST CASES *********&quot;
 ./gradlew runUnitTests
-echo &quot;********** BUILD START **********&quot;
+echo &quot;********* BUILD START *********&quot;
 ./gradlew clean build
-cp -r build/libs/*.war /var/jenkins_home/deployCodeFiles/</command>
+echo &quot;********* Deployig war file *********&quot;
+cp -r build/libs/*.war /var/jenkins_home/deployCodeFiles/
+
+docker restart adpq-web</command>
     </hudson.tasks.Shell>
   </builders>
   <publishers/>
-  <buildWrappers/>
+  <buildWrappers>
+    <hudson.plugins.ws__cleanup.PreBuildCleanup plugin="ws-cleanup@0.34">
+      <deleteDirs>false</deleteDirs>
+      <cleanupParameter></cleanupParameter>
+      <externalDelete></externalDelete>
+    </hudson.plugins.ws__cleanup.PreBuildCleanup>
+  </buildWrappers>
 </project>

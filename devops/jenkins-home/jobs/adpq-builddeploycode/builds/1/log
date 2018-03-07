@@ -1,5 +1,7 @@
-Started by user [8mha:////4ILforTHmVRHGeZ574lrtvczhMbNdbawH/p7KPqb9L5BAAAAlx+LCAAAAAAAAP9b85aBtbiIQTGjNKU4P08vOT+vOD8nVc83PyU1x6OyILUoJzMv2y+/JJUBAhiZGBgqihhk0NSjKDWzXb3RdlLBUSYGJk8GtpzUvPSSDB8G5tKinBIGIZ+sxLJE/ZzEvHT94JKizLx0a6BxUmjGOUNodHsLgAzWEgZu/dLi1CL9xJTczDwAj6GcLcAAAAA=[0madmin
+Started by an SCM change
 Building in workspace /var/jenkins_home/workspace/adpq-builddeploycode
+[WS-CLEANUP] Deleting project workspace...
+[WS-CLEANUP] Done
 Cloning the remote Git repository
 Cloning repository https://github.com/InTimeTec-LLC/kmt-prototype.git
  > git init /var/jenkins_home/workspace/adpq-builddeploycode # timeout=10
@@ -13,402 +15,195 @@ Fetching upstream changes from https://github.com/InTimeTec-LLC/kmt-prototype.gi
  > git fetch --tags --progress https://github.com/InTimeTec-LLC/kmt-prototype.git +refs/heads/*:refs/remotes/origin/*
  > git rev-parse refs/remotes/origin/master^{commit} # timeout=10
  > git rev-parse refs/remotes/origin/origin/master^{commit} # timeout=10
-Checking out Revision e43adaa9f72071e54b608fdd2fe1a719c2033e3e (refs/remotes/origin/master)
+Checking out Revision 21912b3219b45b3f0eace2ba38c87c6fc9a9ca39 (refs/remotes/origin/master)
  > git config core.sparsecheckout # timeout=10
- > git checkout -f e43adaa9f72071e54b608fdd2fe1a719c2033e3e
-Commit message: "Merge pull request #12 from InTimeTec-LLC/usermanagemnet"
+ > git checkout -f 21912b3219b45b3f0eace2ba38c87c6fc9a9ca39
+Commit message: "Merge pull request #33 from InTimeTec-LLC/email-framework"
 First time build. Skipping changelog.
-[adpq-builddeploycode] $ /bin/bash /tmp/jenkins3246469899284379292.sh
-Downloading https://services.gradle.org/distributions/gradle-2.5-bin.zip
-......................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................
-Unzipping /root/.gradle/wrapper/dists/gradle-2.5-bin/7mk8vyobxfh3eazpg3pi2y9mv/gradle-2.5-bin.zip to /root/.gradle/wrapper/dists/gradle-2.5-bin/7mk8vyobxfh3eazpg3pi2y9mv
-Set executable permissions for: /root/.gradle/wrapper/dists/gradle-2.5-bin/7mk8vyobxfh3eazpg3pi2y9mv/gradle-2.5/bin/gradle
-Download https://repo1.maven.org/maven2/org/springframework/boot/spring-boot-gradle-plugin/1.5.8.RELEASE/spring-boot-gradle-plugin-1.5.8.RELEASE.pom
-Download https://repo1.maven.org/maven2/org/springframework/boot/spring-boot-tools/1.5.8.RELEASE/spring-boot-tools-1.5.8.RELEASE.pom
-Download https://repo1.maven.org/maven2/org/springframework/boot/spring-boot-parent/1.5.8.RELEASE/spring-boot-parent-1.5.8.RELEASE.pom
-Download https://repo1.maven.org/maven2/org/springframework/boot/spring-boot-dependencies/1.5.8.RELEASE/spring-boot-dependencies-1.5.8.RELEASE.pom
-Download https://repo1.maven.org/maven2/com/fasterxml/jackson/jackson-bom/2.8.10/jackson-bom-2.8.10.pom
-Download https://repo1.maven.org/maven2/com/fasterxml/jackson/jackson-parent/2.8/jackson-parent-2.8.pom
-Download https://repo1.maven.org/maven2/com/fasterxml/oss-parent/27/oss-parent-27.pom
-Download https://repo1.maven.org/maven2/org/apache/logging/log4j/log4j-bom/2.7/log4j-bom-2.7.pom
-Download https://repo1.maven.org/maven2/org/apache/apache/9/apache-9.pom
-Download https://repo1.maven.org/maven2/org/springframework/spring-framework-bom/4.3.12.RELEASE/spring-framework-bom-4.3.12.RELEASE.pom
-Download https://repo1.maven.org/maven2/org/springframework/data/spring-data-releasetrain/Ingalls-SR8/spring-data-releasetrain-Ingalls-SR8.pom
-Download https://repo1.maven.org/maven2/org/springframework/data/build/spring-data-build/1.9.8.RELEASE/spring-data-build-1.9.8.RELEASE.pom
-Download https://repo1.maven.org/maven2/org/springframework/integration/spring-integration-bom/4.3.12.RELEASE/spring-integration-bom-4.3.12.RELEASE.pom
-Download https://repo1.maven.org/maven2/org/springframework/security/spring-security-bom/4.2.3.RELEASE/spring-security-bom-4.2.3.RELEASE.pom
-Download https://plugins.gradle.org/m2/io/franzbecker/gradle-lombok/1.11/gradle-lombok-1.11.pom
-Download https://plugins.gradle.org/m2/net/ltgt/gradle/gradle-apt-plugin/0.10/gradle-apt-plugin-0.10.pom
-Download https://repo1.maven.org/maven2/org/ajoberstar/gradle-git/1.7.2/gradle-git-1.7.2.pom
-Download https://repo1.maven.org/maven2/org/springframework/boot/spring-boot-loader-tools/1.5.8.RELEASE/spring-boot-loader-tools-1.5.8.RELEASE.pom
-Download https://repo1.maven.org/maven2/io/spring/gradle/dependency-management-plugin/1.0.3.RELEASE/dependency-management-plugin-1.0.3.RELEASE.pom
-Download https://plugins.gradle.org/m2/org/ajoberstar/grgit/1.9.3/grgit-1.9.3.pom
-Download https://repo1.maven.org/maven2/com/github/zafarkhaja/java-semver/0.9.0/java-semver-0.9.0.pom
-Download https://repo1.maven.org/maven2/org/sonatype/oss/oss-parent/9/oss-parent-9.pom
-Download https://repo1.maven.org/maven2/org/springframework/spring-core/4.3.12.RELEASE/spring-core-4.3.12.RELEASE.pom
-Download https://repo1.maven.org/maven2/org/eclipse/jgit/org.eclipse.jgit/4.5.2.201704071617-r/org.eclipse.jgit-4.5.2.201704071617-r.pom
-Download https://repo1.maven.org/maven2/org/eclipse/jgit/org.eclipse.jgit-parent/4.5.2.201704071617-r/org.eclipse.jgit-parent-4.5.2.201704071617-r.pom
-Download https://repo1.maven.org/maven2/org/eclipse/jgit/org.eclipse.jgit.ui/4.5.2.201704071617-r/org.eclipse.jgit.ui-4.5.2.201704071617-r.pom
-Download https://repo1.maven.org/maven2/com/jcraft/jsch.agentproxy.jsch/0.0.9/jsch.agentproxy.jsch-0.0.9.pom
-Download https://repo1.maven.org/maven2/com/jcraft/jsch.agentproxy/0.0.9/jsch.agentproxy-0.0.9.pom
-Download https://repo1.maven.org/maven2/org/sonatype/oss/oss-parent/6/oss-parent-6.pom
-Download https://repo1.maven.org/maven2/com/jcraft/jsch.agentproxy.pageant/0.0.9/jsch.agentproxy.pageant-0.0.9.pom
-Download https://repo1.maven.org/maven2/com/jcraft/jsch.agentproxy.sshagent/0.0.9/jsch.agentproxy.sshagent-0.0.9.pom
-Download https://repo1.maven.org/maven2/com/jcraft/jsch.agentproxy.usocket-jna/0.0.9/jsch.agentproxy.usocket-jna-0.0.9.pom
-Download https://repo1.maven.org/maven2/com/jcraft/jsch.agentproxy.usocket-nc/0.0.9/jsch.agentproxy.usocket-nc-0.0.9.pom
-Download https://repo1.maven.org/maven2/com/jcraft/jsch/0.1.54/jsch-0.1.54.pom
-Download https://repo1.maven.org/maven2/org/slf4j/slf4j-api/1.7.25/slf4j-api-1.7.25.pom
-Download https://repo1.maven.org/maven2/org/slf4j/slf4j-parent/1.7.25/slf4j-parent-1.7.25.pom
-Download https://repo1.maven.org/maven2/commons-logging/commons-logging/1.2/commons-logging-1.2.pom
-Download https://repo1.maven.org/maven2/org/apache/commons/commons-parent/34/commons-parent-34.pom
-Download https://repo1.maven.org/maven2/org/apache/apache/13/apache-13.pom
-Download https://repo1.maven.org/maven2/com/googlecode/javaewah/JavaEWAH/0.7.9/JavaEWAH-0.7.9.pom
-Download https://repo1.maven.org/maven2/org/sonatype/oss/oss-parent/5/oss-parent-5.pom
-Download https://repo1.maven.org/maven2/org/apache/httpcomponents/httpclient/4.3.6/httpclient-4.3.6.pom
-Download https://repo1.maven.org/maven2/org/apache/httpcomponents/httpcomponents-client/4.3.6/httpcomponents-client-4.3.6.pom
-Download https://repo1.maven.org/maven2/org/apache/httpcomponents/project/7/project-7.pom
-Download https://repo1.maven.org/maven2/com/jcraft/jsch.agentproxy.core/0.0.9/jsch.agentproxy.core-0.0.9.pom
-Download https://repo1.maven.org/maven2/net/java/dev/jna/jna/4.1.0/jna-4.1.0.pom
-Download https://repo1.maven.org/maven2/net/java/dev/jna/jna-platform/4.1.0/jna-platform-4.1.0.pom
-Download https://repo1.maven.org/maven2/org/apache/httpcomponents/httpcore/4.3.3/httpcore-4.3.3.pom
-Download https://repo1.maven.org/maven2/org/apache/httpcomponents/httpcomponents-core/4.3.3/httpcomponents-core-4.3.3.pom
-Download https://repo1.maven.org/maven2/commons-codec/commons-codec/1.6/commons-codec-1.6.pom
-Download https://repo1.maven.org/maven2/org/apache/commons/commons-parent/22/commons-parent-22.pom
-Download https://repo1.maven.org/maven2/org/springframework/boot/spring-boot-gradle-plugin/1.5.8.RELEASE/spring-boot-gradle-plugin-1.5.8.RELEASE.jar
-Download https://plugins.gradle.org/m2/io/franzbecker/gradle-lombok/1.11/gradle-lombok-1.11.jar
-Download https://repo1.maven.org/maven2/net/java/dev/jna/jna-platform/4.1.0/jna-platform-4.1.0.jar
-Download https://plugins.gradle.org/m2/net/ltgt/gradle/gradle-apt-plugin/0.10/gradle-apt-plugin-0.10.jar
-Download https://repo1.maven.org/maven2/org/ajoberstar/gradle-git/1.7.2/gradle-git-1.7.2.jar
-Download https://repo1.maven.org/maven2/org/springframework/boot/spring-boot-loader-tools/1.5.8.RELEASE/spring-boot-loader-tools-1.5.8.RELEASE.jar
-Download https://repo1.maven.org/maven2/net/java/dev/jna/jna/4.1.0/jna-4.1.0.jar
-Download https://repo1.maven.org/maven2/io/spring/gradle/dependency-management-plugin/1.0.3.RELEASE/dependency-management-plugin-1.0.3.RELEASE.jar
-Download https://plugins.gradle.org/m2/org/ajoberstar/grgit/1.9.3/grgit-1.9.3.jar
-Download https://repo1.maven.org/maven2/org/apache/httpcomponents/httpcore/4.3.3/httpcore-4.3.3.jar
-Download https://repo1.maven.org/maven2/com/github/zafarkhaja/java-semver/0.9.0/java-semver-0.9.0.jar
-Download https://repo1.maven.org/maven2/commons-codec/commons-codec/1.6/commons-codec-1.6.jar
-Download https://repo1.maven.org/maven2/org/springframework/spring-core/4.3.12.RELEASE/spring-core-4.3.12.RELEASE.jar
-Download https://repo1.maven.org/maven2/org/eclipse/jgit/org.eclipse.jgit/4.5.2.201704071617-r/org.eclipse.jgit-4.5.2.201704071617-r.jar
-Download https://repo1.maven.org/maven2/org/eclipse/jgit/org.eclipse.jgit.ui/4.5.2.201704071617-r/org.eclipse.jgit.ui-4.5.2.201704071617-r.jar
-Download https://repo1.maven.org/maven2/com/jcraft/jsch.agentproxy.jsch/0.0.9/jsch.agentproxy.jsch-0.0.9.jar
-Download https://repo1.maven.org/maven2/com/jcraft/jsch.agentproxy.pageant/0.0.9/jsch.agentproxy.pageant-0.0.9.jar
-Download https://repo1.maven.org/maven2/com/jcraft/jsch.agentproxy.sshagent/0.0.9/jsch.agentproxy.sshagent-0.0.9.jar
-Download https://repo1.maven.org/maven2/com/jcraft/jsch.agentproxy.usocket-jna/0.0.9/jsch.agentproxy.usocket-jna-0.0.9.jar
-Download https://repo1.maven.org/maven2/com/jcraft/jsch.agentproxy.usocket-nc/0.0.9/jsch.agentproxy.usocket-nc-0.0.9.jar
-Download https://repo1.maven.org/maven2/com/jcraft/jsch/0.1.54/jsch-0.1.54.jar
-Download https://repo1.maven.org/maven2/org/slf4j/slf4j-api/1.7.25/slf4j-api-1.7.25.jar
-Download https://repo1.maven.org/maven2/commons-logging/commons-logging/1.2/commons-logging-1.2.jar
-Download https://repo1.maven.org/maven2/com/googlecode/javaewah/JavaEWAH/0.7.9/JavaEWAH-0.7.9.jar
-Download https://repo1.maven.org/maven2/org/apache/httpcomponents/httpclient/4.3.6/httpclient-4.3.6.jar
-Download https://repo1.maven.org/maven2/com/jcraft/jsch.agentproxy.core/0.0.9/jsch.agentproxy.core-0.0.9.jar
+[adpq-builddeploycode] $ /bin/bash /tmp/jenkins7335266023859411058.sh
+running web
+Unable to find image 'yashittdocker/adpq-web:latest' locally
+latest: Pulling from yashittdocker/adpq-web
+3e731ddb7fc9: Pulling fs layer
+47cafa6a79d0: Pulling fs layer
+79fcf5a213c7: Pulling fs layer
+fd532571c5d3: Pulling fs layer
+31600c9f9b48: Pulling fs layer
+78e8e9b5d10e: Pulling fs layer
+0710e619e883: Pulling fs layer
+e511da65ffab: Pulling fs layer
+bfcd79b5752d: Pulling fs layer
+f6d4311e9998: Pulling fs layer
+aa08dc0fba1c: Pulling fs layer
+47ffc8d9d1f8: Pulling fs layer
+26281daa0b36: Pulling fs layer
+fd532571c5d3: Waiting
+e511da65ffab: Waiting
+31600c9f9b48: Waiting
+bfcd79b5752d: Waiting
+f6d4311e9998: Waiting
+78e8e9b5d10e: Waiting
+0710e619e883: Waiting
+26281daa0b36: Waiting
+47ffc8d9d1f8: Waiting
+aa08dc0fba1c: Waiting
+79fcf5a213c7: Verifying Checksum
+79fcf5a213c7: Download complete
+47cafa6a79d0: Verifying Checksum
+47cafa6a79d0: Download complete
+fd532571c5d3: Verifying Checksum
+fd532571c5d3: Download complete
+31600c9f9b48: Verifying Checksum
+31600c9f9b48: Download complete
+78e8e9b5d10e: Verifying Checksum
+78e8e9b5d10e: Download complete
+3e731ddb7fc9: Verifying Checksum
+3e731ddb7fc9: Download complete
+e511da65ffab: Verifying Checksum
+e511da65ffab: Download complete
+bfcd79b5752d: Verifying Checksum
+bfcd79b5752d: Download complete
+f6d4311e9998: Verifying Checksum
+f6d4311e9998: Download complete
+47ffc8d9d1f8: Verifying Checksum
+47ffc8d9d1f8: Download complete
+26281daa0b36: Verifying Checksum
+26281daa0b36: Download complete
+aa08dc0fba1c: Verifying Checksum
+aa08dc0fba1c: Download complete
+3e731ddb7fc9: Pull complete
+47cafa6a79d0: Pull complete
+79fcf5a213c7: Pull complete
+fd532571c5d3: Pull complete
+31600c9f9b48: Pull complete
+78e8e9b5d10e: Pull complete
+0710e619e883: Verifying Checksum
+0710e619e883: Download complete
+0710e619e883: Pull complete
+e511da65ffab: Pull complete
+bfcd79b5752d: Pull complete
+f6d4311e9998: Pull complete
+aa08dc0fba1c: Pull complete
+47ffc8d9d1f8: Pull complete
+26281daa0b36: Pull complete
+Digest: sha256:223ad39196367afa6d6aa0cae2b854c86f26932371b0939871b81de15e57525e
+Status: Downloaded newer image for yashittdocker/adpq-web:latest
+a5dd14c73c885419359cf388eedb79db7aff1239f1d4e8c623d819befdc90411
+running mongo
+Unable to find image 'yashittdocker/adpq-mongo:latest_1.1' locally
+latest_1.1: Pulling from yashittdocker/adpq-mongo
+d2ca7eff5948: Pulling fs layer
+ebb958661291: Pulling fs layer
+cdfa71d101a9: Pulling fs layer
+88a286579fc2: Pulling fs layer
+9441b8e1ae36: Pulling fs layer
+0e6fe40bb4bd: Pulling fs layer
+ace74471951d: Pulling fs layer
+ddaafdd39b2a: Pulling fs layer
+d59a4258bd73: Pulling fs layer
+29f0c7020f3a: Pulling fs layer
+5398b0c4a9f5: Pulling fs layer
+7e32a5eff531: Pulling fs layer
+88a286579fc2: Waiting
+9441b8e1ae36: Waiting
+0e6fe40bb4bd: Waiting
+ace74471951d: Waiting
+ddaafdd39b2a: Waiting
+d59a4258bd73: Waiting
+29f0c7020f3a: Waiting
+5398b0c4a9f5: Waiting
+7e32a5eff531: Waiting
+ebb958661291: Download complete
+cdfa71d101a9: Verifying Checksum
+cdfa71d101a9: Download complete
+88a286579fc2: Verifying Checksum
+88a286579fc2: Download complete
+9441b8e1ae36: Verifying Checksum
+9441b8e1ae36: Download complete
+0e6fe40bb4bd: Verifying Checksum
+0e6fe40bb4bd: Download complete
+ace74471951d: Verifying Checksum
+ace74471951d: Download complete
+d59a4258bd73: Verifying Checksum
+d59a4258bd73: Download complete
+29f0c7020f3a: Verifying Checksum
+29f0c7020f3a: Download complete
+5398b0c4a9f5: Verifying Checksum
+5398b0c4a9f5: Download complete
+7e32a5eff531: Download complete
+d2ca7eff5948: Verifying Checksum
+d2ca7eff5948: Download complete
+d2ca7eff5948: Pull complete
+ebb958661291: Pull complete
+cdfa71d101a9: Pull complete
+88a286579fc2: Pull complete
+9441b8e1ae36: Pull complete
+0e6fe40bb4bd: Pull complete
+ace74471951d: Pull complete
+ddaafdd39b2a: Verifying Checksum
+ddaafdd39b2a: Download complete
+ddaafdd39b2a: Pull complete
+d59a4258bd73: Pull complete
+29f0c7020f3a: Pull complete
+5398b0c4a9f5: Pull complete
+7e32a5eff531: Pull complete
+Digest: sha256:6bfd563c4e48edbf6f63e5cf833fd7cad9751def12960c1c940247b78c91c23e
+Status: Downloaded newer image for yashittdocker/adpq-mongo:latest_1.1
+43894720a95b7da869042d6bdb7fd3a849ea766583a5cad294630ca0dafbb6c5
+********* FRONT-END BUILD START *********
+'http://18.144.18.77:8080/api/',
+********* NPM INSTALLATION *********
+
+> uws@9.14.0 install /var/jenkins_home/workspace/adpq-builddeploycode/client-src/node_modules/uws
+> node-gyp rebuild > build_log.txt 2>&1 || exit 0
+
+
+> node-sass@4.7.2 install /var/jenkins_home/workspace/adpq-builddeploycode/client-src/node_modules/node-sass
+> node scripts/install.js
+
+Cached binary found at /root/.npm/node-sass/4.7.2/linux-x64-57_binding.node
+
+> uglifyjs-webpack-plugin@0.4.6 postinstall /var/jenkins_home/workspace/adpq-builddeploycode/client-src/node_modules/webpack/node_modules/uglifyjs-webpack-plugin
+> node lib/post_install.js
+
+
+> node-sass@4.7.2 postinstall /var/jenkins_home/workspace/adpq-builddeploycode/client-src/node_modules/node-sass
+> node scripts/build.js
+
+Binary found at /var/jenkins_home/workspace/adpq-builddeploycode/client-src/node_modules/node-sass/vendor/linux-x64-57/binding.node
+Testing binary
+Binary is fine
+added 1252 packages in 32.534s
+********* NG BUILD START *********
+[0mDate: [1m[37m2018-03-07T06:02:22.454Z[39m[22m[0m
+[0mHash: [1m[37m7e3c620c5b9cb59b5356[39m[22m[0m
+[0mTime: [1m[37m36929[39m[22mms[0m
+[0mchunk {[1m[33mscripts[39m[22m} [1m[32mscripts.5f760f01c7c6b9dc8994.bundle.js[39m[22m (scripts) 220 kB [1m[33m[initial][39m[22m[1m[32m [rendered][39m[22m[0m
+[0mchunk {[1m[33m0[39m[22m} [1m[32mpolyfills.bf95165a1d5098766b92.bundle.js[39m[22m (polyfills) 59.6 kB [1m[33m[initial][39m[22m[1m[32m [rendered][39m[22m[0m
+[0mchunk {[1m[33m1[39m[22m} [1m[32mmain.3c0367ef1c8a2a813357.bundle.js[39m[22m (main) 73.4 kB [1m[33m[initial][39m[22m[1m[32m [rendered][39m[22m[0m
+[0mchunk {[1m[33m2[39m[22m} [1m[32mstyles.3d04034315f1c0d34eba.bundle.css[39m[22m (styles) 59 kB [1m[33m[initial][39m[22m[1m[32m [rendered][39m[22m[0m
+[0mchunk {[1m[33m3[39m[22m} [1m[32mvendor.641b1d9f736163578921.bundle.js[39m[22m (vendor) 1.84 MB [1m[33m[initial][39m[22m[1m[32m [rendered][39m[22m[0m
+[0mchunk {[1m[33m4[39m[22m} [1m[32minline.31e1fb380eb7cf3d75b1.bundle.js[39m[22m (inline) 798 bytes [1m[33m[entry][39m[22m[1m[32m [rendered][39m[22m[0m
+********* COPYING DIST FOLDER TO src/main/webapp IN SERVER-SRC *********
+********* BACK-END BUILD START *********
+********* CHANGING THE MONGO DB IP IN application.properties with 18.144.18.77 *********
 Current version:1.0 buildDir:/var/jenkins_home/workspace/adpq-builddeploycode/server-src/build
 :compileJava
-Download https://repo1.maven.org/maven2/org/projectlombok/lombok/1.16.18/lombok-1.16.18.pom
-Download https://repo1.maven.org/maven2/org/springframework/boot/spring-boot-starter-data-mongodb/1.5.9.RELEASE/spring-boot-starter-data-mongodb-1.5.9.RELEASE.pom
-Download https://repo1.maven.org/maven2/org/springframework/boot/spring-boot-starters/1.5.9.RELEASE/spring-boot-starters-1.5.9.RELEASE.pom
-Download https://repo1.maven.org/maven2/org/springframework/boot/spring-boot-parent/1.5.9.RELEASE/spring-boot-parent-1.5.9.RELEASE.pom
-Download https://repo1.maven.org/maven2/org/springframework/boot/spring-boot-dependencies/1.5.9.RELEASE/spring-boot-dependencies-1.5.9.RELEASE.pom
-Download https://repo1.maven.org/maven2/org/springframework/spring-framework-bom/4.3.13.RELEASE/spring-framework-bom-4.3.13.RELEASE.pom
-Download https://repo1.maven.org/maven2/org/springframework/data/spring-data-releasetrain/Ingalls-SR9/spring-data-releasetrain-Ingalls-SR9.pom
-Download https://repo1.maven.org/maven2/org/springframework/data/build/spring-data-build/1.9.9.RELEASE/spring-data-build-1.9.9.RELEASE.pom
-Download https://repo1.maven.org/maven2/org/springframework/boot/spring-boot-starter-web/1.5.8.RELEASE/spring-boot-starter-web-1.5.8.RELEASE.pom
-Download https://repo1.maven.org/maven2/org/springframework/boot/spring-boot-starters/1.5.8.RELEASE/spring-boot-starters-1.5.8.RELEASE.pom
-Download https://repo1.maven.org/maven2/io/springfox/springfox-swagger2/2.7.0/springfox-swagger2-2.7.0.pom
-Download https://repo1.maven.org/maven2/io/springfox/springfox-swagger-ui/2.7.0/springfox-swagger-ui-2.7.0.pom
-Download https://repo1.maven.org/maven2/org/mock-server/mockserver-netty/5.2.3/mockserver-netty-5.2.3.pom
-Download https://repo1.maven.org/maven2/org/mock-server/mockserver/5.2.3/mockserver-5.2.3.pom
-Download https://repo1.maven.org/maven2/org/sonatype/oss/oss-parent/7/oss-parent-7.pom
-Download https://repo1.maven.org/maven2/org/springframework/boot/spring-boot-starter-parent/1.5.8.RELEASE/spring-boot-starter-parent-1.5.8.RELEASE.pom
-Download https://repo1.maven.org/maven2/org/springframework/boot/spring-boot-starter/1.5.8.RELEASE/spring-boot-starter-1.5.8.RELEASE.pom
-Download https://repo1.maven.org/maven2/org/mongodb/mongodb-driver/3.4.3/mongodb-driver-3.4.3.pom
-Download https://repo1.maven.org/maven2/org/springframework/data/spring-data-mongodb/1.10.8.RELEASE/spring-data-mongodb-1.10.8.RELEASE.pom
-Download https://repo1.maven.org/maven2/org/springframework/data/spring-data-mongodb-parent/1.10.8.RELEASE/spring-data-mongodb-parent-1.10.8.RELEASE.pom
-Download https://repo1.maven.org/maven2/org/springframework/data/build/spring-data-parent/1.9.8.RELEASE/spring-data-parent-1.9.8.RELEASE.pom
-Download https://repo1.maven.org/maven2/org/springframework/boot/spring-boot-starter-tomcat/1.5.8.RELEASE/spring-boot-starter-tomcat-1.5.8.RELEASE.pom
-Download https://repo1.maven.org/maven2/org/hibernate/hibernate-validator/5.3.5.Final/hibernate-validator-5.3.5.Final.pom
-Download https://repo1.maven.org/maven2/org/hibernate/hibernate-validator-parent/5.3.5.Final/hibernate-validator-parent-5.3.5.Final.pom
-Download https://repo1.maven.org/maven2/org/jboss/arquillian/arquillian-bom/1.1.11.Final/arquillian-bom-1.1.11.Final.pom
-Download https://repo1.maven.org/maven2/org/jboss/shrinkwrap/shrinkwrap-bom/1.2.3/shrinkwrap-bom-1.2.3.pom
-Download https://repo1.maven.org/maven2/org/jboss/shrinkwrap/resolver/shrinkwrap-resolver-bom/2.2.0/shrinkwrap-resolver-bom-2.2.0.pom
-Download https://repo1.maven.org/maven2/org/jboss/shrinkwrap/descriptors/shrinkwrap-descriptors-bom/2.0.0-alpha-8/shrinkwrap-descriptors-bom-2.0.0-alpha-8.pom
-Download https://repo1.maven.org/maven2/com/fasterxml/jackson/core/jackson-databind/2.8.10/jackson-databind-2.8.10.pom
-Download https://repo1.maven.org/maven2/org/springframework/spring-web/4.3.12.RELEASE/spring-web-4.3.12.RELEASE.pom
-Download https://repo1.maven.org/maven2/org/springframework/spring-webmvc/4.3.12.RELEASE/spring-webmvc-4.3.12.RELEASE.pom
-Download https://repo1.maven.org/maven2/io/swagger/swagger-annotations/1.5.13/swagger-annotations-1.5.13.pom
-Download https://repo1.maven.org/maven2/io/swagger/swagger-project/1.5.13/swagger-project-1.5.13.pom
-Download https://repo1.maven.org/maven2/io/swagger/swagger-models/1.5.13/swagger-models-1.5.13.pom
-Download https://repo1.maven.org/maven2/io/springfox/springfox-spi/2.7.0/springfox-spi-2.7.0.pom
-Download https://repo1.maven.org/maven2/io/springfox/springfox-schema/2.7.0/springfox-schema-2.7.0.pom
-Download https://repo1.maven.org/maven2/io/springfox/springfox-swagger-common/2.7.0/springfox-swagger-common-2.7.0.pom
-Download https://repo1.maven.org/maven2/io/springfox/springfox-spring-web/2.7.0/springfox-spring-web-2.7.0.pom
-Download https://repo1.maven.org/maven2/com/google/guava/guava/18.0/guava-18.0.pom
-Download https://repo1.maven.org/maven2/com/google/guava/guava-parent/18.0/guava-parent-18.0.pom
-Download https://repo1.maven.org/maven2/com/fasterxml/classmate/1.3.4/classmate-1.3.4.pom
-Download https://repo1.maven.org/maven2/com/fasterxml/oss-parent/24/oss-parent-24.pom
-Download https://repo1.maven.org/maven2/org/springframework/plugin/spring-plugin-core/1.2.0.RELEASE/spring-plugin-core-1.2.0.RELEASE.pom
-Download https://repo1.maven.org/maven2/org/springframework/plugin/spring-plugin/1.2.0.RELEASE/spring-plugin-1.2.0.RELEASE.pom
-Download https://repo1.maven.org/maven2/org/springframework/plugin/spring-plugin-metadata/1.2.0.RELEASE/spring-plugin-metadata-1.2.0.RELEASE.pom
-Download https://repo1.maven.org/maven2/org/mapstruct/mapstruct/1.1.0.Final/mapstruct-1.1.0.Final.pom
-Download https://repo1.maven.org/maven2/org/mapstruct/mapstruct-parent/1.1.0.Final/mapstruct-parent-1.1.0.Final.pom
-Download https://repo1.maven.org/maven2/org/jboss/arquillian/arquillian-bom/1.0.2.Final/arquillian-bom-1.0.2.Final.pom
-Download https://repo1.maven.org/maven2/org/jboss/shrinkwrap/shrinkwrap-bom/1.0.1/shrinkwrap-bom-1.0.1.pom
-Download https://repo1.maven.org/maven2/org/jboss/shrinkwrap/resolver/shrinkwrap-resolver-bom/1.0.0-beta-7/shrinkwrap-resolver-bom-1.0.0-beta-7.pom
-Download https://repo1.maven.org/maven2/org/jboss/shrinkwrap/descriptors/shrinkwrap-descriptors-bom/2.0.0-alpha-3/shrinkwrap-descriptors-bom-2.0.0-alpha-3.pom
-Download https://repo1.maven.org/maven2/org/mock-server/mockserver-client-java/5.2.3/mockserver-client-java-5.2.3.pom
-Download https://repo1.maven.org/maven2/org/mock-server/mockserver-core/5.2.3/mockserver-core-5.2.3.pom
-Download https://repo1.maven.org/maven2/io/netty/netty-buffer/4.1.17.Final/netty-buffer-4.1.17.Final.pom
-Download https://repo1.maven.org/maven2/io/netty/netty-parent/4.1.17.Final/netty-parent-4.1.17.Final.pom
-Download https://repo1.maven.org/maven2/io/netty/netty-codec/4.1.17.Final/netty-codec-4.1.17.Final.pom
-Download https://repo1.maven.org/maven2/io/netty/netty-codec-http/4.1.17.Final/netty-codec-http-4.1.17.Final.pom
-Download https://repo1.maven.org/maven2/io/netty/netty-common/4.1.17.Final/netty-common-4.1.17.Final.pom
-Download https://repo1.maven.org/maven2/io/netty/netty-handler/4.1.17.Final/netty-handler-4.1.17.Final.pom
-Download https://repo1.maven.org/maven2/io/netty/netty-transport/4.1.17.Final/netty-transport-4.1.17.Final.pom
-Download https://repo1.maven.org/maven2/org/bouncycastle/bcprov-jdk15on/1.58/bcprov-jdk15on-1.58.pom
-Download https://repo1.maven.org/maven2/ch/qos/logback/logback-classic/1.1.11/logback-classic-1.1.11.pom
-Download https://repo1.maven.org/maven2/ch/qos/logback/logback-parent/1.1.11/logback-parent-1.1.11.pom
-Download https://repo1.maven.org/maven2/janino/janino/2.5.10/janino-2.5.10.pom
-Download https://repo1.maven.org/maven2/org/mock-server/mockserver-logging/5.2.3/mockserver-logging-5.2.3.pom
-Download https://repo1.maven.org/maven2/junit/junit/4.12/junit-4.12.pom
-Download https://repo1.maven.org/maven2/org/springframework/boot/spring-boot/1.5.8.RELEASE/spring-boot-1.5.8.RELEASE.pom
-Download https://repo1.maven.org/maven2/org/springframework/boot/spring-boot-autoconfigure/1.5.8.RELEASE/spring-boot-autoconfigure-1.5.8.RELEASE.pom
-Download https://repo1.maven.org/maven2/org/springframework/boot/spring-boot-starter-logging/1.5.8.RELEASE/spring-boot-starter-logging-1.5.8.RELEASE.pom
-Download https://repo1.maven.org/maven2/org/yaml/snakeyaml/1.17/snakeyaml-1.17.pom
-Download https://repo1.maven.org/maven2/org/mongodb/mongodb-driver-core/3.4.3/mongodb-driver-core-3.4.3.pom
-Download https://repo1.maven.org/maven2/org/mongodb/bson/3.4.3/bson-3.4.3.pom
-Download https://repo1.maven.org/maven2/org/springframework/spring-tx/4.3.12.RELEASE/spring-tx-4.3.12.RELEASE.pom
-Download https://repo1.maven.org/maven2/org/springframework/spring-context/4.3.12.RELEASE/spring-context-4.3.12.RELEASE.pom
-Download https://repo1.maven.org/maven2/org/springframework/spring-beans/4.3.12.RELEASE/spring-beans-4.3.12.RELEASE.pom
-Download https://repo1.maven.org/maven2/org/springframework/spring-expression/4.3.12.RELEASE/spring-expression-4.3.12.RELEASE.pom
-Download https://repo1.maven.org/maven2/org/springframework/data/spring-data-commons/1.13.8.RELEASE/spring-data-commons-1.13.8.RELEASE.pom
-Download https://repo1.maven.org/maven2/org/slf4j/jcl-over-slf4j/1.7.25/jcl-over-slf4j-1.7.25.pom
-Download https://repo1.maven.org/maven2/org/apache/tomcat/embed/tomcat-embed-core/8.5.23/tomcat-embed-core-8.5.23.pom
-Download https://repo1.maven.org/maven2/org/apache/tomcat/embed/tomcat-embed-el/8.5.23/tomcat-embed-el-8.5.23.pom
-Download https://repo1.maven.org/maven2/org/apache/tomcat/embed/tomcat-embed-websocket/8.5.23/tomcat-embed-websocket-8.5.23.pom
-Download https://repo1.maven.org/maven2/javax/validation/validation-api/1.1.0.Final/validation-api-1.1.0.Final.pom
-Download https://repo1.maven.org/maven2/org/jboss/logging/jboss-logging/3.3.1.Final/jboss-logging-3.3.1.Final.pom
-Download https://repo1.maven.org/maven2/org/jboss/jboss-parent/15/jboss-parent-15.pom
-Download https://repo1.maven.org/maven2/com/fasterxml/jackson/core/jackson-annotations/2.8.0/jackson-annotations-2.8.0.pom
-Download https://repo1.maven.org/maven2/com/fasterxml/jackson/core/jackson-core/2.8.10/jackson-core-2.8.10.pom
-Download https://repo1.maven.org/maven2/org/springframework/spring-aop/4.3.12.RELEASE/spring-aop-4.3.12.RELEASE.pom
-Download https://repo1.maven.org/maven2/io/springfox/springfox-core/2.7.0/springfox-core-2.7.0.pom
-Download https://repo1.maven.org/maven2/org/reflections/reflections/0.9.11/reflections-0.9.11.pom
-Download https://repo1.maven.org/maven2/org/apache/commons/commons-lang3/3.7/commons-lang3-3.7.pom
-Download https://repo1.maven.org/maven2/org/apache/commons/commons-parent/42/commons-parent-42.pom
-Download https://repo1.maven.org/maven2/org/apache/apache/18/apache-18.pom
-Download https://repo1.maven.org/maven2/javax/servlet/javax.servlet-api/3.1.0/javax.servlet-api-3.1.0.pom
-Download https://repo1.maven.org/maven2/net/java/jvnet-parent/3/jvnet-parent-3.pom
-Download https://repo1.maven.org/maven2/io/netty/netty-codec-socks/4.1.17.Final/netty-codec-socks-4.1.17.Final.pom
-Download https://repo1.maven.org/maven2/com/jcraft/jzlib/1.1.3/jzlib-1.1.3.pom
-Download https://repo1.maven.org/maven2/org/bouncycastle/bcmail-jdk15on/1.58/bcmail-jdk15on-1.58.pom
-Download https://repo1.maven.org/maven2/org/bouncycastle/bcpkix-jdk15on/1.58/bcpkix-jdk15on-1.58.pom
-Download https://repo1.maven.org/maven2/org/apache/velocity/velocity-engine-scripting/2.0/velocity-engine-scripting-2.0.pom
-Download https://repo1.maven.org/maven2/org/apache/velocity/velocity-engine-parent/2.0/velocity-engine-parent-2.0.pom
-Download https://repo1.maven.org/maven2/org/apache/velocity/velocity-master/2/velocity-master-2.pom
-Download https://repo1.maven.org/maven2/org/apache/velocity/velocity-engine-core/2.0/velocity-engine-core-2.0.pom
-Download https://repo1.maven.org/maven2/org/skyscreamer/jsonassert/1.4.0/jsonassert-1.4.0.pom
-Download https://repo1.maven.org/maven2/com/github/java-json-tools/json-schema-validator/2.2.8/json-schema-validator-2.2.8.pom
-Download https://repo1.maven.org/maven2/javax/xml/bind/jaxb-api/2.3.0/jaxb-api-2.3.0.pom
-Download https://repo1.maven.org/maven2/javax/xml/bind/jaxb-api-parent/2.3.0/jaxb-api-parent-2.3.0.pom
-Download https://repo1.maven.org/maven2/net/java/jvnet-parent/5/jvnet-parent-5.pom
-Download https://repo1.maven.org/maven2/org/apache/commons/commons-text/1.1/commons-text-1.1.pom
-Download https://repo1.maven.org/maven2/commons-collections/commons-collections/3.2.2/commons-collections-3.2.2.pom
-Download https://repo1.maven.org/maven2/org/apache/commons/commons-parent/39/commons-parent-39.pom
-Download https://repo1.maven.org/maven2/org/apache/apache/16/apache-16.pom
-Download https://repo1.maven.org/maven2/commons-io/commons-io/2.6/commons-io-2.6.pom
-Download https://repo1.maven.org/maven2/io/netty/netty-resolver/4.1.17.Final/netty-resolver-4.1.17.Final.pom
-Download https://repo1.maven.org/maven2/ch/qos/logback/logback-core/1.1.11/logback-core-1.1.11.pom
-Download https://repo1.maven.org/maven2/org/hamcrest/hamcrest-core/1.3/hamcrest-core-1.3.pom
-Download https://repo1.maven.org/maven2/org/hamcrest/hamcrest-parent/1.3/hamcrest-parent-1.3.pom
-Download https://repo1.maven.org/maven2/org/slf4j/jul-to-slf4j/1.7.25/jul-to-slf4j-1.7.25.pom
-Download https://repo1.maven.org/maven2/org/slf4j/log4j-over-slf4j/1.7.25/log4j-over-slf4j-1.7.25.pom
-Download https://repo1.maven.org/maven2/org/apache/tomcat/tomcat-annotations-api/8.5.23/tomcat-annotations-api-8.5.23.pom
-Download https://repo1.maven.org/maven2/net/bytebuddy/byte-buddy/1.6.14/byte-buddy-1.6.14.pom
-Download https://repo1.maven.org/maven2/net/bytebuddy/byte-buddy-parent/1.6.14/byte-buddy-parent-1.6.14.pom
-Download https://repo1.maven.org/maven2/org/javassist/javassist/3.21.0-GA/javassist-3.21.0-GA.pom
-Download https://repo1.maven.org/maven2/com/vaadin/external/google/android-json/0.0.20131108.vaadin1/android-json-0.0.20131108.vaadin1.pom
-Download https://repo1.maven.org/maven2/com/github/java-json-tools/json-schema-core/1.2.8/json-schema-core-1.2.8.pom
-Download https://repo1.maven.org/maven2/javax/mail/mailapi/1.4.3/mailapi-1.4.3.pom
-Download https://repo1.maven.org/maven2/com/sun/mail/all/1.4.3/all-1.4.3.pom
-Download https://repo1.maven.org/maven2/joda-time/joda-time/2.9.9/joda-time-2.9.9.pom
-Download https://repo1.maven.org/maven2/com/googlecode/libphonenumber/libphonenumber/8.0.0/libphonenumber-8.0.0.pom
-Download https://repo1.maven.org/maven2/com/googlecode/libphonenumber/libphonenumber-parent/8.0.0/libphonenumber-parent-8.0.0.pom
-Download https://repo1.maven.org/maven2/com/google/code/findbugs/jsr305/3.0.1/jsr305-3.0.1.pom
-Download https://repo1.maven.org/maven2/net/sf/jopt-simple/jopt-simple/5.0.3/jopt-simple-5.0.3.pom
-Download https://repo1.maven.org/maven2/org/mozilla/rhino/1.7R4/rhino-1.7R4.pom
-Download https://repo1.maven.org/maven2/com/github/fge/jackson-coreutils/1.8/jackson-coreutils-1.8.pom
-Download https://repo1.maven.org/maven2/com/github/fge/uri-template/0.9/uri-template-0.9.pom
-Download https://repo1.maven.org/maven2/javax/activation/activation/1.1/activation-1.1.pom
-Download https://repo1.maven.org/maven2/com/github/fge/msg-simple/1.1/msg-simple-1.1.pom
-Download https://repo1.maven.org/maven2/com/github/fge/btf/1.2/btf-1.2.pom
-Download https://repo1.maven.org/maven2/com/google/guava/guava/20.0/guava-20.0.pom
-Download https://repo1.maven.org/maven2/com/google/guava/guava-parent/20.0/guava-parent-20.0.pom
-Download https://repo1.maven.org/maven2/org/springframework/boot/spring-boot-starter-data-mongodb/1.5.9.RELEASE/spring-boot-starter-data-mongodb-1.5.9.RELEASE.jar
-Download https://repo1.maven.org/maven2/org/springframework/boot/spring-boot-starter-web/1.5.8.RELEASE/spring-boot-starter-web-1.5.8.RELEASE.jar
-Download https://repo1.maven.org/maven2/io/springfox/springfox-swagger2/2.7.0/springfox-swagger2-2.7.0.jar
-Download https://repo1.maven.org/maven2/io/springfox/springfox-swagger-ui/2.7.0/springfox-swagger-ui-2.7.0.jar
-Download https://repo1.maven.org/maven2/org/mock-server/mockserver-netty/5.2.3/mockserver-netty-5.2.3.jar
-Download https://repo1.maven.org/maven2/org/projectlombok/lombok/1.16.18/lombok-1.16.18.jar
-Download https://repo1.maven.org/maven2/org/springframework/spring-context/4.3.12.RELEASE/spring-context-4.3.12.RELEASE.jar
-Download https://repo1.maven.org/maven2/org/springframework/boot/spring-boot-starter/1.5.8.RELEASE/spring-boot-starter-1.5.8.RELEASE.jar
-Download https://repo1.maven.org/maven2/org/mongodb/mongodb-driver/3.4.3/mongodb-driver-3.4.3.jar
-Download https://repo1.maven.org/maven2/org/springframework/data/spring-data-mongodb/1.10.8.RELEASE/spring-data-mongodb-1.10.8.RELEASE.jar
-Download https://repo1.maven.org/maven2/org/springframework/spring-beans/4.3.12.RELEASE/spring-beans-4.3.12.RELEASE.jar
-Download https://repo1.maven.org/maven2/org/springframework/boot/spring-boot-starter-tomcat/1.5.8.RELEASE/spring-boot-starter-tomcat-1.5.8.RELEASE.jar
-Download https://repo1.maven.org/maven2/org/hibernate/hibernate-validator/5.3.5.Final/hibernate-validator-5.3.5.Final.jar
-Download https://repo1.maven.org/maven2/com/fasterxml/jackson/core/jackson-databind/2.8.10/jackson-databind-2.8.10.jar
-Download https://repo1.maven.org/maven2/org/springframework/spring-web/4.3.12.RELEASE/spring-web-4.3.12.RELEASE.jar
-Download https://repo1.maven.org/maven2/org/springframework/spring-webmvc/4.3.12.RELEASE/spring-webmvc-4.3.12.RELEASE.jar
-Download https://repo1.maven.org/maven2/org/springframework/spring-expression/4.3.12.RELEASE/spring-expression-4.3.12.RELEASE.jar
-Download https://repo1.maven.org/maven2/io/swagger/swagger-annotations/1.5.13/swagger-annotations-1.5.13.jar
-Download https://repo1.maven.org/maven2/org/springframework/data/spring-data-commons/1.13.8.RELEASE/spring-data-commons-1.13.8.RELEASE.jar
-Download https://repo1.maven.org/maven2/io/swagger/swagger-models/1.5.13/swagger-models-1.5.13.jar
-Download https://repo1.maven.org/maven2/org/springframework/spring-tx/4.3.12.RELEASE/spring-tx-4.3.12.RELEASE.jar
-Download https://repo1.maven.org/maven2/io/springfox/springfox-spi/2.7.0/springfox-spi-2.7.0.jar
-Download https://repo1.maven.org/maven2/org/slf4j/jcl-over-slf4j/1.7.25/jcl-over-slf4j-1.7.25.jar
-Download https://repo1.maven.org/maven2/io/springfox/springfox-schema/2.7.0/springfox-schema-2.7.0.jar
-Download https://repo1.maven.org/maven2/org/apache/tomcat/embed/tomcat-embed-core/8.5.23/tomcat-embed-core-8.5.23.jar
-Download https://repo1.maven.org/maven2/io/springfox/springfox-swagger-common/2.7.0/springfox-swagger-common-2.7.0.jar
-Download https://repo1.maven.org/maven2/io/springfox/springfox-spring-web/2.7.0/springfox-spring-web-2.7.0.jar
-Download https://repo1.maven.org/maven2/org/apache/tomcat/embed/tomcat-embed-el/8.5.23/tomcat-embed-el-8.5.23.jar
-Download https://repo1.maven.org/maven2/org/apache/tomcat/embed/tomcat-embed-websocket/8.5.23/tomcat-embed-websocket-8.5.23.jar
-Download https://repo1.maven.org/maven2/com/fasterxml/classmate/1.3.4/classmate-1.3.4.jar
-Download https://repo1.maven.org/maven2/javax/validation/validation-api/1.1.0.Final/validation-api-1.1.0.Final.jar
-Download https://repo1.maven.org/maven2/org/jboss/logging/jboss-logging/3.3.1.Final/jboss-logging-3.3.1.Final.jar
-Download https://repo1.maven.org/maven2/com/fasterxml/jackson/core/jackson-annotations/2.8.0/jackson-annotations-2.8.0.jar
-Download https://repo1.maven.org/maven2/com/fasterxml/jackson/core/jackson-core/2.8.10/jackson-core-2.8.10.jar
-Download https://repo1.maven.org/maven2/org/springframework/spring-aop/4.3.12.RELEASE/spring-aop-4.3.12.RELEASE.jar
-Download https://repo1.maven.org/maven2/io/springfox/springfox-core/2.7.0/springfox-core-2.7.0.jar
-Download https://repo1.maven.org/maven2/org/reflections/reflections/0.9.11/reflections-0.9.11.jar
-Download https://repo1.maven.org/maven2/org/apache/commons/commons-lang3/3.7/commons-lang3-3.7.jar
-Download https://repo1.maven.org/maven2/javax/servlet/javax.servlet-api/3.1.0/javax.servlet-api-3.1.0.jar
-Download https://repo1.maven.org/maven2/io/netty/netty-codec-socks/4.1.17.Final/netty-codec-socks-4.1.17.Final.jar
-Download https://repo1.maven.org/maven2/com/jcraft/jzlib/1.1.3/jzlib-1.1.3.jar
-Download https://repo1.maven.org/maven2/org/bouncycastle/bcmail-jdk15on/1.58/bcmail-jdk15on-1.58.jar
-Download https://repo1.maven.org/maven2/org/springframework/plugin/spring-plugin-core/1.2.0.RELEASE/spring-plugin-core-1.2.0.RELEASE.jar
-Download https://repo1.maven.org/maven2/org/bouncycastle/bcpkix-jdk15on/1.58/bcpkix-jdk15on-1.58.jar
-Download https://repo1.maven.org/maven2/org/apache/velocity/velocity-engine-scripting/2.0/velocity-engine-scripting-2.0.jar
-Download https://repo1.maven.org/maven2/org/apache/velocity/velocity-engine-core/2.0/velocity-engine-core-2.0.jar
-Download https://repo1.maven.org/maven2/org/skyscreamer/jsonassert/1.4.0/jsonassert-1.4.0.jar
-Download https://repo1.maven.org/maven2/org/springframework/plugin/spring-plugin-metadata/1.2.0.RELEASE/spring-plugin-metadata-1.2.0.RELEASE.jar
-Download https://repo1.maven.org/maven2/com/github/java-json-tools/json-schema-validator/2.2.8/json-schema-validator-2.2.8.jar
-Download https://repo1.maven.org/maven2/javax/xml/bind/jaxb-api/2.3.0/jaxb-api-2.3.0.jar
-Download https://repo1.maven.org/maven2/org/apache/commons/commons-text/1.1/commons-text-1.1.jar
-Download https://repo1.maven.org/maven2/commons-collections/commons-collections/3.2.2/commons-collections-3.2.2.jar
-Download https://repo1.maven.org/maven2/commons-io/commons-io/2.6/commons-io-2.6.jar
-Download https://repo1.maven.org/maven2/org/mapstruct/mapstruct/1.1.0.Final/mapstruct-1.1.0.Final.jar
-Download https://repo1.maven.org/maven2/org/mock-server/mockserver-client-java/5.2.3/mockserver-client-java-5.2.3.jar
-Download https://repo1.maven.org/maven2/org/mock-server/mockserver-core/5.2.3/mockserver-core-5.2.3.jar
-Download https://repo1.maven.org/maven2/io/netty/netty-buffer/4.1.17.Final/netty-buffer-4.1.17.Final.jar
-Download https://repo1.maven.org/maven2/io/netty/netty-resolver/4.1.17.Final/netty-resolver-4.1.17.Final.jar
-Download https://repo1.maven.org/maven2/ch/qos/logback/logback-core/1.1.11/logback-core-1.1.11.jar
-Download https://repo1.maven.org/maven2/org/hamcrest/hamcrest-core/1.3/hamcrest-core-1.3.jar
-Download https://repo1.maven.org/maven2/io/netty/netty-codec/4.1.17.Final/netty-codec-4.1.17.Final.jar
-Download https://repo1.maven.org/maven2/org/slf4j/jul-to-slf4j/1.7.25/jul-to-slf4j-1.7.25.jar
-Download https://repo1.maven.org/maven2/org/slf4j/log4j-over-slf4j/1.7.25/log4j-over-slf4j-1.7.25.jar
-Download https://repo1.maven.org/maven2/org/apache/tomcat/tomcat-annotations-api/8.5.23/tomcat-annotations-api-8.5.23.jar
-Download https://repo1.maven.org/maven2/net/bytebuddy/byte-buddy/1.6.14/byte-buddy-1.6.14.jar
-Download https://repo1.maven.org/maven2/org/javassist/javassist/3.21.0-GA/javassist-3.21.0-GA.jar
-Download https://repo1.maven.org/maven2/io/netty/netty-codec-http/4.1.17.Final/netty-codec-http-4.1.17.Final.jar
-Download https://repo1.maven.org/maven2/com/vaadin/external/google/android-json/0.0.20131108.vaadin1/android-json-0.0.20131108.vaadin1.jar
-Download https://repo1.maven.org/maven2/com/github/java-json-tools/json-schema-core/1.2.8/json-schema-core-1.2.8.jar
-Download https://repo1.maven.org/maven2/io/netty/netty-common/4.1.17.Final/netty-common-4.1.17.Final.jar
-Download https://repo1.maven.org/maven2/javax/mail/mailapi/1.4.3/mailapi-1.4.3.jar
-Download https://repo1.maven.org/maven2/joda-time/joda-time/2.9.9/joda-time-2.9.9.jar
-Download https://repo1.maven.org/maven2/com/googlecode/libphonenumber/libphonenumber/8.0.0/libphonenumber-8.0.0.jar
-Download https://repo1.maven.org/maven2/io/netty/netty-handler/4.1.17.Final/netty-handler-4.1.17.Final.jar
-Download https://repo1.maven.org/maven2/com/google/code/findbugs/jsr305/3.0.1/jsr305-3.0.1.jar
-Download https://repo1.maven.org/maven2/io/netty/netty-transport/4.1.17.Final/netty-transport-4.1.17.Final.jar
-Download https://repo1.maven.org/maven2/org/bouncycastle/bcprov-jdk15on/1.58/bcprov-jdk15on-1.58.jar
-Download https://repo1.maven.org/maven2/net/sf/jopt-simple/jopt-simple/5.0.3/jopt-simple-5.0.3.jar
-Download https://repo1.maven.org/maven2/org/mozilla/rhino/1.7R4/rhino-1.7R4.jar
-Download https://repo1.maven.org/maven2/ch/qos/logback/logback-classic/1.1.11/logback-classic-1.1.11.jar
-Download https://repo1.maven.org/maven2/com/github/fge/jackson-coreutils/1.8/jackson-coreutils-1.8.jar
-Download https://repo1.maven.org/maven2/com/github/fge/uri-template/0.9/uri-template-0.9.jar
-Download https://repo1.maven.org/maven2/javax/activation/activation/1.1/activation-1.1.jar
-Download https://repo1.maven.org/maven2/com/github/fge/msg-simple/1.1/msg-simple-1.1.jar
-Download https://repo1.maven.org/maven2/janino/janino/2.5.10/janino-2.5.10.jar
-Download https://repo1.maven.org/maven2/org/mock-server/mockserver-logging/5.2.3/mockserver-logging-5.2.3.jar
-Download https://repo1.maven.org/maven2/junit/junit/4.12/junit-4.12.jar
-Download https://repo1.maven.org/maven2/com/github/fge/btf/1.2/btf-1.2.jar
-Download https://repo1.maven.org/maven2/org/springframework/boot/spring-boot/1.5.8.RELEASE/spring-boot-1.5.8.RELEASE.jar
-Download https://repo1.maven.org/maven2/com/google/guava/guava/20.0/guava-20.0.jar
-Download https://repo1.maven.org/maven2/org/springframework/boot/spring-boot-autoconfigure/1.5.8.RELEASE/spring-boot-autoconfigure-1.5.8.RELEASE.jar
-Download https://repo1.maven.org/maven2/org/springframework/boot/spring-boot-starter-logging/1.5.8.RELEASE/spring-boot-starter-logging-1.5.8.RELEASE.jar
-Download https://repo1.maven.org/maven2/org/yaml/snakeyaml/1.17/snakeyaml-1.17.jar
-Download https://repo1.maven.org/maven2/org/mongodb/mongodb-driver-core/3.4.3/mongodb-driver-core-3.4.3.jar
-Download https://repo1.maven.org/maven2/org/mongodb/bson/3.4.3/bson-3.4.3.jar
-:processResources UP-TO-DATE
+:processResources
 :classes
 :checkstyleMain
-Download https://repo1.maven.org/maven2/com/puppycrawl/tools/checkstyle/5.9/checkstyle-5.9.pom
-Download https://repo1.maven.org/maven2/antlr/antlr/2.7.7/antlr-2.7.7.pom
-Download https://repo1.maven.org/maven2/commons-beanutils/commons-beanutils-core/1.8.3/commons-beanutils-core-1.8.3.pom
-Download https://repo1.maven.org/maven2/org/apache/apache/4/apache-4.pom
-Download https://repo1.maven.org/maven2/commons-cli/commons-cli/1.2/commons-cli-1.2.pom
-Download https://repo1.maven.org/maven2/org/apache/commons/commons-parent/11/commons-parent-11.pom
-Download https://repo1.maven.org/maven2/com/google/guava/guava-jdk5/14.0.1/guava-jdk5-14.0.1.pom
-Download https://repo1.maven.org/maven2/com/google/guava/guava-parent-jdk5/14.0.1/guava-parent-jdk5-14.0.1.pom
-Download https://repo1.maven.org/maven2/com/puppycrawl/tools/checkstyle/5.9/checkstyle-5.9.jar
-Download https://repo1.maven.org/maven2/antlr/antlr/2.7.7/antlr-2.7.7.jar
-Download https://repo1.maven.org/maven2/commons-beanutils/commons-beanutils-core/1.8.3/commons-beanutils-core-1.8.3.jar
-Download https://repo1.maven.org/maven2/commons-cli/commons-cli/1.2/commons-cli-1.2.jar
-Download https://repo1.maven.org/maven2/com/google/guava/guava-jdk5/14.0.1/guava-jdk5-14.0.1.jar
 :compileTestJava
-Download https://repo1.maven.org/maven2/de/flapdoodle/embed/de.flapdoodle.embed.mongo/2.0.0/de.flapdoodle.embed.mongo-2.0.0.pom
-Download https://repo1.maven.org/maven2/cz/jirutka/spring/embedmongo-spring/1.3.1/embedmongo-spring-1.3.1.pom
-Download https://repo1.maven.org/maven2/cz/jirutka/maven/groovy-parent/1.1.8/groovy-parent-1.1.8.pom
-Download https://repo1.maven.org/maven2/cz/jirutka/maven/root-parent/1.1.8/root-parent-1.1.8.pom
-Download https://repo1.maven.org/maven2/org/springframework/boot/spring-boot-starter-test/1.5.8.RELEASE/spring-boot-starter-test-1.5.8.RELEASE.pom
-Download https://repo1.maven.org/maven2/de/flapdoodle/embed/de.flapdoodle.embed.process/2.0.1/de.flapdoodle.embed.process-2.0.1.pom
-Download https://repo1.maven.org/maven2/org/mongodb/mongo-java-driver/3.4.3/mongo-java-driver-3.4.3.pom
-Download https://repo1.maven.org/maven2/org/springframework/boot/spring-boot-test/1.5.8.RELEASE/spring-boot-test-1.5.8.RELEASE.pom
-Download https://repo1.maven.org/maven2/org/springframework/boot/spring-boot-test-autoconfigure/1.5.8.RELEASE/spring-boot-test-autoconfigure-1.5.8.RELEASE.pom
-Download https://repo1.maven.org/maven2/com/jayway/jsonpath/json-path/2.2.0/json-path-2.2.0.pom
-Download https://repo1.maven.org/maven2/org/assertj/assertj-core/2.6.0/assertj-core-2.6.0.pom
-Download https://repo1.maven.org/maven2/org/assertj/assertj-parent-pom/2.1.4/assertj-parent-pom-2.1.4.pom
-Download https://repo1.maven.org/maven2/org/mockito/mockito-core/1.10.19/mockito-core-1.10.19.pom
-Download https://repo1.maven.org/maven2/org/hamcrest/hamcrest-library/1.3/hamcrest-library-1.3.pom
-Download https://repo1.maven.org/maven2/org/springframework/spring-test/4.3.12.RELEASE/spring-test-4.3.12.RELEASE.pom
-Download https://repo1.maven.org/maven2/net/minidev/json-smart/2.2.1/json-smart-2.2.1.pom
-Download https://repo1.maven.org/maven2/org/objenesis/objenesis/2.1/objenesis-2.1.pom
-Download https://repo1.maven.org/maven2/org/objenesis/objenesis-parent/2.1/objenesis-parent-2.1.pom
-Download https://repo1.maven.org/maven2/net/minidev/accessors-smart/1.1/accessors-smart-1.1.pom
-Download https://repo1.maven.org/maven2/net/minidev/minidev-parent/2.2/minidev-parent-2.2.pom
-Download https://repo1.maven.org/maven2/org/ow2/asm/asm/5.0.3/asm-5.0.3.pom
-Download https://repo1.maven.org/maven2/org/ow2/asm/asm-parent/5.0.3/asm-parent-5.0.3.pom
-Download https://repo1.maven.org/maven2/org/ow2/ow2/1.3/ow2-1.3.pom
-Download https://repo1.maven.org/maven2/net/java/dev/jna/jna/4.2.2/jna-4.2.2.pom
-Download https://repo1.maven.org/maven2/net/java/dev/jna/jna-platform/4.2.2/jna-platform-4.2.2.pom
-Download https://repo1.maven.org/maven2/org/apache/commons/commons-compress/1.10/commons-compress-1.10.pom
-Download https://repo1.maven.org/maven2/org/apache/commons/commons-parent/38/commons-parent-38.pom
-Download https://repo1.maven.org/maven2/org/ow2/asm/asm/5.0.3/asm-5.0.3.jar
-Download https://repo1.maven.org/maven2/de/flapdoodle/embed/de.flapdoodle.embed.mongo/2.0.0/de.flapdoodle.embed.mongo-2.0.0.jar
-Download https://repo1.maven.org/maven2/cz/jirutka/spring/embedmongo-spring/1.3.1/embedmongo-spring-1.3.1.jar
-Download https://repo1.maven.org/maven2/org/springframework/boot/spring-boot-starter-test/1.5.8.RELEASE/spring-boot-starter-test-1.5.8.RELEASE.jar
-Download https://repo1.maven.org/maven2/net/java/dev/jna/jna/4.2.2/jna-4.2.2.jar
-Download https://repo1.maven.org/maven2/net/java/dev/jna/jna-platform/4.2.2/jna-platform-4.2.2.jar
-Download https://repo1.maven.org/maven2/org/apache/commons/commons-compress/1.10/commons-compress-1.10.jar
-Download https://repo1.maven.org/maven2/org/springframework/spring-test/4.3.12.RELEASE/spring-test-4.3.12.RELEASE.jar
-Download https://repo1.maven.org/maven2/net/minidev/json-smart/2.2.1/json-smart-2.2.1.jar
-Download https://repo1.maven.org/maven2/org/objenesis/objenesis/2.1/objenesis-2.1.jar
-Download https://repo1.maven.org/maven2/de/flapdoodle/embed/de.flapdoodle.embed.process/2.0.1/de.flapdoodle.embed.process-2.0.1.jar
-Download https://repo1.maven.org/maven2/org/mongodb/mongo-java-driver/3.4.3/mongo-java-driver-3.4.3.jar
-Download https://repo1.maven.org/maven2/org/springframework/boot/spring-boot-test/1.5.8.RELEASE/spring-boot-test-1.5.8.RELEASE.jar
-Download https://repo1.maven.org/maven2/org/springframework/boot/spring-boot-test-autoconfigure/1.5.8.RELEASE/spring-boot-test-autoconfigure-1.5.8.RELEASE.jar
-Download https://repo1.maven.org/maven2/com/jayway/jsonpath/json-path/2.2.0/json-path-2.2.0.jar
-Download https://repo1.maven.org/maven2/org/assertj/assertj-core/2.6.0/assertj-core-2.6.0.jar
-Download https://repo1.maven.org/maven2/org/mockito/mockito-core/1.10.19/mockito-core-1.10.19.jar
-Download https://repo1.maven.org/maven2/org/hamcrest/hamcrest-library/1.3/hamcrest-library-1.3.jar
-Download https://repo1.maven.org/maven2/net/minidev/accessors-smart/1.1/accessors-smart-1.1.jar
-:processTestResources UP-TO-DATE
+:processTestResources
 :testClasses
 :checkstyleTest
 :check
 
 BUILD SUCCESSFUL
 
-Total time: 25.633 secs
+Total time: 11.218 secs
 
 This build could be faster, please consider using the Gradle Daemon: http://gradle.org/docs/2.5/userguide/gradle_daemon.html
+********* RUNNING UNIT TEST CASES *********
 Current version:1.0 buildDir:/var/jenkins_home/workspace/adpq-builddeploycode/server-src/build
 :compileJava UP-TO-DATE
 :processResources UP-TO-DATE
@@ -417,50 +212,439 @@ Current version:1.0 buildDir:/var/jenkins_home/workspace/adpq-builddeploycode/se
 :processTestResources UP-TO-DATE
 :testClasses UP-TO-DATE
 :runUnitTests
-Download https://repo1.maven.org/maven2/org/jacoco/org.jacoco.agent/0.7.1.201405082137/org.jacoco.agent-0.7.1.201405082137.pom
-Download https://repo1.maven.org/maven2/org/jacoco/org.jacoco.build/0.7.1.201405082137/org.jacoco.build-0.7.1.201405082137.pom
-Download https://repo1.maven.org/maven2/org/jacoco/org.jacoco.agent/0.7.1.201405082137/org.jacoco.agent-0.7.1.201405082137.jar
+
+com.itt.test.kmt.repositories.UserRepositoryTests > onSaveSetId STARTED
+
+com.itt.test.kmt.repositories.UserRepositoryTests > onSaveSetId PASSED
+
+com.itt.test.kmt.repositories.UserRepositoryTests > findByEmail STARTED
+
+com.itt.test.kmt.repositories.UserRepositoryTests > findByEmail PASSED
+
+com.itt.test.kmt.controllers.LoginControllerTest > deactiveUserUnAuhtorizedTest STARTED
+
+com.itt.test.kmt.controllers.LoginControllerTest > deactiveUserUnAuhtorizedTest PASSED
+
+com.itt.test.kmt.controllers.LoginControllerTest > invalidPassword STARTED
+
+com.itt.test.kmt.controllers.LoginControllerTest > invalidPassword PASSED
+
+com.itt.test.kmt.controllers.LoginControllerTest > login STARTED
+
+com.itt.test.kmt.controllers.LoginControllerTest > login PASSED
+
+com.itt.test.kmt.controllers.LoginControllerTest > invalidEmail STARTED
+
+com.itt.test.kmt.controllers.LoginControllerTest > invalidEmail PASSED
+
+com.itt.test.kmt.controllers.LoginControllerTest > unauthorized STARTED
+
+com.itt.test.kmt.controllers.LoginControllerTest > unauthorized PASSED
+
+com.itt.test.kmt.controllers.UserControllerTest > changeUserStatusToDeactivate STARTED
+
+com.itt.test.kmt.controllers.UserControllerTest > changeUserStatusToDeactivate PASSED
+
+com.itt.test.kmt.controllers.UserControllerTest > getAllRoles STARTED
+
+com.itt.test.kmt.controllers.UserControllerTest > getAllRoles PASSED
+
+com.itt.test.kmt.controllers.UserControllerTest > getAllUsers STARTED
+
+com.itt.test.kmt.controllers.UserControllerTest > getAllUsers PASSED
+
+com.itt.test.kmt.controllers.UserControllerTest > updateUser STARTED
+
+com.itt.test.kmt.controllers.UserControllerTest > updateUser PASSED
+
+com.itt.test.kmt.controllers.UserControllerTest > getUser STARTED
+
+com.itt.test.kmt.controllers.UserControllerTest > getUser PASSED
+
+com.itt.test.kmt.controllers.UserControllerTest > add STARTED
+
+com.itt.test.kmt.controllers.UserControllerTest > add PASSED
+
+com.itt.test.kmt.controllers.UserControllerTest > getAllApprovers STARTED
+
+com.itt.test.kmt.controllers.UserControllerTest > getAllApprovers PASSED
+
+com.itt.test.kmt.controllers.UserControllerTest > activateActiveUser STARTED
+
+com.itt.test.kmt.controllers.UserControllerTest > activateActiveUser PASSED
+
+com.itt.test.kmt.controllers.UserControllerTest > changeUserStatus STARTED
+
+com.itt.test.kmt.controllers.UserControllerTest > changeUserStatus PASSED
+
+com.itt.test.kmt.services.MailServiceTests > sendMailTest STARTED
+
+com.itt.test.kmt.services.MailServiceTests > sendMailTest PASSED
+
+com.itt.test.kmt.services.UserServiceTests > getAllActiveUsersByRoles STARTED
+
+com.itt.test.kmt.services.UserServiceTests > getAllActiveUsersByRoles PASSED
+
+com.itt.test.kmt.services.UserServiceTests > activateNonExistingUser STARTED
+
+com.itt.test.kmt.services.UserServiceTests > activateNonExistingUser PASSED
+
+com.itt.test.kmt.services.UserServiceTests > updateNonActiveUser STARTED
+
+com.itt.test.kmt.services.UserServiceTests > updateNonActiveUser PASSED
+
+com.itt.test.kmt.services.UserServiceTests > changeUserStatusToDeactivate STARTED
+
+com.itt.test.kmt.services.UserServiceTests > changeUserStatusToDeactivate PASSED
+
+com.itt.test.kmt.services.UserServiceTests > updateNonExistantUser STARTED
+
+com.itt.test.kmt.services.UserServiceTests > updateNonExistantUser PASSED
+
+com.itt.test.kmt.services.UserServiceTests > getUserByEmail STARTED
+
+com.itt.test.kmt.services.UserServiceTests > getUserByEmail PASSED
+
+com.itt.test.kmt.services.UserServiceTests > getAllRoles STARTED
+
+com.itt.test.kmt.services.UserServiceTests > getAllRoles PASSED
+
+com.itt.test.kmt.services.UserServiceTests > getAllUsers STARTED
+
+com.itt.test.kmt.services.UserServiceTests > getAllUsers PASSED
+
+com.itt.test.kmt.services.UserServiceTests > updateUser STARTED
+
+com.itt.test.kmt.services.UserServiceTests > updateUser PASSED
+
+com.itt.test.kmt.services.UserServiceTests > save STARTED
+
+com.itt.test.kmt.services.UserServiceTests > save PASSED
+
+com.itt.test.kmt.services.UserServiceTests > getNonExistingUser STARTED
+
+com.itt.test.kmt.services.UserServiceTests > getNonExistingUser PASSED
+
+com.itt.test.kmt.services.UserServiceTests > activateActiveUser STARTED
+
+com.itt.test.kmt.services.UserServiceTests > activateActiveUser PASSED
+
+com.itt.test.kmt.services.UserServiceTests > getUserByID STARTED
+
+com.itt.test.kmt.services.UserServiceTests > getUserByID PASSED
+
+com.itt.test.kmt.services.UserServiceTests > changeUserStatus STARTED
+
+com.itt.test.kmt.services.UserServiceTests > changeUserStatus PASSED
+2018-03-07 06:03:02.710  INFO 2999 --- [      Thread-38] o.s.w.c.s.GenericWebApplicationContext   : Closing org.springframework.web.context.support.GenericWebApplicationContext@2f63b37b: startup date [Wed Mar 07 06:02:58 UTC 2018]; root of context hierarchy
+2018-03-07 06:03:02.714  INFO 2999 --- [      Thread-30] o.s.b.a.mongo.embedded.EmbeddedMongo     : 2018-03-07T06:03:02.714+0000 I NETWORK  [initandlisten] connection accepted from 127.0.0.1:40072 #1 (1 connection now open)
+2018-03-07 06:03:02.714  INFO 2999 --- [      Thread-36] o.s.b.a.mongo.embedded.EmbeddedMongo     : 2018-03-07T06:03:02.714+0000 I NETWORK  [initandlisten] connection accepted from 127.0.0.1:34100 #1 (1 connection now open)
+2018-03-07 06:03:02.715  INFO 2999 --- [      Thread-36] o.s.b.a.mongo.embedded.EmbeddedMongo     : 2018-03-07T06:03:02.715+0000 I COMMAND  [conn1] terminating, shutdown command received
+2018-03-07 06:03:02.715  INFO 2999 --- [      Thread-36] o.s.b.a.mongo.embedded.EmbeddedMongo     : 2018-03-07T06:03:02.715+0000 I FTDC     [conn1] Shutting down full-time diagnostic data capture
+2018-03-07 06:03:02.716  INFO 2999 --- [      Thread-36] o.s.b.a.mongo.embedded.EmbeddedMongo     : 2018-03-07T06:03:02.716+0000 I CONTROL  [conn1] now exiting
+2018-03-07 06:03:02.717  INFO 2999 --- [      Thread-36] o.s.b.a.mongo.embedded.EmbeddedMongo     : 2018-03-07T06:03:02.717+0000 I NETWORK  [conn1] shutdown: going to close listening sockets...
+2018-03-07 06:03:02.717  INFO 2999 --- [      Thread-36] o.s.b.a.mongo.embedded.EmbeddedMongo     : 2018-03-07T06:03:02.717+0000 I NETWORK  [conn1] closing listening socket: 5
+2018-03-07 06:03:02.719  INFO 2999 --- [      Thread-18] o.s.w.c.s.GenericWebApplicationContext   : Closing org.springframework.web.context.support.GenericWebApplicationContext@b914c1: startup date [Wed Mar 07 06:02:43 UTC 2018]; root of context hierarchy
+2018-03-07 06:03:02.720  INFO 2999 --- [      Thread-42] o.s.b.a.mongo.embedded.EmbeddedMongo     : 2018-03-07T06:03:02.720+0000 I NETWORK  [initandlisten] connection accepted from 127.0.0.1:37040 #1 (1 connection now open)
+2018-03-07 06:03:02.721  INFO 2999 --- [      Thread-44] o.s.w.c.s.GenericWebApplicationContext   : Closing org.springframework.web.context.support.GenericWebApplicationContext@1a858d5: startup date [Wed Mar 07 06:03:00 UTC 2018]; root of context hierarchy
+2018-03-07 06:03:02.721  INFO 2999 --- [      Thread-23] o.s.b.a.mongo.embedded.EmbeddedMongo     : 2018-03-07T06:03:02.721+0000 I NETWORK  [initandlisten] connection accepted from 127.0.0.1:39072 #1 (1 connection now open)
+2018-03-07 06:03:02.722  INFO 2999 --- [      Thread-23] o.s.b.a.mongo.embedded.EmbeddedMongo     : 2018-03-07T06:03:02.722+0000 I COMMAND  [conn1] terminating, shutdown command received
+2018-03-07 06:03:02.722  INFO 2999 --- [      Thread-23] o.s.b.a.mongo.embedded.EmbeddedMongo     : 2018-03-07T06:03:02.722+0000 I FTDC     [conn1] Shutting down full-time diagnostic data capture
+2018-03-07 06:03:02.724  INFO 2999 --- [      Thread-23] o.s.b.a.mongo.embedded.EmbeddedMongo     : 2018-03-07T06:03:02.723+0000 I CONTROL  [conn1] now exiting
+2018-03-07 06:03:02.724  INFO 2999 --- [      Thread-23] o.s.b.a.mongo.embedded.EmbeddedMongo     : 2018-03-07T06:03:02.724+0000 I NETWORK  [conn1] shutdown: going to close listening sockets...
+2018-03-07 06:03:02.724  INFO 2999 --- [      Thread-23] o.s.b.a.mongo.embedded.EmbeddedMongo     : 2018-03-07T06:03:02.724+0000 I NETWORK  [conn1] closing listening socket: 5
+2018-03-07 06:03:02.724  INFO 2999 --- [      Thread-23] o.s.b.a.mongo.embedded.EmbeddedMongo     : 2018-03-07T06:03:02.724+0000 I NETWORK  [conn1] closing listening socket: 6
+2018-03-07 06:03:02.724  INFO 2999 --- [      Thread-23] o.s.b.a.mongo.embedded.EmbeddedMongo     : 2018-03-07T06:03:02.724+0000 I NETWORK  [conn1] removing socket file: /tmp/mongodb-45761.sock
+2018-03-07 06:03:02.725  INFO 2999 --- [      Thread-23] o.s.b.a.mongo.embedded.EmbeddedMongo     : 2018-03-07T06:03:02.724+0000 I NETWORK  [conn1] shutdown: going to flush diaglog...
+2018-03-07 06:03:02.725  INFO 2999 --- [      Thread-23] o.s.b.a.mongo.embedded.EmbeddedMongo     : 2018-03-07T06:03:02.724+0000 I NETWORK  [conn1] shutdown: going to close sockets...
+2018-03-07 06:03:02.725  INFO 2999 --- [      Thread-23] o.s.b.a.mongo.embedded.EmbeddedMongo     : 2018-03-07T06:03:02.724+0000 I STORAGE  [conn1] WiredTigerKVEngine shutting down
+2018-03-07 06:03:02.727  INFO 2999 --- [      Thread-42] o.s.b.a.mongo.embedded.EmbeddedMongo     : 2018-03-07T06:03:02.727+0000 I COMMAND  [conn1] terminating, shutdown command received
+2018-03-07 06:03:02.727  INFO 2999 --- [      Thread-42] o.s.b.a.mongo.embedded.EmbeddedMongo     : 2018-03-07T06:03:02.727+0000 I FTDC     [conn1] Shutting down full-time diagnostic data capture
+2018-03-07 06:03:02.728  INFO 2999 --- [      Thread-42] o.s.b.a.mongo.embedded.EmbeddedMongo     : 2018-03-07T06:03:02.728+0000 I CONTROL  [conn1] now exiting
+2018-03-07 06:03:02.729  INFO 2999 --- [      Thread-42] o.s.b.a.mongo.embedded.EmbeddedMongo     : 2018-03-07T06:03:02.729+0000 I NETWORK  [conn1] shutdown: going to close listening sockets...
+2018-03-07 06:03:02.730  INFO 2999 --- [      Thread-42] o.s.b.a.mongo.embedded.EmbeddedMongo     : 2018-03-07T06:03:02.730+0000 I NETWORK  [conn1] closing listening socket: 5
+2018-03-07 06:03:02.731  INFO 2999 --- [      Thread-42] o.s.b.a.mongo.embedded.EmbeddedMongo     : 2018-03-07T06:03:02.731+0000 I NETWORK  [conn1] closing listening socket: 6
+2018-03-07 06:03:02.731  INFO 2999 --- [      Thread-42] o.s.b.a.mongo.embedded.EmbeddedMongo     : 2018-03-07T06:03:02.731+0000 I NETWORK  [conn1] removing socket file: /tmp/mongodb-46194.sock
+2018-03-07 06:03:02.733  INFO 2999 --- [      Thread-42] o.s.b.a.mongo.embedded.EmbeddedMongo     : 2018-03-07T06:03:02.733+0000 I NETWORK  [conn1] shutdown: going to flush diaglog...
+2018-03-07 06:03:02.733  INFO 2999 --- [      Thread-42] o.s.b.a.mongo.embedded.EmbeddedMongo     : 2018-03-07T06:03:02.733+0000 I NETWORK  [conn1] shutdown: going to close sockets...
+2018-03-07 06:03:02.737  INFO 2999 --- [      Thread-16] o.s.b.a.mongo.embedded.EmbeddedMongo     : 2018-03-07T06:03:02.737+0000 I NETWORK  [initandlisten] connection accepted from 127.0.0.1:51402 #1 (1 connection now open)
+2018-03-07 06:03:02.738  INFO 2999 --- [      Thread-42] o.s.b.a.mongo.embedded.EmbeddedMongo     : 2018-03-07T06:03:02.738+0000 I STORAGE  [conn1] WiredTigerKVEngine shutting down
+2018-03-07 06:03:02.717  INFO 2999 --- [      Thread-30] o.s.b.a.mongo.embedded.EmbeddedMongo     : 2018-03-07T06:03:02.717+0000 I COMMAND  [conn1] terminating, shutdown command received
+2018-03-07 06:03:02.757  INFO 2999 --- [      Thread-30] o.s.b.a.mongo.embedded.EmbeddedMongo     : 2018-03-07T06:03:02.717+0000 I FTDC     [conn1] Shutting down full-time diagnostic data capture
+2018-03-07 06:03:02.757  INFO 2999 --- [      Thread-30] o.s.b.a.mongo.embedded.EmbeddedMongo     : 2018-03-07T06:03:02.718+0000 I CONTROL  [conn1] now exiting
+2018-03-07 06:03:02.757  INFO 2999 --- [      Thread-30] o.s.b.a.mongo.embedded.EmbeddedMongo     : 2018-03-07T06:03:02.718+0000 I NETWORK  [conn1] shutdown: going to close listening sockets...
+2018-03-07 06:03:02.760  INFO 2999 --- [      Thread-30] o.s.b.a.mongo.embedded.EmbeddedMongo     : 2018-03-07T06:03:02.718+0000 I NETWORK  [conn1] closing listening socket: 5
+2018-03-07 06:03:02.761  INFO 2999 --- [      Thread-30] o.s.b.a.mongo.embedded.EmbeddedMongo     : 2018-03-07T06:03:02.718+0000 I NETWORK  [conn1] closing listening socket: 6
+2018-03-07 06:03:02.761  INFO 2999 --- [      Thread-30] o.s.b.a.mongo.embedded.EmbeddedMongo     : 2018-03-07T06:03:02.718+0000 I NETWORK  [conn1] removing socket file: /tmp/mongodb-41772.sock
+2018-03-07 06:03:02.761  INFO 2999 --- [      Thread-30] o.s.b.a.mongo.embedded.EmbeddedMongo     : 2018-03-07T06:03:02.719+0000 I NETWORK  [conn1] shutdown: going to flush diaglog...
+2018-03-07 06:03:02.761  INFO 2999 --- [      Thread-30] o.s.b.a.mongo.embedded.EmbeddedMongo     : 2018-03-07T06:03:02.719+0000 I NETWORK  [conn1] shutdown: going to close sockets...
+2018-03-07 06:03:02.761  INFO 2999 --- [      Thread-30] o.s.b.a.mongo.embedded.EmbeddedMongo     : 2018-03-07T06:03:02.719+0000 I STORAGE  [conn1] WiredTigerKVEngine shutting down
+2018-03-07 06:03:02.720  INFO 2999 --- [      Thread-25] o.s.w.c.s.GenericWebApplicationContext   : Closing org.springframework.web.context.support.GenericWebApplicationContext@7e5c36c4: startup date [Wed Mar 07 06:02:53 UTC 2018]; root of context hierarchy
+2018-03-07 06:03:02.739  INFO 2999 --- [      Thread-32] o.s.w.c.s.GenericWebApplicationContext   : Closing org.springframework.web.context.support.GenericWebApplicationContext@699ca556: startup date [Wed Mar 07 06:02:56 UTC 2018]; root of context hierarchy
+2018-03-07 06:03:02.740  INFO 2999 --- [      Thread-36] o.s.b.a.mongo.embedded.EmbeddedMongo     : 2018-03-07T06:03:02.718+0000 I NETWORK  [conn1] closing listening socket: 6
+2018-03-07 06:03:02.762  INFO 2999 --- [      Thread-36] o.s.b.a.mongo.embedded.EmbeddedMongo     : 2018-03-07T06:03:02.718+0000 I NETWORK  [conn1] removing socket file: /tmp/mongodb-33255.sock
+2018-03-07 06:03:02.762  INFO 2999 --- [      Thread-36] o.s.b.a.mongo.embedded.EmbeddedMongo     : 2018-03-07T06:03:02.718+0000 I NETWORK  [conn1] shutdown: going to flush diaglog...
+2018-03-07 06:03:02.762  INFO 2999 --- [      Thread-36] o.s.b.a.mongo.embedded.EmbeddedMongo     : 2018-03-07T06:03:02.718+0000 I NETWORK  [conn1] shutdown: going to close sockets...
+2018-03-07 06:03:02.762  INFO 2999 --- [      Thread-36] o.s.b.a.mongo.embedded.EmbeddedMongo     : 2018-03-07T06:03:02.718+0000 I STORAGE  [conn1] WiredTigerKVEngine shutting down
+2018-03-07 06:03:02.762  INFO 2999 --- [      Thread-36] o.s.b.a.mongo.embedded.EmbeddedMongo     : 2018-03-07T06:03:02.749+0000 I STORAGE  [conn1] shutdown: removing fs lock...
+2018-03-07 06:03:02.762  INFO 2999 --- [      Thread-36] o.s.b.a.mongo.embedded.EmbeddedMongo     : 2018-03-07T06:03:02.750+0000 I CONTROL  [conn1] dbexit:  rc: 0
+2018-03-07 06:03:02.757  INFO 2999 --- [      Thread-23] o.s.b.a.mongo.embedded.EmbeddedMongo     : 2018-03-07T06:03:02.753+0000 I STORAGE  [conn1] shutdown: removing fs lock...
+2018-03-07 06:03:02.763  INFO 2999 --- [      Thread-23] o.s.b.a.mongo.embedded.EmbeddedMongo     : 2018-03-07T06:03:02.753+0000 I CONTROL  [conn1] dbexit:  rc: 0
+2018-03-07 06:03:02.757  INFO 2999 --- [      Thread-16] o.s.b.a.mongo.embedded.EmbeddedMongo     : 2018-03-07T06:03:02.742+0000 I COMMAND  [conn1] terminating, shutdown command received
+2018-03-07 06:03:02.763  INFO 2999 --- [      Thread-16] o.s.b.a.mongo.embedded.EmbeddedMongo     : 2018-03-07T06:03:02.742+0000 I FTDC     [conn1] Shutting down full-time diagnostic data capture
+2018-03-07 06:03:02.763  INFO 2999 --- [      Thread-16] o.s.b.a.mongo.embedded.EmbeddedMongo     : 2018-03-07T06:03:02.744+0000 I CONTROL  [conn1] now exiting
+2018-03-07 06:03:02.763  INFO 2999 --- [      Thread-16] o.s.b.a.mongo.embedded.EmbeddedMongo     : 2018-03-07T06:03:02.744+0000 I NETWORK  [conn1] shutdown: going to close listening sockets...
+2018-03-07 06:03:02.763  INFO 2999 --- [      Thread-16] o.s.b.a.mongo.embedded.EmbeddedMongo     : 2018-03-07T06:03:02.744+0000 I NETWORK  [conn1] closing listening socket: 5
+2018-03-07 06:03:02.763  INFO 2999 --- [      Thread-16] o.s.b.a.mongo.embedded.EmbeddedMongo     : 2018-03-07T06:03:02.744+0000 I NETWORK  [conn1] closing listening socket: 6
+2018-03-07 06:03:02.763  INFO 2999 --- [      Thread-16] o.s.b.a.mongo.embedded.EmbeddedMongo     : 2018-03-07T06:03:02.744+0000 I NETWORK  [conn1] removing socket file: /tmp/mongodb-45427.sock
+2018-03-07 06:03:02.763  INFO 2999 --- [      Thread-16] o.s.b.a.mongo.embedded.EmbeddedMongo     : 2018-03-07T06:03:02.745+0000 I NETWORK  [conn1] shutdown: going to flush diaglog...
+2018-03-07 06:03:02.763  INFO 2999 --- [      Thread-16] o.s.b.a.mongo.embedded.EmbeddedMongo     : 2018-03-07T06:03:02.745+0000 I NETWORK  [conn1] shutdown: going to close sockets...
+2018-03-07 06:03:02.764  INFO 2999 --- [      Thread-16] o.s.b.a.mongo.embedded.EmbeddedMongo     : 2018-03-07T06:03:02.745+0000 I STORAGE  [conn1] WiredTigerKVEngine shutting down
+2018-03-07 06:03:02.769  INFO 2999 --- [      Thread-30] o.s.b.a.mongo.embedded.EmbeddedMongo     : 2018-03-07T06:03:02.769+0000 I STORAGE  [conn1] shutdown: removing fs lock...
+2018-03-07 06:03:02.769  INFO 2999 --- [      Thread-44] o.s.c.support.DefaultLifecycleProcessor  : Stopping beans in phase 2147483647
+2018-03-07 06:03:02.769  INFO 2999 --- [      Thread-38] o.s.c.support.DefaultLifecycleProcessor  : Stopping beans in phase 2147483647
+2018-03-07 06:03:02.770  INFO 2999 --- [      Thread-30] o.s.b.a.mongo.embedded.EmbeddedMongo     : 2018-03-07T06:03:02.770+0000 I CONTROL  [conn1] dbexit:  rc: 0
+2018-03-07 06:03:02.769  INFO 2999 --- [      Thread-18] o.s.c.support.DefaultLifecycleProcessor  : Stopping beans in phase 2147483647
+2018-03-07 06:03:02.776  INFO 2999 --- [      Thread-32] o.s.c.support.DefaultLifecycleProcessor  : Stopping beans in phase 2147483647
+2018-03-07 06:03:02.776  INFO 2999 --- [      Thread-25] o.s.c.support.DefaultLifecycleProcessor  : Stopping beans in phase 2147483647
+2018-03-07 06:03:02.777  INFO 2999 --- [      Thread-42] o.s.b.a.mongo.embedded.EmbeddedMongo     : 2018-03-07T06:03:02.777+0000 I STORAGE  [conn1] shutdown: removing fs lock...
+2018-03-07 06:03:02.782  INFO 2999 --- [      Thread-16] o.s.b.a.mongo.embedded.EmbeddedMongo     : 2018-03-07T06:03:02.779+0000 I STORAGE  [conn1] shutdown: removing fs lock...
+2018-03-07 06:03:02.782  INFO 2999 --- [      Thread-16] o.s.b.a.mongo.embedded.EmbeddedMongo     : 2018-03-07T06:03:02.779+0000 I CONTROL  [conn1] dbexit:  rc: 0
+2018-03-07 06:03:02.784  INFO 2999 --- [      Thread-42] o.s.b.a.mongo.embedded.EmbeddedMongo     : 2018-03-07T06:03:02.777+0000 I CONTROL  [conn1] dbexit:  rc: 0
+2018-03-07 06:03:02.853  WARN 2999 --- [       Thread-7] d.f.e.p.store.CachingArtifactStore       : Already removed de.flapdoodle.embed.process.extract.ImmutableExtractedFileSet@39afa639 for Version{2.6.1}:Linux:B64, emergency shutdown?
 :jacocoTestReport SKIPPED
 
 BUILD SUCCESSFUL
 
-Total time: 10.128 secs
+Total time: 30.944 secs
 
 This build could be faster, please consider using the Gradle Daemon: http://gradle.org/docs/2.5/userguide/gradle_daemon.html
+********* BUILD START *********
 Current version:1.0 buildDir:/var/jenkins_home/workspace/adpq-builddeploycode/server-src/build
 :clean
 :compileJava
-:processResources UP-TO-DATE
+:processResources
 :classes
 :findMainClass
-:jar
+:war
 :bootRepackage
 :assemble
 :checkstyleMain
 :compileTestJava
-:processTestResources UP-TO-DATE
+:processTestResources
 :testClasses
 :checkstyleTest
 :test
+
+com.itt.test.kmt.repositories.UserRepositoryTests > onSaveSetId STARTED
+
+com.itt.test.kmt.repositories.UserRepositoryTests > onSaveSetId PASSED
+
+com.itt.test.kmt.repositories.UserRepositoryTests > findByEmail STARTED
+
+com.itt.test.kmt.repositories.UserRepositoryTests > findByEmail PASSED
+
+com.itt.test.kmt.controllers.LoginControllerTest > deactiveUserUnAuhtorizedTest STARTED
+
+com.itt.test.kmt.controllers.LoginControllerTest > deactiveUserUnAuhtorizedTest PASSED
+
+com.itt.test.kmt.controllers.LoginControllerTest > invalidPassword STARTED
+
+com.itt.test.kmt.controllers.LoginControllerTest > invalidPassword PASSED
+
+com.itt.test.kmt.controllers.LoginControllerTest > login STARTED
+
+com.itt.test.kmt.controllers.LoginControllerTest > login PASSED
+
+com.itt.test.kmt.controllers.LoginControllerTest > invalidEmail STARTED
+
+com.itt.test.kmt.controllers.LoginControllerTest > invalidEmail PASSED
+
+com.itt.test.kmt.controllers.LoginControllerTest > unauthorized STARTED
+
+com.itt.test.kmt.controllers.LoginControllerTest > unauthorized PASSED
+
+com.itt.test.kmt.controllers.UserControllerTest > changeUserStatusToDeactivate STARTED
+
+com.itt.test.kmt.controllers.UserControllerTest > changeUserStatusToDeactivate PASSED
+
+com.itt.test.kmt.controllers.UserControllerTest > getAllRoles STARTED
+
+com.itt.test.kmt.controllers.UserControllerTest > getAllRoles PASSED
+
+com.itt.test.kmt.controllers.UserControllerTest > getAllUsers STARTED
+
+com.itt.test.kmt.controllers.UserControllerTest > getAllUsers PASSED
+
+com.itt.test.kmt.controllers.UserControllerTest > updateUser STARTED
+
+com.itt.test.kmt.controllers.UserControllerTest > updateUser PASSED
+
+com.itt.test.kmt.controllers.UserControllerTest > getUser STARTED
+
+com.itt.test.kmt.controllers.UserControllerTest > getUser PASSED
+
+com.itt.test.kmt.controllers.UserControllerTest > add STARTED
+
+com.itt.test.kmt.controllers.UserControllerTest > add PASSED
+
+com.itt.test.kmt.controllers.UserControllerTest > getAllApprovers STARTED
+
+com.itt.test.kmt.controllers.UserControllerTest > getAllApprovers PASSED
+
+com.itt.test.kmt.controllers.UserControllerTest > activateActiveUser STARTED
+
+com.itt.test.kmt.controllers.UserControllerTest > activateActiveUser PASSED
+
+com.itt.test.kmt.controllers.UserControllerTest > changeUserStatus STARTED
+
+com.itt.test.kmt.controllers.UserControllerTest > changeUserStatus PASSED
+
+com.itt.test.kmt.services.MailServiceTests > sendMailTest STARTED
+
+com.itt.test.kmt.services.MailServiceTests > sendMailTest PASSED
+
+com.itt.test.kmt.services.UserServiceTests > getAllActiveUsersByRoles STARTED
+
+com.itt.test.kmt.services.UserServiceTests > getAllActiveUsersByRoles PASSED
+
+com.itt.test.kmt.services.UserServiceTests > activateNonExistingUser STARTED
+
+com.itt.test.kmt.services.UserServiceTests > activateNonExistingUser PASSED
+
+com.itt.test.kmt.services.UserServiceTests > updateNonActiveUser STARTED
+
+com.itt.test.kmt.services.UserServiceTests > updateNonActiveUser PASSED
+
+com.itt.test.kmt.services.UserServiceTests > changeUserStatusToDeactivate STARTED
+
+com.itt.test.kmt.services.UserServiceTests > changeUserStatusToDeactivate PASSED
+
+com.itt.test.kmt.services.UserServiceTests > updateNonExistantUser STARTED
+
+com.itt.test.kmt.services.UserServiceTests > updateNonExistantUser PASSED
+
+com.itt.test.kmt.services.UserServiceTests > getUserByEmail STARTED
+
+com.itt.test.kmt.services.UserServiceTests > getUserByEmail PASSED
+
+com.itt.test.kmt.services.UserServiceTests > getAllRoles STARTED
+
+com.itt.test.kmt.services.UserServiceTests > getAllRoles PASSED
+
+com.itt.test.kmt.services.UserServiceTests > getAllUsers STARTED
+
+com.itt.test.kmt.services.UserServiceTests > getAllUsers PASSED
+
+com.itt.test.kmt.services.UserServiceTests > updateUser STARTED
+
+com.itt.test.kmt.services.UserServiceTests > updateUser PASSED
+
+com.itt.test.kmt.services.UserServiceTests > save STARTED
+
+com.itt.test.kmt.services.UserServiceTests > save PASSED
+
+com.itt.test.kmt.services.UserServiceTests > getNonExistingUser STARTED
+
+com.itt.test.kmt.services.UserServiceTests > getNonExistingUser PASSED
+
+com.itt.test.kmt.services.UserServiceTests > activateActiveUser STARTED
+
+com.itt.test.kmt.services.UserServiceTests > activateActiveUser PASSED
+
+com.itt.test.kmt.services.UserServiceTests > getUserByID STARTED
+
+com.itt.test.kmt.services.UserServiceTests > getUserByID PASSED
+
+com.itt.test.kmt.services.UserServiceTests > changeUserStatus STARTED
+
+com.itt.test.kmt.services.UserServiceTests > changeUserStatus PASSED
+2018-03-07 06:03:41.256  INFO 3210 --- [      Thread-32] o.s.w.c.s.GenericWebApplicationContext   : Closing org.springframework.web.context.support.GenericWebApplicationContext@2e4349ed: startup date [Wed Mar 07 06:03:35 UTC 2018]; root of context hierarchy
+2018-03-07 06:03:41.261  INFO 3210 --- [      Thread-44] o.s.w.c.s.GenericWebApplicationContext   : Closing org.springframework.web.context.support.GenericWebApplicationContext@3b655a64: startup date [Wed Mar 07 06:03:39 UTC 2018]; root of context hierarchy
+2018-03-07 06:03:41.258  INFO 3210 --- [      Thread-38] o.s.w.c.s.GenericWebApplicationContext   : Closing org.springframework.web.context.support.GenericWebApplicationContext@63d5bc35: startup date [Wed Mar 07 06:03:37 UTC 2018]; root of context hierarchy
+2018-03-07 06:03:41.289  INFO 3210 --- [      Thread-18] o.s.w.c.s.GenericWebApplicationContext   : Closing org.springframework.web.context.support.GenericWebApplicationContext@65e61cfc: startup date [Wed Mar 07 06:03:22 UTC 2018]; root of context hierarchy
+2018-03-07 06:03:41.291  INFO 3210 --- [      Thread-30] o.s.b.a.mongo.embedded.EmbeddedMongo     : 2018-03-07T06:03:41.290+0000 I NETWORK  [initandlisten] connection accepted from 127.0.0.1:48352 #1 (1 connection now open)
+2018-03-07 06:03:41.291  INFO 3210 --- [      Thread-16] o.s.b.a.mongo.embedded.EmbeddedMongo     : 2018-03-07T06:03:41.291+0000 I NETWORK  [initandlisten] connection accepted from 127.0.0.1:46232 #1 (1 connection now open)
+2018-03-07 06:03:41.292  INFO 3210 --- [      Thread-23] o.s.b.a.mongo.embedded.EmbeddedMongo     : 2018-03-07T06:03:41.292+0000 I NETWORK  [initandlisten] connection accepted from 127.0.0.1:57492 #1 (1 connection now open)
+2018-03-07 06:03:41.292  INFO 3210 --- [      Thread-36] o.s.b.a.mongo.embedded.EmbeddedMongo     : 2018-03-07T06:03:41.292+0000 I NETWORK  [initandlisten] connection accepted from 127.0.0.1:48884 #1 (1 connection now open)
+2018-03-07 06:03:41.300  INFO 3210 --- [      Thread-18] o.s.c.support.DefaultLifecycleProcessor  : Stopping beans in phase 2147483647
+2018-03-07 06:03:41.301  INFO 3210 --- [      Thread-44] o.s.c.support.DefaultLifecycleProcessor  : Stopping beans in phase 2147483647
+2018-03-07 06:03:41.301  INFO 3210 --- [      Thread-38] o.s.c.support.DefaultLifecycleProcessor  : Stopping beans in phase 2147483647
+2018-03-07 06:03:41.302  INFO 3210 --- [      Thread-23] o.s.b.a.mongo.embedded.EmbeddedMongo     : 2018-03-07T06:03:41.301+0000 I COMMAND  [conn1] terminating, shutdown command received
+2018-03-07 06:03:41.302  INFO 3210 --- [      Thread-23] o.s.b.a.mongo.embedded.EmbeddedMongo     : 2018-03-07T06:03:41.301+0000 I FTDC     [conn1] Shutting down full-time diagnostic data capture
+2018-03-07 06:03:41.302  INFO 3210 --- [      Thread-36] o.s.b.a.mongo.embedded.EmbeddedMongo     : 2018-03-07T06:03:41.302+0000 I COMMAND  [conn1] terminating, shutdown command received
+2018-03-07 06:03:41.302  INFO 3210 --- [      Thread-36] o.s.b.a.mongo.embedded.EmbeddedMongo     : 2018-03-07T06:03:41.302+0000 I FTDC     [conn1] Shutting down full-time diagnostic data capture
+2018-03-07 06:03:41.303  INFO 3210 --- [      Thread-23] o.s.b.a.mongo.embedded.EmbeddedMongo     : 2018-03-07T06:03:41.303+0000 I CONTROL  [conn1] now exiting
+2018-03-07 06:03:41.304  INFO 3210 --- [      Thread-23] o.s.b.a.mongo.embedded.EmbeddedMongo     : 2018-03-07T06:03:41.303+0000 I NETWORK  [conn1] shutdown: going to close listening sockets...
+2018-03-07 06:03:41.304  INFO 3210 --- [      Thread-23] o.s.b.a.mongo.embedded.EmbeddedMongo     : 2018-03-07T06:03:41.303+0000 I NETWORK  [conn1] closing listening socket: 5
+2018-03-07 06:03:41.304  INFO 3210 --- [      Thread-23] o.s.b.a.mongo.embedded.EmbeddedMongo     : 2018-03-07T06:03:41.303+0000 I NETWORK  [conn1] closing listening socket: 6
+2018-03-07 06:03:41.304  INFO 3210 --- [      Thread-23] o.s.b.a.mongo.embedded.EmbeddedMongo     : 2018-03-07T06:03:41.303+0000 I NETWORK  [conn1] removing socket file: /tmp/mongodb-42401.sock
+2018-03-07 06:03:41.304  INFO 3210 --- [      Thread-23] o.s.b.a.mongo.embedded.EmbeddedMongo     : 2018-03-07T06:03:41.303+0000 I NETWORK  [conn1] shutdown: going to flush diaglog...
+2018-03-07 06:03:41.304  INFO 3210 --- [      Thread-23] o.s.b.a.mongo.embedded.EmbeddedMongo     : 2018-03-07T06:03:41.303+0000 I NETWORK  [conn1] shutdown: going to close sockets...
+2018-03-07 06:03:41.304  INFO 3210 --- [      Thread-23] o.s.b.a.mongo.embedded.EmbeddedMongo     : 2018-03-07T06:03:41.303+0000 I STORAGE  [conn1] WiredTigerKVEngine shutting down
+2018-03-07 06:03:41.305  INFO 3210 --- [      Thread-30] o.s.b.a.mongo.embedded.EmbeddedMongo     : 2018-03-07T06:03:41.305+0000 I COMMAND  [conn1] terminating, shutdown command received
+2018-03-07 06:03:41.305  INFO 3210 --- [      Thread-30] o.s.b.a.mongo.embedded.EmbeddedMongo     : 2018-03-07T06:03:41.305+0000 I FTDC     [conn1] Shutting down full-time diagnostic data capture
+2018-03-07 06:03:41.306  INFO 3210 --- [      Thread-30] o.s.b.a.mongo.embedded.EmbeddedMongo     : 2018-03-07T06:03:41.306+0000 I CONTROL  [conn1] now exiting
+2018-03-07 06:03:41.307  INFO 3210 --- [      Thread-30] o.s.b.a.mongo.embedded.EmbeddedMongo     : 2018-03-07T06:03:41.306+0000 I NETWORK  [conn1] shutdown: going to close listening sockets...
+2018-03-07 06:03:41.307  INFO 3210 --- [      Thread-30] o.s.b.a.mongo.embedded.EmbeddedMongo     : 2018-03-07T06:03:41.307+0000 I NETWORK  [conn1] closing listening socket: 5
+2018-03-07 06:03:41.307  INFO 3210 --- [      Thread-30] o.s.b.a.mongo.embedded.EmbeddedMongo     : 2018-03-07T06:03:41.307+0000 I NETWORK  [conn1] closing listening socket: 6
+2018-03-07 06:03:41.307  INFO 3210 --- [      Thread-30] o.s.b.a.mongo.embedded.EmbeddedMongo     : 2018-03-07T06:03:41.307+0000 I NETWORK  [conn1] removing socket file: /tmp/mongodb-43328.sock
+2018-03-07 06:03:41.308  INFO 3210 --- [      Thread-30] o.s.b.a.mongo.embedded.EmbeddedMongo     : 2018-03-07T06:03:41.307+0000 I NETWORK  [conn1] shutdown: going to flush diaglog...
+2018-03-07 06:03:41.308  INFO 3210 --- [      Thread-30] o.s.b.a.mongo.embedded.EmbeddedMongo     : 2018-03-07T06:03:41.308+0000 I NETWORK  [conn1] shutdown: going to close sockets...
+2018-03-07 06:03:41.308  INFO 3210 --- [      Thread-30] o.s.b.a.mongo.embedded.EmbeddedMongo     : 2018-03-07T06:03:41.308+0000 I STORAGE  [conn1] WiredTigerKVEngine shutting down
+2018-03-07 06:03:41.316  INFO 3210 --- [      Thread-16] o.s.b.a.mongo.embedded.EmbeddedMongo     : 2018-03-07T06:03:41.300+0000 I COMMAND  [conn1] terminating, shutdown command received
+2018-03-07 06:03:41.316  INFO 3210 --- [      Thread-16] o.s.b.a.mongo.embedded.EmbeddedMongo     : 2018-03-07T06:03:41.300+0000 I FTDC     [conn1] Shutting down full-time diagnostic data capture
+2018-03-07 06:03:41.316  INFO 3210 --- [      Thread-16] o.s.b.a.mongo.embedded.EmbeddedMongo     : 2018-03-07T06:03:41.305+0000 I CONTROL  [conn1] now exiting
+2018-03-07 06:03:41.316  INFO 3210 --- [      Thread-16] o.s.b.a.mongo.embedded.EmbeddedMongo     : 2018-03-07T06:03:41.305+0000 I NETWORK  [conn1] shutdown: going to close listening sockets...
+2018-03-07 06:03:41.317  INFO 3210 --- [      Thread-16] o.s.b.a.mongo.embedded.EmbeddedMongo     : 2018-03-07T06:03:41.305+0000 I NETWORK  [conn1] closing listening socket: 5
+2018-03-07 06:03:41.317  INFO 3210 --- [      Thread-16] o.s.b.a.mongo.embedded.EmbeddedMongo     : 2018-03-07T06:03:41.305+0000 I NETWORK  [conn1] closing listening socket: 6
+2018-03-07 06:03:41.317  INFO 3210 --- [      Thread-16] o.s.b.a.mongo.embedded.EmbeddedMongo     : 2018-03-07T06:03:41.305+0000 I NETWORK  [conn1] removing socket file: /tmp/mongodb-40043.sock
+2018-03-07 06:03:41.317  INFO 3210 --- [      Thread-16] o.s.b.a.mongo.embedded.EmbeddedMongo     : 2018-03-07T06:03:41.305+0000 I NETWORK  [conn1] shutdown: going to flush diaglog...
+2018-03-07 06:03:41.317  INFO 3210 --- [      Thread-16] o.s.b.a.mongo.embedded.EmbeddedMongo     : 2018-03-07T06:03:41.305+0000 I NETWORK  [conn1] shutdown: going to close sockets...
+2018-03-07 06:03:41.317  INFO 3210 --- [      Thread-16] o.s.b.a.mongo.embedded.EmbeddedMongo     : 2018-03-07T06:03:41.305+0000 I STORAGE  [conn1] WiredTigerKVEngine shutting down
+2018-03-07 06:03:41.317  INFO 3210 --- [      Thread-32] o.s.c.support.DefaultLifecycleProcessor  : Stopping beans in phase 2147483647
+2018-03-07 06:03:41.291  INFO 3210 --- [      Thread-25] o.s.w.c.s.GenericWebApplicationContext   : Closing org.springframework.web.context.support.GenericWebApplicationContext@599b4a01: startup date [Wed Mar 07 06:03:32 UTC 2018]; root of context hierarchy
+2018-03-07 06:03:41.336  INFO 3210 --- [      Thread-16] o.s.b.a.mongo.embedded.EmbeddedMongo     : 2018-03-07T06:03:41.336+0000 I STORAGE  [conn1] shutdown: removing fs lock...
+2018-03-07 06:03:41.337  INFO 3210 --- [      Thread-16] o.s.b.a.mongo.embedded.EmbeddedMongo     : 2018-03-07T06:03:41.337+0000 I CONTROL  [conn1] dbexit:  rc: 0
+2018-03-07 06:03:41.293  INFO 3210 --- [      Thread-42] o.s.b.a.mongo.embedded.EmbeddedMongo     : 2018-03-07T06:03:41.293+0000 I NETWORK  [initandlisten] connection accepted from 127.0.0.1:50322 #1 (1 connection now open)
+2018-03-07 06:03:41.305  INFO 3210 --- [      Thread-36] o.s.b.a.mongo.embedded.EmbeddedMongo     : 2018-03-07T06:03:41.304+0000 I CONTROL  [conn1] now exiting
+2018-03-07 06:03:41.341  INFO 3210 --- [      Thread-36] o.s.b.a.mongo.embedded.EmbeddedMongo     : 2018-03-07T06:03:41.304+0000 I NETWORK  [conn1] shutdown: going to close listening sockets...
+2018-03-07 06:03:41.341  INFO 3210 --- [      Thread-36] o.s.b.a.mongo.embedded.EmbeddedMongo     : 2018-03-07T06:03:41.304+0000 I NETWORK  [conn1] closing listening socket: 5
+2018-03-07 06:03:41.349  INFO 3210 --- [      Thread-30] o.s.b.a.mongo.embedded.EmbeddedMongo     : 2018-03-07T06:03:41.348+0000 I STORAGE  [conn1] shutdown: removing fs lock...
+2018-03-07 06:03:41.350  INFO 3210 --- [      Thread-30] o.s.b.a.mongo.embedded.EmbeddedMongo     : 2018-03-07T06:03:41.349+0000 I CONTROL  [conn1] dbexit:  rc: 0
+2018-03-07 06:03:41.341  INFO 3210 --- [      Thread-36] o.s.b.a.mongo.embedded.EmbeddedMongo     : 2018-03-07T06:03:41.304+0000 I NETWORK  [conn1] closing listening socket: 6
+2018-03-07 06:03:41.352  INFO 3210 --- [      Thread-36] o.s.b.a.mongo.embedded.EmbeddedMongo     : 2018-03-07T06:03:41.304+0000 I NETWORK  [conn1] removing socket file: /tmp/mongodb-43542.sock
+2018-03-07 06:03:41.352  INFO 3210 --- [      Thread-36] o.s.b.a.mongo.embedded.EmbeddedMongo     : 2018-03-07T06:03:41.304+0000 I NETWORK  [conn1] shutdown: going to flush diaglog...
+2018-03-07 06:03:41.353  INFO 3210 --- [      Thread-36] o.s.b.a.mongo.embedded.EmbeddedMongo     : 2018-03-07T06:03:41.304+0000 I NETWORK  [conn1] shutdown: going to close sockets...
+2018-03-07 06:03:41.353  INFO 3210 --- [      Thread-36] o.s.b.a.mongo.embedded.EmbeddedMongo     : 2018-03-07T06:03:41.304+0000 I STORAGE  [conn1] WiredTigerKVEngine shutting down
+2018-03-07 06:03:41.356  INFO 3210 --- [      Thread-23] o.s.b.a.mongo.embedded.EmbeddedMongo     : 2018-03-07T06:03:41.354+0000 I STORAGE  [conn1] shutdown: removing fs lock...
+2018-03-07 06:03:41.356  INFO 3210 --- [      Thread-23] o.s.b.a.mongo.embedded.EmbeddedMongo     : 2018-03-07T06:03:41.354+0000 I CONTROL  [conn1] dbexit:  rc: 0
+2018-03-07 06:03:41.357  INFO 3210 --- [      Thread-42] o.s.b.a.mongo.embedded.EmbeddedMongo     : 2018-03-07T06:03:41.304+0000 I COMMAND  [conn1] terminating, shutdown command received
+2018-03-07 06:03:41.357  INFO 3210 --- [      Thread-42] o.s.b.a.mongo.embedded.EmbeddedMongo     : 2018-03-07T06:03:41.304+0000 I FTDC     [conn1] Shutting down full-time diagnostic data capture
+2018-03-07 06:03:41.357  INFO 3210 --- [      Thread-42] o.s.b.a.mongo.embedded.EmbeddedMongo     : 2018-03-07T06:03:41.322+0000 I CONTROL  [conn1] now exiting
+2018-03-07 06:03:41.357  INFO 3210 --- [      Thread-42] o.s.b.a.mongo.embedded.EmbeddedMongo     : 2018-03-07T06:03:41.322+0000 I NETWORK  [conn1] shutdown: going to close listening sockets...
+2018-03-07 06:03:41.357  INFO 3210 --- [      Thread-42] o.s.b.a.mongo.embedded.EmbeddedMongo     : 2018-03-07T06:03:41.322+0000 I NETWORK  [conn1] closing listening socket: 5
+2018-03-07 06:03:41.357  INFO 3210 --- [      Thread-42] o.s.b.a.mongo.embedded.EmbeddedMongo     : 2018-03-07T06:03:41.322+0000 I NETWORK  [conn1] closing listening socket: 6
+2018-03-07 06:03:41.358  INFO 3210 --- [      Thread-42] o.s.b.a.mongo.embedded.EmbeddedMongo     : 2018-03-07T06:03:41.322+0000 I NETWORK  [conn1] removing socket file: /tmp/mongodb-41173.sock
+2018-03-07 06:03:41.358  INFO 3210 --- [      Thread-42] o.s.b.a.mongo.embedded.EmbeddedMongo     : 2018-03-07T06:03:41.325+0000 I NETWORK  [conn1] shutdown: going to flush diaglog...
+2018-03-07 06:03:41.358  INFO 3210 --- [      Thread-42] o.s.b.a.mongo.embedded.EmbeddedMongo     : 2018-03-07T06:03:41.325+0000 I NETWORK  [conn1] shutdown: going to close sockets...
+2018-03-07 06:03:41.358  INFO 3210 --- [      Thread-42] o.s.b.a.mongo.embedded.EmbeddedMongo     : 2018-03-07T06:03:41.325+0000 I STORAGE  [conn1] WiredTigerKVEngine shutting down
+2018-03-07 06:03:41.358  INFO 3210 --- [      Thread-42] o.s.b.a.mongo.embedded.EmbeddedMongo     : 2018-03-07T06:03:41.353+0000 I STORAGE  [conn1] shutdown: removing fs lock...
+2018-03-07 06:03:41.358  INFO 3210 --- [      Thread-42] o.s.b.a.mongo.embedded.EmbeddedMongo     : 2018-03-07T06:03:41.353+0000 I CONTROL  [conn1] dbexit:  rc: 0
+2018-03-07 06:03:41.360  INFO 3210 --- [      Thread-25] o.s.c.support.DefaultLifecycleProcessor  : Stopping beans in phase 2147483647
+2018-03-07 06:03:41.370  INFO 3210 --- [      Thread-36] o.s.b.a.mongo.embedded.EmbeddedMongo     : 2018-03-07T06:03:41.370+0000 I STORAGE  [conn1] shutdown: removing fs lock...
+2018-03-07 06:03:41.370  INFO 3210 --- [      Thread-36] o.s.b.a.mongo.embedded.EmbeddedMongo     : 2018-03-07T06:03:41.370+0000 I CONTROL  [conn1] dbexit:  rc: 0
+2018-03-07 06:03:41.500  WARN 3210 --- [       Thread-7] d.f.e.p.store.CachingArtifactStore       : Already removed de.flapdoodle.embed.process.extract.ImmutableExtractedFileSet@17f9dc30 for Version{2.6.1}:Linux:B64, emergency shutdown?
 :jacocoTestReport
-Download https://repo1.maven.org/maven2/org/jacoco/org.jacoco.ant/0.7.1.201405082137/org.jacoco.ant-0.7.1.201405082137.pom
-Download https://repo1.maven.org/maven2/org/jacoco/org.jacoco.core/0.7.1.201405082137/org.jacoco.core-0.7.1.201405082137.pom
-Download https://repo1.maven.org/maven2/org/jacoco/org.jacoco.report/0.7.1.201405082137/org.jacoco.report-0.7.1.201405082137.pom
-Download https://repo1.maven.org/maven2/org/ow2/asm/asm-debug-all/5.0.1/asm-debug-all-5.0.1.pom
-Download https://repo1.maven.org/maven2/org/ow2/asm/asm-parent/5.0.1/asm-parent-5.0.1.pom
-Download https://repo1.maven.org/maven2/org/jacoco/org.jacoco.ant/0.7.1.201405082137/org.jacoco.ant-0.7.1.201405082137.jar
-Download https://repo1.maven.org/maven2/org/jacoco/org.jacoco.core/0.7.1.201405082137/org.jacoco.core-0.7.1.201405082137.jar
-Download https://repo1.maven.org/maven2/org/jacoco/org.jacoco.report/0.7.1.201405082137/org.jacoco.report-0.7.1.201405082137.jar
-Download https://repo1.maven.org/maven2/org/ow2/asm/asm-debug-all/5.0.1/asm-debug-all-5.0.1.jar
 :check
 :build
 :createDist UP-TO-DATE
 
 BUILD SUCCESSFUL
 
-Total time: 20.771 secs
+Total time: 38.617 secs
 
 This build could be faster, please consider using the Gradle Daemon: http://gradle.org/docs/2.5/userguide/gradle_daemon.html
-cp: cannot stat 'build/libs/*.war': No such file or directory
-Build step 'Execute shell' marked build as failure
-Finished: FAILURE
+********* Deployig war file *********
+adpq-web
+Finished: SUCCESS

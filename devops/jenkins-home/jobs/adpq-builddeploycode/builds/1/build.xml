@@ -4,20 +4,19 @@
     <hudson.model.CauseAction>
       <causeBag class="linked-hash-map">
         <entry>
-          <hudson.model.Cause_-UserIdCause>
-            <userId>admin</userId>
-          </hudson.model.Cause_-UserIdCause>
+          <hudson.triggers.SCMTrigger_-SCMTriggerCause/>
           <int>1</int>
         </entry>
       </causeBag>
     </hudson.model.CauseAction>
+    <hudson.triggers.SCMTrigger_-BuildAction/>
     <hudson.plugins.git.util.BuildData plugin="git@3.7.0">
       <buildsByBranchName>
         <entry>
           <string>refs/remotes/origin/master</string>
           <hudson.plugins.git.util.Build>
             <marked plugin="git-client@2.7.1">
-              <sha1>e43adaa9f72071e54b608fdd2fe1a719c2033e3e</sha1>
+              <sha1>21912b3219b45b3f0eace2ba38c87c6fc9a9ca39</sha1>
               <branches class="list">
                 <hudson.plugins.git.Branch>
                   <sha1 reference="../../../sha1"/>
@@ -46,11 +45,11 @@
     </hudson.plugins.git.GitTagAction>
     <hudson.scm.SCMRevisionState_-None/>
   </actions>
-  <queueId>1</queueId>
-  <timestamp>1519802208192</timestamp>
-  <startTime>1519802208199</startTime>
-  <result>FAILURE</result>
-  <duration>70604</duration>
+  <queueId>6</queueId>
+  <timestamp>1520402406460</timestamp>
+  <startTime>1520402406461</startTime>
+  <result>SUCCESS</result>
+  <duration>229491</duration>
   <charset>UTF-8</charset>
   <keepLog>false</keepLog>
   <builtOn></builtOn>
