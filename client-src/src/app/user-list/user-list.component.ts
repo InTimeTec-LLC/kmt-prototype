@@ -3,7 +3,7 @@ import {MatPaginator, MatSort, MatTableDataSource, MatDialog, MAT_DIALOG_DATA, M
 import { UserService } from '../../shared/service/user/user.service';
 import { User } from '../../shared/modals/user';
 import { Router } from '@angular/router';
-import {ToasterModule, ToasterService, ToasterConfig} from 'angular5-toaster';
+import { ToasterService } from 'angular5-toaster';
 import { forEach } from '@angular/router/src/utils/collection';
 
 /**
@@ -23,14 +23,6 @@ export class UserListComponent implements OnInit {
   @ViewChild(MatSort) sort: MatSort;
 
   userList: any;
-  private toasterconfig: ToasterConfig =
-        new ToasterConfig({
-            showCloseButton: false,
-            tapToDismiss: false,
-            timeout: 2000,
-            positionClass : 'toast-top-center',
-            animate : 'fade'
-        });
 
   constructor(
     private userService: UserService,

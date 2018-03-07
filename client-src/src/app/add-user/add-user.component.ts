@@ -3,7 +3,7 @@ import { UserService } from '../../shared/service/user/user.service';
 import { Router } from '@angular/router';
 import { User } from '../../shared/modals/user';
 import { AbstractControl, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import {ToasterModule, ToasterService, ToasterConfig} from 'angular5-toaster';
+import { ToasterService } from 'angular5-toaster';
 
 @Component({
   selector: 'app-add-user',
@@ -18,16 +18,6 @@ export class AddUserComponent implements OnInit {
   addUserName: String;
   user: FormGroup;
   roles: any[];
-  private toasterconfig: ToasterConfig =
-        new ToasterConfig({
-            showCloseButton: false,
-            tapToDismiss: false,
-            timeout: 2000,
-            positionClass : 'toast-top-center',
-            animate : 'fade'
-        });
-
-
 
   get cpwd() {
     return this.user.get('confirmPassword');
@@ -71,12 +61,13 @@ export class AddUserComponent implements OnInit {
     delete value.confirmPassword;
     this.userService.createUser(value)
     .subscribe( data => {
-              this.toasterService.pop('success', 'Success', data.success.message);
+            this.toasterService.pop('success', '', data.success.message);
+            this.router.navigateByUrl('/userlist');
          },
-                  error => {
-                    this.toasterService.pop('error', 'Error', error.failure.message);
-                  }
-                );
+        data => {
+            this.toasterService.pop('error', '', data.error.success.message);
+        }
+      );
 
   }
 

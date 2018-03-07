@@ -27,6 +27,7 @@ import { ListArticleComponent, ArticleListFilterComponent } from './list-knowled
 import { UserListComponent, UserListFilterComponent } from './user-list/user-list.component';
 import { MaterialModule } from '../shared/material.module';
 import {ToasterModule, ToasterService} from 'angular5-toaster';
+import { Ng4LoadingSpinnerModule } from 'ng4-loading-spinner';
 
 
 @NgModule({
@@ -61,7 +62,8 @@ import {ToasterModule, ToasterService} from 'angular5-toaster';
     MaterialModule,
     ReactiveFormsModule,
     BrowserAnimationsModule,
-    ToasterModule
+    ToasterModule,
+    Ng4LoadingSpinnerModule.forRoot()
 
   ],
   entryComponents: [UserListFilterComponent, ArticleListFilterComponent],

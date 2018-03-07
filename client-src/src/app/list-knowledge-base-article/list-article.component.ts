@@ -2,7 +2,7 @@ import {Component, ViewChild, OnInit, Inject} from '@angular/core';
 import {MatPaginator, MatSort, MatTableDataSource, MatDialog, MAT_DIALOG_DATA, MatDialogRef} from '@angular/material';
 import { User } from '../../shared/modals/user';
 import { Router } from '@angular/router';
-import {ToasterModule, ToasterService, ToasterConfig} from 'angular5-toaster';
+import { ToasterService } from 'angular5-toaster';
 import { forEach } from '@angular/router/src/utils/collection';
 import { KnowledgeBaseArticleService } from '../../shared/service/knowledge-base-article/knowledge-base-article.service';
 import { Aritcles } from '../../shared/modals/knowledge-base-article';
@@ -24,14 +24,6 @@ export class ListArticleComponent implements OnInit {
   @ViewChild(MatSort) sort: MatSort;
 
   articleList: any;
-  private toasterconfig: ToasterConfig =
-        new ToasterConfig({
-            showCloseButton: false,
-            tapToDismiss: false,
-            timeout: 2000,
-            positionClass : 'toast-top-center',
-            animate : 'fade'
-        });
 
   constructor(
     private router: Router,
@@ -44,13 +36,13 @@ export class ListArticleComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.getUserList();
+        this.getArticleList();
     }
 
     onTapActions() {
     }
 
-    getUserList() {
+    getArticleList() {
         this.kbContentService.listKnowledgeBaseArticle()
         .subscribe(
             data => {
@@ -59,7 +51,7 @@ export class ListArticleComponent implements OnInit {
                 this.createData(this.articleList);
             },
             error => {
-                this.toasterService.pop('error', '', error.success.message);
+                this.toasterService.pop('error', '', error.error.message);
             });
     }
 

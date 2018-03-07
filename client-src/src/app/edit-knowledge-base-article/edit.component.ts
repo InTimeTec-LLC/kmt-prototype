@@ -5,7 +5,7 @@ import { KnowledgeBaseArticle , UpdateKnowledgeBaseArticle} from '../../shared/m
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { UserService } from '../../shared/service/user/user.service';
 import { AuthenticationService } from '../../shared/service/authentication/authentication.service';
-import {ToasterModule, ToasterService, ToasterConfig} from 'angular5-toaster';
+import { ToasterService } from 'angular5-toaster';
 import {ActivatedRoute} from '@angular/router';
 
 @Component({
@@ -22,16 +22,6 @@ export class EditArticleComponent implements OnInit {
   types: any[];
   approvers: any[];
   articleId: any;
-  private toasterconfig: ToasterConfig =
-        new ToasterConfig({
-            showCloseButton: false,
-            tapToDismiss: false,
-            timeout: 2000,
-            positionClass : 'toast-top-center',
-            animate : 'fade'
-        });
-
-
 
   constructor(
     private kbContentService: KnowledgeBaseArticleService,

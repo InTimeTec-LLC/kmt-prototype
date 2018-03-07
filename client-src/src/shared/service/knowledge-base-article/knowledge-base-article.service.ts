@@ -94,8 +94,8 @@ export class KnowledgeBaseArticleService {
     * Handle HTTP error
     */
   private handleErrorObservable (error: Response | any) {
-    console.error(error.message || error);
-    return Observable.throw(error.message || error);
+    console.error(error.success || error);
+    return Observable.throw(error.success || error);
   }
 }
 
