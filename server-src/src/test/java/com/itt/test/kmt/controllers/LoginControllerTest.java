@@ -1,13 +1,17 @@
 package com.itt.test.kmt.controllers;
 
+import static org.hamcrest.core.Is.is;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.RETURNS_DEEP_STUBS;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import java.nio.charset.Charset;
 
+import com.itt.kmt.response.models.ResponseMsg;
+import com.itt.utility.Constants;
 import org.apache.shiro.subject.Subject;
 import org.apache.shiro.util.ThreadContext;
 import org.apache.shiro.web.mgt.DefaultWebSecurityManager;
@@ -219,6 +223,42 @@ public class LoginControllerTest extends AbstractShiroTest {
         resultActions.andExpect(
             MockMvcResultMatchers.content()
                                  .contentType(new MediaType("application", "json", Charset.forName("UTF-8"))));
+    }
+
+
+    /**
+     * deactivate user trying to log in.
+     *
+     * @throws Exception the exception
+     */
+    @Test
+    public void deactiveUserUnAuhtorizedTest() throws Exception {
+
+        User user = testDataRepository.getUsers()
+                .get("user-3");
+        ResponseMsg unauthorizedAccessMsg = new ResponseMsg(false, Constants.UNAUTHORIZED_ACCESS_MSG);
+
+        when(userService.getUserByEmail(user.getEmail())).thenReturn(user);
+
+        //setting user as inActive
+        user.setActive(false);
+
+        String content = new ObjectMapper().writeValueAsString(user);
+        ResultActions resultActions = null;
+
+        // Act
+        MockHttpServletRequestBuilder cc = MockMvcRequestBuilders.post("/login")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(content);
+
+        resultActions = mockMvc.perform(cc);
+
+        // to-do: Need to assert with status and response
+        resultActions.andExpect(
+                MockMvcResultMatchers.content()
+                        .contentType(new MediaType("application", "json", Charset.forName("UTF-8"))))
+                .andExpect(jsonPath("$.success.message", is(unauthorizedAccessMsg.getMessage())))
+                .andExpect(jsonPath("$.success.status", is(unauthorizedAccessMsg.getStatus())));
     }
 
     /**

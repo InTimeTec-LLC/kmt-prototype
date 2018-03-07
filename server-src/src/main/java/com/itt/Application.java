@@ -52,7 +52,7 @@ public class Application extends SpringBootServletInitializer  implements Comman
      */
     @Override
     public final void run(final String... args)
-        throws Exception {
+            throws Exception {
 
         AppConfig appConfig = AppConfig.getInstance();
         log.info("Environment Type:" + appConfig.getEnvType());
@@ -61,7 +61,7 @@ public class Application extends SpringBootServletInitializer  implements Comman
     /**
      * The bean method that lists all the registered beans. uncomment Bean
      * annotation if you want to list the registered beans.
-     * 
+     *
      * @param ctx Spring Application Context
      * @return Instance of CommandLineRunner bean
      */

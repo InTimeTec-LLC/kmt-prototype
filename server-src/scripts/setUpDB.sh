@@ -6,6 +6,9 @@ mongo kmt_db --eval 'db.user.remove({ })'
 #Clear role details from db
 mongo kmt_db --eval 'db.role.remove({ })'
 
+#Clear article type details from db
+mongo kmt_db --eval 'db.articleType.remove({ })'
+
 
 #Create admin account
 #Table = user
@@ -33,4 +36,27 @@ mongo kmt_db --eval 'db.role.insert([
      {
          role: "Admin"
      }]
+)'
+
+#Create article content type
+#Table = articleType
+mongo kmt_db --eval 'db.articleType.insert([
+       {
+           type : "How To"
+       },
+       {
+           type: "General"
+       },
+       {
+           type: "Troubleshooting"
+       },
+       {
+           type: "Documents"
+       },
+       {
+           type: "Report"
+       },
+       {
+           type: "Public"
+       }]
 )'
