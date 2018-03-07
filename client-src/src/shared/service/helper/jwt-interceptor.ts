@@ -13,6 +13,7 @@ export class JwtInterceptor implements HttpInterceptor {
     intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
         // add authorization header with jwt token if available
         if (request instanceof HttpRequest) {
+            console.log('Start Request for Spinner');
             this.spinnerService.show();
         }
         const currentUser = JSON.parse(localStorage.getItem('currentUser'));
@@ -26,10 +27,12 @@ export class JwtInterceptor implements HttpInterceptor {
 
         return next.handle(request).do((event: HttpEvent<any>) => {
             if (event instanceof HttpResponse) {
+               console.log('Stop Request for Spinner');
                this.spinnerService.hide();
             }
           }, (err: any) => {
             if (err instanceof HttpErrorResponse) {
+               console.log('Stop Request for Spinner');
                this.spinnerService.hide();
             }
         });
