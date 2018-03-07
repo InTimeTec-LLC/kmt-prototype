@@ -5,21 +5,23 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.validation.Valid;
 
-import com.itt.kmt.models.Role;
-import com.itt.kmt.models.User;
-import com.itt.kmt.response.models.ResponseMsg;
-import com.itt.kmt.services.UserService;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.ModelMap;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.HashMap;
+import com.itt.kmt.models.Role;
+import com.itt.kmt.models.User;
+import com.itt.kmt.request.models.UserRequst;
+import com.itt.kmt.response.models.ResponseMsg;
+import com.itt.kmt.services.UserService;
 import com.itt.utility.Constants;
 
 /**
@@ -37,14 +39,24 @@ public class UserController {
     /**
      * REST API to add a new User.
      *
-     * @param map the map which contains the user to be added.
-     * @return ModelMap
+     * @param userRequest the user request
+     * @param result the result
+     * @return the model map
      */
     @RequestMapping(method = RequestMethod.POST, produces = "application/json")
     @RequiresPermissions("addUser")
-    public ModelMap add(@RequestBody
-            final HashMap<String, User> map) {
-        User user = map.get("user");
+    public ModelMap add(@Valid
+    @RequestBody
+    final UserRequst userRequest, final BindingResult result) {
+
+        User user = userRequest.getUser();
+        String errorMsg = userService.validateUser(user, result);
+        if (errorMsg != null && !errorMsg.isEmpty()) {
+            
+            ResponseMsg postResponseMsg = new ResponseMsg(false, errorMsg);
+            return new ModelMap().addAttribute("success", postResponseMsg);
+        }
+
         userService.save(user);
         ResponseMsg postResponseMsg = new ResponseMsg(true, Constants.USER_ADDED_SUCCESS_MSG);
         return new ModelMap().addAttribute("success", postResponseMsg);
@@ -124,15 +136,26 @@ public class UserController {
     }
     /**
      * REST API to update a User.
-     * @param map the map that contains the user to be updated.
+     *
+     * @param userRequest the user request
+     * @param result the result
      * @param id Id of the user to be updated.
      * @return ModelMap.
      */
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT, produces = "application/json")
     @RequiresPermissions("updateUser")
-    public ModelMap updateUser(@RequestBody
-            final HashMap<String, User> map, @PathVariable("id") final String id) {
-        User user = map.get("user");
+    public ModelMap updateUser(@Valid @RequestBody
+    final UserRequst userRequest, final BindingResult result, @PathVariable("id")
+    final String id) {
+
+        User user = userRequest.getUser();
+        String errorMsg = userService.validateUser(user, result);
+        if (errorMsg != null && !errorMsg.isEmpty()) {
+            
+            ResponseMsg postResponseMsg = new ResponseMsg(false, errorMsg);
+            return new ModelMap().addAttribute("success", postResponseMsg);
+        }
+        
         userService.updateUser(user, id);
         ResponseMsg updateResponseMsg = new ResponseMsg(true, Constants.DEFAULT_UPDATE_SUCCESS_MSG);
         return new ModelMap().addAttribute("success", updateResponseMsg);
