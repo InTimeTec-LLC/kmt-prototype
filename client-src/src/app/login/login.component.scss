@@ -2,16 +2,16 @@
 Login template using Angular Material
 
 */
- 
 
- 
+
+
 /*.app-header {
     color: #fff;
     background-color: #000000;
     text-align: center;
     padding: 14px;
 }*/
- 
+
 .login-body {
     /*margin-top: 40px;*/
     background-color: #00a8ff;
@@ -19,31 +19,31 @@ Login template using Angular Material
     display: grid;
 }
 .login-container{
-    width: 500px;
-    margin: 0 auto;
+  width: 90%;
+  margin: 0 auto;
 	background-color: #fff;
 	-webkit-box-shadow: 2px 4px 119px -28px #060606;
 	-moz-box-shadow: 2px 4px 119px -28px #060606;
 	box-shadow: 2px 4px 119px -28px #060606;
 }
- 
+
 .login-box-header {
     color: #1f8edc;
     text-align: center;
-    font-size: 44px  
+    font-size: 44px
 }
- 
+
 .login-button {
-    padding:1% ;	
+    padding:1% ;
     font-size: 1em;
     color: #fff ;
     width: 100%;
     margin: 10px 0px;
 }
-.example-form {  
+.example-form {
     padding: 10px;
 }
-  
+
 .example-full-width {
     width: 100%;
 }
@@ -87,4 +87,20 @@ Login template using Angular Material
 
 .heading {
     margin: 0;
+}
+
+@media (min-width: 600px) {
+  .login-container {
+    width: 500px;
+  }
+}
+
+@media (min-width: 600px) and (orientation: landscape) {
+  .login-box-header[_ngcontent-c3] {
+    font-size: 34px;
+  }
+
+  .mat-input-wrapper .mat-input-infix {
+   border-top: 0;
+  }
 }
