@@ -1,7 +1,6 @@
 Started by an SCM change
 Building in workspace /var/jenkins_home/workspace/adpq-builddeploycode
 [WS-CLEANUP] Deleting project workspace...
-[WS-CLEANUP] Done
 Cloning the remote Git repository
 Cloning repository https://github.com/InTimeTec-LLC/kmt-prototype.git
  > git init /var/jenkins_home/workspace/adpq-builddeploycode # timeout=10
@@ -20,136 +19,7 @@ Checking out Revision 21912b3219b45b3f0eace2ba38c87c6fc9a9ca39 (refs/remotes/ori
  > git checkout -f 21912b3219b45b3f0eace2ba38c87c6fc9a9ca39
 Commit message: "Merge pull request #33 from InTimeTec-LLC/email-framework"
 First time build. Skipping changelog.
-[adpq-builddeploycode] $ /bin/bash /tmp/jenkins7335266023859411058.sh
-running web
-Unable to find image 'yashittdocker/adpq-web:latest' locally
-latest: Pulling from yashittdocker/adpq-web
-3e731ddb7fc9: Pulling fs layer
-47cafa6a79d0: Pulling fs layer
-79fcf5a213c7: Pulling fs layer
-fd532571c5d3: Pulling fs layer
-31600c9f9b48: Pulling fs layer
-78e8e9b5d10e: Pulling fs layer
-0710e619e883: Pulling fs layer
-e511da65ffab: Pulling fs layer
-bfcd79b5752d: Pulling fs layer
-f6d4311e9998: Pulling fs layer
-aa08dc0fba1c: Pulling fs layer
-47ffc8d9d1f8: Pulling fs layer
-26281daa0b36: Pulling fs layer
-fd532571c5d3: Waiting
-e511da65ffab: Waiting
-31600c9f9b48: Waiting
-bfcd79b5752d: Waiting
-f6d4311e9998: Waiting
-78e8e9b5d10e: Waiting
-0710e619e883: Waiting
-26281daa0b36: Waiting
-47ffc8d9d1f8: Waiting
-aa08dc0fba1c: Waiting
-79fcf5a213c7: Verifying Checksum
-79fcf5a213c7: Download complete
-47cafa6a79d0: Verifying Checksum
-47cafa6a79d0: Download complete
-fd532571c5d3: Verifying Checksum
-fd532571c5d3: Download complete
-31600c9f9b48: Verifying Checksum
-31600c9f9b48: Download complete
-78e8e9b5d10e: Verifying Checksum
-78e8e9b5d10e: Download complete
-3e731ddb7fc9: Verifying Checksum
-3e731ddb7fc9: Download complete
-e511da65ffab: Verifying Checksum
-e511da65ffab: Download complete
-bfcd79b5752d: Verifying Checksum
-bfcd79b5752d: Download complete
-f6d4311e9998: Verifying Checksum
-f6d4311e9998: Download complete
-47ffc8d9d1f8: Verifying Checksum
-47ffc8d9d1f8: Download complete
-26281daa0b36: Verifying Checksum
-26281daa0b36: Download complete
-aa08dc0fba1c: Verifying Checksum
-aa08dc0fba1c: Download complete
-3e731ddb7fc9: Pull complete
-47cafa6a79d0: Pull complete
-79fcf5a213c7: Pull complete
-fd532571c5d3: Pull complete
-31600c9f9b48: Pull complete
-78e8e9b5d10e: Pull complete
-0710e619e883: Verifying Checksum
-0710e619e883: Download complete
-0710e619e883: Pull complete
-e511da65ffab: Pull complete
-bfcd79b5752d: Pull complete
-f6d4311e9998: Pull complete
-aa08dc0fba1c: Pull complete
-47ffc8d9d1f8: Pull complete
-26281daa0b36: Pull complete
-Digest: sha256:223ad39196367afa6d6aa0cae2b854c86f26932371b0939871b81de15e57525e
-Status: Downloaded newer image for yashittdocker/adpq-web:latest
-a5dd14c73c885419359cf388eedb79db7aff1239f1d4e8c623d819befdc90411
-running mongo
-Unable to find image 'yashittdocker/adpq-mongo:latest_1.1' locally
-latest_1.1: Pulling from yashittdocker/adpq-mongo
-d2ca7eff5948: Pulling fs layer
-ebb958661291: Pulling fs layer
-cdfa71d101a9: Pulling fs layer
-88a286579fc2: Pulling fs layer
-9441b8e1ae36: Pulling fs layer
-0e6fe40bb4bd: Pulling fs layer
-ace74471951d: Pulling fs layer
-ddaafdd39b2a: Pulling fs layer
-d59a4258bd73: Pulling fs layer
-29f0c7020f3a: Pulling fs layer
-5398b0c4a9f5: Pulling fs layer
-7e32a5eff531: Pulling fs layer
-88a286579fc2: Waiting
-9441b8e1ae36: Waiting
-0e6fe40bb4bd: Waiting
-ace74471951d: Waiting
-ddaafdd39b2a: Waiting
-d59a4258bd73: Waiting
-29f0c7020f3a: Waiting
-5398b0c4a9f5: Waiting
-7e32a5eff531: Waiting
-ebb958661291: Download complete
-cdfa71d101a9: Verifying Checksum
-cdfa71d101a9: Download complete
-88a286579fc2: Verifying Checksum
-88a286579fc2: Download complete
-9441b8e1ae36: Verifying Checksum
-9441b8e1ae36: Download complete
-0e6fe40bb4bd: Verifying Checksum
-0e6fe40bb4bd: Download complete
-ace74471951d: Verifying Checksum
-ace74471951d: Download complete
-d59a4258bd73: Verifying Checksum
-d59a4258bd73: Download complete
-29f0c7020f3a: Verifying Checksum
-29f0c7020f3a: Download complete
-5398b0c4a9f5: Verifying Checksum
-5398b0c4a9f5: Download complete
-7e32a5eff531: Download complete
-d2ca7eff5948: Verifying Checksum
-d2ca7eff5948: Download complete
-d2ca7eff5948: Pull complete
-ebb958661291: Pull complete
-cdfa71d101a9: Pull complete
-88a286579fc2: Pull complete
-9441b8e1ae36: Pull complete
-0e6fe40bb4bd: Pull complete
-ace74471951d: Pull complete
-ddaafdd39b2a: Verifying Checksum
-ddaafdd39b2a: Download complete
-ddaafdd39b2a: Pull complete
-d59a4258bd73: Pull complete
-29f0c7020f3a: Pull complete
-5398b0c4a9f5: Pull complete
-7e32a5eff531: Pull complete
-Digest: sha256:6bfd563c4e48edbf6f63e5cf833fd7cad9751def12960c1c940247b78c91c23e
-Status: Downloaded newer image for yashittdocker/adpq-mongo:latest_1.1
-43894720a95b7da869042d6bdb7fd3a849ea766583a5cad294630ca0dafbb6c5
+[adpq-builddeploycode] $ /bin/bash /tmp/jenkins9159014463919191583.sh
 ********* FRONT-END BUILD START *********
 'http://18.144.18.77:8080/api/',
 ********* NPM INSTALLATION *********
@@ -173,11 +43,11 @@ Cached binary found at /root/.npm/node-sass/4.7.2/linux-x64-57_binding.node
 Binary found at /var/jenkins_home/workspace/adpq-builddeploycode/client-src/node_modules/node-sass/vendor/linux-x64-57/binding.node
 Testing binary
 Binary is fine
-added 1252 packages in 32.534s
+added 1252 packages in 25.074s
 ********* NG BUILD START *********
-[0mDate: [1m[37m2018-03-07T06:02:22.454Z[39m[22m[0m
+[0mDate: [1m[37m2018-03-07T09:06:34.568Z[39m[22m[0m
 [0mHash: [1m[37m7e3c620c5b9cb59b5356[39m[22m[0m
-[0mTime: [1m[37m36929[39m[22mms[0m
+[0mTime: [1m[37m36552[39m[22mms[0m
 [0mchunk {[1m[33mscripts[39m[22m} [1m[32mscripts.5f760f01c7c6b9dc8994.bundle.js[39m[22m (scripts) 220 kB [1m[33m[initial][39m[22m[1m[32m [rendered][39m[22m[0m
 [0mchunk {[1m[33m0[39m[22m} [1m[32mpolyfills.bf95165a1d5098766b92.bundle.js[39m[22m (polyfills) 59.6 kB [1m[33m[initial][39m[22m[1m[32m [rendered][39m[22m[0m
 [0mchunk {[1m[33m1[39m[22m} [1m[32mmain.3c0367ef1c8a2a813357.bundle.js[39m[22m (main) 73.4 kB [1m[33m[initial][39m[22m[1m[32m [rendered][39m[22m[0m
@@ -200,7 +70,7 @@ Current version:1.0 buildDir:/var/jenkins_home/workspace/adpq-builddeploycode/se
 
 BUILD SUCCESSFUL
 
-Total time: 11.218 secs
+Total time: 12.612 secs
 
 This build could be faster, please consider using the Gradle Daemon: http://gradle.org/docs/2.5/userguide/gradle_daemon.html
 ********* RUNNING UNIT TEST CASES *********
@@ -336,87 +206,87 @@ com.itt.test.kmt.services.UserServiceTests > getUserByID PASSED
 com.itt.test.kmt.services.UserServiceTests > changeUserStatus STARTED
 
 com.itt.test.kmt.services.UserServiceTests > changeUserStatus PASSED
-2018-03-07 06:03:02.710  INFO 2999 --- [      Thread-38] o.s.w.c.s.GenericWebApplicationContext   : Closing org.springframework.web.context.support.GenericWebApplicationContext@2f63b37b: startup date [Wed Mar 07 06:02:58 UTC 2018]; root of context hierarchy
-2018-03-07 06:03:02.714  INFO 2999 --- [      Thread-30] o.s.b.a.mongo.embedded.EmbeddedMongo     : 2018-03-07T06:03:02.714+0000 I NETWORK  [initandlisten] connection accepted from 127.0.0.1:40072 #1 (1 connection now open)
-2018-03-07 06:03:02.714  INFO 2999 --- [      Thread-36] o.s.b.a.mongo.embedded.EmbeddedMongo     : 2018-03-07T06:03:02.714+0000 I NETWORK  [initandlisten] connection accepted from 127.0.0.1:34100 #1 (1 connection now open)
-2018-03-07 06:03:02.715  INFO 2999 --- [      Thread-36] o.s.b.a.mongo.embedded.EmbeddedMongo     : 2018-03-07T06:03:02.715+0000 I COMMAND  [conn1] terminating, shutdown command received
-2018-03-07 06:03:02.715  INFO 2999 --- [      Thread-36] o.s.b.a.mongo.embedded.EmbeddedMongo     : 2018-03-07T06:03:02.715+0000 I FTDC     [conn1] Shutting down full-time diagnostic data capture
-2018-03-07 06:03:02.716  INFO 2999 --- [      Thread-36] o.s.b.a.mongo.embedded.EmbeddedMongo     : 2018-03-07T06:03:02.716+0000 I CONTROL  [conn1] now exiting
-2018-03-07 06:03:02.717  INFO 2999 --- [      Thread-36] o.s.b.a.mongo.embedded.EmbeddedMongo     : 2018-03-07T06:03:02.717+0000 I NETWORK  [conn1] shutdown: going to close listening sockets...
-2018-03-07 06:03:02.717  INFO 2999 --- [      Thread-36] o.s.b.a.mongo.embedded.EmbeddedMongo     : 2018-03-07T06:03:02.717+0000 I NETWORK  [conn1] closing listening socket: 5
-2018-03-07 06:03:02.719  INFO 2999 --- [      Thread-18] o.s.w.c.s.GenericWebApplicationContext   : Closing org.springframework.web.context.support.GenericWebApplicationContext@b914c1: startup date [Wed Mar 07 06:02:43 UTC 2018]; root of context hierarchy
-2018-03-07 06:03:02.720  INFO 2999 --- [      Thread-42] o.s.b.a.mongo.embedded.EmbeddedMongo     : 2018-03-07T06:03:02.720+0000 I NETWORK  [initandlisten] connection accepted from 127.0.0.1:37040 #1 (1 connection now open)
-2018-03-07 06:03:02.721  INFO 2999 --- [      Thread-44] o.s.w.c.s.GenericWebApplicationContext   : Closing org.springframework.web.context.support.GenericWebApplicationContext@1a858d5: startup date [Wed Mar 07 06:03:00 UTC 2018]; root of context hierarchy
-2018-03-07 06:03:02.721  INFO 2999 --- [      Thread-23] o.s.b.a.mongo.embedded.EmbeddedMongo     : 2018-03-07T06:03:02.721+0000 I NETWORK  [initandlisten] connection accepted from 127.0.0.1:39072 #1 (1 connection now open)
-2018-03-07 06:03:02.722  INFO 2999 --- [      Thread-23] o.s.b.a.mongo.embedded.EmbeddedMongo     : 2018-03-07T06:03:02.722+0000 I COMMAND  [conn1] terminating, shutdown command received
-2018-03-07 06:03:02.722  INFO 2999 --- [      Thread-23] o.s.b.a.mongo.embedded.EmbeddedMongo     : 2018-03-07T06:03:02.722+0000 I FTDC     [conn1] Shutting down full-time diagnostic data capture
-2018-03-07 06:03:02.724  INFO 2999 --- [      Thread-23] o.s.b.a.mongo.embedded.EmbeddedMongo     : 2018-03-07T06:03:02.723+0000 I CONTROL  [conn1] now exiting
-2018-03-07 06:03:02.724  INFO 2999 --- [      Thread-23] o.s.b.a.mongo.embedded.EmbeddedMongo     : 2018-03-07T06:03:02.724+0000 I NETWORK  [conn1] shutdown: going to close listening sockets...
-2018-03-07 06:03:02.724  INFO 2999 --- [      Thread-23] o.s.b.a.mongo.embedded.EmbeddedMongo     : 2018-03-07T06:03:02.724+0000 I NETWORK  [conn1] closing listening socket: 5
-2018-03-07 06:03:02.724  INFO 2999 --- [      Thread-23] o.s.b.a.mongo.embedded.EmbeddedMongo     : 2018-03-07T06:03:02.724+0000 I NETWORK  [conn1] closing listening socket: 6
-2018-03-07 06:03:02.724  INFO 2999 --- [      Thread-23] o.s.b.a.mongo.embedded.EmbeddedMongo     : 2018-03-07T06:03:02.724+0000 I NETWORK  [conn1] removing socket file: /tmp/mongodb-45761.sock
-2018-03-07 06:03:02.725  INFO 2999 --- [      Thread-23] o.s.b.a.mongo.embedded.EmbeddedMongo     : 2018-03-07T06:03:02.724+0000 I NETWORK  [conn1] shutdown: going to flush diaglog...
-2018-03-07 06:03:02.725  INFO 2999 --- [      Thread-23] o.s.b.a.mongo.embedded.EmbeddedMongo     : 2018-03-07T06:03:02.724+0000 I NETWORK  [conn1] shutdown: going to close sockets...
-2018-03-07 06:03:02.725  INFO 2999 --- [      Thread-23] o.s.b.a.mongo.embedded.EmbeddedMongo     : 2018-03-07T06:03:02.724+0000 I STORAGE  [conn1] WiredTigerKVEngine shutting down
-2018-03-07 06:03:02.727  INFO 2999 --- [      Thread-42] o.s.b.a.mongo.embedded.EmbeddedMongo     : 2018-03-07T06:03:02.727+0000 I COMMAND  [conn1] terminating, shutdown command received
-2018-03-07 06:03:02.727  INFO 2999 --- [      Thread-42] o.s.b.a.mongo.embedded.EmbeddedMongo     : 2018-03-07T06:03:02.727+0000 I FTDC     [conn1] Shutting down full-time diagnostic data capture
-2018-03-07 06:03:02.728  INFO 2999 --- [      Thread-42] o.s.b.a.mongo.embedded.EmbeddedMongo     : 2018-03-07T06:03:02.728+0000 I CONTROL  [conn1] now exiting
-2018-03-07 06:03:02.729  INFO 2999 --- [      Thread-42] o.s.b.a.mongo.embedded.EmbeddedMongo     : 2018-03-07T06:03:02.729+0000 I NETWORK  [conn1] shutdown: going to close listening sockets...
-2018-03-07 06:03:02.730  INFO 2999 --- [      Thread-42] o.s.b.a.mongo.embedded.EmbeddedMongo     : 2018-03-07T06:03:02.730+0000 I NETWORK  [conn1] closing listening socket: 5
-2018-03-07 06:03:02.731  INFO 2999 --- [      Thread-42] o.s.b.a.mongo.embedded.EmbeddedMongo     : 2018-03-07T06:03:02.731+0000 I NETWORK  [conn1] closing listening socket: 6
-2018-03-07 06:03:02.731  INFO 2999 --- [      Thread-42] o.s.b.a.mongo.embedded.EmbeddedMongo     : 2018-03-07T06:03:02.731+0000 I NETWORK  [conn1] removing socket file: /tmp/mongodb-46194.sock
-2018-03-07 06:03:02.733  INFO 2999 --- [      Thread-42] o.s.b.a.mongo.embedded.EmbeddedMongo     : 2018-03-07T06:03:02.733+0000 I NETWORK  [conn1] shutdown: going to flush diaglog...
-2018-03-07 06:03:02.733  INFO 2999 --- [      Thread-42] o.s.b.a.mongo.embedded.EmbeddedMongo     : 2018-03-07T06:03:02.733+0000 I NETWORK  [conn1] shutdown: going to close sockets...
-2018-03-07 06:03:02.737  INFO 2999 --- [      Thread-16] o.s.b.a.mongo.embedded.EmbeddedMongo     : 2018-03-07T06:03:02.737+0000 I NETWORK  [initandlisten] connection accepted from 127.0.0.1:51402 #1 (1 connection now open)
-2018-03-07 06:03:02.738  INFO 2999 --- [      Thread-42] o.s.b.a.mongo.embedded.EmbeddedMongo     : 2018-03-07T06:03:02.738+0000 I STORAGE  [conn1] WiredTigerKVEngine shutting down
-2018-03-07 06:03:02.717  INFO 2999 --- [      Thread-30] o.s.b.a.mongo.embedded.EmbeddedMongo     : 2018-03-07T06:03:02.717+0000 I COMMAND  [conn1] terminating, shutdown command received
-2018-03-07 06:03:02.757  INFO 2999 --- [      Thread-30] o.s.b.a.mongo.embedded.EmbeddedMongo     : 2018-03-07T06:03:02.717+0000 I FTDC     [conn1] Shutting down full-time diagnostic data capture
-2018-03-07 06:03:02.757  INFO 2999 --- [      Thread-30] o.s.b.a.mongo.embedded.EmbeddedMongo     : 2018-03-07T06:03:02.718+0000 I CONTROL  [conn1] now exiting
-2018-03-07 06:03:02.757  INFO 2999 --- [      Thread-30] o.s.b.a.mongo.embedded.EmbeddedMongo     : 2018-03-07T06:03:02.718+0000 I NETWORK  [conn1] shutdown: going to close listening sockets...
-2018-03-07 06:03:02.760  INFO 2999 --- [      Thread-30] o.s.b.a.mongo.embedded.EmbeddedMongo     : 2018-03-07T06:03:02.718+0000 I NETWORK  [conn1] closing listening socket: 5
-2018-03-07 06:03:02.761  INFO 2999 --- [      Thread-30] o.s.b.a.mongo.embedded.EmbeddedMongo     : 2018-03-07T06:03:02.718+0000 I NETWORK  [conn1] closing listening socket: 6
-2018-03-07 06:03:02.761  INFO 2999 --- [      Thread-30] o.s.b.a.mongo.embedded.EmbeddedMongo     : 2018-03-07T06:03:02.718+0000 I NETWORK  [conn1] removing socket file: /tmp/mongodb-41772.sock
-2018-03-07 06:03:02.761  INFO 2999 --- [      Thread-30] o.s.b.a.mongo.embedded.EmbeddedMongo     : 2018-03-07T06:03:02.719+0000 I NETWORK  [conn1] shutdown: going to flush diaglog...
-2018-03-07 06:03:02.761  INFO 2999 --- [      Thread-30] o.s.b.a.mongo.embedded.EmbeddedMongo     : 2018-03-07T06:03:02.719+0000 I NETWORK  [conn1] shutdown: going to close sockets...
-2018-03-07 06:03:02.761  INFO 2999 --- [      Thread-30] o.s.b.a.mongo.embedded.EmbeddedMongo     : 2018-03-07T06:03:02.719+0000 I STORAGE  [conn1] WiredTigerKVEngine shutting down
-2018-03-07 06:03:02.720  INFO 2999 --- [      Thread-25] o.s.w.c.s.GenericWebApplicationContext   : Closing org.springframework.web.context.support.GenericWebApplicationContext@7e5c36c4: startup date [Wed Mar 07 06:02:53 UTC 2018]; root of context hierarchy
-2018-03-07 06:03:02.739  INFO 2999 --- [      Thread-32] o.s.w.c.s.GenericWebApplicationContext   : Closing org.springframework.web.context.support.GenericWebApplicationContext@699ca556: startup date [Wed Mar 07 06:02:56 UTC 2018]; root of context hierarchy
-2018-03-07 06:03:02.740  INFO 2999 --- [      Thread-36] o.s.b.a.mongo.embedded.EmbeddedMongo     : 2018-03-07T06:03:02.718+0000 I NETWORK  [conn1] closing listening socket: 6
-2018-03-07 06:03:02.762  INFO 2999 --- [      Thread-36] o.s.b.a.mongo.embedded.EmbeddedMongo     : 2018-03-07T06:03:02.718+0000 I NETWORK  [conn1] removing socket file: /tmp/mongodb-33255.sock
-2018-03-07 06:03:02.762  INFO 2999 --- [      Thread-36] o.s.b.a.mongo.embedded.EmbeddedMongo     : 2018-03-07T06:03:02.718+0000 I NETWORK  [conn1] shutdown: going to flush diaglog...
-2018-03-07 06:03:02.762  INFO 2999 --- [      Thread-36] o.s.b.a.mongo.embedded.EmbeddedMongo     : 2018-03-07T06:03:02.718+0000 I NETWORK  [conn1] shutdown: going to close sockets...
-2018-03-07 06:03:02.762  INFO 2999 --- [      Thread-36] o.s.b.a.mongo.embedded.EmbeddedMongo     : 2018-03-07T06:03:02.718+0000 I STORAGE  [conn1] WiredTigerKVEngine shutting down
-2018-03-07 06:03:02.762  INFO 2999 --- [      Thread-36] o.s.b.a.mongo.embedded.EmbeddedMongo     : 2018-03-07T06:03:02.749+0000 I STORAGE  [conn1] shutdown: removing fs lock...
-2018-03-07 06:03:02.762  INFO 2999 --- [      Thread-36] o.s.b.a.mongo.embedded.EmbeddedMongo     : 2018-03-07T06:03:02.750+0000 I CONTROL  [conn1] dbexit:  rc: 0
-2018-03-07 06:03:02.757  INFO 2999 --- [      Thread-23] o.s.b.a.mongo.embedded.EmbeddedMongo     : 2018-03-07T06:03:02.753+0000 I STORAGE  [conn1] shutdown: removing fs lock...
-2018-03-07 06:03:02.763  INFO 2999 --- [      Thread-23] o.s.b.a.mongo.embedded.EmbeddedMongo     : 2018-03-07T06:03:02.753+0000 I CONTROL  [conn1] dbexit:  rc: 0
-2018-03-07 06:03:02.757  INFO 2999 --- [      Thread-16] o.s.b.a.mongo.embedded.EmbeddedMongo     : 2018-03-07T06:03:02.742+0000 I COMMAND  [conn1] terminating, shutdown command received
-2018-03-07 06:03:02.763  INFO 2999 --- [      Thread-16] o.s.b.a.mongo.embedded.EmbeddedMongo     : 2018-03-07T06:03:02.742+0000 I FTDC     [conn1] Shutting down full-time diagnostic data capture
-2018-03-07 06:03:02.763  INFO 2999 --- [      Thread-16] o.s.b.a.mongo.embedded.EmbeddedMongo     : 2018-03-07T06:03:02.744+0000 I CONTROL  [conn1] now exiting
-2018-03-07 06:03:02.763  INFO 2999 --- [      Thread-16] o.s.b.a.mongo.embedded.EmbeddedMongo     : 2018-03-07T06:03:02.744+0000 I NETWORK  [conn1] shutdown: going to close listening sockets...
-2018-03-07 06:03:02.763  INFO 2999 --- [      Thread-16] o.s.b.a.mongo.embedded.EmbeddedMongo     : 2018-03-07T06:03:02.744+0000 I NETWORK  [conn1] closing listening socket: 5
-2018-03-07 06:03:02.763  INFO 2999 --- [      Thread-16] o.s.b.a.mongo.embedded.EmbeddedMongo     : 2018-03-07T06:03:02.744+0000 I NETWORK  [conn1] closing listening socket: 6
-2018-03-07 06:03:02.763  INFO 2999 --- [      Thread-16] o.s.b.a.mongo.embedded.EmbeddedMongo     : 2018-03-07T06:03:02.744+0000 I NETWORK  [conn1] removing socket file: /tmp/mongodb-45427.sock
-2018-03-07 06:03:02.763  INFO 2999 --- [      Thread-16] o.s.b.a.mongo.embedded.EmbeddedMongo     : 2018-03-07T06:03:02.745+0000 I NETWORK  [conn1] shutdown: going to flush diaglog...
-2018-03-07 06:03:02.763  INFO 2999 --- [      Thread-16] o.s.b.a.mongo.embedded.EmbeddedMongo     : 2018-03-07T06:03:02.745+0000 I NETWORK  [conn1] shutdown: going to close sockets...
-2018-03-07 06:03:02.764  INFO 2999 --- [      Thread-16] o.s.b.a.mongo.embedded.EmbeddedMongo     : 2018-03-07T06:03:02.745+0000 I STORAGE  [conn1] WiredTigerKVEngine shutting down
-2018-03-07 06:03:02.769  INFO 2999 --- [      Thread-30] o.s.b.a.mongo.embedded.EmbeddedMongo     : 2018-03-07T06:03:02.769+0000 I STORAGE  [conn1] shutdown: removing fs lock...
-2018-03-07 06:03:02.769  INFO 2999 --- [      Thread-44] o.s.c.support.DefaultLifecycleProcessor  : Stopping beans in phase 2147483647
-2018-03-07 06:03:02.769  INFO 2999 --- [      Thread-38] o.s.c.support.DefaultLifecycleProcessor  : Stopping beans in phase 2147483647
-2018-03-07 06:03:02.770  INFO 2999 --- [      Thread-30] o.s.b.a.mongo.embedded.EmbeddedMongo     : 2018-03-07T06:03:02.770+0000 I CONTROL  [conn1] dbexit:  rc: 0
-2018-03-07 06:03:02.769  INFO 2999 --- [      Thread-18] o.s.c.support.DefaultLifecycleProcessor  : Stopping beans in phase 2147483647
-2018-03-07 06:03:02.776  INFO 2999 --- [      Thread-32] o.s.c.support.DefaultLifecycleProcessor  : Stopping beans in phase 2147483647
-2018-03-07 06:03:02.776  INFO 2999 --- [      Thread-25] o.s.c.support.DefaultLifecycleProcessor  : Stopping beans in phase 2147483647
-2018-03-07 06:03:02.777  INFO 2999 --- [      Thread-42] o.s.b.a.mongo.embedded.EmbeddedMongo     : 2018-03-07T06:03:02.777+0000 I STORAGE  [conn1] shutdown: removing fs lock...
-2018-03-07 06:03:02.782  INFO 2999 --- [      Thread-16] o.s.b.a.mongo.embedded.EmbeddedMongo     : 2018-03-07T06:03:02.779+0000 I STORAGE  [conn1] shutdown: removing fs lock...
-2018-03-07 06:03:02.782  INFO 2999 --- [      Thread-16] o.s.b.a.mongo.embedded.EmbeddedMongo     : 2018-03-07T06:03:02.779+0000 I CONTROL  [conn1] dbexit:  rc: 0
-2018-03-07 06:03:02.784  INFO 2999 --- [      Thread-42] o.s.b.a.mongo.embedded.EmbeddedMongo     : 2018-03-07T06:03:02.777+0000 I CONTROL  [conn1] dbexit:  rc: 0
-2018-03-07 06:03:02.853  WARN 2999 --- [       Thread-7] d.f.e.p.store.CachingArtifactStore       : Already removed de.flapdoodle.embed.process.extract.ImmutableExtractedFileSet@39afa639 for Version{2.6.1}:Linux:B64, emergency shutdown?
+2018-03-07 09:07:16.783  INFO 2471 --- [      Thread-43] o.s.w.c.s.GenericWebApplicationContext   : Closing org.springframework.web.context.support.GenericWebApplicationContext@7a8fa68a: startup date [Wed Mar 07 09:07:14 UTC 2018]; root of context hierarchy
+2018-03-07 09:07:16.793  INFO 2471 --- [      Thread-15] o.s.b.a.mongo.embedded.EmbeddedMongo     : 2018-03-07T09:07:16.793+0000 I NETWORK  [initandlisten] connection accepted from 127.0.0.1:53906 #1 (1 connection now open)
+2018-03-07 09:07:16.793  INFO 2471 --- [      Thread-15] o.s.b.a.mongo.embedded.EmbeddedMongo     : 2018-03-07T09:07:16.793+0000 I COMMAND  [conn1] terminating, shutdown command received
+2018-03-07 09:07:16.794  INFO 2471 --- [      Thread-15] o.s.b.a.mongo.embedded.EmbeddedMongo     : 2018-03-07T09:07:16.794+0000 I FTDC     [conn1] Shutting down full-time diagnostic data capture
+2018-03-07 09:07:16.794  INFO 2471 --- [      Thread-22] o.s.b.a.mongo.embedded.EmbeddedMongo     : 2018-03-07T09:07:16.794+0000 I NETWORK  [initandlisten] connection accepted from 127.0.0.1:33192 #1 (1 connection now open)
+2018-03-07 09:07:16.796  INFO 2471 --- [      Thread-15] o.s.b.a.mongo.embedded.EmbeddedMongo     : 2018-03-07T09:07:16.795+0000 I CONTROL  [conn1] now exiting
+2018-03-07 09:07:16.796  INFO 2471 --- [      Thread-15] o.s.b.a.mongo.embedded.EmbeddedMongo     : 2018-03-07T09:07:16.796+0000 I NETWORK  [conn1] shutdown: going to close listening sockets...
+2018-03-07 09:07:16.796  INFO 2471 --- [      Thread-15] o.s.b.a.mongo.embedded.EmbeddedMongo     : 2018-03-07T09:07:16.796+0000 I NETWORK  [conn1] closing listening socket: 5
+2018-03-07 09:07:16.797  INFO 2471 --- [      Thread-15] o.s.b.a.mongo.embedded.EmbeddedMongo     : 2018-03-07T09:07:16.797+0000 I NETWORK  [conn1] closing listening socket: 6
+2018-03-07 09:07:16.797  INFO 2471 --- [      Thread-15] o.s.b.a.mongo.embedded.EmbeddedMongo     : 2018-03-07T09:07:16.797+0000 I NETWORK  [conn1] removing socket file: /tmp/mongodb-41497.sock
+2018-03-07 09:07:16.797  INFO 2471 --- [      Thread-15] o.s.b.a.mongo.embedded.EmbeddedMongo     : 2018-03-07T09:07:16.797+0000 I NETWORK  [conn1] shutdown: going to flush diaglog...
+2018-03-07 09:07:16.798  INFO 2471 --- [      Thread-15] o.s.b.a.mongo.embedded.EmbeddedMongo     : 2018-03-07T09:07:16.798+0000 I NETWORK  [conn1] shutdown: going to close sockets...
+2018-03-07 09:07:16.798  INFO 2471 --- [      Thread-15] o.s.b.a.mongo.embedded.EmbeddedMongo     : 2018-03-07T09:07:16.798+0000 I STORAGE  [conn1] WiredTigerKVEngine shutting down
+2018-03-07 09:07:16.799  INFO 2471 --- [      Thread-22] o.s.b.a.mongo.embedded.EmbeddedMongo     : 2018-03-07T09:07:16.799+0000 I COMMAND  [conn1] terminating, shutdown command received
+2018-03-07 09:07:16.799  INFO 2471 --- [      Thread-22] o.s.b.a.mongo.embedded.EmbeddedMongo     : 2018-03-07T09:07:16.799+0000 I FTDC     [conn1] Shutting down full-time diagnostic data capture
+2018-03-07 09:07:16.800  INFO 2471 --- [      Thread-35] o.s.b.a.mongo.embedded.EmbeddedMongo     : 2018-03-07T09:07:16.800+0000 I NETWORK  [initandlisten] connection accepted from 127.0.0.1:34886 #1 (1 connection now open)
+2018-03-07 09:07:16.800  INFO 2471 --- [      Thread-35] o.s.b.a.mongo.embedded.EmbeddedMongo     : 2018-03-07T09:07:16.800+0000 I COMMAND  [conn1] terminating, shutdown command received
+2018-03-07 09:07:16.800  INFO 2471 --- [      Thread-35] o.s.b.a.mongo.embedded.EmbeddedMongo     : 2018-03-07T09:07:16.800+0000 I FTDC     [conn1] Shutting down full-time diagnostic data capture
+2018-03-07 09:07:16.801  INFO 2471 --- [      Thread-35] o.s.b.a.mongo.embedded.EmbeddedMongo     : 2018-03-07T09:07:16.801+0000 I CONTROL  [conn1] now exiting
+2018-03-07 09:07:16.802  INFO 2471 --- [      Thread-35] o.s.b.a.mongo.embedded.EmbeddedMongo     : 2018-03-07T09:07:16.801+0000 I NETWORK  [conn1] shutdown: going to close listening sockets...
+2018-03-07 09:07:16.802  INFO 2471 --- [      Thread-35] o.s.b.a.mongo.embedded.EmbeddedMongo     : 2018-03-07T09:07:16.801+0000 I NETWORK  [conn1] closing listening socket: 5
+2018-03-07 09:07:16.802  INFO 2471 --- [      Thread-35] o.s.b.a.mongo.embedded.EmbeddedMongo     : 2018-03-07T09:07:16.801+0000 I NETWORK  [conn1] closing listening socket: 6
+2018-03-07 09:07:16.802  INFO 2471 --- [      Thread-35] o.s.b.a.mongo.embedded.EmbeddedMongo     : 2018-03-07T09:07:16.801+0000 I NETWORK  [conn1] removing socket file: /tmp/mongodb-37108.sock
+2018-03-07 09:07:16.802  INFO 2471 --- [      Thread-35] o.s.b.a.mongo.embedded.EmbeddedMongo     : 2018-03-07T09:07:16.801+0000 I NETWORK  [conn1] shutdown: going to flush diaglog...
+2018-03-07 09:07:16.808  INFO 2471 --- [      Thread-24] o.s.w.c.s.GenericWebApplicationContext   : Closing org.springframework.web.context.support.GenericWebApplicationContext@268e0f57: startup date [Wed Mar 07 09:07:07 UTC 2018]; root of context hierarchy
+2018-03-07 09:07:16.809  INFO 2471 --- [      Thread-17] o.s.w.c.s.GenericWebApplicationContext   : Closing org.springframework.web.context.support.GenericWebApplicationContext@3da57d02: startup date [Wed Mar 07 09:06:56 UTC 2018]; root of context hierarchy
+2018-03-07 09:07:16.810  INFO 2471 --- [      Thread-41] o.s.b.a.mongo.embedded.EmbeddedMongo     : 2018-03-07T09:07:16.810+0000 I NETWORK  [initandlisten] connection accepted from 127.0.0.1:35538 #1 (1 connection now open)
+2018-03-07 09:07:16.812  INFO 2471 --- [      Thread-41] o.s.b.a.mongo.embedded.EmbeddedMongo     : 2018-03-07T09:07:16.812+0000 I COMMAND  [conn1] terminating, shutdown command received
+2018-03-07 09:07:16.816  INFO 2471 --- [      Thread-41] o.s.b.a.mongo.embedded.EmbeddedMongo     : 2018-03-07T09:07:16.816+0000 I FTDC     [conn1] Shutting down full-time diagnostic data capture
+2018-03-07 09:07:16.816  INFO 2471 --- [      Thread-41] o.s.b.a.mongo.embedded.EmbeddedMongo     : 2018-03-07T09:07:16.816+0000 I CONTROL  [conn1] now exiting
+2018-03-07 09:07:16.817  INFO 2471 --- [      Thread-37] o.s.w.c.s.GenericWebApplicationContext   : Closing org.springframework.web.context.support.GenericWebApplicationContext@1c05d19f: startup date [Wed Mar 07 09:07:12 UTC 2018]; root of context hierarchy
+2018-03-07 09:07:16.831  INFO 2471 --- [      Thread-29] o.s.b.a.mongo.embedded.EmbeddedMongo     : 2018-03-07T09:07:16.831+0000 I NETWORK  [initandlisten] connection accepted from 127.0.0.1:53654 #1 (1 connection now open)
+2018-03-07 09:07:16.833  INFO 2471 --- [      Thread-29] o.s.b.a.mongo.embedded.EmbeddedMongo     : 2018-03-07T09:07:16.833+0000 I COMMAND  [conn1] terminating, shutdown command received
+2018-03-07 09:07:16.833  INFO 2471 --- [      Thread-29] o.s.b.a.mongo.embedded.EmbeddedMongo     : 2018-03-07T09:07:16.833+0000 I FTDC     [conn1] Shutting down full-time diagnostic data capture
+2018-03-07 09:07:16.834  INFO 2471 --- [      Thread-29] o.s.b.a.mongo.embedded.EmbeddedMongo     : 2018-03-07T09:07:16.834+0000 I CONTROL  [conn1] now exiting
+2018-03-07 09:07:16.834  INFO 2471 --- [      Thread-29] o.s.b.a.mongo.embedded.EmbeddedMongo     : 2018-03-07T09:07:16.834+0000 I NETWORK  [conn1] shutdown: going to close listening sockets...
+2018-03-07 09:07:16.834  INFO 2471 --- [      Thread-29] o.s.b.a.mongo.embedded.EmbeddedMongo     : 2018-03-07T09:07:16.834+0000 I NETWORK  [conn1] closing listening socket: 5
+2018-03-07 09:07:16.834  INFO 2471 --- [      Thread-29] o.s.b.a.mongo.embedded.EmbeddedMongo     : 2018-03-07T09:07:16.834+0000 I NETWORK  [conn1] closing listening socket: 6
+2018-03-07 09:07:16.834  INFO 2471 --- [      Thread-29] o.s.b.a.mongo.embedded.EmbeddedMongo     : 2018-03-07T09:07:16.834+0000 I NETWORK  [conn1] removing socket file: /tmp/mongodb-33448.sock
+2018-03-07 09:07:16.835  INFO 2471 --- [      Thread-29] o.s.b.a.mongo.embedded.EmbeddedMongo     : 2018-03-07T09:07:16.834+0000 I NETWORK  [conn1] shutdown: going to flush diaglog...
+2018-03-07 09:07:16.835  INFO 2471 --- [      Thread-29] o.s.b.a.mongo.embedded.EmbeddedMongo     : 2018-03-07T09:07:16.834+0000 I NETWORK  [conn1] shutdown: going to close sockets...
+2018-03-07 09:07:16.835  INFO 2471 --- [      Thread-29] o.s.b.a.mongo.embedded.EmbeddedMongo     : 2018-03-07T09:07:16.834+0000 I STORAGE  [conn1] WiredTigerKVEngine shutting down
+2018-03-07 09:07:16.838  INFO 2471 --- [      Thread-31] o.s.w.c.s.GenericWebApplicationContext   : Closing org.springframework.web.context.support.GenericWebApplicationContext@72ba535e: startup date [Wed Mar 07 09:07:10 UTC 2018]; root of context hierarchy
+2018-03-07 09:07:16.840  INFO 2471 --- [      Thread-35] o.s.b.a.mongo.embedded.EmbeddedMongo     : 2018-03-07T09:07:16.801+0000 I NETWORK  [conn1] shutdown: going to close sockets...
+2018-03-07 09:07:16.840  INFO 2471 --- [      Thread-35] o.s.b.a.mongo.embedded.EmbeddedMongo     : 2018-03-07T09:07:16.801+0000 I STORAGE  [conn1] WiredTigerKVEngine shutting down
+2018-03-07 09:07:16.840  INFO 2471 --- [      Thread-35] o.s.b.a.mongo.embedded.EmbeddedMongo     : 2018-03-07T09:07:16.825+0000 I STORAGE  [conn1] shutdown: removing fs lock...
+2018-03-07 09:07:16.840  INFO 2471 --- [      Thread-35] o.s.b.a.mongo.embedded.EmbeddedMongo     : 2018-03-07T09:07:16.825+0000 I CONTROL  [conn1] dbexit:  rc: 0
+2018-03-07 09:07:16.802  INFO 2471 --- [      Thread-22] o.s.b.a.mongo.embedded.EmbeddedMongo     : 2018-03-07T09:07:16.802+0000 I CONTROL  [conn1] now exiting
+2018-03-07 09:07:16.853  INFO 2471 --- [      Thread-22] o.s.b.a.mongo.embedded.EmbeddedMongo     : 2018-03-07T09:07:16.802+0000 I NETWORK  [conn1] shutdown: going to close listening sockets...
+2018-03-07 09:07:16.853  INFO 2471 --- [      Thread-22] o.s.b.a.mongo.embedded.EmbeddedMongo     : 2018-03-07T09:07:16.802+0000 I NETWORK  [conn1] closing listening socket: 5
+2018-03-07 09:07:16.853  INFO 2471 --- [      Thread-22] o.s.b.a.mongo.embedded.EmbeddedMongo     : 2018-03-07T09:07:16.802+0000 I NETWORK  [conn1] closing listening socket: 6
+2018-03-07 09:07:16.853  INFO 2471 --- [      Thread-22] o.s.b.a.mongo.embedded.EmbeddedMongo     : 2018-03-07T09:07:16.802+0000 I NETWORK  [conn1] removing socket file: /tmp/mongodb-35899.sock
+2018-03-07 09:07:16.853  INFO 2471 --- [      Thread-22] o.s.b.a.mongo.embedded.EmbeddedMongo     : 2018-03-07T09:07:16.802+0000 I NETWORK  [conn1] shutdown: going to flush diaglog...
+2018-03-07 09:07:16.853  INFO 2471 --- [      Thread-22] o.s.b.a.mongo.embedded.EmbeddedMongo     : 2018-03-07T09:07:16.802+0000 I NETWORK  [conn1] shutdown: going to close sockets...
+2018-03-07 09:07:16.853  INFO 2471 --- [      Thread-22] o.s.b.a.mongo.embedded.EmbeddedMongo     : 2018-03-07T09:07:16.802+0000 I STORAGE  [conn1] WiredTigerKVEngine shutting down
+2018-03-07 09:07:16.853  INFO 2471 --- [      Thread-22] o.s.b.a.mongo.embedded.EmbeddedMongo     : 2018-03-07T09:07:16.826+0000 I STORAGE  [conn1] shutdown: removing fs lock...
+2018-03-07 09:07:16.854  INFO 2471 --- [      Thread-22] o.s.b.a.mongo.embedded.EmbeddedMongo     : 2018-03-07T09:07:16.826+0000 I CONTROL  [conn1] dbexit:  rc: 0
+2018-03-07 09:07:16.817  INFO 2471 --- [      Thread-41] o.s.b.a.mongo.embedded.EmbeddedMongo     : 2018-03-07T09:07:16.817+0000 I NETWORK  [conn1] shutdown: going to close listening sockets...
+2018-03-07 09:07:16.855  INFO 2471 --- [      Thread-41] o.s.b.a.mongo.embedded.EmbeddedMongo     : 2018-03-07T09:07:16.817+0000 I NETWORK  [conn1] closing listening socket: 5
+2018-03-07 09:07:16.855  INFO 2471 --- [      Thread-41] o.s.b.a.mongo.embedded.EmbeddedMongo     : 2018-03-07T09:07:16.817+0000 I NETWORK  [conn1] closing listening socket: 6
+2018-03-07 09:07:16.855  INFO 2471 --- [      Thread-41] o.s.b.a.mongo.embedded.EmbeddedMongo     : 2018-03-07T09:07:16.817+0000 I NETWORK  [conn1] removing socket file: /tmp/mongodb-45297.sock
+2018-03-07 09:07:16.856  INFO 2471 --- [      Thread-41] o.s.b.a.mongo.embedded.EmbeddedMongo     : 2018-03-07T09:07:16.817+0000 I NETWORK  [conn1] shutdown: going to flush diaglog...
+2018-03-07 09:07:16.856  INFO 2471 --- [      Thread-41] o.s.b.a.mongo.embedded.EmbeddedMongo     : 2018-03-07T09:07:16.817+0000 I NETWORK  [conn1] shutdown: going to close sockets...
+2018-03-07 09:07:16.856  INFO 2471 --- [      Thread-41] o.s.b.a.mongo.embedded.EmbeddedMongo     : 2018-03-07T09:07:16.817+0000 I STORAGE  [conn1] WiredTigerKVEngine shutting down
+2018-03-07 09:07:16.856  INFO 2471 --- [      Thread-41] o.s.b.a.mongo.embedded.EmbeddedMongo     : 2018-03-07T09:07:16.842+0000 I STORAGE  [conn1] shutdown: removing fs lock...
+2018-03-07 09:07:16.856  INFO 2471 --- [      Thread-41] o.s.b.a.mongo.embedded.EmbeddedMongo     : 2018-03-07T09:07:16.842+0000 I CONTROL  [conn1] dbexit:  rc: 0
+2018-03-07 09:07:16.819  INFO 2471 --- [      Thread-15] o.s.b.a.mongo.embedded.EmbeddedMongo     : 2018-03-07T09:07:16.819+0000 I STORAGE  [conn1] shutdown: removing fs lock...
+2018-03-07 09:07:16.856  INFO 2471 --- [      Thread-15] o.s.b.a.mongo.embedded.EmbeddedMongo     : 2018-03-07T09:07:16.819+0000 I CONTROL  [conn1] dbexit:  rc: 0
+2018-03-07 09:07:16.857  INFO 2471 --- [      Thread-29] o.s.b.a.mongo.embedded.EmbeddedMongo     : 2018-03-07T09:07:16.857+0000 I STORAGE  [conn1] shutdown: removing fs lock...
+2018-03-07 09:07:16.857  INFO 2471 --- [      Thread-29] o.s.b.a.mongo.embedded.EmbeddedMongo     : 2018-03-07T09:07:16.857+0000 I CONTROL  [conn1] dbexit:  rc: 0
+2018-03-07 09:07:16.860  INFO 2471 --- [      Thread-43] o.s.c.support.DefaultLifecycleProcessor  : Stopping beans in phase 2147483647
+2018-03-07 09:07:16.860  INFO 2471 --- [      Thread-17] o.s.c.support.DefaultLifecycleProcessor  : Stopping beans in phase 2147483647
+2018-03-07 09:07:16.864  INFO 2471 --- [      Thread-24] o.s.c.support.DefaultLifecycleProcessor  : Stopping beans in phase 2147483647
+2018-03-07 09:07:16.865  INFO 2471 --- [      Thread-37] o.s.c.support.DefaultLifecycleProcessor  : Stopping beans in phase 2147483647
+2018-03-07 09:07:16.867  INFO 2471 --- [      Thread-31] o.s.c.support.DefaultLifecycleProcessor  : Stopping beans in phase 2147483647
+2018-03-07 09:07:16.921  WARN 2471 --- [       Thread-7] d.f.e.p.store.CachingArtifactStore       : Already removed de.flapdoodle.embed.process.extract.ImmutableExtractedFileSet@2430ea80 for Version{2.6.1}:Linux:B64, emergency shutdown?
 :jacocoTestReport SKIPPED
 
 BUILD SUCCESSFUL
 
-Total time: 30.944 secs
+Total time: 31.526 secs
 
 This build could be faster, please consider using the Gradle Daemon: http://gradle.org/docs/2.5/userguide/gradle_daemon.html
 ********* BUILD START *********
@@ -559,82 +429,82 @@ com.itt.test.kmt.services.UserServiceTests > getUserByID PASSED
 com.itt.test.kmt.services.UserServiceTests > changeUserStatus STARTED
 
 com.itt.test.kmt.services.UserServiceTests > changeUserStatus PASSED
-2018-03-07 06:03:41.256  INFO 3210 --- [      Thread-32] o.s.w.c.s.GenericWebApplicationContext   : Closing org.springframework.web.context.support.GenericWebApplicationContext@2e4349ed: startup date [Wed Mar 07 06:03:35 UTC 2018]; root of context hierarchy
-2018-03-07 06:03:41.261  INFO 3210 --- [      Thread-44] o.s.w.c.s.GenericWebApplicationContext   : Closing org.springframework.web.context.support.GenericWebApplicationContext@3b655a64: startup date [Wed Mar 07 06:03:39 UTC 2018]; root of context hierarchy
-2018-03-07 06:03:41.258  INFO 3210 --- [      Thread-38] o.s.w.c.s.GenericWebApplicationContext   : Closing org.springframework.web.context.support.GenericWebApplicationContext@63d5bc35: startup date [Wed Mar 07 06:03:37 UTC 2018]; root of context hierarchy
-2018-03-07 06:03:41.289  INFO 3210 --- [      Thread-18] o.s.w.c.s.GenericWebApplicationContext   : Closing org.springframework.web.context.support.GenericWebApplicationContext@65e61cfc: startup date [Wed Mar 07 06:03:22 UTC 2018]; root of context hierarchy
-2018-03-07 06:03:41.291  INFO 3210 --- [      Thread-30] o.s.b.a.mongo.embedded.EmbeddedMongo     : 2018-03-07T06:03:41.290+0000 I NETWORK  [initandlisten] connection accepted from 127.0.0.1:48352 #1 (1 connection now open)
-2018-03-07 06:03:41.291  INFO 3210 --- [      Thread-16] o.s.b.a.mongo.embedded.EmbeddedMongo     : 2018-03-07T06:03:41.291+0000 I NETWORK  [initandlisten] connection accepted from 127.0.0.1:46232 #1 (1 connection now open)
-2018-03-07 06:03:41.292  INFO 3210 --- [      Thread-23] o.s.b.a.mongo.embedded.EmbeddedMongo     : 2018-03-07T06:03:41.292+0000 I NETWORK  [initandlisten] connection accepted from 127.0.0.1:57492 #1 (1 connection now open)
-2018-03-07 06:03:41.292  INFO 3210 --- [      Thread-36] o.s.b.a.mongo.embedded.EmbeddedMongo     : 2018-03-07T06:03:41.292+0000 I NETWORK  [initandlisten] connection accepted from 127.0.0.1:48884 #1 (1 connection now open)
-2018-03-07 06:03:41.300  INFO 3210 --- [      Thread-18] o.s.c.support.DefaultLifecycleProcessor  : Stopping beans in phase 2147483647
-2018-03-07 06:03:41.301  INFO 3210 --- [      Thread-44] o.s.c.support.DefaultLifecycleProcessor  : Stopping beans in phase 2147483647
-2018-03-07 06:03:41.301  INFO 3210 --- [      Thread-38] o.s.c.support.DefaultLifecycleProcessor  : Stopping beans in phase 2147483647
-2018-03-07 06:03:41.302  INFO 3210 --- [      Thread-23] o.s.b.a.mongo.embedded.EmbeddedMongo     : 2018-03-07T06:03:41.301+0000 I COMMAND  [conn1] terminating, shutdown command received
-2018-03-07 06:03:41.302  INFO 3210 --- [      Thread-23] o.s.b.a.mongo.embedded.EmbeddedMongo     : 2018-03-07T06:03:41.301+0000 I FTDC     [conn1] Shutting down full-time diagnostic data capture
-2018-03-07 06:03:41.302  INFO 3210 --- [      Thread-36] o.s.b.a.mongo.embedded.EmbeddedMongo     : 2018-03-07T06:03:41.302+0000 I COMMAND  [conn1] terminating, shutdown command received
-2018-03-07 06:03:41.302  INFO 3210 --- [      Thread-36] o.s.b.a.mongo.embedded.EmbeddedMongo     : 2018-03-07T06:03:41.302+0000 I FTDC     [conn1] Shutting down full-time diagnostic data capture
-2018-03-07 06:03:41.303  INFO 3210 --- [      Thread-23] o.s.b.a.mongo.embedded.EmbeddedMongo     : 2018-03-07T06:03:41.303+0000 I CONTROL  [conn1] now exiting
-2018-03-07 06:03:41.304  INFO 3210 --- [      Thread-23] o.s.b.a.mongo.embedded.EmbeddedMongo     : 2018-03-07T06:03:41.303+0000 I NETWORK  [conn1] shutdown: going to close listening sockets...
-2018-03-07 06:03:41.304  INFO 3210 --- [      Thread-23] o.s.b.a.mongo.embedded.EmbeddedMongo     : 2018-03-07T06:03:41.303+0000 I NETWORK  [conn1] closing listening socket: 5
-2018-03-07 06:03:41.304  INFO 3210 --- [      Thread-23] o.s.b.a.mongo.embedded.EmbeddedMongo     : 2018-03-07T06:03:41.303+0000 I NETWORK  [conn1] closing listening socket: 6
-2018-03-07 06:03:41.304  INFO 3210 --- [      Thread-23] o.s.b.a.mongo.embedded.EmbeddedMongo     : 2018-03-07T06:03:41.303+0000 I NETWORK  [conn1] removing socket file: /tmp/mongodb-42401.sock
-2018-03-07 06:03:41.304  INFO 3210 --- [      Thread-23] o.s.b.a.mongo.embedded.EmbeddedMongo     : 2018-03-07T06:03:41.303+0000 I NETWORK  [conn1] shutdown: going to flush diaglog...
-2018-03-07 06:03:41.304  INFO 3210 --- [      Thread-23] o.s.b.a.mongo.embedded.EmbeddedMongo     : 2018-03-07T06:03:41.303+0000 I NETWORK  [conn1] shutdown: going to close sockets...
-2018-03-07 06:03:41.304  INFO 3210 --- [      Thread-23] o.s.b.a.mongo.embedded.EmbeddedMongo     : 2018-03-07T06:03:41.303+0000 I STORAGE  [conn1] WiredTigerKVEngine shutting down
-2018-03-07 06:03:41.305  INFO 3210 --- [      Thread-30] o.s.b.a.mongo.embedded.EmbeddedMongo     : 2018-03-07T06:03:41.305+0000 I COMMAND  [conn1] terminating, shutdown command received
-2018-03-07 06:03:41.305  INFO 3210 --- [      Thread-30] o.s.b.a.mongo.embedded.EmbeddedMongo     : 2018-03-07T06:03:41.305+0000 I FTDC     [conn1] Shutting down full-time diagnostic data capture
-2018-03-07 06:03:41.306  INFO 3210 --- [      Thread-30] o.s.b.a.mongo.embedded.EmbeddedMongo     : 2018-03-07T06:03:41.306+0000 I CONTROL  [conn1] now exiting
-2018-03-07 06:03:41.307  INFO 3210 --- [      Thread-30] o.s.b.a.mongo.embedded.EmbeddedMongo     : 2018-03-07T06:03:41.306+0000 I NETWORK  [conn1] shutdown: going to close listening sockets...
-2018-03-07 06:03:41.307  INFO 3210 --- [      Thread-30] o.s.b.a.mongo.embedded.EmbeddedMongo     : 2018-03-07T06:03:41.307+0000 I NETWORK  [conn1] closing listening socket: 5
-2018-03-07 06:03:41.307  INFO 3210 --- [      Thread-30] o.s.b.a.mongo.embedded.EmbeddedMongo     : 2018-03-07T06:03:41.307+0000 I NETWORK  [conn1] closing listening socket: 6
-2018-03-07 06:03:41.307  INFO 3210 --- [      Thread-30] o.s.b.a.mongo.embedded.EmbeddedMongo     : 2018-03-07T06:03:41.307+0000 I NETWORK  [conn1] removing socket file: /tmp/mongodb-43328.sock
-2018-03-07 06:03:41.308  INFO 3210 --- [      Thread-30] o.s.b.a.mongo.embedded.EmbeddedMongo     : 2018-03-07T06:03:41.307+0000 I NETWORK  [conn1] shutdown: going to flush diaglog...
-2018-03-07 06:03:41.308  INFO 3210 --- [      Thread-30] o.s.b.a.mongo.embedded.EmbeddedMongo     : 2018-03-07T06:03:41.308+0000 I NETWORK  [conn1] shutdown: going to close sockets...
-2018-03-07 06:03:41.308  INFO 3210 --- [      Thread-30] o.s.b.a.mongo.embedded.EmbeddedMongo     : 2018-03-07T06:03:41.308+0000 I STORAGE  [conn1] WiredTigerKVEngine shutting down
-2018-03-07 06:03:41.316  INFO 3210 --- [      Thread-16] o.s.b.a.mongo.embedded.EmbeddedMongo     : 2018-03-07T06:03:41.300+0000 I COMMAND  [conn1] terminating, shutdown command received
-2018-03-07 06:03:41.316  INFO 3210 --- [      Thread-16] o.s.b.a.mongo.embedded.EmbeddedMongo     : 2018-03-07T06:03:41.300+0000 I FTDC     [conn1] Shutting down full-time diagnostic data capture
-2018-03-07 06:03:41.316  INFO 3210 --- [      Thread-16] o.s.b.a.mongo.embedded.EmbeddedMongo     : 2018-03-07T06:03:41.305+0000 I CONTROL  [conn1] now exiting
-2018-03-07 06:03:41.316  INFO 3210 --- [      Thread-16] o.s.b.a.mongo.embedded.EmbeddedMongo     : 2018-03-07T06:03:41.305+0000 I NETWORK  [conn1] shutdown: going to close listening sockets...
-2018-03-07 06:03:41.317  INFO 3210 --- [      Thread-16] o.s.b.a.mongo.embedded.EmbeddedMongo     : 2018-03-07T06:03:41.305+0000 I NETWORK  [conn1] closing listening socket: 5
-2018-03-07 06:03:41.317  INFO 3210 --- [      Thread-16] o.s.b.a.mongo.embedded.EmbeddedMongo     : 2018-03-07T06:03:41.305+0000 I NETWORK  [conn1] closing listening socket: 6
-2018-03-07 06:03:41.317  INFO 3210 --- [      Thread-16] o.s.b.a.mongo.embedded.EmbeddedMongo     : 2018-03-07T06:03:41.305+0000 I NETWORK  [conn1] removing socket file: /tmp/mongodb-40043.sock
-2018-03-07 06:03:41.317  INFO 3210 --- [      Thread-16] o.s.b.a.mongo.embedded.EmbeddedMongo     : 2018-03-07T06:03:41.305+0000 I NETWORK  [conn1] shutdown: going to flush diaglog...
-2018-03-07 06:03:41.317  INFO 3210 --- [      Thread-16] o.s.b.a.mongo.embedded.EmbeddedMongo     : 2018-03-07T06:03:41.305+0000 I NETWORK  [conn1] shutdown: going to close sockets...
-2018-03-07 06:03:41.317  INFO 3210 --- [      Thread-16] o.s.b.a.mongo.embedded.EmbeddedMongo     : 2018-03-07T06:03:41.305+0000 I STORAGE  [conn1] WiredTigerKVEngine shutting down
-2018-03-07 06:03:41.317  INFO 3210 --- [      Thread-32] o.s.c.support.DefaultLifecycleProcessor  : Stopping beans in phase 2147483647
-2018-03-07 06:03:41.291  INFO 3210 --- [      Thread-25] o.s.w.c.s.GenericWebApplicationContext   : Closing org.springframework.web.context.support.GenericWebApplicationContext@599b4a01: startup date [Wed Mar 07 06:03:32 UTC 2018]; root of context hierarchy
-2018-03-07 06:03:41.336  INFO 3210 --- [      Thread-16] o.s.b.a.mongo.embedded.EmbeddedMongo     : 2018-03-07T06:03:41.336+0000 I STORAGE  [conn1] shutdown: removing fs lock...
-2018-03-07 06:03:41.337  INFO 3210 --- [      Thread-16] o.s.b.a.mongo.embedded.EmbeddedMongo     : 2018-03-07T06:03:41.337+0000 I CONTROL  [conn1] dbexit:  rc: 0
-2018-03-07 06:03:41.293  INFO 3210 --- [      Thread-42] o.s.b.a.mongo.embedded.EmbeddedMongo     : 2018-03-07T06:03:41.293+0000 I NETWORK  [initandlisten] connection accepted from 127.0.0.1:50322 #1 (1 connection now open)
-2018-03-07 06:03:41.305  INFO 3210 --- [      Thread-36] o.s.b.a.mongo.embedded.EmbeddedMongo     : 2018-03-07T06:03:41.304+0000 I CONTROL  [conn1] now exiting
-2018-03-07 06:03:41.341  INFO 3210 --- [      Thread-36] o.s.b.a.mongo.embedded.EmbeddedMongo     : 2018-03-07T06:03:41.304+0000 I NETWORK  [conn1] shutdown: going to close listening sockets...
-2018-03-07 06:03:41.341  INFO 3210 --- [      Thread-36] o.s.b.a.mongo.embedded.EmbeddedMongo     : 2018-03-07T06:03:41.304+0000 I NETWORK  [conn1] closing listening socket: 5
-2018-03-07 06:03:41.349  INFO 3210 --- [      Thread-30] o.s.b.a.mongo.embedded.EmbeddedMongo     : 2018-03-07T06:03:41.348+0000 I STORAGE  [conn1] shutdown: removing fs lock...
-2018-03-07 06:03:41.350  INFO 3210 --- [      Thread-30] o.s.b.a.mongo.embedded.EmbeddedMongo     : 2018-03-07T06:03:41.349+0000 I CONTROL  [conn1] dbexit:  rc: 0
-2018-03-07 06:03:41.341  INFO 3210 --- [      Thread-36] o.s.b.a.mongo.embedded.EmbeddedMongo     : 2018-03-07T06:03:41.304+0000 I NETWORK  [conn1] closing listening socket: 6
-2018-03-07 06:03:41.352  INFO 3210 --- [      Thread-36] o.s.b.a.mongo.embedded.EmbeddedMongo     : 2018-03-07T06:03:41.304+0000 I NETWORK  [conn1] removing socket file: /tmp/mongodb-43542.sock
-2018-03-07 06:03:41.352  INFO 3210 --- [      Thread-36] o.s.b.a.mongo.embedded.EmbeddedMongo     : 2018-03-07T06:03:41.304+0000 I NETWORK  [conn1] shutdown: going to flush diaglog...
-2018-03-07 06:03:41.353  INFO 3210 --- [      Thread-36] o.s.b.a.mongo.embedded.EmbeddedMongo     : 2018-03-07T06:03:41.304+0000 I NETWORK  [conn1] shutdown: going to close sockets...
-2018-03-07 06:03:41.353  INFO 3210 --- [      Thread-36] o.s.b.a.mongo.embedded.EmbeddedMongo     : 2018-03-07T06:03:41.304+0000 I STORAGE  [conn1] WiredTigerKVEngine shutting down
-2018-03-07 06:03:41.356  INFO 3210 --- [      Thread-23] o.s.b.a.mongo.embedded.EmbeddedMongo     : 2018-03-07T06:03:41.354+0000 I STORAGE  [conn1] shutdown: removing fs lock...
-2018-03-07 06:03:41.356  INFO 3210 --- [      Thread-23] o.s.b.a.mongo.embedded.EmbeddedMongo     : 2018-03-07T06:03:41.354+0000 I CONTROL  [conn1] dbexit:  rc: 0
-2018-03-07 06:03:41.357  INFO 3210 --- [      Thread-42] o.s.b.a.mongo.embedded.EmbeddedMongo     : 2018-03-07T06:03:41.304+0000 I COMMAND  [conn1] terminating, shutdown command received
-2018-03-07 06:03:41.357  INFO 3210 --- [      Thread-42] o.s.b.a.mongo.embedded.EmbeddedMongo     : 2018-03-07T06:03:41.304+0000 I FTDC     [conn1] Shutting down full-time diagnostic data capture
-2018-03-07 06:03:41.357  INFO 3210 --- [      Thread-42] o.s.b.a.mongo.embedded.EmbeddedMongo     : 2018-03-07T06:03:41.322+0000 I CONTROL  [conn1] now exiting
-2018-03-07 06:03:41.357  INFO 3210 --- [      Thread-42] o.s.b.a.mongo.embedded.EmbeddedMongo     : 2018-03-07T06:03:41.322+0000 I NETWORK  [conn1] shutdown: going to close listening sockets...
-2018-03-07 06:03:41.357  INFO 3210 --- [      Thread-42] o.s.b.a.mongo.embedded.EmbeddedMongo     : 2018-03-07T06:03:41.322+0000 I NETWORK  [conn1] closing listening socket: 5
-2018-03-07 06:03:41.357  INFO 3210 --- [      Thread-42] o.s.b.a.mongo.embedded.EmbeddedMongo     : 2018-03-07T06:03:41.322+0000 I NETWORK  [conn1] closing listening socket: 6
-2018-03-07 06:03:41.358  INFO 3210 --- [      Thread-42] o.s.b.a.mongo.embedded.EmbeddedMongo     : 2018-03-07T06:03:41.322+0000 I NETWORK  [conn1] removing socket file: /tmp/mongodb-41173.sock
-2018-03-07 06:03:41.358  INFO 3210 --- [      Thread-42] o.s.b.a.mongo.embedded.EmbeddedMongo     : 2018-03-07T06:03:41.325+0000 I NETWORK  [conn1] shutdown: going to flush diaglog...
-2018-03-07 06:03:41.358  INFO 3210 --- [      Thread-42] o.s.b.a.mongo.embedded.EmbeddedMongo     : 2018-03-07T06:03:41.325+0000 I NETWORK  [conn1] shutdown: going to close sockets...
-2018-03-07 06:03:41.358  INFO 3210 --- [      Thread-42] o.s.b.a.mongo.embedded.EmbeddedMongo     : 2018-03-07T06:03:41.325+0000 I STORAGE  [conn1] WiredTigerKVEngine shutting down
-2018-03-07 06:03:41.358  INFO 3210 --- [      Thread-42] o.s.b.a.mongo.embedded.EmbeddedMongo     : 2018-03-07T06:03:41.353+0000 I STORAGE  [conn1] shutdown: removing fs lock...
-2018-03-07 06:03:41.358  INFO 3210 --- [      Thread-42] o.s.b.a.mongo.embedded.EmbeddedMongo     : 2018-03-07T06:03:41.353+0000 I CONTROL  [conn1] dbexit:  rc: 0
-2018-03-07 06:03:41.360  INFO 3210 --- [      Thread-25] o.s.c.support.DefaultLifecycleProcessor  : Stopping beans in phase 2147483647
-2018-03-07 06:03:41.370  INFO 3210 --- [      Thread-36] o.s.b.a.mongo.embedded.EmbeddedMongo     : 2018-03-07T06:03:41.370+0000 I STORAGE  [conn1] shutdown: removing fs lock...
-2018-03-07 06:03:41.370  INFO 3210 --- [      Thread-36] o.s.b.a.mongo.embedded.EmbeddedMongo     : 2018-03-07T06:03:41.370+0000 I CONTROL  [conn1] dbexit:  rc: 0
-2018-03-07 06:03:41.500  WARN 3210 --- [       Thread-7] d.f.e.p.store.CachingArtifactStore       : Already removed de.flapdoodle.embed.process.extract.ImmutableExtractedFileSet@17f9dc30 for Version{2.6.1}:Linux:B64, emergency shutdown?
+2018-03-07 09:07:55.443  INFO 2681 --- [      Thread-18] o.s.w.c.s.GenericWebApplicationContext   : Closing org.springframework.web.context.support.GenericWebApplicationContext@43f22e4: startup date [Wed Mar 07 09:07:36 UTC 2018]; root of context hierarchy
+2018-03-07 09:07:55.447  INFO 2681 --- [      Thread-30] o.s.b.a.mongo.embedded.EmbeddedMongo     : 2018-03-07T09:07:55.447+0000 I NETWORK  [initandlisten] connection accepted from 127.0.0.1:35292 #1 (1 connection now open)
+2018-03-07 09:07:55.449  INFO 2681 --- [      Thread-18] o.s.c.support.DefaultLifecycleProcessor  : Stopping beans in phase 2147483647
+2018-03-07 09:07:55.451  INFO 2681 --- [      Thread-30] o.s.b.a.mongo.embedded.EmbeddedMongo     : 2018-03-07T09:07:55.451+0000 I COMMAND  [conn1] terminating, shutdown command received
+2018-03-07 09:07:55.452  INFO 2681 --- [      Thread-30] o.s.b.a.mongo.embedded.EmbeddedMongo     : 2018-03-07T09:07:55.451+0000 I FTDC     [conn1] Shutting down full-time diagnostic data capture
+2018-03-07 09:07:55.452  INFO 2681 --- [      Thread-16] o.s.b.a.mongo.embedded.EmbeddedMongo     : 2018-03-07T09:07:55.452+0000 I NETWORK  [initandlisten] connection accepted from 127.0.0.1:48644 #1 (1 connection now open)
+2018-03-07 09:07:55.453  INFO 2681 --- [      Thread-30] o.s.b.a.mongo.embedded.EmbeddedMongo     : 2018-03-07T09:07:55.453+0000 I CONTROL  [conn1] now exiting
+2018-03-07 09:07:55.453  INFO 2681 --- [      Thread-30] o.s.b.a.mongo.embedded.EmbeddedMongo     : 2018-03-07T09:07:55.453+0000 I NETWORK  [conn1] shutdown: going to close listening sockets...
+2018-03-07 09:07:55.455  INFO 2681 --- [      Thread-38] o.s.w.c.s.GenericWebApplicationContext   : Closing org.springframework.web.context.support.GenericWebApplicationContext@33ff3a92: startup date [Wed Mar 07 09:07:51 UTC 2018]; root of context hierarchy
+2018-03-07 09:07:55.455  INFO 2681 --- [      Thread-42] o.s.b.a.mongo.embedded.EmbeddedMongo     : 2018-03-07T09:07:55.455+0000 I NETWORK  [initandlisten] connection accepted from 127.0.0.1:32902 #1 (1 connection now open)
+2018-03-07 09:07:55.455  INFO 2681 --- [      Thread-25] o.s.w.c.s.GenericWebApplicationContext   : Closing org.springframework.web.context.support.GenericWebApplicationContext@6ae2813d: startup date [Wed Mar 07 09:07:46 UTC 2018]; root of context hierarchy
+2018-03-07 09:07:55.456  INFO 2681 --- [      Thread-44] o.s.w.c.s.GenericWebApplicationContext   : Closing org.springframework.web.context.support.GenericWebApplicationContext@77e7f115: startup date [Wed Mar 07 09:07:53 UTC 2018]; root of context hierarchy
+2018-03-07 09:07:55.458  INFO 2681 --- [      Thread-32] o.s.w.c.s.GenericWebApplicationContext   : Closing org.springframework.web.context.support.GenericWebApplicationContext@9768998: startup date [Wed Mar 07 09:07:49 UTC 2018]; root of context hierarchy
+2018-03-07 09:07:55.459  INFO 2681 --- [      Thread-36] o.s.b.a.mongo.embedded.EmbeddedMongo     : 2018-03-07T09:07:55.458+0000 I NETWORK  [initandlisten] connection accepted from 127.0.0.1:59520 #1 (1 connection now open)
+2018-03-07 09:07:55.460  INFO 2681 --- [      Thread-36] o.s.b.a.mongo.embedded.EmbeddedMongo     : 2018-03-07T09:07:55.459+0000 I COMMAND  [conn1] terminating, shutdown command received
+2018-03-07 09:07:55.460  INFO 2681 --- [      Thread-36] o.s.b.a.mongo.embedded.EmbeddedMongo     : 2018-03-07T09:07:55.459+0000 I FTDC     [conn1] Shutting down full-time diagnostic data capture
+2018-03-07 09:07:55.461  INFO 2681 --- [      Thread-36] o.s.b.a.mongo.embedded.EmbeddedMongo     : 2018-03-07T09:07:55.460+0000 I CONTROL  [conn1] now exiting
+2018-03-07 09:07:55.461  INFO 2681 --- [      Thread-36] o.s.b.a.mongo.embedded.EmbeddedMongo     : 2018-03-07T09:07:55.460+0000 I NETWORK  [conn1] shutdown: going to close listening sockets...
+2018-03-07 09:07:55.461  INFO 2681 --- [      Thread-36] o.s.b.a.mongo.embedded.EmbeddedMongo     : 2018-03-07T09:07:55.460+0000 I NETWORK  [conn1] closing listening socket: 5
+2018-03-07 09:07:55.461  INFO 2681 --- [      Thread-36] o.s.b.a.mongo.embedded.EmbeddedMongo     : 2018-03-07T09:07:55.460+0000 I NETWORK  [conn1] closing listening socket: 6
+2018-03-07 09:07:55.461  INFO 2681 --- [      Thread-36] o.s.b.a.mongo.embedded.EmbeddedMongo     : 2018-03-07T09:07:55.460+0000 I NETWORK  [conn1] removing socket file: /tmp/mongodb-36866.sock
+2018-03-07 09:07:55.462  INFO 2681 --- [      Thread-36] o.s.b.a.mongo.embedded.EmbeddedMongo     : 2018-03-07T09:07:55.462+0000 I NETWORK  [conn1] shutdown: going to flush diaglog...
+2018-03-07 09:07:55.462  INFO 2681 --- [      Thread-36] o.s.b.a.mongo.embedded.EmbeddedMongo     : 2018-03-07T09:07:55.462+0000 I NETWORK  [conn1] shutdown: going to close sockets...
+2018-03-07 09:07:55.462  INFO 2681 --- [      Thread-36] o.s.b.a.mongo.embedded.EmbeddedMongo     : 2018-03-07T09:07:55.462+0000 I STORAGE  [conn1] WiredTigerKVEngine shutting down
+2018-03-07 09:07:55.466  INFO 2681 --- [      Thread-42] o.s.b.a.mongo.embedded.EmbeddedMongo     : 2018-03-07T09:07:55.466+0000 I COMMAND  [conn1] terminating, shutdown command received
+2018-03-07 09:07:55.467  INFO 2681 --- [      Thread-42] o.s.b.a.mongo.embedded.EmbeddedMongo     : 2018-03-07T09:07:55.467+0000 I FTDC     [conn1] Shutting down full-time diagnostic data capture
+2018-03-07 09:07:55.467  INFO 2681 --- [      Thread-42] o.s.b.a.mongo.embedded.EmbeddedMongo     : 2018-03-07T09:07:55.467+0000 I CONTROL  [conn1] now exiting
+2018-03-07 09:07:55.468  INFO 2681 --- [      Thread-42] o.s.b.a.mongo.embedded.EmbeddedMongo     : 2018-03-07T09:07:55.468+0000 I NETWORK  [conn1] shutdown: going to close listening sockets...
+2018-03-07 09:07:55.468  INFO 2681 --- [      Thread-42] o.s.b.a.mongo.embedded.EmbeddedMongo     : 2018-03-07T09:07:55.468+0000 I NETWORK  [conn1] closing listening socket: 5
+2018-03-07 09:07:55.468  INFO 2681 --- [      Thread-42] o.s.b.a.mongo.embedded.EmbeddedMongo     : 2018-03-07T09:07:55.468+0000 I NETWORK  [conn1] closing listening socket: 6
+2018-03-07 09:07:55.469  INFO 2681 --- [      Thread-42] o.s.b.a.mongo.embedded.EmbeddedMongo     : 2018-03-07T09:07:55.469+0000 I NETWORK  [conn1] removing socket file: /tmp/mongodb-45526.sock
+2018-03-07 09:07:55.470  INFO 2681 --- [      Thread-42] o.s.b.a.mongo.embedded.EmbeddedMongo     : 2018-03-07T09:07:55.470+0000 I NETWORK  [conn1] shutdown: going to flush diaglog...
+2018-03-07 09:07:55.471  INFO 2681 --- [      Thread-23] o.s.b.a.mongo.embedded.EmbeddedMongo     : 2018-03-07T09:07:55.471+0000 I NETWORK  [initandlisten] connection accepted from 127.0.0.1:47454 #1 (1 connection now open)
+2018-03-07 09:07:55.473  INFO 2681 --- [      Thread-23] o.s.b.a.mongo.embedded.EmbeddedMongo     : 2018-03-07T09:07:55.473+0000 I COMMAND  [conn1] terminating, shutdown command received
+2018-03-07 09:07:55.473  INFO 2681 --- [      Thread-23] o.s.b.a.mongo.embedded.EmbeddedMongo     : 2018-03-07T09:07:55.473+0000 I FTDC     [conn1] Shutting down full-time diagnostic data capture
+2018-03-07 09:07:55.473  INFO 2681 --- [      Thread-42] o.s.b.a.mongo.embedded.EmbeddedMongo     : 2018-03-07T09:07:55.472+0000 I NETWORK  [conn1] shutdown: going to close sockets...
+2018-03-07 09:07:55.473  INFO 2681 --- [      Thread-42] o.s.b.a.mongo.embedded.EmbeddedMongo     : 2018-03-07T09:07:55.472+0000 I STORAGE  [conn1] WiredTigerKVEngine shutting down
+2018-03-07 09:07:55.474  INFO 2681 --- [      Thread-23] o.s.b.a.mongo.embedded.EmbeddedMongo     : 2018-03-07T09:07:55.474+0000 I CONTROL  [conn1] now exiting
+2018-03-07 09:07:55.474  INFO 2681 --- [      Thread-23] o.s.b.a.mongo.embedded.EmbeddedMongo     : 2018-03-07T09:07:55.474+0000 I NETWORK  [conn1] shutdown: going to close listening sockets...
+2018-03-07 09:07:55.474  INFO 2681 --- [      Thread-23] o.s.b.a.mongo.embedded.EmbeddedMongo     : 2018-03-07T09:07:55.474+0000 I NETWORK  [conn1] closing listening socket: 5
+2018-03-07 09:07:55.475  INFO 2681 --- [      Thread-23] o.s.b.a.mongo.embedded.EmbeddedMongo     : 2018-03-07T09:07:55.474+0000 I NETWORK  [conn1] closing listening socket: 6
+2018-03-07 09:07:55.475  INFO 2681 --- [      Thread-23] o.s.b.a.mongo.embedded.EmbeddedMongo     : 2018-03-07T09:07:55.474+0000 I NETWORK  [conn1] removing socket file: /tmp/mongodb-36370.sock
+2018-03-07 09:07:55.475  INFO 2681 --- [      Thread-23] o.s.b.a.mongo.embedded.EmbeddedMongo     : 2018-03-07T09:07:55.474+0000 I NETWORK  [conn1] shutdown: going to flush diaglog...
+2018-03-07 09:07:55.475  INFO 2681 --- [      Thread-23] o.s.b.a.mongo.embedded.EmbeddedMongo     : 2018-03-07T09:07:55.474+0000 I NETWORK  [conn1] shutdown: going to close sockets...
+2018-03-07 09:07:55.475  INFO 2681 --- [      Thread-23] o.s.b.a.mongo.embedded.EmbeddedMongo     : 2018-03-07T09:07:55.474+0000 I STORAGE  [conn1] WiredTigerKVEngine shutting down
+2018-03-07 09:07:55.477  INFO 2681 --- [      Thread-30] o.s.b.a.mongo.embedded.EmbeddedMongo     : 2018-03-07T09:07:55.453+0000 I NETWORK  [conn1] closing listening socket: 5
+2018-03-07 09:07:55.477  INFO 2681 --- [      Thread-30] o.s.b.a.mongo.embedded.EmbeddedMongo     : 2018-03-07T09:07:55.453+0000 I NETWORK  [conn1] closing listening socket: 6
+2018-03-07 09:07:55.477  INFO 2681 --- [      Thread-30] o.s.b.a.mongo.embedded.EmbeddedMongo     : 2018-03-07T09:07:55.453+0000 I NETWORK  [conn1] removing socket file: /tmp/mongodb-38854.sock
+2018-03-07 09:07:55.477  INFO 2681 --- [      Thread-30] o.s.b.a.mongo.embedded.EmbeddedMongo     : 2018-03-07T09:07:55.453+0000 I NETWORK  [conn1] shutdown: going to flush diaglog...
+2018-03-07 09:07:55.477  INFO 2681 --- [      Thread-30] o.s.b.a.mongo.embedded.EmbeddedMongo     : 2018-03-07T09:07:55.453+0000 I NETWORK  [conn1] shutdown: going to close sockets...
+2018-03-07 09:07:55.477  INFO 2681 --- [      Thread-30] o.s.b.a.mongo.embedded.EmbeddedMongo     : 2018-03-07T09:07:55.453+0000 I STORAGE  [conn1] WiredTigerKVEngine shutting down
+2018-03-07 09:07:55.477  INFO 2681 --- [      Thread-30] o.s.b.a.mongo.embedded.EmbeddedMongo     : 2018-03-07T09:07:55.471+0000 I STORAGE  [conn1] shutdown: removing fs lock...
+2018-03-07 09:07:55.477  INFO 2681 --- [      Thread-30] o.s.b.a.mongo.embedded.EmbeddedMongo     : 2018-03-07T09:07:55.471+0000 I CONTROL  [conn1] dbexit:  rc: 0
+2018-03-07 09:07:55.453  INFO 2681 --- [      Thread-16] o.s.b.a.mongo.embedded.EmbeddedMongo     : 2018-03-07T09:07:55.453+0000 I COMMAND  [conn1] terminating, shutdown command received
+2018-03-07 09:07:55.478  INFO 2681 --- [      Thread-16] o.s.b.a.mongo.embedded.EmbeddedMongo     : 2018-03-07T09:07:55.453+0000 I FTDC     [conn1] Shutting down full-time diagnostic data capture
+2018-03-07 09:07:55.478  INFO 2681 --- [      Thread-16] o.s.b.a.mongo.embedded.EmbeddedMongo     : 2018-03-07T09:07:55.454+0000 I CONTROL  [conn1] now exiting
+2018-03-07 09:07:55.478  INFO 2681 --- [      Thread-16] o.s.b.a.mongo.embedded.EmbeddedMongo     : 2018-03-07T09:07:55.454+0000 I NETWORK  [conn1] shutdown: going to close listening sockets...
+2018-03-07 09:07:55.478  INFO 2681 --- [      Thread-16] o.s.b.a.mongo.embedded.EmbeddedMongo     : 2018-03-07T09:07:55.454+0000 I NETWORK  [conn1] closing listening socket: 5
+2018-03-07 09:07:55.478  INFO 2681 --- [      Thread-16] o.s.b.a.mongo.embedded.EmbeddedMongo     : 2018-03-07T09:07:55.454+0000 I NETWORK  [conn1] closing listening socket: 6
+2018-03-07 09:07:55.478  INFO 2681 --- [      Thread-16] o.s.b.a.mongo.embedded.EmbeddedMongo     : 2018-03-07T09:07:55.454+0000 I NETWORK  [conn1] removing socket file: /tmp/mongodb-43187.sock
+2018-03-07 09:07:55.478  INFO 2681 --- [      Thread-16] o.s.b.a.mongo.embedded.EmbeddedMongo     : 2018-03-07T09:07:55.454+0000 I NETWORK  [conn1] shutdown: going to flush diaglog...
+2018-03-07 09:07:55.478  INFO 2681 --- [      Thread-16] o.s.b.a.mongo.embedded.EmbeddedMongo     : 2018-03-07T09:07:55.454+0000 I NETWORK  [conn1] shutdown: going to close sockets...
+2018-03-07 09:07:55.479  INFO 2681 --- [      Thread-16] o.s.b.a.mongo.embedded.EmbeddedMongo     : 2018-03-07T09:07:55.454+0000 I STORAGE  [conn1] WiredTigerKVEngine shutting down
+2018-03-07 09:07:55.479  INFO 2681 --- [      Thread-16] o.s.b.a.mongo.embedded.EmbeddedMongo     : 2018-03-07T09:07:55.478+0000 I STORAGE  [conn1] shutdown: removing fs lock...
+2018-03-07 09:07:55.479  INFO 2681 --- [      Thread-16] o.s.b.a.mongo.embedded.EmbeddedMongo     : 2018-03-07T09:07:55.478+0000 I CONTROL  [conn1] dbexit:  rc: 0
+2018-03-07 09:07:55.495  INFO 2681 --- [      Thread-36] o.s.b.a.mongo.embedded.EmbeddedMongo     : 2018-03-07T09:07:55.495+0000 I STORAGE  [conn1] shutdown: removing fs lock...
+2018-03-07 09:07:55.497  INFO 2681 --- [      Thread-36] o.s.b.a.mongo.embedded.EmbeddedMongo     : 2018-03-07T09:07:55.495+0000 I CONTROL  [conn1] dbexit:  rc: 0
+2018-03-07 09:07:55.505  INFO 2681 --- [      Thread-42] o.s.b.a.mongo.embedded.EmbeddedMongo     : 2018-03-07T09:07:55.503+0000 I STORAGE  [conn1] shutdown: removing fs lock...
+2018-03-07 09:07:55.505  INFO 2681 --- [      Thread-42] o.s.b.a.mongo.embedded.EmbeddedMongo     : 2018-03-07T09:07:55.503+0000 I CONTROL  [conn1] dbexit:  rc: 0
+2018-03-07 09:07:55.508  INFO 2681 --- [      Thread-23] o.s.b.a.mongo.embedded.EmbeddedMongo     : 2018-03-07T09:07:55.505+0000 I STORAGE  [conn1] shutdown: removing fs lock...
+2018-03-07 09:07:55.508  INFO 2681 --- [      Thread-23] o.s.b.a.mongo.embedded.EmbeddedMongo     : 2018-03-07T09:07:55.505+0000 I CONTROL  [conn1] dbexit:  rc: 0
+2018-03-07 09:07:55.531  INFO 2681 --- [      Thread-38] o.s.c.support.DefaultLifecycleProcessor  : Stopping beans in phase 2147483647
+2018-03-07 09:07:55.532  INFO 2681 --- [      Thread-25] o.s.c.support.DefaultLifecycleProcessor  : Stopping beans in phase 2147483647
+2018-03-07 09:07:55.533  INFO 2681 --- [      Thread-44] o.s.c.support.DefaultLifecycleProcessor  : Stopping beans in phase 2147483647
+2018-03-07 09:07:55.534  INFO 2681 --- [      Thread-32] o.s.c.support.DefaultLifecycleProcessor  : Stopping beans in phase 2147483647
+2018-03-07 09:07:55.605  WARN 2681 --- [       Thread-7] d.f.e.p.store.CachingArtifactStore       : Already removed de.flapdoodle.embed.process.extract.ImmutableExtractedFileSet@5bc4e276 for Version{2.6.1}:Linux:B64, emergency shutdown?
 :jacocoTestReport
 :check
 :build
@@ -642,9 +512,9 @@ com.itt.test.kmt.services.UserServiceTests > changeUserStatus PASSED
 
 BUILD SUCCESSFUL
 
-Total time: 38.617 secs
+Total time: 38.632 secs
 
 This build could be faster, please consider using the Gradle Daemon: http://gradle.org/docs/2.5/userguide/gradle_daemon.html
-********* Deployig war file *********
+********* Deploying war file *********
 adpq-web
 Finished: SUCCESS

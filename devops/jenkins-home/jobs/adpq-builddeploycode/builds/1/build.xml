@@ -45,11 +45,11 @@
     </hudson.plugins.git.GitTagAction>
     <hudson.scm.SCMRevisionState_-None/>
   </actions>
-  <queueId>6</queueId>
-  <timestamp>1520402406460</timestamp>
-  <startTime>1520402406461</startTime>
+  <queueId>5</queueId>
+  <timestamp>1520413506308</timestamp>
+  <startTime>1520413506309</startTime>
   <result>SUCCESS</result>
-  <duration>229491</duration>
+  <duration>183397</duration>
   <charset>UTF-8</charset>
   <keepLog>false</keepLog>
   <builtOn></builtOn>
