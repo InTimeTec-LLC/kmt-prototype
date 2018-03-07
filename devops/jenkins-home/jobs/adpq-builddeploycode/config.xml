@@ -41,7 +41,7 @@ then
         #docker rm $isContainerRunning
         echo &quot;running web&quot;
         tomcatDeployLocation=$USERDIR&quot;/devops/tomcatDeployFiles&quot;
-        docker run -d --name adpq-web -p 8080:8080 -v $tomcatDeployLocation:/usr/local/tomcat/webapps/ yashittdocker/adpq-web:latest
+        docker run -d --name adpq-web -p 80:8080 -v $tomcatDeployLocation:/usr/local/tomcat/webapps/ yashittdocker/adpq-web:latest
 fi
 
 
@@ -58,7 +58,7 @@ fi
 
 echo &quot;********* FRONT-END BUILD START *********&quot;
 cd ${WORKSPACE}/client-src
-REDIRECT_URL=&quot;&apos;http://$HOSTIP:8080/api/&apos;,&quot;
+REDIRECT_URL=&quot;&apos;http://$HOSTIP:80/api/&apos;,&quot;
 echo $REDIRECT_URL
 sed -i &quot;s#API_ENDPOINT.*#API_ENDPOINT:$REDIRECT_URL#g&quot; src/environments/environment.prod.ts
 echo &quot;********* NPM INSTALLATION *********&quot;
