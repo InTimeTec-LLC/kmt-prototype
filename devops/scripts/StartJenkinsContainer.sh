@@ -35,18 +35,6 @@ then
 else
         echo '**********ZIP ALREADY INSTALLED************'
 fi
-lfsVersion=$(which git-lfs)
-if [[ "$lfsVersion" == "$emptyVariable" ]]
-then
-        sudo apt-get install software-properties-common
-        sudo add-apt-repository ppa:git-core/ppa
-        curl -s https://packagecloud.io/install/repositories/github/git-lfs/script.deb.sh | sudo bash
-        sudo apt-get install git-lfs
-        git lfs install
-else
-        echo '**********GIT LFS ALREADY INSTALLED************'
-fi
-
 
 #deleting jenkins home directory
 if [[ -d "/var/jenkins-home" ]]
@@ -54,27 +42,34 @@ then
         sudo rm -rf /var/jenkins-home
         echo "******** Jenkins Folder Deleted**********"
 fi
-#sudo mkdir /var/jenkins-home
+
+#fetching home user directory
+userDir=$(eval echo ~$USER)
+devops=$userDir"/devops"
+packageRepo=$devops"/packageRepo"
+tomcatDeployLocation=$devops"/tomcatDeployFiles"
 
 #pulling required packages from Github
-if [[ -d "/home/ubuntu/packageRepo" ]]
+if [[ -d $packageRepo ]]
 then
-        sudo rm -rf /home/ubuntu/packageRepo
+        sudo rm -rf $packageRepo
         echo "********** PackageRepo Folder Deleted**********"
 fi
 
-sudo mkdir /home/ubuntu/tomcatDeployFiles
-sudo mkdir /home/ubuntu/packageRepo
-cd /home/ubuntu/packageRepo
+sudo mkdir $devops
+sudo mkdir $tomcatDeployLocation
+sudo mkdir $packageRepo
+cd $packageRepo
 echo "********** Packagerepo folder created **********"
 sudo git clone https://github.com/InTimeTec-LLC/kmt-prototype.git
 cd kmt-prototype
+
 #remove when generate pull request
 sudo git checkout devops
 cd devops
 echo "********** Complete checkout to repo **********"
 sudo cp -r jenkins-home/ -d /var/
-echo "********** Unzip completed **********"
+
 #stopping existing jenkins docker and pulling the upadted
 isContainerRunning=$(sudo docker ps -q -f "name=adpq-jenkins")
 if [[ "$isContainerRunning" != "" ]]
@@ -82,6 +77,7 @@ then
         sudo docker stop $isContainerRunning
         sudo docker rm $isContainerRunning
 fi
+
 #removing the existing jenkins image
 isJenkinsImageExist=$(sudo docker images adpq-jenkins -q)
 if [[ "$isJenkinsImageExist" != "" ]]
@@ -89,6 +85,6 @@ then
         sudo docker stop $isJenkinsImageExist
         sudo docker	 rm $isJenkinsImageExist
 fi
-#HOSTVM_IP=$(ip -f inet -o addr show eth0|cut -d\  -f 7 | cut -d/ -f 1)
+
 HOSTVM_IP=$(wget -qO- http://ipecho.net/plain ; echo)
-sudo docker run -d --name adpq-jenkins -p 9010:8080 -p 50000:50000 -v /var/jenkins-home:/var/jenkins_home -v /var/run/docker.sock:/var/run/docker.sock -v $(which docker):/usr/bin/docker -v /home/ubuntu/tomcatDeployFiles:/var/jenkins_home/deployCodeFiles/ -e HOSTIP=$HOSTVM_IP -u root yashittdocker/adpq-jenkins:$jenkinsContainerTag
+sudo docker run -d --name adpq-jenkins -p 9010:8080 -p 50000:50000 -v /var/jenkins-home:/var/jenkins_home -v /var/run/docker.sock:/var/run/docker.sock -v $(which docker):/usr/bin/docker -v $tomcatDeployLocation:/var/jenkins_home/deployCodeFiles/ -e HOSTIP=$HOSTVM_IP -e USERDIR=$userDir -u root yashittdocker/adpq-jenkins:$jenkinsContainerTag
