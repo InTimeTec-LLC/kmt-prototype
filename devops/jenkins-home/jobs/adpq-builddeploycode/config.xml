@@ -87,7 +87,7 @@ echo &quot;********* RUNNING UNIT TEST CASES *********&quot;
 ./gradlew runUnitTests
 echo &quot;********* BUILD START *********&quot;
 ./gradlew clean build
-echo &quot;********* Deployig war file *********&quot;
+echo &quot;********* Deploying war file *********&quot;
 cp -r build/libs/*.war /var/jenkins_home/deployCodeFiles/
 
 docker restart adpq-web</command>
