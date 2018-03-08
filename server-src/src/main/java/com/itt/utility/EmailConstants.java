@@ -98,6 +98,7 @@ public final class EmailConstants {
      * subject of mail when admin delete the Article.
      */
     public static final String SUBJECT_ARTICLE_DELETEDBY_ADMIN_MAIL = "Article submitted for review is deleted";
+    //template parameters
     /**
      * parameter of templates first name .
      */
@@ -123,6 +124,5 @@ public final class EmailConstants {
     /**
      * Known value of portal link parameter.
      */
-
     public static final String PORTAL_LOGIN_LINK = "http://18.144.60.207";
 }
