@@ -1,17 +1,21 @@
 package com.itt.kmt.services;
 
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
+
 import com.itt.kmt.jwt.JWTUtil;
 import com.itt.kmt.models.Role;
 import com.itt.kmt.models.User;
 import com.itt.kmt.repositories.RoleRepository;
 import com.itt.kmt.repositories.UserRepository;
+import com.itt.kmt.validators.UserValidator;
 import com.itt.utility.EmailConstants;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
 
 /**
  * Service class that acts as an intermediary between controller and the
@@ -158,5 +162,33 @@ public class UserService {
             throw new RuntimeException("user with the id does not exist");
         }
         return user;
+    }
+    
+    /**
+     * Validate user.
+     *
+     * @param user the user
+     * @param result the result
+     * @return the string
+     */
+    public String validateUser(final User user, final BindingResult result) {
+        
+        UserValidator userValidator = new UserValidator();
+        userValidator.validate(user, result);
+        String errorMsg = "";
+        
+        if (result.hasErrors()) {
+            
+            List<FieldError> errors = result.getFieldErrors();
+            for (FieldError error : errors) {
+                if (errorMsg.isEmpty()) {
+                    errorMsg = error.getField() + " - " + error.getDefaultMessage();
+                    continue;
+                }
+                
+                errorMsg = errorMsg + "," + error.getField() + " - " + error.getDefaultMessage();
+            }
+        }
+        return errorMsg;
     }
 }

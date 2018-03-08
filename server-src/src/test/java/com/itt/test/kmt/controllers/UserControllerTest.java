@@ -368,7 +368,7 @@ public class UserControllerTest extends AbstractShiroTest {
                     + "/" + user.isActive()).
                    contentType(MediaType.APPLICATION_JSON).content(content));
 
-        ResponseMsg activateResponseMsg = new ResponseMsg(false, "Bad request");
+        ResponseMsg activateResponseMsg = new ResponseMsg(false, "Operation not permitted");
         // Assert
         resultActions.andExpect(status().isBadRequest())
         .andExpect(content().contentType(contentType))

@@ -3,6 +3,8 @@ package com.itt.kmt.models;
 import java.io.Serializable;
 import java.util.Date;
 
+import org.hibernate.validator.constraints.Email;
+import org.hibernate.validator.constraints.NotBlank;
 import org.springframework.data.annotation.Id;
 
 import lombok.Data;
@@ -26,18 +28,23 @@ public class User implements Serializable {
     /**
      * roleType of the user.
      */
+    @NotBlank
     private String  userRole;
     /**
      * firstname of the user.
      */
+    @NotBlank
     private String firstName;
     /**
      * lastname of the user.
      */
+    @NotBlank
     private String lastName;
     /**
      * email of the user.
      */
+    @NotBlank
+    @Email
     private String email;
     /**
      * last login date of the user.
@@ -54,5 +61,6 @@ public class User implements Serializable {
     /**
      * password of the user.
      */
+    @NotBlank
     private String password;
 }
