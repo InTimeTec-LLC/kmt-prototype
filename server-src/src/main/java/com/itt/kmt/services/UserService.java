@@ -128,15 +128,11 @@ public class UserService {
             throw new RuntimeException("user is not active");
         } else if (existingUser != null) {
 
-            if (!user.getFirstName().isEmpty()) {
-                existingUser.setFirstName(user.getFirstName());
-            }
-            if (!user.getLastName().isEmpty()) {
-                existingUser.setLastName(user.getLastName());
-            }
-            if (!user.getUserRole().isEmpty()) {
-                existingUser.setUserRole(user.getUserRole());
-            }
+            existingUser.setFirstName(user.getFirstName());
+            existingUser.setLastName(user.getLastName());
+            existingUser.setUserRole(user.getUserRole());
+            existingUser.setPassword(user.getPassword());
+
             return repository.save(existingUser);
         } else {
             throw new RuntimeException("user does not exist");
@@ -191,4 +187,21 @@ public class UserService {
         }
         return errorMsg;
     }
+    
+    /**
+     * Sets the user session.
+     *
+     * @param jwtToken the jwt token
+     * @param status the status
+     */
+    public void setUserSession(final String jwtToken, final boolean status) {
+        User loggedInUser = getLoggedInUser(jwtToken);
+        
+        if (loggedInUser != null) {
+            loggedInUser.setSession(status);
+            repository.save(loggedInUser);
+         } else {
+             throw new RuntimeException("user doesnot exist");
+         }
+     }
 }

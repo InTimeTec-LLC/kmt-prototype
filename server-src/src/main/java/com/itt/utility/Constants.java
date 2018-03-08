@@ -13,6 +13,10 @@ public final class Constants {
 
         super();
     }
+    
+    /** The Constant USER_LOGOUT_SUCCESS_MSG. */
+    public static final String USER_LOGOUT_SUCCESS_MSG = "User has been logged out successfully";
+    
     /** The Constant DEFAULT_UPDATE_SUCCESS_MSG. */
     public static final String DEFAULT_UPDATE_SUCCESS_MSG = "Modifications have been saved successfully";
 
@@ -36,5 +40,6 @@ public final class Constants {
 
     /** The Constant ARTICLE_CREATED_MESSAGE. */
     public static final String ARTICLE_CREATED_MESSAGE = "Knowledge Article has been created successfully";
+    
 
 }
