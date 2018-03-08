@@ -128,7 +128,7 @@ public class MailService {
 
         try {
 
-            freemarkerConfig.setClassForTemplateLoading(this.getClass(), "/");
+            freemarkerConfig.setClassForTemplateLoading(this.getClass(), "/templates");
 
             Template template = freemarkerConfig.getTemplate(templateName);
 
