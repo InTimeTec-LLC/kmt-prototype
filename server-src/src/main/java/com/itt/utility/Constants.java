@@ -15,7 +15,7 @@ public final class Constants {
     }
     
     /** The Constant USER_LOGOUT_SUCCESS_MSG. */
-    public static final String USER_LOGOUT_SUCCESS_MSG = "User has been logout successfully";
+    public static final String USER_LOGOUT_SUCCESS_MSG = "User has been logged out successfully";
     
     /** The Constant DEFAULT_UPDATE_SUCCESS_MSG. */
     public static final String DEFAULT_UPDATE_SUCCESS_MSG = "Modifications have been saved successfully";

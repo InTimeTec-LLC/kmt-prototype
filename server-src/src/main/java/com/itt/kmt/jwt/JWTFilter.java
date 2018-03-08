@@ -64,8 +64,8 @@ public class JWTFilter extends BasicHttpAuthenticationFilter {
         if (isLoginAttempt(request, response)) {
             try {
                 executeLogin(request, response);
-            } catch (Exception e) {
-                e.printStackTrace();
+            } catch (Exception ex) {
+                logger.error("an exception was thrown: ", ex);
             }
         }
         return true;
