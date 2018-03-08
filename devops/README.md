@@ -11,16 +11,21 @@ There will be a Linux Ubuntu machine on which 3 docker containers will be runnin
 To setup the infrastructure, follow the below mentioned procedure.
 
 1.	SSH into the Linux Ubuntu-16.04 LTS machine.
+
 2.	Clone the github repository into a particular directory. The cloned repository consists of the shell script which will configure docker on the host machine and other related packages. Open the terminal on the machine and run the below mentioned command.
-git clone https://github.com/InTimeTec-LLC/kmt-prototype.git
+
+### git clone https://github.com/InTimeTec-LLC/kmt-prototype.git
 3.	Move into the clone directory
-       cd kmt-prototype/devops/scripts
+
+### cd kmt-prototype/devops/scripts
+
 4.	Exceute the shell script StartJenkinsContainer.sh with passing the parameter as shown below. The parameter represents the custom Jenkins docker container tag. If executable rights are not provided for the shell then the same can be provided by executing the command chmod +x StartJenkinsContainer.sh
-./StartJenkinsContainer.sh latest_1.7
+
+### ./StartJenkinsContainer.sh latest_1.7
 
 Upon execution of the above mentioned script the required packages would be installed on the host machine and Jenkins will be configured running on port 9010. The Jenkins can be accessed on the url:
 
-## http://IP_Address_Of_The_Host_Machine:9010
+### http://IP_Address_Of_The_Host_Machine:9010
 
 
 Open the Jenkins console using the url mentioned above in any browser. The login credentials are mentioned below:
@@ -40,6 +45,6 @@ The execution of the Jenkins job will begin. This Jenkins job will check whether
 
 After the execution of the above job, the application will be hosted on web docker container and can be accessed using the IP address of the host machine.
 
-## http://IP_Address_Of_The_Host_Machine
+### http://IP_Address_Of_The_Host_Machine
 
 
