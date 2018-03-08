@@ -61,12 +61,13 @@ export class AddArticleComponent implements OnInit {
 
   onSubmit({value, valid}: {value: KnowledgeBaseArticle, valid: boolean }) {
     this.kbContentService.createKnowledgeBaseArticle(value)
-    .subscribe( article => {
-            // article.success.message
-            this.toasterService.pop('success', 'Success', 'Article has been added successfully');
+    .subscribe( data => {
+            this.toasterService.pop('success', '', data.success.message);
+            this.onCancle();
          },
-            // error => this.toasterService.pop('error', 'Error', error.failure.message);
-            error => this.toasterService.pop('success', 'Success', 'Article has been added successfully')
+         error => {
+             this.toasterService.pop('error', '', error.error.success.message);
+         }
         );
 
   }
@@ -74,6 +75,4 @@ export class AddArticleComponent implements OnInit {
   onCancle() {
     this.router.navigateByUrl('/articlelist');
   }
-
-
 }

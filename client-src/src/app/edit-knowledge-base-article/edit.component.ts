@@ -91,14 +91,14 @@ export class EditArticleComponent implements OnInit {
     delete value.lastModified;
     value = <UpdateKnowledgeBaseArticle> value;
     this.kbContentService.updateKnowledgeBaseArticle(this.articleId, value)
-    .subscribe( article => {
-            // article.success.message
-              this.toasterService.pop('success', 'Success', article.success.message);
-         },
-              // error.failure.message
-               error => this.toasterService.pop('error', 'Error', error.failure.message)
-              // error => this.toasterService.pop('success', 'Success', 'Modifications have been saved successfully')
-        );
+    .subscribe( data => {
+          this.toasterService.pop('success', '', data.success.message);
+          this.onCancle();
+          },
+          error => {
+              this.toasterService.pop('error', '', error.error.success.message);
+          }
+    );
 
   }
 

@@ -33,7 +33,8 @@
               <quill-editor 
                   #description id="description"
                   placeholder="Description"
-                  formControlName="description">
+                  formControlName="description"
+                  [style]="{'min-height': '150px'}">
               </quill-editor>
           
               <div class="error" 
@@ -50,7 +51,7 @@
               placeholder="Assign to Review">
                   <mat-option>Select Reviewer</mat-option>
                   <mat-option [value]="approver.id" *ngFor="let approver of approvers">
-                    {{ approver.firstName | titlecase}}
+                    {{ approver.firstName | titlecase}} {{ approver.lastName | titlecase}}
                   </mat-option>
               </mat-select>
               <span class="error" 
@@ -63,7 +64,7 @@
         </div>
         <div class="button-postion">
           <button type="button" mat-raised-button (click)="onCancle()">Cancel</button>
-          <button mat-raised-button type="submit" [disabled]="article.invalid">Send for review</button>
+          <button mat-raised-button type="submit" [disabled]="article.invalid">Submit for review</button>
         </div>
         
         </div>

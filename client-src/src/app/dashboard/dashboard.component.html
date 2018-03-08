@@ -1,28 +1,10 @@
 <div class="container">
   <h1>Dashboard
-    <a [routerLink]="['/knowledge-base-content-create']" class="btn btn-default btn-lg">
+    <a class="btn btn-default btn-lg">
       <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
     </a>
   </h1>
-  <table class="table">
-    <thead>
-      <tr>
-        <th>Title</th>
-        <th>Description</th>
-        <th>Action</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let kb of knowledge_base_contents">
-        <td>{{ kb.title }}</td>
-        <td>{{ kb.description }}</td>
-        <td><a [routerLink]="['/article/edit', kb.id]">Edit</a></td>
-      </tr>
-    </tbody>
-  </table>
-  <br/>
-  <a [routerLink]="['/article/add']">Add Knowledge Base Article</a>
-  <br/> <br/>
-  <a [routerLink]="['/userlist']">User List</a>
+
+  <div>Coming Soon</div>
   
 </div>

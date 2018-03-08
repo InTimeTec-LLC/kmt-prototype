@@ -23,6 +23,10 @@ export class UserListComponent implements OnInit {
   @ViewChild(MatSort) sort: MatSort;
 
   userList: any;
+  selectedFilter: any = {
+    status: undefined,
+    role: undefined
+  };
 
   constructor(
     private userService: UserService,
@@ -73,14 +77,15 @@ export class UserListComponent implements OnInit {
     onTapFilterIcon() {
         const dialogRef = this.dialog.open(UserListFilterComponent, {
             width: '274px',
-            data: {}
+            data: {selFilter : this.selectedFilter}
         });
 
         dialogRef.afterClosed().subscribe(result => {
             let filteStatus = [];
             let filteRole = [];
-            if(result && result.status !== undefined) {
-                if(result.status === 'Activate') {
+            if (result && result.status !== undefined) {
+                this.selectedFilter.status = result.status;
+                if (result.status === 'Activate') {
                     this.userList.forEach(function(element) {
                         if (element.active) { filteStatus.push(element); }
                     }.bind(this));
@@ -90,15 +95,18 @@ export class UserListComponent implements OnInit {
                     }.bind(this));
                 }
             } else {
+                this.selectedFilter.status = undefined;
                 filteStatus = this.userList;
             }
 
             if (result && result.role !== undefined) {
+                this.selectedFilter.role = result.role;
                 filteStatus.forEach(function(element) {
                     if (element.userRole === String(result.role).toLowerCase()) { filteRole.push(element); }
                 }.bind(this));
             } else {
                 filteRole = filteStatus;
+                this.selectedFilter.role = undefined;
             }
 
             this.createData(filteRole);
@@ -152,6 +160,15 @@ export class UserListComponent implements OnInit {
         private dialogRef: MatDialogRef<UserListFilterComponent>,
         @Inject(MAT_DIALOG_DATA) public data: any) {
             this.roleList = this.userService.getRoles();
+            if (data.selFilter !== undefined) {
+                if (data.selFilter.status !== undefined) {
+                    this.selectedStatus = data.selFilter.status;
+                }
+
+                if (data.selFilter.role !== undefined) {
+                    this.selectedRole = data.selFilter.role;
+                }
+            }
         }
 
     onCancelClick() {
