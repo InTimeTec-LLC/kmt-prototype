@@ -1,8 +1,9 @@
 package com.itt.kmt.controllers;
 
-import java.util.HashMap;
-import java.util.List;
-
+import com.itt.kmt.models.Article;
+import com.itt.kmt.models.ArticleType;
+import com.itt.kmt.response.models.ResponseMsg;
+import com.itt.kmt.services.ArticleService;
 import com.itt.utility.Constants;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,10 +17,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.itt.kmt.models.Article;
-import com.itt.kmt.models.ArticleType;
-import com.itt.kmt.response.models.ResponseMsg;
-import com.itt.kmt.services.ArticleService;
+import javax.servlet.http.HttpServletRequest;
+import java.util.HashMap;
+import java.util.List;
+
 /**
  * This class is responsible for exposing REST APis for Article.
  */
@@ -75,11 +76,14 @@ public class ArticleController {
      * REST API for retrieval of Article list.
      *
      * @param page , It is a pageable object with default size of 10 elements.
+     * @param httpServletRequest , Servlet request object.
      * @return Page<Article> objects.
      */
     @RequestMapping(method = RequestMethod.GET)
-    public Page<Article>  getArticles(@PageableDefault(value = Constants.PAGE_SIZE)final Pageable page) {
-        return articleService.getAllArticles(page);
+    public Page<Article> getArticles(@PageableDefault(value = Constants.PAGE_SIZE)final Pageable page,
+                                     final HttpServletRequest httpServletRequest) {
+        String jwtToken = httpServletRequest.getHeader(Constants.AUTHORIZATION);
+        return articleService.getAllArticles(page, jwtToken);
     }
 
     /**
@@ -89,8 +93,7 @@ public class ArticleController {
     @RequestMapping(value = "/types", method = RequestMethod.GET)
     @RequiresPermissions("getAllArticleType")
     public ModelMap getArticleTypes() {
-        List<ArticleType> roleList = articleService.getArticleTypes();
-        return new ModelMap().addAttribute("types", roleList);
+        List<ArticleType> articleTypeList = articleService.getArticleTypes();
+        return new ModelMap().addAttribute("types", articleTypeList);
     }
-
 }
