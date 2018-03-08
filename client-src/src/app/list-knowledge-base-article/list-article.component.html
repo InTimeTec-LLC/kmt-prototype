@@ -1,20 +1,20 @@
-<div class="tablelist-container">
-  <div class="add-user-button"><a (click)="onTapNavigation('/article/add')">Add Article</a></div>
+<div class="table-list-container">
+  <div class="add-button"><a (click)="onTapNavigation('/article/add')">Add Article</a></div>
   <div class="Container-table">
-    <div class="add-heading"><h2 class="heading-margin">Articles</h2></div>
-    <div class="table-container">
+    <div class="container-heading"><h2 class="heading-margin">Articles</h2></div>
+    <div class="container-table-body">
 
-  <div class="example-header">
+  <div class="filter-input">
     <mat-form-field>
       <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Search within the table">
     </mat-form-field>
     <img src="../../assets/images/filter-icon.png" (click)="onTapFilterIcon()" alt="Filtericon" class="filter_icon">
   </div>
   
-  <div class="example-container-1 mat-elevation-z8">
+  <div class="table-input-list mat-elevation-z8">
   
     <mat-table [dataSource]="dataSource" matSort class="list_table">
-  
+   
       <!-- Title Column -->
       <ng-container matColumnDef="title">
           <mat-header-cell *matHeaderCellDef>Title</mat-header-cell>
@@ -39,7 +39,7 @@
           <!-- Actions Column -->
           <ng-container matColumnDef="actions">
           <mat-header-cell *matHeaderCellDef> Actions </mat-header-cell>
-          <mat-cell *matCellDef="let row">
+          <mat-cell *matCellDef="let row" class="action-link">
               <a (click)="onTapNavigation('/article/edit/'+row.id)">Edit</a> | <a>Delete</a>
           </mat-cell>
           </ng-container>
