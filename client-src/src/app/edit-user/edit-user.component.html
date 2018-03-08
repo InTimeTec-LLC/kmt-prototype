@@ -1,11 +1,11 @@
 <div class="container">
-  <div class="add-heading"><h2 class="heading-margin">Edit User</h2></div>
+  <div class="container-heading"><h2 class="heading-margin">Edit User</h2></div>
 
 <form  (ngSubmit)="onSubmit(user)" [formGroup]="user" #formDir="ngForm">
 
-<div class="example-container">
+  <div class="container-body form-input-area">
   <mat-form-field>
-    <input formControlName="firstName" matInput placeholder="First Name">
+    <input formControlName="firstName" matInput placeholder="First Name*">
   </mat-form-field>
   <div class="error" 
     *ngIf="user.get('firstName').touched 
@@ -14,7 +14,7 @@
   </div>
 
   <mat-form-field>
-    <input formControlName="lastName" matInput placeholder="Last Name">
+    <input formControlName="lastName" matInput placeholder="Last Name*">
   </mat-form-field>
   <div class="error" 
     *ngIf="user.get('lastName').touched 
@@ -23,7 +23,7 @@
   </div>
 
   <mat-form-field>
-    <mat-select formControlName="userRole" placeholder="Role">
+    <mat-select formControlName="userRole" placeholder="Role*">
         <mat-option>Select Role</mat-option>
         <mat-option [value]="role.role | lowercase" *ngFor="let role of roles">
           {{ role.role | titlecase}}
@@ -37,7 +37,7 @@
   </div>
 
   <mat-form-field>
-    <input formControlName="email" matInput placeholder="Email" readonly>
+    <input formControlName="email" matInput placeholder="Email*" readonly>
   </mat-form-field>
   <div class="error" 
     *ngIf="user.get('email').touched 
@@ -46,7 +46,7 @@
   </div>
 
   <mat-form-field>
-    <input formControlName="password" type="password" matInput placeholder="Password">
+    <input formControlName="password" type="password" matInput placeholder="Password*">
   </mat-form-field>
   <div class="error" 
     *ngIf="user.get('password').touched 
@@ -56,7 +56,7 @@
   <span *ngIf="cpwd.hasError('invalid')"> Invalid Password </span>
 
   <mat-form-field>
-    <input formControlName="confirmPassword" type="password" matInput placeholder="Confirm Password">
+    <input formControlName="confirmPassword" type="password" matInput placeholder="Confirm Password*">
   </mat-form-field>
   <div class="error" 
     *ngIf="user.get('confirmPassword').touched 
@@ -68,8 +68,9 @@
     && user.get('confirmPassword').hasError('notEquivalent')">
       Password and Confirm Password should match
   </div>
-<div class="button-postion">
+<div class="button-container">
   <!--<button type="button" mat-raised-button (click)="onDeactivate()">Deactivate</button>-->
+  <button type="button" mat-raised-button>Deactivate</button>
   <button type="button" mat-raised-button (click)="onCancle()">Cancel</button>
   <button mat-raised-button type="submit" [disabled]="user.invalid">Save</button>
 </div>
