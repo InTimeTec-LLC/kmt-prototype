@@ -24,6 +24,10 @@ export class ListArticleComponent implements OnInit {
   @ViewChild(MatSort) sort: MatSort;
 
   articleList: any;
+  selectedFilter: any = {
+    status: undefined,
+    type: undefined
+  };
 
   constructor(
     private router: Router,
@@ -62,14 +66,15 @@ export class ListArticleComponent implements OnInit {
     onTapFilterIcon() {
         const dialogRef = this.dialog.open(ArticleListFilterComponent, {
             width: '274px',
-            data: {}
+            data: {selFilter : this.selectedFilter}
         });
 
         dialogRef.afterClosed().subscribe(result => {
             let filterStatus = [];
             let filteType = [];
-            if(result && result.status !== undefined) {
-                if(result.status === 'Published') {
+            if (result && result.status !== undefined) {
+                this.selectedFilter.status = result.status;
+                if (result.status === 'Published') {
                     this.articleList.forEach(function(element) {
                         if (element.active) {
                             filterStatus.push(element);
@@ -82,14 +87,17 @@ export class ListArticleComponent implements OnInit {
                 }
             } else {
               filterStatus = this.articleList;
+              this.selectedFilter.status = undefined;
             }
 
             if (result && result.type !== undefined) {
-              filterStatus.forEach(function(element){
+              this.selectedFilter.type = result.type;
+              filterStatus.forEach(function(element) {
                     if (element.type === String(result.type).toLowerCase()) { filteType.push(element); }
                 }.bind(this));
             } else {
               filteType = filterStatus;
+              this.selectedFilter.type = undefined;
             }
 
             this.createData(filteType);
@@ -144,7 +152,15 @@ export class ListArticleComponent implements OnInit {
         private dialogRef: MatDialogRef<ArticleListFilterComponent>,
         @Inject(MAT_DIALOG_DATA) public data: any) {
             this.typesList = this.kbContentService.getTypes();
-            console.log(this.typesList);
+            if (data.selFilter !== undefined) {
+                if (data.selFilter.status !== undefined) {
+                    this.selectedStatus = data.selFilter.status;
+                }
+
+                if (data.selFilter.type !== undefined) {
+                    this.selectedType = data.selFilter.type;
+                }
+            }
         }
 
     onCancelClick() {

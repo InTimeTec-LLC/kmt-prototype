@@ -30,13 +30,13 @@ export class JwtInterceptor implements HttpInterceptor {
                console.log('Stop Request for Spinner');
                this.spinnerService.hide();
             }
-            this.spinnerService.hide();
+            // this.spinnerService.hide();
           }, (err: any) => {
             if (err instanceof HttpErrorResponse) {
                console.log('Stop Request for Spinner');
                this.spinnerService.hide();
             }
-            this.spinnerService.hide();
+            // this.spinnerService.hide();
         });
     }
 }

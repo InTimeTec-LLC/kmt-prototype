@@ -62,7 +62,7 @@ export class AddUserComponent implements OnInit {
     this.userService.createUser(value)
     .subscribe( data => {
             this.toasterService.pop('success', '', data.success.message);
-            this.router.navigateByUrl('/userlist');
+            this.onCancle();
          },
         data => {
             this.toasterService.pop('error', '', data.error.success.message);
