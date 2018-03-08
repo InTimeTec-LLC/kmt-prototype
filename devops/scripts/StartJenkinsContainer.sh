@@ -63,9 +63,6 @@ cd $packageRepo
 echo "********** Packagerepo folder created **********"
 sudo git clone https://github.com/InTimeTec-LLC/kmt-prototype.git
 cd kmt-prototype
-
-#remove when generate pull request
-sudo git checkout devops
 cd devops
 echo "********** Complete checkout to repo **********"
 sudo cp -r jenkins-home/ -d /var/

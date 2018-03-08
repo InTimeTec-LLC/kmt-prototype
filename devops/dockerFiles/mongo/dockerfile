@@ -1,2 +1,0 @@
-ARG tag=latest
-FROM yashittdocker/adpq-mongo:${tag}
