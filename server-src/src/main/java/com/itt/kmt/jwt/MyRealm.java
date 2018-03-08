@@ -121,17 +121,16 @@ public class MyRealm extends AuthorizingRealm {
         if (user == null) {
             throw new AuthenticationException("User didn't existed!");
         }
-
-        if (!JWTUtil.verify(token, email, user.getPassword())) {
+        
+        if (!JWTUtil.verify(token, email, user.getPassword()) || !user.isSession()) {
             throw new AuthenticationException("Invalid Token");
         }
+        
+
         AuthenticationInfo authenticationInfo = null;
-        try {
-            // token = "Bearer " + token;
-            authenticationInfo = new SimpleAuthenticationInfo(token, token, "my_realm");
-        } catch (Exception ex) {
-            ex.printStackTrace();
-        }
+        
+        authenticationInfo = new SimpleAuthenticationInfo(token, token, "my_realm");
+        
         return authenticationInfo;
     }
 }

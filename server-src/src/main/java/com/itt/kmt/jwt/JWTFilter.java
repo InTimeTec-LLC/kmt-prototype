@@ -1,8 +1,6 @@
 
 package com.itt.kmt.jwt;
 
-import java.io.IOException;
-
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
@@ -67,7 +65,7 @@ public class JWTFilter extends BasicHttpAuthenticationFilter {
             try {
                 executeLogin(request, response);
             } catch (Exception e) {
-                response401(request, response);
+                e.printStackTrace();
             }
         }
         return true;
@@ -95,21 +93,5 @@ public class JWTFilter extends BasicHttpAuthenticationFilter {
             return false;
         }
         return super.preHandle(request, response);
-    }
-
-    /**
-     * Response 401.
-     *
-     * @param req the req
-     * @param resp the resp
-     */
-    private void response401(final ServletRequest req, final ServletResponse resp) {
-
-        try {
-            HttpServletResponse httpServletResponse = (HttpServletResponse) resp;
-            httpServletResponse.sendRedirect("/api/users/401");
-        } catch (IOException e) {
-            logger.error(e.getMessage());
-        }
     }
 }

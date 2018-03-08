@@ -63,4 +63,8 @@ public class User implements Serializable {
      */
     @NotBlank
     private String password;
+    /**
+     * session of the user.
+     */
+    private boolean session = false;
 }
