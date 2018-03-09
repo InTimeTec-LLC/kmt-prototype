@@ -25,6 +25,7 @@ export class ListArticleComponent implements OnInit {
   @ViewChild(MatSort) sort: MatSort;
 
   articleList: any;
+  filterList: any = [];
   selectedFilter: any = {
     status: undefined,
     type: undefined
@@ -116,6 +117,7 @@ export class ListArticleComponent implements OnInit {
         }
 
         console.log(aritcles);
+        this.filterList = aritcles;
         this.dataSource = new MatTableDataSource(aritcles);
         this.dataSource.paginator = this.paginator;
         this.dataSource.sort = this.sort;
@@ -157,6 +159,13 @@ export class ListArticleComponent implements OnInit {
         private dialogRef: MatDialogRef<ArticleListFilterComponent>,
         @Inject(MAT_DIALOG_DATA) public data: any) {
             this.typesList = this.kbContentService.getTypes();
+            this.typesList.sort(function(a, b) {
+                if (a.type < b.type) {return -1;
+                }
+                if (a.type > b.type) { return 1;
+                }
+                return 0;
+            });
             if (data.selFilter !== undefined) {
                 if (data.selFilter.status !== undefined) {
                     this.selectedStatus = data.selFilter.status;
