@@ -50,8 +50,7 @@ export class EditArticleComponent implements OnInit {
             restricted: data.restricted,
             createdByUser: data.createdBy.firstName + ' ' + data.createdBy.lastName,
             lastModified: data.lastModifiedTime,
-            needsApproval: data.needsApproval,
-            approved: data.approved
+            needsApproval: data.needsApproval
 
           });
         });
@@ -71,8 +70,7 @@ export class EditArticleComponent implements OnInit {
      restricted: '',
      createdByUser: '',
      lastModified: '',
-     needsApproval: '',
-     approved: ''
+     needsApproval: ''
     });
 
     this.kbContentService.listKnowledgeBaseArticleTypes().subscribe((data: any) => {

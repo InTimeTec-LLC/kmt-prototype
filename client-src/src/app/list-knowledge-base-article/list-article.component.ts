@@ -6,6 +6,7 @@ import { ToasterService } from 'angular5-toaster';
 import { forEach } from '@angular/router/src/utils/collection';
 import { KnowledgeBaseArticleService } from '../../shared/service/knowledge-base-article/knowledge-base-article.service';
 import { Aritcles } from '../../shared/modals/knowledge-base-article';
+import { AuthenticationService } from '../../shared/service/authentication/authentication.service';
 
 /**
  * @title Data table with sorting, pagination, and filtering.
@@ -28,14 +29,18 @@ export class ListArticleComponent implements OnInit {
     status: undefined,
     type: undefined
   };
+  currentUserId: any;
 
   constructor(
     private router: Router,
     private toasterService: ToasterService,
     private kbContentService: KnowledgeBaseArticleService,
-    public dialog: MatDialog) {
+    public dialog: MatDialog,
+    private auth: AuthenticationService
+    ) {
         this.kbContentService.listKnowledgeBaseArticleTypes().subscribe((data: any) => {
-          this.kbContentService.setTypes(data.types);
+        this.kbContentService.setTypes(data.types);
+        this.currentUserId = this.auth.getUserId();
       });
     }
 
@@ -128,7 +133,7 @@ export class ListArticleComponent implements OnInit {
         type: item.articleType.type,
         title: item.title,
         status: item.approved,
-        content: '',
+        content: item,
         size: 20,
         totalPages: 1,
         totalElements: 20,

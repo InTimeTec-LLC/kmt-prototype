@@ -10,7 +10,7 @@ import { AddUserComponent } from './add-user/add-user.component';
 import { UserListComponent } from './user-list/user-list.component';
 import { ListArticleComponent } from './list-knowledge-base-article/list-article.component';
 import { EditUserComponent } from './edit-user/edit-user.component';
-
+import { ApprovedKnowledgeBaseArticleComponent } from './approved-knowledge-base-article/approved-knowledge-base-article.component';
 
 const routes:  Routes = [
     {
@@ -58,6 +58,11 @@ const routes:  Routes = [
     { path: 'user/edit/:id',
       component: EditUserComponent,
       data: { title: 'Edit User' }
+    },
+    {
+      path: 'article-approved-view/:id',
+      component: ApprovedKnowledgeBaseArticleComponent,
+      data: { title: 'Approved Articles' }
     },
   ];
 

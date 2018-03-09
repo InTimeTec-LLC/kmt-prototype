@@ -18,7 +18,10 @@
       <!-- Title Column -->
       <ng-container matColumnDef="title">
           <mat-header-cell *matHeaderCellDef>Title</mat-header-cell>
-          <mat-cell *matCellDef="let row"><a (click)="onTapNavigation('/article-detail/'+row.id)">{{ row.title }}</a></mat-cell>
+          <mat-cell *matCellDef="let row">
+            <a (click)="onTapNavigation('/article-detail/'+row.id)" *ngIf="(currentUserId != row.content.approver.id) || (row.status == true)">{{ row.title }}</a>
+            <a (click)="onTapNavigation('/article-approved-view/'+row.id)" *ngIf="currentUserId == row.content.approver.id && row.status == false">{{ row.title }}</a>
+          </mat-cell>
           </ng-container>
 
           <!-- Type Column -->
