@@ -9,6 +9,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.web.support.SpringBootServletInitializer;
 import org.springframework.context.ApplicationContext;
+import org.springframework.scheduling.annotation.EnableAsync;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -16,6 +17,7 @@ import lombok.extern.slf4j.Slf4j;
  * Application class.
  */
 @SpringBootApplication
+@EnableAsync
 @Slf4j
 public class Application extends SpringBootServletInitializer  implements CommandLineRunner {
 
@@ -80,5 +82,4 @@ public class Application extends SpringBootServletInitializer  implements Comman
 
         };
     }
-
 }

@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
+import org.springframework.mail.MailException;
 
 import com.itt.kmt.jwt.JWTUtil;
 import com.itt.kmt.models.Role;
@@ -17,12 +18,15 @@ import com.itt.kmt.repositories.UserRepository;
 import com.itt.kmt.validators.UserValidator;
 import com.itt.utility.EmailConstants;
 
+import lombok.extern.slf4j.Slf4j;
+
 /**
  * Service class that acts as an intermediary between controller and the
  * database for all basic CRUD operations. The business logic should reside in
  * service class.
  * @author Rakshit Rajeev
  */
+@Slf4j
 @Service
 public class UserService {
 
@@ -91,7 +95,11 @@ public class UserService {
             user.setDateJoined(new Date());
             user.setActive(true);
             User savedUser = repository.save(user);
-            mailService.sendUserCreatedMail(savedUser.getId(), EmailConstants.PARAM_PORTAL_LOGIN_LINK);
+            try {
+                mailService.sendUserCreatedMail(savedUser.getId(), EmailConstants.PARAM_PORTAL_LOGIN_LINK);
+            } catch (MailException | InterruptedException e) {
+                log.error(e.getMessage());
+            }
             return savedUser;
         } else {
             throw new RuntimeException("user already exists");
@@ -108,6 +116,11 @@ public class UserService {
 
        if (existingUser != null && existingUser.isActive() != isActive) {
            existingUser.setActive(isActive);
+           try {
+            mailService.sendUserActivateMail(existingUser, isActive);
+        } catch (MailException | InterruptedException e) {
+            log.error(e.getMessage());
+        }
            return repository.save(existingUser);
         } else if (existingUser == null) {
             throw new RuntimeException("user with the id does not exist");
