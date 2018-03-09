@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import {ToasterModule, ToasterConfig} from 'angular5-toaster';
-
+import { AuthenticationService } from '../shared/service/authentication/authentication.service';
 
 @Component({
   selector: 'app-root',
@@ -17,6 +17,12 @@ export class AppComponent {
       positionClass : 'toast-top-center',
       animate : 'fade'
   });
-  constructor() {
+  constructor(private auth: AuthenticationService) {
   }
+
+  isAuthenticated() {
+    return this.auth.isAuthenticated();
+  }
+
+
 }

@@ -39,9 +39,8 @@ a{
 
 /* for the Bar heading.... .....*/
 .container{
-  width: 76%;
-  float: right;
-  margin:80px 28px;
+  width: auto;
+  padding: 20px 40px;
 }
 .container-heading {
   background-color: #33b7fc;
@@ -89,9 +88,8 @@ h2 {
 }
 /* for userlist and artical table..............*/
 .table-list-container {
-  width: 76%;
-  float: right;
-  margin: 0px 28px;
+  width: auto;
+  padding: 20px 40px;
 }
 .container-table-body {
   flex-direction: column;
@@ -190,6 +188,18 @@ background-color: #fff;
   font-weight: bold;
 }
 
-
-
-
+/*Hamburger icon*/
+.border-menu {
+  position: relative;
+  margin-top: 5px;
+}
+.border-menu:before {
+  content: "";
+  position: absolute;
+  top: 2px;
+  left: 0;
+  width: 32px;
+  height: 3px;
+  border-top: 0.6em double #33b7fc;
+  border-bottom: 0.2em solid #33b7fc;
+}
