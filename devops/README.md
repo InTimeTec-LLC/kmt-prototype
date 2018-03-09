@@ -30,6 +30,7 @@ Upon execution of the above mentioned script, the required packages would be ins
 Open the Jenkins console using the url mentioned above in any browser. The login credentials are mentioned below:
 
 User: admin
+
 Password: admin
 
 The Jenkins console will open with the deployment job already created as shown below:
