@@ -83,9 +83,10 @@ export class EditUserComponent implements OnInit {
     delete value.confirmPassword;
     this.userService.updateUser(this.userId, value)
     .subscribe( data => {
-                    this.toasterService.pop('success', 'Success', data.success.message);
+                    this.toasterService.pop('success', '', data.success.message);
+                    this.onCancle();
          },
-                  error => this.toasterService.pop('error', 'Error', error.failure.message));
+                  error => this.toasterService.pop('error', '', error.error.success.message));
   }
 
   onCancle() {
