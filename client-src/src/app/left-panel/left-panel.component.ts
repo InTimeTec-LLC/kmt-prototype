@@ -54,5 +54,4 @@ export class LeftPanelComponent implements OnInit {
     // this.onTapNavigation('/login');
     window.location.reload()
   }
-
 }
