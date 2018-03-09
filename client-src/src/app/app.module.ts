@@ -33,7 +33,6 @@ import { ListArticleComponent, ArticleListFilterComponent } from './list-knowled
 import { UserListComponent, UserListFilterComponent } from './user-list/user-list.component';
 
 
-
 @NgModule({
   declarations: [
     AppComponent,
@@ -71,7 +70,7 @@ import { UserListComponent, UserListFilterComponent } from './user-list/user-lis
     Ng4LoadingSpinnerModule.forRoot()
 
   ],
-  entryComponents: [UserListFilterComponent, ArticleListFilterComponent],
+  entryComponents: [ArticleListFilterComponent, UserListFilterComponent],
   providers: [],
   bootstrap: [AppComponent]
 })

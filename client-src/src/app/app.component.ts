@@ -13,7 +13,7 @@ export class AppComponent {
   new ToasterConfig({
       showCloseButton: false,
       tapToDismiss: false,
-      timeout: 2000,
+      timeout: 3000,
       positionClass : 'toast-top-center',
       animate : 'fade'
   });
