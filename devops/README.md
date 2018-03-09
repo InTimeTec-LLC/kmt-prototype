@@ -6,7 +6,7 @@ The ADPQ infrastructure comprises of the following:
  *	MongoDB Docker Container
  *	Jenkins Docker Container
 
-There will be a Linux Ubuntu machine on which 3 docker containers will be running. The Web Container having Tomcat8 configured, will host the application. The MongoDB container will have the database configured on port 27017. The Jenkins container running at port 9010, will be having the web and MongoDB docker configuration job, and the front end & back end build and deploy job.
+3 docker containers run on the Linux Ubuntu machine.The Web Container having Tomcat8 configured, will host the application. The MongoDB container will have the database configured on port 27017. The Jenkins container running at port 9010, will be having the web and MongoDB docker configuration job, and the front end & back end build and deploy job.
 
 To setup the infrastructure, follow the below mentioned procedure.
 
