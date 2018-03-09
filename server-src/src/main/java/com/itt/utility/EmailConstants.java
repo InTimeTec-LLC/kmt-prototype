@@ -16,7 +16,7 @@ public final class EmailConstants {
     /**
      * email template name when new user created .
      */
-    public static final String CREATE_USER_MAIL_TMPLT = "usercreatedmail.ftl";
+    public static final String CREATE_USER_MAIL_TMPLT = "user-created-mail.ftl";
     /**
      * email template name when admin reset the users password .
      */

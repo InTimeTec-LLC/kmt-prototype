@@ -6,7 +6,6 @@ import com.itt.kmt.models.User;
 import com.itt.kmt.models.UserResponse;
 import com.itt.kmt.repositories.ArticleRepository;
 import com.itt.kmt.repositories.ArticleTypeRepository;
-import com.itt.kmt.repositories.CommentRepository;
 import com.itt.utility.Constants;
 import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,13 +43,6 @@ public class ArticleService {
      */
     @Autowired
     private ArticleTypeRepository articleTypeRepository;
-
-    /**
-     * Instance of the basic Comment repository.
-     */
-    @Autowired
-    private CommentRepository commentRepository;
-
     /**
      * Saves the Article to database.
      * 
