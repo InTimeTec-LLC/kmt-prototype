@@ -35,6 +35,10 @@ public class Attachment implements Serializable {
     /** The file type. */
     @NotBlank
     private String fileType;
+    
+    /** The Url. */
+    @NotBlank
+    private String Url;
 
     /** The file size. */
     @NotBlank

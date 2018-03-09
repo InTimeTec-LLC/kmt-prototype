@@ -83,16 +83,11 @@ public class AttachmentController {
                 attachment.setFileType(fileType);
                 // Saving attachment in database
                 attachment = attachmentService.saveAttachment(attachment);
+                attachment.setUrl("api/attachments/" + attachment.getId());
 
                 attachmentResponseMsg.setStatus(Boolean.TRUE);
 
-                AttachmentResponseMsg.AttachmentInfo attachmentInfo = attachmentResponseMsg.new AttachmentInfo();
-                attachmentInfo.setFilename(attachment.getFileName());
-                attachmentInfo.setId(attachment.getId());
-
-                attachmentInfo.setUrl("api/attachments/" + attachment.getId());
-
-                attachmentResponseMsg.setAttachement(attachmentInfo);
+                attachmentResponseMsg.setAttachement(attachment);
 
             } else {
 
