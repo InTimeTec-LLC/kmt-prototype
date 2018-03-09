@@ -9,7 +9,6 @@ import { AuthenticationService } from '../shared/service/authentication/authenti
 })
 export class AppComponent {
   title = 'angula5 template editor';
-  isAuthenticated: any;
   private toasterconfig: ToasterConfig =
   new ToasterConfig({
       showCloseButton: false,
@@ -19,8 +18,11 @@ export class AppComponent {
       animate : 'fade'
   });
   constructor(private auth: AuthenticationService) {
-    this.isAuthenticated = this.auth.isAuthenticated();
-    console.log("hello");
-    console.log(this.isAuthenticated);
   }
+
+  isAuthenticated() {
+    return this.auth.isAuthenticated();
+  }
+
+
 }

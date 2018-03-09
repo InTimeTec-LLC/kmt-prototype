@@ -6,7 +6,7 @@
   </mat-drawer>
 
   <div class="app-sidenav-content">
-    <button *ngIf="isAuthenticated" type="button" class="hamburger-icon" mat-button (click)="drawer.toggle()">
+    <button *ngIf="isAuthenticated()" type="button" class="hamburger-icon" mat-button (click)="drawer.toggle()">
       Toggle sidenav
     </button>
     <router-outlet></router-outlet>
