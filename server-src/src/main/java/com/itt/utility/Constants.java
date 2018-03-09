@@ -64,4 +64,7 @@ public final class Constants {
     /** The Constant AUTHORIZATION. */
     public static final String AUTHORIZATION = "Authorization";
 
+    /** The Constant EMPTY_STRING. */
+    public static final String EMPTY_STRING = "";
+
 }

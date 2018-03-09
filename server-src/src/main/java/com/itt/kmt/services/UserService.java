@@ -1,12 +1,11 @@
 package com.itt.kmt.services;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.mail.MailException;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.BindingResult;
@@ -61,10 +60,12 @@ public class UserService {
     }
     /**
      * Gets all the Users.
+     * @param email Email of the User.
+     * @param page Page consisting Users.
      * @return List of all the users.
      */
-    public List<User> getAllUsers() {
-        return (List<User>) repository.findAll();
+    public Page<User> getAllUsers(final String email, final Pageable page) {
+        return repository.findAll(email, page);
     }
     /**
      * Gets the logged in User.
@@ -76,91 +77,80 @@ public class UserService {
         return getUserByEmail(email);
     }
     /**
-     * Gets all the active admins and managers.
-     * @param roles roles by which active users are retrieved.
+     * Gets all the users by role and status.
+     * @param role role by which active users are retrieved.
      * @param active status of users to be retrieved.
-     * @return List of all the users.
+     * @param loggedInUserEmail email of logged in user.
+     * @param page Page consisting users.
+     * @return Page<User> page of users.
      */
-    public List<User> getAllUsersByRolesAndStatus(final List<String> roles, final boolean active) {
-        List<User> listOfUsersByRolesAndStatus = new ArrayList<User>();
-        for (String role : roles) {
-            List<User> users = repository.findByUserRoleAndActive(role, active);
-            listOfUsersByRolesAndStatus.addAll(users);
-        }
-        return listOfUsersByRolesAndStatus;
-    }
-    /**
-     * Gets all the active admins and managers.
-     * @param roles roles by which active users are retrieved.
-     * @return List of all the users.
-     */
-    public List<User> getAllUsersByRoles(final List<String> roles) {
-        List<User> listOfUsersByRoles = new ArrayList<User>();
-        for (String role : roles) {
-            List<User> users = repository.findByUserRole(role);
-            listOfUsersByRoles.addAll(users);
-        }
-        return listOfUsersByRoles;
-    }
-    /**
-     * Gets all the Users by attribute passed.
-     * @param userAttribute userAttribute by which active users are retrieved.
-     * @return List of all the users.
-     */
-    public List<User> searchUsersByUserAttribute(final String userAttribute) {
+    public Page<User> getAllUsersByRolesAndStatus(final String role, final boolean active, 
+                   final String loggedInUserEmail, final Pageable page) {
 
-        return repository.findByFirstNameOrLastNameOrEmail(userAttribute);
+        Page<User> users = repository.findByUserRoleAndActive(role, active, loggedInUserEmail, page);
+
+        return users;
+    }
+    /**
+     * Gets all the users by role.
+     * @param role role by which users are retrieved.
+     * @param loggedInUserEmail email of logged in user.
+     * @param page Page consisting users.
+     * @return Page<User> page of users.
+     */
+    public  Page<User> getAllUsersByRoles(final String role, final String loggedInUserEmail, final Pageable page) {
+        Page<User> users = repository.findByUserRole(role, loggedInUserEmail, page);
+        return users;
     }
     /**
      * Gets all the Users by attributes passed.
      * @param search parameter by which users are filtered.
      * @param role role by which active users are retrieved.
      * @param status status by which active users are retrieved.
-     * @return List of all the users.
+     * @param loggedInUserEmail email of logged in user.
+     * @param page Page consisting users.
+     * @return Page<User> page of users.
      */
-    public List<User> filterUsersByStatusAndRole(final String search, final String role, final Boolean status) {
+    public Page<User> filterUsersByStatusAndRole(final String search, final String role, final Boolean status, 
+              final String loggedInUserEmail, final Pageable page) {
 
-        List<User> users = null;
-        List<String> roles = new ArrayList<String>();
-        roles.add(role);
+        Page<User> users = null;
 
-        if (role == null && status == null && search == null) {
+        if ((role == null || role.equals(Constants.EMPTY_STRING)) && status == null 
+               && (search == null || search.equals(Constants.EMPTY_STRING))) {
 
-            users = getAllUsers();
+            users = getAllUsers(loggedInUserEmail, page);
 
-        } else if (role != null && search == null) {
+        } else if ((role != null && !Constants.EMPTY_STRING.equals(role)) 
+                && (search == null || search.equals(Constants.EMPTY_STRING))) {
 
             if (status != null) {
-               users = getAllUsersByRolesAndStatus(roles, status);
+               users = getAllUsersByRolesAndStatus(role, status, loggedInUserEmail, page);
             } else {
-               users = getAllUsersByRoles(roles);
+               users = getAllUsersByRoles(role, loggedInUserEmail, page);
             }
-        } else if (status != null && search == null) {
-            users =  repository.findByActive(status);
 
-        } else if (search != null) {
-            users = repository.findByFirstNameOrLastNameOrEmail(search);
-            List<User> filteredUsers = new ArrayList<User>();
-            for (User user : users) {
-                if (role != null && status != null) {
+        } else if (status != null && (search == null || search.equals(Constants.EMPTY_STRING))) {
+            users =  repository.findByActive(status, loggedInUserEmail, page);
 
-                    if (user.getUserRole().equals(role) && user.isActive() == status) {
-                        filteredUsers.add(user);
-                    }
-                } else if (role == null && status != null) {
-                    if (user.isActive() == status) {
-                        filteredUsers.add(user);
-                    }
-                } else if (role != null && status == null) {
-                    if (user.getUserRole().equals(role)) {
-                        filteredUsers.add(user);
-                    }
-                } else {
-                    filteredUsers = users;
-                    break;
-                }
+        } else if (search != null && !Constants.EMPTY_STRING.equals(search)) {
+
+            if ((role != null && !Constants.EMPTY_STRING.equals(role)) && status != null) {
+
+                users = repository.findByFirstNameOrLastNameOrEmailAndActiveAndUserRole(search, loggedInUserEmail, 
+                          status, role, page);
+
+            } else if ((role == null || role.equals(Constants.EMPTY_STRING)) && status != null) {
+
+                users = repository.findByFirstNameOrLastNameOrEmailAndActive(search, loggedInUserEmail, status, page);
+
+            } else if ((role != null && !Constants.EMPTY_STRING.equals(role)) && status == null) {
+
+                users = repository.findByFirstNameOrLastNameOrEmailAndUserRole(search, loggedInUserEmail, role, page);
+
+            } else {
+                users = repository.findByFirstNameOrLastNameOrEmail(search, loggedInUserEmail, page);
             }
-            users = filteredUsers;
 
         }
         return users;
@@ -267,22 +257,20 @@ public class UserService {
         UserValidator userValidator = new UserValidator();
         userValidator.validate(user, result);
         String errorMsg = "";
-        
+
         if (result.hasErrors()) {
-            
+
             List<FieldError> errors = result.getFieldErrors();
             for (FieldError error : errors) {
                 if (errorMsg.isEmpty()) {
                     errorMsg = error.getField() + " - " + error.getDefaultMessage();
                     continue;
                 }
-                
                 errorMsg = errorMsg + "," + error.getField() + " - " + error.getDefaultMessage();
             }
         }
         return errorMsg;
     }
-    
     /**
      * Sets the user session.
      *
@@ -299,33 +287,4 @@ public class UserService {
              throw new RuntimeException("user doesnot exist");
          }
      }
-    /**
-     * Gets all the users based on page number and size.
-     * @param users list of users to be filtered.
-     * @param page number.
-     * @param pageSize the number of elements to be retrieved.
-     * @return List of users.
-     */
-    public List<User> arrangeUsersByCreatedDate(final List<User> users, 
-           final Integer page, final Integer pageSize) {
-        List<User> usersList = new ArrayList<User>();
-        Collections.sort(users, new Comparator<User>() {
-            public int compare(final User m1, final User m2) {
-                return m2.getDateJoined().compareTo(m1.getDateJoined());
-            }
-        });
-        if (page != null) {
-            for (int i = page * Constants.PAGE_SIZE; i < page * Constants.PAGE_SIZE + Constants.PAGE_SIZE - 1; i++) {
-                if (i < users.size()) {
-                    usersList.add(users.get(i));
-                }
-                if (pageSize != null && i == pageSize - 1) {
-                    break;
-                }
-            }
-        } else {
-            usersList = users;
-        }
-        return usersList;
-    }
 }

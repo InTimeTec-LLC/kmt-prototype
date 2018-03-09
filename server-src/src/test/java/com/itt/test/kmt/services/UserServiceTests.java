@@ -17,6 +17,9 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.mail.MailException;
 import org.springframework.scheduling.annotation.AsyncResult;
 import org.springframework.test.context.junit4.SpringRunner;
@@ -137,6 +140,28 @@ public class UserServiceTests {
     }
 
     @Test
+    public final void filterUsersByStatusAndRole() {
+
+        // Arrange
+        User user1 = testDataRepository.getUsers()
+                .get("user-1");
+        User user2 = testDataRepository.getUsers()
+                .get("user-2");
+        List<User> usersList = new ArrayList<User>();
+        usersList.add(user2);
+        PageRequest pageReq = new PageRequest(0, 1);
+
+        Page<User> pages = new PageImpl<User>(usersList);
+        when(userRepository.findAll(user1.getEmail(), pageReq)).thenReturn(pages);
+        //Act
+        Page<User> pageOfUsers = userService.filterUsersByStatusAndRole(null, null, null, user1.getEmail(), pageReq);
+
+        // Assert
+        assertTrue(pages.getContent().containsAll(pageOfUsers.getContent()));
+        verify(userRepository, times(1)).findAll(user1.getEmail(), pageReq);
+    }
+
+    @Test
     public final void getAllUsers() {
 
         // Arrange
@@ -144,16 +169,44 @@ public class UserServiceTests {
                 .get("user-1");
         User user2 = testDataRepository.getUsers()
                 .get("user-2");
+        User user3 = testDataRepository.getUsers()
+                .get("user-3");
         List<User> users = new ArrayList<User>();
-        users.add(user1);
         users.add(user2);
-        when(userRepository.findAll()).thenReturn(users);
+        users.add(user3);
+        Page<User> usersPage = new PageImpl<User>(users);
+        PageRequest pageReq = new PageRequest(0, 2);
+        when(userRepository.findAll(user1.getEmail(), pageReq)).thenReturn(usersPage);
 
         // Act
-        List<User> usersListRecieved = userService.getAllUsers();
+        Page<User> usersPageRecieved = userService.getAllUsers(user1.getEmail(), pageReq);
         // Assert
-        assertTrue(users.containsAll(usersListRecieved));
-        verify(userRepository, times(1)).findAll();
+        assertTrue(usersPage.getContent().containsAll(usersPageRecieved.getContent()));
+        verify(userRepository, times(1)).findAll(user1.getEmail(), pageReq);
+    }
+
+    @Test
+    public final void getAllUsersByRolesAndStatus() {
+
+        // Arrange
+        User user1 = testDataRepository.getUsers()
+                .get("user-1");
+        User user2 = testDataRepository.getUsers()
+                .get("user-2");
+
+        List<User> managers = new ArrayList<User>();
+        managers.add(user2);
+        PageRequest pageRequest = new PageRequest(0, 1);
+        Page<User> page = new PageImpl<User>(managers);
+
+        when(userRepository.findByUserRoleAndActive("manager", true, user1.getEmail(), pageRequest)).thenReturn(page);
+
+        // Act
+        Page<User> usersPageRecieved = userService.getAllUsersByRolesAndStatus("manager", true, user1.getEmail(), 
+               pageRequest);
+        // Assert
+        assertTrue(page.getContent().containsAll(usersPageRecieved.getContent()));
+        verify(userRepository, times(1)).findByUserRoleAndActive("manager", true, user1.getEmail(), pageRequest);
     }
 
     @Test
@@ -165,69 +218,16 @@ public class UserServiceTests {
 
         List<User> usersList = new ArrayList<User>();
         usersList.add(user);
+        PageRequest pageRequest = new PageRequest(0, 1);
+        Page<User> page = new PageImpl<User>(usersList);
 
-        when(userRepository.findByUserRole("admin")).thenReturn(usersList);
-        List<String> roles = new ArrayList<String>();
-        roles.add("admin");
-
-        // Act
-        List<User> usersListRecieved = userService.getAllUsersByRoles(roles);
-        // Assert
-        assertTrue(usersList.containsAll(usersListRecieved));
-        verify(userRepository, times(1)).findByUserRole("admin");
-    }
-
-    @Test
-    public final void searchUsersByUserAttribute() {
-
-        // Arrange
-        User user = testDataRepository.getUsers()
-                .get("user-1");
-
-        List<User> usersList = new ArrayList<User>();
-        usersList.add(user);
-
-        when(userRepository.findByFirstNameOrLastNameOrEmail(user.getFirstName())).thenReturn(usersList);
+        when(userRepository.findByUserRole("admin", user.getEmail(), pageRequest)).thenReturn(page);
 
         // Act
-        List<User> usersListRecieved = userService.searchUsersByUserAttribute(user.getFirstName());
+        Page<User> usersPageRecieved = userService.getAllUsersByRoles("admin", user.getEmail(), pageRequest);
         // Assert
-        assertTrue(usersList.containsAll(usersListRecieved));
-        verify(userRepository, times(1)).findByFirstNameOrLastNameOrEmail(user.getFirstName());
-    }
-
-    @Test
-    public final void getAllUsersByRolesAndStatus() {
-
-        // Arrange
-        User user1 = testDataRepository.getUsers()
-                .get("user-1");
-
-        List<User> admins = new ArrayList<User>();
-        admins.add(user1);
-
-        User user2 = testDataRepository.getUsers()
-                .get("user-2");
-
-        List<User> managers = new ArrayList<User>();
-        managers.add(user2);
-
-        List<User> adminsAndManagers = new ArrayList<User>();
-        adminsAndManagers.addAll(admins);
-        adminsAndManagers.addAll(managers);
-
-        List<String> roles = new ArrayList<String>();
-        roles.add("admin");
-        roles.add("manager");
-
-        when(userRepository.findByUserRoleAndActive("admin", true)).thenReturn(admins);
-        when(userRepository.findByUserRoleAndActive("manager", true)).thenReturn(managers);
-
-        // Act
-        List<User> usersListRecieved = userService.getAllUsersByRolesAndStatus(roles, true);
-        // Assert
-        assertTrue(adminsAndManagers.containsAll(usersListRecieved));
-        verify(userRepository, times(1)).findByUserRoleAndActive("admin", true);
+        assertTrue(page.getContent().containsAll(usersPageRecieved.getContent()));
+        verify(userRepository, times(1)).findByUserRole("admin", user.getEmail(), pageRequest);
     }
 
     @Test
@@ -387,27 +387,5 @@ public class UserServiceTests {
         // Assert
         assertTrue(roles.containsAll(role));
         verify(roleRepository, times(1)).findAll();
-    }
-
-    @Test
-    public final void filterUsersByStatusAndRole() {
-
-        // Arrange
-        User user = testDataRepository.getUsers()
-                .get("user-1");
-
-        List<User> usersList = new ArrayList<User>();
-        usersList.add(user);
-
-        when(userRepository.findByFirstNameOrLastNameOrEmail("ashish"))
-        .thenReturn(usersList);
-
-
-        // Act
-        List<User> usersListRecieved = userService.filterUsersByStatusAndRole("ashish", user.getUserRole(), 
-                user.isActive());
-        // Assert
-        assertTrue(usersList.containsAll(usersListRecieved));
-        verify(userRepository, times(1)).findByFirstNameOrLastNameOrEmail("ashish");
     }
 }
