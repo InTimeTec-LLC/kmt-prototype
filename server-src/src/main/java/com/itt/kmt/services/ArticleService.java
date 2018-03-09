@@ -18,6 +18,7 @@ import com.itt.kmt.models.Approve;
 import com.itt.kmt.models.Article;
 import com.itt.kmt.models.ArticleFilter;
 import com.itt.kmt.models.ArticleType;
+import com.itt.kmt.models.Attachment;
 import com.itt.kmt.models.Comment;
 import com.itt.kmt.models.User;
 import com.itt.kmt.models.UserResponse;
@@ -76,6 +77,9 @@ public class ArticleService {
      */
     @Autowired
     private CommentRepository commentRepository;
+    
+    @Autowired
+    private AttachmentService attachmentService;
 
 
     //    private static List<Boolean> allStatus = null;
@@ -160,6 +164,36 @@ public class ArticleService {
     }
 
     /**
+     * Get all available articles the DBEntity(Article) from the database.
+     * 
+     * @param page
+     *            Pageable object.
+     * @param token
+     *            jwt token of current session.
+     * @return Page<Article> get list of articles.
+     */
+    public Page<Article> getAllArticles(final Pageable page, final String token) {
+
+        // Get Logged in user
+        User loggedInUser = userService.getLoggedInUser(token);
+
+        // get articles according to permission
+        if (loggedInUser.getUserRole().equals(Constants.ROLE_MANAGER)) {
+            Page<Article> articles = articleRepository.findByCreatedByAndAndApprover(new ObjectId(loggedInUser.getId()),
+                    new ObjectId(loggedInUser.getId()), page);
+            for(Article article :articles)
+            {
+                List<Attachment> attachments = attachmentService.getArticleAttachments(article.getId());
+                article.setAttachments(attachments);
+            }
+        } else if (loggedInUser.getUserRole().equals(Constants.ROLE_USER)) {
+            return articleRepository.findByCreatedBy(new ObjectId(loggedInUser.getId()), page);
+        }
+
+        return articleRepository.findAll(page);
+    }
+
+    /**
      * Gets the Article given the id.
      * 
      * @param id
@@ -173,6 +207,10 @@ public class ArticleService {
         if (article == null) {
             throw new RuntimeException("No articles found");
         }
+        
+        List<Attachment> attachments = attachmentService.getArticleAttachments(article.getId());
+        article.setAttachments(attachments);
+        
         return article;
     }
 
@@ -240,6 +278,9 @@ public class ArticleService {
                 } catch (MailException | InterruptedException e) {
                     log.error(e.getMessage());
                 }
+                
+                // Deleting attached attachments
+                attachmentService.deleteAttachmentWithArticleId(articleID);
                 return;
             }
             throw new UnauthorizedException();

@@ -9,7 +9,6 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -17,15 +16,9 @@ import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.itt.kmt.jwt.exception.UnauthorizedException;
-import com.itt.kmt.models.Article;
-import com.itt.kmt.models.ArticleType;
 import com.itt.kmt.models.Attachment;
-import com.itt.kmt.models.User;
 import com.itt.kmt.repositories.AttachmentRepository;
 import com.itt.kmt.response.models.ResponseMsg;
-import com.itt.utility.Constants;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -38,6 +31,10 @@ import lombok.extern.slf4j.Slf4j;
  */
 @Service
 @PropertySource("classpath:application.properties")
+
+/** The Constant log. */
+
+/** The Constant log. */
 
 /** The Constant log. */
 @Slf4j
@@ -101,14 +98,54 @@ public class AttachmentService {
     }
 
     /**
+     * Update attachment with article id.
+     *
+     * @param attachments the attachments
+     * @param articleId the article id
+     */
+    public void updateAttachmentWithArticleId(List<Attachment> attachments, String articleId) {
+
+        try {
+            for (Attachment attachment : attachments) {
+                Attachment dbAttachment = getAttachmentByID(attachment.getId());
+                dbAttachment.setArticleId(articleId);
+                updateAttachment(dbAttachment.getId(), dbAttachment);
+            }
+        } catch (Exception ex) {
+            log.error("an exception was thrown: ", ex);
+        }
+    }
+
+    /**
+     * Delete attachment with article id.
+     *
+     * @param articleId the article id
+     */
+    public void deleteAttachmentWithArticleId(String articleId) {
+
+        try {
+            List<Attachment> attachments = getArticleAttachments(articleId);
+            for (Attachment attachment : attachments) {
+                delete(attachment.getId());
+            }
+        } catch (Exception ex) {
+            log.error("an exception was thrown: ", ex);
+        }
+    }
+
+    /**
      * Gets the article attachments.
      *
      * @param articleId the article id
      * @return the article attachments
      */
     public List<Attachment> getArticleAttachments(final String articleId) {
-
-        return attachmentRepository.findByArticleId(articleId);
+        List<Attachment> attachments = attachmentRepository.findByArticleId(articleId);
+        for(Attachment attachment: attachments)
+        {
+            attachment.setUrl("api/attachments/" + attachment.getId());
+        }
+        return attachments;
     }
 
     /**
@@ -134,10 +171,20 @@ public class AttachmentService {
                               .isEmpty()) {
             attachment.setArticleId(updatedAttachment.getArticleId());
         }
+        if (!updatedAttachment.getUrl()
+                              .isEmpty()) {
+            attachment.setUrl(updatedAttachment.getUrl());
+        }
 
         return attachment;
     }
 
+    /**
+     * Delete.
+     *
+     * @param id the id
+     * @return true, if successful
+     */
     public boolean delete(final String id) {
 
         boolean isDeleted = false;
