@@ -38,7 +38,6 @@ public class ArticleService {
      */
     @Autowired
     private ArticleRepository articleRepository;
-
     /**
      * Instance of user service.
      */
@@ -56,7 +55,6 @@ public class ArticleService {
      */
     @Autowired
     private CommentRepository commentRepository;
-
     /**
      * Saves the Article to database.
      * 
