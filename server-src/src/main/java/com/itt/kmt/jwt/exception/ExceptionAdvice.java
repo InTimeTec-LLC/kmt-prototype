@@ -59,6 +59,7 @@ public class ExceptionAdvice {
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public ModelMap globalException(final HttpServletRequest request, final Throwable ex) {
         log.debug("Failed due to exception : " + ex.getMessage());
-        return new ModelMap().addAttribute("success", new ResponseMsg(Boolean.FALSE, ex.getMessage()));
+//        ex.printStackTrace();
+        return new ModelMap().addAttribute("success", new ResponseMsg(Boolean.FALSE, Constants.BAD_REQUEST_MSG));
     }
 }
