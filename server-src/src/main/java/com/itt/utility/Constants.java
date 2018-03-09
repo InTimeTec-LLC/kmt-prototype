@@ -42,4 +42,19 @@ public final class Constants {
     public static final String ARTICLE_CREATED_MESSAGE = "Knowledge Article has been created successfully";
     
 
+    /** The Constant ARTICLE_DELETED_MESSAGE. */
+    public static final String ARTICLE_DELETED_MESSAGE = "Knowledge Article has been deleted successfully";
+
+    /** The Constant ROLE_USER. */
+    public static final String ROLE_USER = "user";
+
+    /** The Constant ROLE_MANAGER. */
+    public static final String ROLE_MANAGER = "manager";
+
+    /** The Constant ROLE_ADMIN. */
+    public static final String ROLE_ADMIN = "admin";
+
+    /** The Constant AUTHORIZATION. */
+    public static final String AUTHORIZATION = "Authorization";
+
 }

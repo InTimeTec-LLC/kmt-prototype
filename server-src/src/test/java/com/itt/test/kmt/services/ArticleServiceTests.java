@@ -10,6 +10,7 @@ import static org.mockito.Mockito.when;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.bson.types.ObjectId;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
@@ -118,21 +119,75 @@ public class ArticleServiceTests {
         verify(articleTypeRepository, times(1)).findAll();
     }
 
-    @Test 
-    public final void getAllArticlesTest() throws Exception {
+
+    @Test
+    public final void getAllArticles() throws Exception {
         List<Article> articleList = new ArrayList<Article>();
         articleList.add(articleTestDataRepository.getArticles().get("article-1"));
         articleList.add(articleTestDataRepository.getArticles().get("article-2"));
+        User user = testDataRepository.getUsers()
+                .get("user-6");
+        String token = "jwtTestToken";
 
         Page<Article> page = new PageImpl<Article>(articleList);
         when(articleRepository.findAll(new PageRequest(Constants.PAGE_NUMBER, Constants.PAGE_SIZE))).thenReturn(page);
+        when(userService.getLoggedInUser(token)).thenReturn(user);
         Page<Article> firstPage = articleService
-                .getAllArticles(new PageRequest(Constants.PAGE_NUMBER, Constants.PAGE_SIZE));
+                .getAllArticles(new PageRequest(Constants.PAGE_NUMBER, Constants.PAGE_SIZE), token);
 
         // Assert
         assertThat(firstPage.getTotalPages()).isEqualTo(1);
         verify(articleRepository, times(1))
                 .findAll(new PageRequest(Constants.PAGE_NUMBER, Constants.PAGE_SIZE));
+    }
+
+    @Test 
+    public final void getAllArticlesByUserRoleTest() throws Exception {
+        List<Article> articleList = new ArrayList<Article>();
+        articleList.add(articleTestDataRepository.getArticles().get("article-1"));
+        articleList.add(articleTestDataRepository.getArticles().get("article-2"));
+        User user = testDataRepository.getUsers()
+                .get("user-5");
+        String token = "jwtTestToken";
+
+        Page<Article> page = new PageImpl<Article>(articleList);
+        when(articleRepository.findByCreatedBy(new ObjectId(user.getId()),
+                new PageRequest(Constants.PAGE_NUMBER, Constants.PAGE_SIZE))).thenReturn(page);
+        when(userService.getLoggedInUser(token)).thenReturn(user);
+        Page<Article> firstPage = articleService
+                .getAllArticles(new PageRequest(Constants.PAGE_NUMBER, Constants.PAGE_SIZE), token);
+
+        // Assert
+        assertThat(firstPage.getTotalPages()).isEqualTo(1);
+        verify(articleRepository, times(1))
+                .findByCreatedBy(new ObjectId(user.getId()),
+                        new PageRequest(Constants.PAGE_NUMBER, Constants.PAGE_SIZE));
+    }
+
+
+    @Test
+    public final void getAllArticlesByManagerRoleTest() throws Exception {
+        List<Article> articleList = new ArrayList<Article>();
+        articleList.add(articleTestDataRepository.getArticles().get("article-1"));
+        articleList.add(articleTestDataRepository.getArticles().get("article-2"));
+        User user = testDataRepository.getUsers()
+                .get("user-4");
+        String token = "jwtTestToken";
+
+        Page<Article> page = new PageImpl<Article>(articleList);
+        when(articleRepository.findByCreatedByAndAndApprover(new ObjectId(user.getId()),
+                new ObjectId(user.getId()),
+                new PageRequest(Constants.PAGE_NUMBER, Constants.PAGE_SIZE))).thenReturn(page);
+        when(userService.getLoggedInUser(token)).thenReturn(user);
+        Page<Article> firstPage = articleService
+                .getAllArticles(new PageRequest(Constants.PAGE_NUMBER, Constants.PAGE_SIZE), token);
+
+        // Assert
+        assertThat(firstPage.getTotalPages()).isEqualTo(1);
+        verify(articleRepository, times(1))
+                .findByCreatedByAndAndApprover(new ObjectId(user.getId()),
+                        new ObjectId(user.getId()),
+                        new PageRequest(Constants.PAGE_NUMBER, Constants.PAGE_SIZE));
     }
 
     @Test

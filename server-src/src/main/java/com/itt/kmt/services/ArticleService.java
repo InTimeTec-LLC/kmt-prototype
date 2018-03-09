@@ -6,6 +6,9 @@ import com.itt.kmt.models.User;
 import com.itt.kmt.models.UserResponse;
 import com.itt.kmt.repositories.ArticleRepository;
 import com.itt.kmt.repositories.ArticleTypeRepository;
+import com.itt.kmt.repositories.CommentRepository;
+import com.itt.utility.Constants;
+import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -41,6 +44,12 @@ public class ArticleService {
      */
     @Autowired
     private ArticleTypeRepository articleTypeRepository;
+
+    /**
+     * Instance of the basic Comment repository.
+     */
+    @Autowired
+    private CommentRepository commentRepository;
 
     /**
      * Saves the Article to database.
@@ -111,10 +120,23 @@ public class ArticleService {
     /**
      * Get all available articles the DBEntity(Article) from the database.
      * 
-     * @param page Pageable object. 
+     * @param page Pageable object.
+     * @param token jwt token of current session.
      * @return Page<Article> get list of articles.
      */
-    public Page<Article> getAllArticles(final Pageable page) {
+    public Page<Article> getAllArticles(final Pageable page, final String token) {
+
+        //Get Logged in user
+        User loggedInUser = userService.getLoggedInUser(token);
+
+        // get articles according to permission
+        if (loggedInUser.getUserRole().equals(Constants.ROLE_MANAGER)) {
+            return articleRepository.findByCreatedByAndAndApprover(new ObjectId(loggedInUser.getId()),
+                    new ObjectId(loggedInUser.getId()), page);
+        } else if (loggedInUser.getUserRole().equals(Constants.ROLE_USER)) {
+            return articleRepository.findByCreatedBy(new ObjectId(loggedInUser.getId()), page);
+        }
+
         return articleRepository.findAll(page);
     }
 
@@ -125,6 +147,7 @@ public class ArticleService {
      * @return Article object matching the id
      */
     public Article getArticleById(final String id) {
+
         Article article = articleRepository.findOne(id);
         if (article == null) {
             throw new RuntimeException("No articles found");
@@ -164,5 +187,4 @@ public class ArticleService {
 
         return article;
     }
-
 }
