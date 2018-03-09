@@ -32,6 +32,8 @@ export class UserListComponent implements OnInit {
     role: undefined
   };
 
+  bFilterStatus = undefined;
+
   constructor(
     private userService: UserService,
     private router: Router,
@@ -43,7 +45,7 @@ export class UserListComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.getUserList(0, '' , this.selectedFilter.role, this.selectedFilter.status, this.finalTxt);
+        this.getUserList(0, '' , this.selectedFilter.role, this.bFilterStatus, this.finalTxt);
     }
 
     onTapSearchIcon() {
@@ -52,12 +54,12 @@ export class UserListComponent implements OnInit {
         this.finalTxt = this.finalTxt.toLowerCase();
         console.log(this.finalTxt);
         // this.dataSource.filter = filterValue;
-        this.getUserList(0, '' , this.selectedFilter.role, this.selectedFilter.status, this.finalTxt);
+        this.getUserList(0, '' , this.selectedFilter.role, this.bFilterStatus, this.finalTxt);
     }
 
     onPaginateChange(pageInfo) {
         console.log(pageInfo.pageIndex);
-        this.getUserList(pageInfo.pageIndex, '' , this.selectedFilter.role, this.selectedFilter.status, this.finalTxt);
+        this.getUserList(pageInfo.pageIndex, '' , this.selectedFilter.role, this.bFilterStatus, this.finalTxt);
     }
 
     onTapActions(status, userId) {
@@ -79,14 +81,14 @@ export class UserListComponent implements OnInit {
         console.log(pageNum, sortField, role, status, search);
         let queryParam = '?page=' + pageNum;
         if (role !== '' && role !== undefined && role !== null) {
-            queryParam = queryParam.concat('&role=' + role);
+            queryParam = queryParam.concat('&role=' + role.toLowerCase());
         }
         if (status !== '' && status !== undefined && status !== null) {
             queryParam = queryParam.concat('&status=' + status);
         }
         if (search !== '' && search !== undefined && search !== null) {
             console.log(search);
-            queryParam = queryParam.concat('&search=' + search);
+            queryParam = queryParam.concat('&search=' + search.toLowerCase());
         }
         if (sortField !== '' && sortField !== undefined && sortField !== null) {
             queryParam = queryParam.concat('&sortField=' + sortField);
@@ -116,19 +118,27 @@ export class UserListComponent implements OnInit {
         });
 
         dialogRef.afterClosed().subscribe(result => {
-            let filterStatus;
+            this.bFilterStatus = undefined;
             let filterRole = '';
             if (result && result.status !== undefined) {
+                this.selectedFilter.status = result.status;
                 if (result.status === 'Activate') {
-                    filterStatus = true;
+                    this.bFilterStatus = true;
+                } else if (result.status === 'Deactivate') {
+                    this.bFilterStatus = false;
                 }
+            } else {
+                this.selectedFilter.status = undefined;
             }
 
             if (result && result.role !== undefined) {
+                this.selectedFilter.role = result.role;
                 filterRole = String(result.role).toLowerCase();
+            } else {
+                this.selectedFilter.role = undefined;
             }
 
-            this.getUserList(0, '' , filterRole, this.selectedFilter.status, this.finalTxt);
+            this.getUserList(0, '' , filterRole, this.bFilterStatus, this.finalTxt);
         });
     }
 

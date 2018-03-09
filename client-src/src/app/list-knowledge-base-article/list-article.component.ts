@@ -49,7 +49,17 @@ export class ListArticleComponent implements OnInit {
         this.getArticleList();
     }
 
-    onTapActions() {
+    onTapDelete(articleId) {
+        if (confirm('Would you like to the article?')) {
+            this.kbContentService.deleteArticle(articleId).subscribe(
+                data => {
+                    this.toasterService.pop('success', '', data.success.message);
+                    this.getArticleList();
+                },
+                error => {
+                    this.toasterService.pop('error', '', error.success.message);
+                });
+            }
     }
 
     getArticleList() {

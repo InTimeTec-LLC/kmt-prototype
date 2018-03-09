@@ -65,7 +65,7 @@
       </mat-row>
     </mat-table>
   
-    <mat-paginator *ngIf='filterList.length > 0' [length]="20" [pageSize]="10" (page)="pageEvent = $event; onPaginateChange($event)">
+    <mat-paginator *ngIf='filterList.length > 0' [length]="totalNumberItems" [pageSize]="10" (page)="pageEvent = $event; onPaginateChange($event)">
     </mat-paginator>
   </div>
 
