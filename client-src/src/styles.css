@@ -12,50 +12,106 @@ body {
 }
 a{
   cursor: pointer;
+  text-decoration: none;
 }
-
 .basic-container {
   padding: 5px;
 }
-
 .version-info {
   font-size: 8pt;
   float: right;
 }
-/*.example-container{  
-width: 982px;
-}*/
 
+/* for add and edit user component css............................*/
+.form-box{
+  float: left;
+  width: 100%;
+}
+.form-box .mat-form-field {
+  width: 45%;
+  margin-right: 26px;
+} 
+.article-description label {
+    color: rgb(121, 120, 120);
+    display: block;
+    padding: 20px 0;
+  }
+
+/* for the Bar heading.... .....*/
 .container{
   width: 76%;
   float: right;
-  margin:0px 28px;
+  margin:80px 28px;
 }
-a {
-  text-decoration: none;
-}
-
-.add-heading {
+.container-heading {
   background-color: #33b7fc;
   color: #fff;
-  margin-top: 10px;
-  padding:  10px;
+  padding:  13px 20px;
+} 
+h2 {
+  font-size: 25px;
 }
-
-.lower-container {
+.heading-margin{
+  margin: 0px;
+}
+.container-body {
   flex-direction: column;
   background-color: #fbfbfb;
   padding: 20px;
   box-shadow:  0px 5px 8px rgba(0, 0, 0, 0.3);
   float:left; 
 }
+
+/* for the cancle and save button in add and edit user ...........*/
+.button-container .mat-raised-button {
+  line-height: 24px;
+  padding: 0 35px;
+  background-color: #33b7fc;
+  color: white;
+  margin-right: 10px;
+}
+.button-container {
+  float: right;
+  margin-top: 70px;
+  margin-right: 60px;
+}
+/* for the input text area in edit and add  user page................*/
 .form-field-error mat-form-field .error{
   color: #ff1010;
   font-size: 12px;
   position: absolute;
   top: 33px;
 }
+.form-input-area .mat-form-field {
+  width: 45%;
+  margin-right: 30px;
+  margin-top: 11px;
+}
+/* for userlist and artical table..............*/
+.table-list-container {
+  width: 76%;
+  float: right;
+  margin: 0px 28px;
+}
+.container-table-body {
+  flex-direction: column;
+  background-color: #fbfbfb;
+  padding: 20px;
+  box-shadow:  0px 5px 8px rgba(0, 0, 0, 0.3);
+} 
 
+/* top button add for actical and user ............*/
+.add-button {
+     float: right;
+     margin: 19px 0 25px 0;
+}
+.add-button a {
+  text-decoration: none;
+  padding: 10px 30px;
+  background-color: #33b7fc;
+  display: block;
+  color: #fff;
+}
 /**user management**/
 
 .filter-popup  .mat-dialog-content mat-form-field .mat-input-wrapper .mat-form-field-infix{
@@ -69,12 +125,9 @@ a {
   color: #fff;
   float: right;
 }
-
 .filter-popup .mat-dialog-actions{  
   display: block;
 }
-
-
 .filter_clear .mat-button-wrapper{ 
     color: #155d82;
     font-size: 13px;
@@ -83,22 +136,60 @@ a {
 .filter_clear:hover{
 background-color: #fff;
 }
-.add-heading{
-  background-color: #33b7fc;
-  color: #fff;
-  margin-top: 10px;
-  padding: 10px;
+
+/* for user setting and artical table action ..........*/
+.action-link a{
+  color: #4388f3;
 }
-.heading-margin{
-  margin: 0px;
+.action-link a:visited {
+  color:#164fa5;
 }
-.example-container {
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-  -ms-flex-direction: column;
+/* for user and artical table container...........*/
+
+.Container-table {
+  float: left;
+  width: 100%;
+}
+.table-input-list {
+  display: flex;
   flex-direction: column;
-  background-color: #fbfbfb;
-  padding: 20px;
-  -webkit-box-shadow: 0px 5px 8px rgba(0, 0, 0, 0.3);
-  box-shadow: 0px 5px 8px rgba(0, 0, 0, 0.3);
+  min-width: 300px;
 }
+.mat-table {
+  overflow: auto;
+  max-height: 500px;
+}
+.filter-input {
+    min-height: 60px;
+    padding: 8px 0px 0;
+}
+
+.filter-input .mat-form-field {
+  font-size: 14px;
+  width: 270px;
+}
+/* for the filter..............*/ 
+.final_apply{
+  text-decoration: none;
+  background-color: #33b7fc;
+  display: block;
+  color: #fff;
+}
+.filter_icon{
+  vertical-align: text-top;
+  margin-left: 11px;
+}
+/* globle table.....................*/
+.list_table mat-header-row mat-header-cell,
+.list_table mat-row mat-cell{
+  font-size: 12px;
+  padding-right: 9px;
+} 
+.list_table mat-header-row mat-header-cell{
+  color: #000;
+  font-weight: bold;
+}
+
+
+
+

@@ -1,17 +1,17 @@
-<div class="container">
-  <div class="add-user-button"><a (click)="onTapNavigation('/user/add')">Add User</a></div>
+<div class="table-list-container">
+  <div class="add-button"><a (click)="onTapNavigation('/user/add')">Add User</a></div>
   <div class="Container-table">
-    <div class="add-heading"><h2 class="heading-margin">User Settings</h2></div>
-    <div class="example-container">
+    <div class="container-heading"><h2 class="heading-margin">User Settings</h2></div>
+    <div class="container-table-body">
 
-  <div class="example-header">
+  <div class="filter-input">
     <mat-form-field>
       <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Search within the table">
     </mat-form-field>
     <img src="../../assets/images/filter-icon.png" (click)="onTapFilterIcon()" alt="Filtericon" class="filter_icon">
   </div>
   
-  <div class="example-container-1 mat-elevation-z8">
+  <div class="table-input-list mat-elevation-z8">
   
     <mat-table [dataSource]="dataSource" matSort class="list_table">
   
@@ -51,7 +51,7 @@
         <!-- Color Column -->
       <ng-container matColumnDef="actions">
           <mat-header-cell *matHeaderCellDef mat-sort-header> Actions </mat-header-cell>
-          <mat-cell *matCellDef="let row">
+          <mat-cell *matCellDef="let row" class="action-link">
             <a [routerLink]="['/user/edit', row.id]">Edit</a> |
             <a *ngIf="row.status" (click)="onTapActions(false, row.id)">Deactivate</a>
             <a *ngIf="!row.status" (click)="onTapActions(true, row.id)">Activate</a> 

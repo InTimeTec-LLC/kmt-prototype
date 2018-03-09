@@ -1,10 +1,10 @@
 <div class="container">
-  <div class="add-heading"><h2 class="heading-margin">Edit Article</h2></div>
+  <div class="container-heading"><h2 class="heading-margin">Edit Article</h2></div>
   <form  (ngSubmit)="onSubmit(article)" [formGroup]="article" #formDir="ngForm">
-      <div class="lower-container">
+      <div class="container-body">
       <div class="form-box form-field-error">
         <mat-form-field>
-          <input formControlName="title" matInput placeholder="Title">
+          <input formControlName="title" matInput placeholder="Title*">
           <span class="error" 
           *ngIf="article.get('title').touched 
           && article.get('title').hasError('required')">
@@ -14,7 +14,7 @@
         
 
         <mat-form-field>
-            <mat-select formControlName="articleType" placeholder="Types">
+            <mat-select formControlName="articleType" placeholder="Types*">
                 <mat-option>Select Types</mat-option>
                 <mat-option [value]="type.id" *ngFor="let type of types">
                   {{ type.type | titlecase}}
@@ -42,7 +42,7 @@
         <mat-form-field>
             <mat-select 
             formControlName="approver" 
-            placeholder="Assign to Review">
+            placeholder="Assign to Review*">
                 <mat-option>Select Reviewer</mat-option>
                 <mat-option [value]="approver.id" *ngFor="let approver of approvers">
                   {{ approver.firstName | titlecase}} {{ approver.lastName | titlecase}}
@@ -59,7 +59,7 @@
         <mat-checkbox class="restricted-checkbox" formControlName="restricted" >Restricted Article</mat-checkbox>
        
       </div>
-      <div class="button-postion">
+      <div class="button-container">
         <button type="button" mat-raised-button (click)="onCancle()">Cancel</button>
         <button mat-raised-button type="submit" [disabled]="article.invalid">Save</button>
       </div>

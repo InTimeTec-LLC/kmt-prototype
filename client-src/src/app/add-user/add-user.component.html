@@ -1,20 +1,20 @@
 <div class="container">
-    <div class="add-heading"><h2 class="heading-margin">Add User</h2></div>
+    <div class="container-heading"><h2 class="heading-margin">Add User</h2></div>
     <form  (ngSubmit)="onSubmit(user)" [formGroup]="user" #formDir="ngForm">
-        <div class="lower-container">
-        <div class="form-box form-field-error">
+        <div class="container-body">
+        <div class="form-box form-field-error form-input-area">
           <mat-form-field>
-            <input formControlName="firstName" matInput placeholder="First Name">
+            <input formControlName="firstName" matInput placeholder="First Name*">
             <span class="error" 
             *ngIf="user.get('firstName').touched 
             && user.get('firstName').hasError('required')">
               First Name is required
         </span>
           </mat-form-field>
-          
+           
         
           <mat-form-field>
-            <input formControlName="lastName" matInput placeholder="Last Name">
+            <input formControlName="lastName" matInput placeholder="Last Name*">
             <span class="error" 
             *ngIf="user.get('lastName').touched 
             && user.get('lastName').hasError('required')">
@@ -24,7 +24,7 @@
           
         
           <mat-form-field>
-              <mat-select formControlName="userRole" placeholder="Role">
+              <mat-select formControlName="userRole" placeholder="Role*">
                   <mat-option>Select Role</mat-option>
                   <mat-option [value]="role.role | lowercase" *ngFor="let role of roles">
                     {{ role.role | titlecase}}
@@ -39,7 +39,7 @@
           
         
           <mat-form-field>
-            <input formControlName="email" matInput placeholder="Email">
+            <input formControlName="email" matInput placeholder="Email*">
             <div class="error" 
             *ngIf="user.get('email').touched 
             && user.get('email').hasError('email')">
@@ -49,7 +49,7 @@
           
         
           <mat-form-field>
-            <input formControlName="password" type="password" matInput placeholder="Password">
+            <input formControlName="password" type="password" matInput placeholder="Password*">
             <span class="error" 
             *ngIf="user.get('password').touched 
             && user.get('password').hasError('required')">
@@ -60,7 +60,7 @@
           <span *ngIf="cpwd.hasError('invalid')"> Invalid Password </span>
         
           <mat-form-field>
-            <input formControlName="confirmPassword" type="password" matInput placeholder="Confirm Password">
+            <input formControlName="confirmPassword" type="password" matInput placeholder="Confirm Password*">
             <span class="error" 
             *ngIf="user.get('confirmPassword').touched 
             && user.get('confirmPassword').hasError('required')">
@@ -75,7 +75,7 @@
           
           
             </div>
-        <div class="button-postion">
+        <div class="button-container">
           <button type="button" mat-raised-button (click)="onCancle()">Cancel</button>
           <button mat-raised-button type="submit" [disabled]="user.invalid">Save</button>
         </div>
