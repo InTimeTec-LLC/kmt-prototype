@@ -26,16 +26,6 @@ else
         echo '**********DOCKER ALREADY INSTALLED************'
 fi
 
-#checking if zip is installed or not. If not, installing it
-zipVersion=$(which zip)
-if [[ "$zipVersion" == "$emptyVariable" ]]
-then
-        sudo apt-get update
-        sudo apt-get install zip -y
-else
-        echo '**********ZIP ALREADY INSTALLED************'
-fi
-
 #deleting jenkins home directory
 if [[ -d "/var/jenkins-home" ]]
 then
@@ -84,4 +74,4 @@ then
 fi
 
 HOSTVM_IP=$(wget -qO- http://ipecho.net/plain ; echo)
-sudo docker run -d --name adpq-jenkins -p 9010:8080 -p 50000:50000 -v /var/jenkins-home:/var/jenkins_home -v /var/run/docker.sock:/var/run/docker.sock -v $(which docker):/usr/bin/docker -v $tomcatDeployLocation:/var/jenkins_home/deployCodeFiles/ -e HOSTIP=$HOSTVM_IP -e USERDIR=$userDir -u root yashittdocker/adpq-jenkins:$jenkinsContainerTag
+sudo docker run -d --name adpq-jenkins -p 9010:8080 -p 50000:50000 -v /var/jenkins-home:/var/jenkins_home -v /var/run/docker.sock:/var/run/docker.sock -v $(which docker):/usr/bin/docker -v $tomcatDeployLocation:/var/jenkins_home/deployCodeFiles/ -e HOSTIP=$HOSTVM_IP -e USERDIR=$userDir -u root ittdocker/adpq-jenkins:$jenkinsContainerTag
