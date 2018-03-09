@@ -50,13 +50,11 @@ public class ArticleService {
      */
     @Autowired
     private ArticleTypeRepository articleTypeRepository;
-
     /**
      * Instance of the basic comment repository.
      */
     @Autowired
     private CommentRepository commentRepository;
-
     /**
      * Saves the Article to database.
      * 
