@@ -65,10 +65,10 @@ export class AuthenticationService {
 
     getUserId(): string {
         const currentUser = JSON.parse(localStorage.getItem('currentUser'));
-         if (currentUser && currentUser.user && currentUser.accessToken) {
-             return currentUser.user.id;
-         }
-         return null;
+        if (currentUser && currentUser.success && currentUser.user) {
+            return currentUser.user.id;
+        }
+        return null;
     }
 
 }
