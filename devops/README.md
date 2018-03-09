@@ -28,6 +28,7 @@ Upon execution of the above mentioned script, the required packages would be ins
 ### http://IP_Address_Of_The_Host_Machine:9010
 
 Open the Jenkins console using the url mentioned above in any browser. The login credentials are mentioned below:
+
 User: admin
 Password: admin
 
