@@ -31,6 +31,7 @@ import { LeftPanelComponent } from './left-panel/left-panel.component';
 import { FooterComponent } from './footer/footer.component';
 import { ListArticleComponent, ArticleListFilterComponent } from './list-knowledge-base-article/list-article.component';
 import { UserListComponent, UserListFilterComponent } from './user-list/user-list.component';
+import { SearchKnowledgeBaseComponent } from './search-knowledge-base/search-knowledge-base.component';
 
 
 
@@ -51,7 +52,8 @@ import { UserListComponent, UserListFilterComponent } from './user-list/user-lis
     UserListFilterComponent,
     ArticleListFilterComponent,
     ViewKnowledgeBaseArticleComponent,
-    ApprovedKnowledgeBaseArticleComponent
+    ApprovedKnowledgeBaseArticleComponent,
+    SearchKnowledgeBaseComponent
   ],
   imports: [
     BrowserModule,

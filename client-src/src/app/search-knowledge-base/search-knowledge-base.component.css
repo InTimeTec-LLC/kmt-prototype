@@ -1,0 +1,48 @@
+
+.container-article-body {
+    flex-direction: column;
+    padding: 20px;
+    
+  }
+  .searchform div {
+      height: 26px;
+      margin-top: 15px;
+  }
+      
+  .searchboxwrapper {
+      position: relative;
+  }
+      
+  .searchbox {
+      border: 1px solid #dadada;
+      outline: none;
+      color: #000;
+      height: 30px;
+      background: #fff;
+      padding-left: 10px;
+      width: 100%;
+  }
+      
+  .searchsubmit {
+      font-family: 'FontAwesome';
+      width: 33px;
+      height: 33px;
+      position: absolute;
+      top: 0;
+      right: -11px;
+      background: #dadada;
+      border: none;
+      color: #5d3250;
+      cursor: hand;
+      cursor: pointer;
+  }
+  
+  .created-articles {
+      width: 75%;
+  }
+  .article-box:nth-child(1) {
+      margin-top:50px;
+  }
+  .article-date {
+      color: #a5a2a2;
+  }
