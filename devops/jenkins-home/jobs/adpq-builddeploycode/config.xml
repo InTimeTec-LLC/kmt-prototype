@@ -1,5 +1,6 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <project>
+  <actions/>
   <description></description>
   <keepDependencies>false</keepDependencies>
   <properties/>
@@ -41,7 +42,7 @@ then
         #docker rm $isContainerRunning
         echo &quot;running web&quot;
         tomcatDeployLocation=$USERDIR&quot;/devops/tomcatDeployFiles&quot;
-        docker run -d --name adpq-web -p 80:8080 -v $tomcatDeployLocation:/usr/local/tomcat/webapps/ yashittdocker/adpq-web:latest
+        docker run -d --name adpq-web -p 80:8080 -v $tomcatDeployLocation:/usr/local/tomcat/webapps/ ittdocker/adpq-web:latest
 fi
 
 
@@ -52,7 +53,7 @@ then
         #docker rm $isContainerRunning
         echo &quot;running mongo&quot;
         mongoDbFiles=$USERDIR&quot;/devops/packageRepo/kmt-prototype/devops/mongoconfig/data/db/&quot;
-        docker run -d --name adpq-mongo -v $mongoDbFiles:/data/db -p 27017:27017 yashittdocker/adpq-mongo:latest_1.1
+        docker run -d --name adpq-mongo -v $mongoDbFiles:/data/db -p 27017:27017 ittdocker/adpq-mongo:latest_1.1
 fi
 
 
