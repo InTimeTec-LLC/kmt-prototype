@@ -3,6 +3,7 @@ package com.itt.kmt.controllers;
 import com.itt.kmt.models.Article;
 import com.itt.kmt.models.ArticleType;
 import com.itt.kmt.response.models.ResponseMsg;
+import com.itt.kmt.models.Approve;
 import com.itt.kmt.services.ArticleService;
 import com.itt.utility.Constants;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
@@ -20,6 +21,7 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
 import java.util.List;
+
 
 /**
  * This class is responsible for exposing REST APis for Article.
@@ -95,5 +97,45 @@ public class ArticleController {
     public ModelMap getArticleTypes() {
         List<ArticleType> articleTypeList = articleService.getArticleTypes();
         return new ModelMap().addAttribute("types", articleTypeList);
+    }
+
+    /**
+     * REST Interface for Article retrieval by id.
+     *
+     * @param id ID of the Article.
+     * @param httpServletRequest servlet request.
+     * @return Article object that corresponds to Article id.
+     */
+    @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
+    public ModelMap deleteArticleById(@PathVariable(value = "id") final String id,
+                                      final HttpServletRequest httpServletRequest) {
+        String jwtToken = httpServletRequest.getHeader(Constants.AUTHORIZATION);
+        articleService.delete(id, jwtToken);
+        return new ModelMap().addAttribute("success",
+                new ResponseMsg(true, Constants.ARTICLE_DELETED_MESSAGE));
+    }
+
+
+    /**
+     * REST API for approval process of article.
+     * @param id ID of the Article.
+     * @param httpServletRequest servlet request.
+     * @param approveMap from which we can take article to be updated.
+     * @return ModelMap.
+     */
+    @RequestMapping(value = "/approve/{id}", method = RequestMethod.PUT)
+    public ModelMap getArticleTypes(@PathVariable(value = "id") final String id,
+                                    @RequestBody final HashMap<String, Approve> approveMap,
+                                    final HttpServletRequest httpServletRequest) {
+        Approve approve = approveMap.get("approve");
+        String jwtToken = httpServletRequest.getHeader(Constants.AUTHORIZATION);
+        Boolean approval = articleService.articleApproval(approve, id, jwtToken);
+        ResponseMsg activateResponseMsg = null;
+        if (approval) {
+            activateResponseMsg = new ResponseMsg(true, Constants.ARTICLE_APPROVED_MESSAGE);
+        } else {
+            activateResponseMsg = new ResponseMsg(true, Constants.ARTICLE_POSTED_COMMENT);
+        }
+        return new ModelMap().addAttribute("success", activateResponseMsg);
     }
 }

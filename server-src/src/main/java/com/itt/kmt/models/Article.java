@@ -86,4 +86,9 @@ public class Article {
      */
     private Boolean approved = false;
 
+    /**
+     * review comment for the article.
+     */
+    private List<Comment> comments;
+
 }
