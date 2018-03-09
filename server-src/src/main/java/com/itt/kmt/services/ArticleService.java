@@ -62,7 +62,6 @@ public class ArticleService {
      */
     @Autowired
     private CommentRepository commentRepository;
-
     /**
      * Saves the Article to database.
      * 
