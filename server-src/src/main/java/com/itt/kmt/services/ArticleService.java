@@ -12,10 +12,14 @@ import com.itt.kmt.repositories.ArticleRepository;
 import com.itt.kmt.repositories.ArticleTypeRepository;
 import com.itt.kmt.repositories.CommentRepository;
 import com.itt.utility.Constants;
+
+import lombok.extern.slf4j.Slf4j;
+
 import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.mail.MailException;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -30,6 +34,7 @@ import java.util.Map;
  * 
  * @author Ashish Y
  */
+@Slf4j
 @Service
 public class ArticleService {
 
@@ -44,7 +49,11 @@ public class ArticleService {
      */
     @Autowired
     private UserService userService;
-
+    /**
+     * Instance of mail service.
+     */
+    @Autowired
+    private MailService mailService;
     /**
      * Instance of the basic Article Type repository.
      */
@@ -70,6 +79,11 @@ public class ArticleService {
         if (article.getApprover() != null) {
             User approver = userService.getUserByID(article.getApprover().toString());
             article.setApprover(convertUserIntoUserResponse(approver));
+            try {
+                mailService.sendCreateArticleMail(approver);
+            } catch (MailException | InterruptedException e) {
+               log.error(e.getMessage());
+            }
         }
         if (article.getArticleType() != null) {
             article.setArticleType(getArticleTypeByID(article.getArticleType().toString()));
@@ -209,13 +223,22 @@ public class ArticleService {
             Map<String, String> createdBy =  new ObjectMapper().convertValue(article.getCreatedBy(), Map.class);
             if (user.getId().equals(createdBy.get("id"))) {
                 articleRepository.delete(articleID);
-                // TODO : Send mail to user/manager they have deleted their created article.
+                try {
+                    mailService.sendDeleteKAMail(article, false);
+                } catch (MailException | InterruptedException e) {
+                    log.error(e.getMessage());
+                }
                 return;
             }
             throw new UnauthorizedException();
+        } else {
+            try {
+                mailService.sendDeleteKAMail(article, true);
+            } catch (MailException | InterruptedException e) {
+                log.error(e.getMessage());
+            }
         }
         articleRepository.delete(articleID);
-        // TODO : Send mail to approver and user article has been deleted.
     }
 
 
@@ -251,12 +274,21 @@ public class ArticleService {
         if (approve.isApproved()) {
             article.setApproved(true);
             articleRepository.save(article);
-            // TODO : Send mail to user for approval with comment, if there are any
+            try {
+                mailService.sendKAapproveAndPublishMail(article);
+            } catch (MailException | InterruptedException e) {
+                log.error(e.getMessage());
+                }
             return true;
+        } else {
+            try {
+                mailService.sendKAReviewdMail(article, approve);
+            } catch (MailException | InterruptedException e) {
+                log.error(e.getMessage());
+            }
         }
 
         articleRepository.save(article);
-        // TODO : Send mail to user with review comments.
 
         return false;
     }

@@ -226,8 +226,13 @@ public class UserService {
             existingUser.setLastName(user.getLastName());
             existingUser.setUserRole(user.getUserRole());
             existingUser.setPassword(user.getPassword());
-
-            return repository.save(existingUser);
+            User updatedUser = repository.save(existingUser);
+            try {
+                mailService.sendResetPasswordMail(updatedUser, user.getPassword());
+            } catch (MailException | InterruptedException e) {
+                log.error(e.getMessage());
+            }
+            return updatedUser;
         } else {
             throw new RuntimeException("user does not exist");
         }
@@ -315,7 +320,7 @@ public class UserService {
             }
         });
         if (page != null) {
-            for (int i = page * Constants.PAGE_SIZE; i < page * Constants.PAGE_SIZE + Constants.PAGE_SIZE - 1; i++) {
+            for (int i = page * Constants.PAGE_SIZE; i <= page * Constants.PAGE_SIZE + Constants.PAGE_SIZE - 1; i++) {
                 if (i < users.size()) {
                     usersList.add(users.get(i));
                 }

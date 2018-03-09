@@ -119,7 +119,10 @@ public final class EmailConstants {
      * parameter of templates subject of email.
      */
     public static final String PARAM_EMAIL_SUBJECT = "subject";
-
+    /**
+     * parameter of templates article comments.
+     */
+    public static final String PARAM_COMMENTS = "comments";
     //known value of params 
     /**
      * Known value of portal link parameter.

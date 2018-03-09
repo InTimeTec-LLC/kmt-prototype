@@ -92,7 +92,7 @@ public class UserController {
     @RequestMapping(method = RequestMethod.GET)
     @RequiresPermissions("getAllUser")
     public Page<User> getAllUsers(final HttpServletRequest request,
-                @PageableDefault(value = Constants.PAGE_SIZE)final Pageable pageablePage, 
+                @PageableDefault(value = Constants.PAGE_SIZE)final Pageable pageablePage,
                 @RequestParam(required = false) final String role,
                 @RequestParam(required = false) final Boolean status,
                 @RequestParam(required = false) final String search,
@@ -103,11 +103,11 @@ public class UserController {
 
         User loggedInUser = userService.getLoggedInUser(jwtToken);
         List<User> users = userService.filterUsersByStatusAndRole(search, role, status);
-        users = userService.arrangeUsersByCreatedDate(users, page, size);
+        List<User> filteredUsers = userService.arrangeUsersByCreatedDate(users, page, size);
 
-        users.remove(loggedInUser);
+        filteredUsers.remove(loggedInUser);
 
-        Page<User> pages = new PageImpl<User>(users);
+        Page<User> pages = new PageImpl<User>(filteredUsers, pageablePage, users.size());
 
         return pages;
     }
