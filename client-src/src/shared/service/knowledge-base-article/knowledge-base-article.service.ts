@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
-import { KnowledgeBaseArticle, UpdateKnowledgeBaseArticle } from '../.././modals/knowledge-base-article';
+import { KnowledgeBaseArticle, UpdateKnowledgeBaseArticle, ApprovedKnowledgeBaseArticle } from '../.././modals/knowledge-base-article';
 import { of } from 'rxjs/observable/of';
 import { catchError, map, tap } from 'rxjs/operators';
 import 'rxjs/add/operator/catch';
@@ -76,6 +76,16 @@ export class KnowledgeBaseArticleService {
 
   updateKnowledgeBaseArticle (id: string, articleInfo: UpdateKnowledgeBaseArticle): Observable<any> {
     return this.http.put(this.apiUrl + '/' + id, {'article': articleInfo}, httpOptions)
+               .catch(this.handleErrorObservable);
+  }
+
+  /**
+   * Returns an Observable for the HTTP POST request for the JSON resource.
+   * @return {any} The Observable for the HTTP request.
+   */
+
+  approvedKnowledgeBaseArticle (id: string, articleInfo: ApprovedKnowledgeBaseArticle): Observable<any> {
+    return this.http.put(this.apiUrl + '/approved/' + id, {'article': articleInfo}, httpOptions)
                .catch(this.handleErrorObservable);
   }
 

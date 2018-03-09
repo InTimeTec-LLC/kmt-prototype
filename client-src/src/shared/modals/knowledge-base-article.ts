@@ -6,7 +6,6 @@ export class KnowledgeBaseArticle {
   articleType: string;
   restricted: boolean;
   needsApproval: boolean;
-  approved: boolean;
 }
 
 
@@ -18,7 +17,6 @@ export class UpdateKnowledgeBaseArticle {
   articleType: string;
   restricted: boolean;
   needsApproval: boolean;
-  approved: boolean;
 }
 
 export class Aritcles {
@@ -26,9 +24,14 @@ export class Aritcles {
   type: string;
   title: string;
   content: string;
-  status : Boolean;
+  status: Boolean;
   size: number;
   totalPages: number;
   totalElements: number;
   numberOfElements: number;
+}
+
+export class ApprovedKnowledgeBaseArticle {
+  comment: string;
+  approved: boolean;
 }
