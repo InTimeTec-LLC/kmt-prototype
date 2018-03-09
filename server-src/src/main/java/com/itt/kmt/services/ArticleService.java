@@ -49,7 +49,6 @@ public class ArticleService {
      */
     @Autowired
     private ArticleTypeRepository articleTypeRepository;
-
     /**
      * Instance of the basic comment repository.
      */
