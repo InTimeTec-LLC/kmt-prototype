@@ -1,6 +1,7 @@
 
 package com.itt.kmt.services;
 
+import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -8,6 +9,7 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -15,12 +17,15 @@ import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.itt.kmt.jwt.exception.UnauthorizedException;
 import com.itt.kmt.models.Article;
 import com.itt.kmt.models.ArticleType;
 import com.itt.kmt.models.Attachment;
 import com.itt.kmt.models.User;
 import com.itt.kmt.repositories.AttachmentRepository;
 import com.itt.kmt.response.models.ResponseMsg;
+import com.itt.utility.Constants;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -133,6 +138,28 @@ public class AttachmentService {
         return attachment;
     }
 
+    public boolean delete(final String id) {
+
+        boolean isDeleted = false;
+        Attachment attachment = attachmentRepository.findOne(id);
+
+        if (attachment == null) {
+            throw new RuntimeException("No attachment found");
+        }
+
+        try {
+            File file = new File(UPLOADED_FOLDER + attachment.getFileName());
+            file.delete();
+            // delete from database
+            attachmentRepository.delete(id);
+            isDeleted = true;
+        } catch (Exception ex) {
+            log.error("an exception was thrown: ", ex);
+        }
+
+        return isDeleted;
+    }
+
     /**
      * Save uploaded files.
      *
@@ -141,7 +168,7 @@ public class AttachmentService {
      * @throws IOException Signals that an I/O exception has occurred.
      */
     // save file
-    public ResponseMsg saveUploadedFiles(final MultipartFile file)
+    public ResponseMsg storeUploadedFiles(final MultipartFile file)
         throws IOException {
 
         ResponseMsg responseMsg = null;

@@ -7,6 +7,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.websocket.server.PathParam;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +18,7 @@ import org.springframework.core.io.Resource;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -31,6 +33,7 @@ import com.itt.kmt.response.models.LoginResponseMsg;
 import com.itt.kmt.response.models.ResponseMsg;
 import com.itt.kmt.response.models.LoginResponseMsg.StatusMsg;
 import com.itt.kmt.services.AttachmentService;
+import com.itt.utility.Constants;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -42,7 +45,6 @@ import lombok.extern.slf4j.Slf4j;
 
 @RestController
 /** The Constant log. */
-@Slf4j
 @PropertySource("classpath:application.properties")
 @RequestMapping(value = "/attachments")
 public class AttachmentController {
@@ -73,7 +75,7 @@ public class AttachmentController {
 
         try {
 
-            ResponseMsg responseMsg = attachmentService.saveUploadedFiles(uploadfile);
+            ResponseMsg responseMsg = attachmentService.storeUploadedFiles(uploadfile);
             if (responseMsg.getStatus()) {
                 Attachment attachment = new Attachment();
                 attachment.setFileName(responseMsg.getMessage());
@@ -135,4 +137,16 @@ public class AttachmentController {
                              .body(resource);
     }
 
+    @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
+    public ModelMap deleteAttachmentById(@PathVariable(value = "id")
+    final String id, final HttpServletRequest httpServletRequest) {
+
+        if (attachmentService.delete(id)) {
+            return new ModelMap().addAttribute(
+                "success", new ResponseMsg(Boolean.TRUE, Constants.ATTACHMENT_DELETED_MESSAGE));
+        } else {
+            return new ModelMap().addAttribute(
+                "success", new ResponseMsg(Boolean.FALSE, "some problem occured while deleting attachment"));
+        }
+    }
 }
