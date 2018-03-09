@@ -157,7 +157,47 @@ public class UserServiceTests {
     }
 
     @Test
-    public final void getAllActiveUsersByRoles() {
+    public final void getAllUsersByRoles() {
+
+        // Arrange
+        User user = testDataRepository.getUsers()
+                .get("user-1");
+
+        List<User> usersList = new ArrayList<User>();
+        usersList.add(user);
+
+        when(userRepository.findByUserRole("admin")).thenReturn(usersList);
+        List<String> roles = new ArrayList<String>();
+        roles.add("admin");
+
+        // Act
+        List<User> usersListRecieved = userService.getAllUsersByRoles(roles);
+        // Assert
+        assertTrue(usersList.containsAll(usersListRecieved));
+        verify(userRepository, times(1)).findByUserRole("admin");
+    }
+
+    @Test
+    public final void searchUsersByUserAttribute() {
+
+        // Arrange
+        User user = testDataRepository.getUsers()
+                .get("user-1");
+
+        List<User> usersList = new ArrayList<User>();
+        usersList.add(user);
+
+        when(userRepository.findByFirstNameOrLastNameOrEmail(user.getFirstName())).thenReturn(usersList);
+
+        // Act
+        List<User> usersListRecieved = userService.searchUsersByUserAttribute(user.getFirstName());
+        // Assert
+        assertTrue(usersList.containsAll(usersListRecieved));
+        verify(userRepository, times(1)).findByFirstNameOrLastNameOrEmail(user.getFirstName());
+    }
+
+    @Test
+    public final void getAllUsersByRolesAndStatus() {
 
         // Arrange
         User user1 = testDataRepository.getUsers()
@@ -180,14 +220,14 @@ public class UserServiceTests {
         roles.add("admin");
         roles.add("manager");
 
-        when(userRepository.findByUserRole("admin", true)).thenReturn(admins);
-        when(userRepository.findByUserRole("manager", true)).thenReturn(managers);
+        when(userRepository.findByUserRoleAndActive("admin", true)).thenReturn(admins);
+        when(userRepository.findByUserRoleAndActive("manager", true)).thenReturn(managers);
 
         // Act
-        List<User> usersListRecieved = userService.getAllActiveUsersByRoles(roles);
+        List<User> usersListRecieved = userService.getAllUsersByRolesAndStatus(roles, true);
         // Assert
         assertTrue(adminsAndManagers.containsAll(usersListRecieved));
-        verify(userRepository, times(1)).findByUserRole("admin", true);
+        verify(userRepository, times(1)).findByUserRoleAndActive("admin", true);
     }
 
     @Test
@@ -345,5 +385,27 @@ public class UserServiceTests {
         // Assert
         assertTrue(roles.containsAll(role));
         verify(roleRepository, times(1)).findAll();
+    }
+
+    @Test
+    public final void filterUsersByStatusAndRole() {
+
+        // Arrange
+        User user = testDataRepository.getUsers()
+                .get("user-1");
+
+        List<User> usersList = new ArrayList<User>();
+        usersList.add(user);
+
+        when(userRepository.findByFirstNameOrLastNameOrEmail("ashish"))
+        .thenReturn(usersList);
+
+
+        // Act
+        List<User> usersListRecieved = userService.filterUsersByStatusAndRole("ashish", user.getUserRole(), 
+                user.isActive());
+        // Assert
+        assertTrue(usersList.containsAll(usersListRecieved));
+        verify(userRepository, times(1)).findByFirstNameOrLastNameOrEmail("ashish");
     }
 }

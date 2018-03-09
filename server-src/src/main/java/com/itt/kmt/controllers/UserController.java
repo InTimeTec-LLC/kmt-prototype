@@ -9,12 +9,17 @@ import javax.validation.Valid;
 
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.itt.kmt.models.Role;
@@ -76,21 +81,35 @@ public class UserController {
     /**
      * REST Interface for users retrieval.
      * @param request request sent.
-     * @param response response received.
-     * @return ModelMap.
-     * @throws Exception.
+     * @param pageablePage page containing users.
+     * @param role of the user.
+     * @param status of the user.
+     * @param search parameter to search user.
+     * @param page number.
+     * @param size number of users to be displayed.
+     * @return Page page of users.
      */
     @RequestMapping(method = RequestMethod.GET)
     @RequiresPermissions("getAllUser")
-    public ModelMap getAllUsers(final HttpServletRequest request, final HttpServletResponse response) {
+    public Page<User> getAllUsers(final HttpServletRequest request,
+                @PageableDefault(value = Constants.PAGE_SIZE)final Pageable pageablePage, 
+                @RequestParam(required = false) final String role,
+                @RequestParam(required = false) final Boolean status,
+                @RequestParam(required = false) final String search,
+                @RequestParam(required = false) final Integer page,
+                @RequestParam(required = false) final Integer size) {
 
         String jwtToken = request.getHeader("Authorization");
-        User loggedInUser = userService.getLoggedInUser(jwtToken);
 
-        List<User> users = userService.getAllUsers();
+        User loggedInUser = userService.getLoggedInUser(jwtToken);
+        List<User> users = userService.filterUsersByStatusAndRole(search, role, status);
+        users = userService.arrangeUsersByCreatedDate(users, page, size);
+
         users.remove(loggedInUser);
 
-        return new ModelMap().addAttribute("users", users);
+        Page<User> pages = new PageImpl<User>(users);
+
+        return pages;
     }
     /**
      * REST Interface for Admin and Managers retrieval.
@@ -109,7 +128,7 @@ public class UserController {
         List<String> roles = new ArrayList<String>();
         roles.add("admin");
         roles.add("manager");
-        adminAndManager.addAll(userService.getAllActiveUsersByRoles(roles));
+        adminAndManager.addAll(userService.getAllUsersByRolesAndStatus(roles, true));
         adminAndManager.remove(loggedInUser);
 
         return new ModelMap().addAttribute("users", adminAndManager);
@@ -129,7 +148,7 @@ public class UserController {
         if (active) {
             activateResponseMsg = new ResponseMsg(true, "activated successfully");
         } else {
-            activateResponseMsg = new ResponseMsg(true, "deactivated successfully"); 
+            activateResponseMsg = new ResponseMsg(true, "deactivated successfully");
         }
 
         return new ModelMap().addAttribute("success", activateResponseMsg);
