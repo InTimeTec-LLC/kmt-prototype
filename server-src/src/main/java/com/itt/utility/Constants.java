@@ -45,6 +45,13 @@ public final class Constants {
     /** The Constant ARTICLE_DELETED_MESSAGE. */
     public static final String ARTICLE_DELETED_MESSAGE = "Knowledge Article has been deleted successfully";
 
+    /** The Constant ARTICLE_APPROVED_MESSAGE. */
+    public static final String ARTICLE_APPROVED_MESSAGE = "Knowledge Article approved successfully";
+
+    /** The Constant ARTICLE_APPROVED_MESSAGE. */
+    public static final String ARTICLE_POSTED_COMMENT = "Posted review comment successfully";
+
+
     /** The Constant ROLE_USER. */
     public static final String ROLE_USER = "user";
 

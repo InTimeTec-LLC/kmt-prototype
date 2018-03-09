@@ -1,11 +1,16 @@
 package com.itt.kmt.services;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.itt.kmt.jwt.exception.UnauthorizedException;
+import com.itt.kmt.models.Approve;
 import com.itt.kmt.models.Article;
 import com.itt.kmt.models.ArticleType;
+import com.itt.kmt.models.Comment;
 import com.itt.kmt.models.User;
 import com.itt.kmt.models.UserResponse;
 import com.itt.kmt.repositories.ArticleRepository;
 import com.itt.kmt.repositories.ArticleTypeRepository;
+import com.itt.kmt.repositories.CommentRepository;
 import com.itt.utility.Constants;
 import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,7 +18,9 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 
 /**
@@ -43,6 +50,13 @@ public class ArticleService {
      */
     @Autowired
     private ArticleTypeRepository articleTypeRepository;
+
+    /**
+     * Instance of the basic comment repository.
+     */
+    @Autowired
+    private CommentRepository commentRepository;
+
     /**
      * Saves the Article to database.
      * 
@@ -135,8 +149,8 @@ public class ArticleService {
     /**
      * Gets the Article given the id.
      * 
-     * @param id ID of the Article
-     * @return Article object matching the id
+     * @param id ID of the Article.
+     * @return Article object matching the id.
      */
     public Article getArticleById(final String id) {
 
@@ -151,9 +165,9 @@ public class ArticleService {
     /**
      * Update the Article after validation.
      *
-     * @param article object of the Article
-     * @param updatedArticle object of the Article
-     * @return Article object matching the id
+     * @param article object of the Article.
+     * @param updatedArticle object of the Article.
+     * @return Article object matching the id.
      */
     private Article updateArticle(final Article article, final Article updatedArticle) {
 
@@ -178,5 +192,96 @@ public class ArticleService {
         article.setApproved(false);
 
         return article;
+    }
+
+    /**
+     * Function to delete a article.
+     * @param articleID which needs to be deleted.
+     * @param token jwt token of logged in user.
+     */
+    public void delete(final String articleID, final String token) {
+        User user = userService.getLoggedInUser(token);
+        Article article = articleRepository.findOne(articleID);
+
+        if (article == null) {
+            throw new RuntimeException("No articles found");
+        }
+
+        if (user.getUserRole().equals(Constants.ROLE_USER) || user.getUserRole().equals(Constants.ROLE_MANAGER)) {
+            Map<String, String> createdBy =  new ObjectMapper().convertValue(article.getCreatedBy(), Map.class);
+            if (user.getId().equals(createdBy.get("id"))) {
+                articleRepository.delete(articleID);
+                // TODO : Send mail to user/manager they have deleted their created article.
+                return;
+            }
+            throw new UnauthorizedException();
+        }
+        articleRepository.delete(articleID);
+        // TODO : Send mail to approver and user article has been deleted.
+    }
+
+
+    /**
+     * Function to approve or review a article.
+     * @param approve object for article approval process.
+     * @param articleID id of article.
+     * @param token jwt token of user.
+     * @return boolean status for approval.
+     */
+    public boolean articleApproval(final Approve approve, final String articleID, final String token) {
+
+        Article article = articleRepository.findOne(articleID);
+
+        if (article == null) {
+            throw new RuntimeException("No articles found");
+        }
+
+        User loggedInUser = userService.getLoggedInUser(token);
+        Comment savedComment = saveComment(approve, loggedInUser);
+
+        List<Comment> comments = article.getComments();
+
+        if (comments == null) {
+            comments = new ArrayList<>();
+        }
+
+        if (savedComment != null) {
+            comments.add(savedComment);
+        }
+        article.setComments(comments);
+
+        if (approve.isApproved()) {
+            article.setApproved(true);
+            articleRepository.save(article);
+            // TODO : Send mail to user for approval with comment, if there are any
+            return true;
+        }
+
+        articleRepository.save(article);
+        // TODO : Send mail to user with review comments.
+
+        return false;
+    }
+
+    /**
+     * Function to save comment in DB.
+     * @param approve object for article approval process.
+     * @param user object for comment given by user.
+     * @return Comment created object.
+     */
+    private Comment saveComment(final Approve approve, final User user) {
+
+        Comment comment = null;
+
+        if (!approve.isApproved() && approve.getComment() == null) {
+            throw new RuntimeException("Found no comments");
+        }
+        if (approve.getComment() != null) {
+            comment = new Comment();
+            comment.setComment(approve.getComment());
+            comment.setCommentedBy(convertUserIntoUserResponse(user));
+            comment = commentRepository.save(comment);
+        }
+        return comment;
     }
 }

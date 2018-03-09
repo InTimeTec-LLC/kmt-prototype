@@ -1,6 +1,7 @@
 package com.itt.test.kmt.controllers;
 
 import static org.hamcrest.core.Is.is;
+import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.RETURNS_DEEP_STUBS;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
@@ -11,6 +12,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.itt.kmt.models.Approve;
 import com.itt.kmt.models.Article;
 import com.itt.kmt.models.ArticleType;
 import com.itt.kmt.response.models.ResponseMsg;
@@ -241,6 +243,99 @@ public class ArticleControllerTest extends AbstractShiroTest {
                 .accept(MediaType.APPLICATION_JSON))
         .andDo(print())
         .andExpect(status().isOk());
+    }
+
+    @Test
+    public void deleteArticleTest() throws Exception {
+        // Arrange
+        Article article = articleTestDataRepository.getArticles()
+                .get("article-4");
+        String jwtToken = "testToken";
+        ResponseMsg deleteResponseMsg = new ResponseMsg(true, Constants.ARTICLE_DELETED_MESSAGE);
+
+        doNothing().when(articleService).delete(article.getId(), jwtToken);
+
+        // Act
+        ResultActions resultActions = mockMvc.perform(
+                MockMvcRequestBuilders.delete("/articles/" + article.getId())
+                        .header(Constants.AUTHORIZATION, jwtToken)
+                        .contentType(MediaType.APPLICATION_JSON));
+
+        // Assert
+        resultActions.andExpect(status().isOk())
+                .andExpect(
+                        content().contentType(new MediaType("application", "json", Charset.forName("UTF-8"))))
+                .andExpect(jsonPath("$.success.message", is(deleteResponseMsg.getMessage())))
+                .andExpect(jsonPath("$.success.status", is(deleteResponseMsg.getStatus())));
+        verify(articleService, times(1)).delete(article.getId(), jwtToken);
+    }
+
+    @Test
+    public void approveArticleTest() throws Exception {
+        // Arrange
+        Article article = articleTestDataRepository.getArticles()
+                .get("article-3");
+        String jwtToken = "testToken";
+        ResponseMsg putResponseMsg = new ResponseMsg(true, Constants.ARTICLE_APPROVED_MESSAGE);
+        Approve approve = new Approve();
+        approve.setApproved(true);
+        approve.setComment("ap comment");
+
+        when(articleService.articleApproval(approve, article.getId(), jwtToken)).thenReturn(true);
+
+        HashMap<String, Approve> map = new HashMap<String, Approve>();
+        map.put("approve", approve);
+
+        String content = new ObjectMapper().writeValueAsString(map);
+
+        // Act
+        ResultActions resultActions = mockMvc.perform(
+                MockMvcRequestBuilders.put("/articles/approve/" + article.getId())
+                        .header(Constants.AUTHORIZATION, jwtToken)
+                        .content(content)
+                        .contentType(MediaType.APPLICATION_JSON));
+
+        // Assert
+        resultActions.andExpect(status().isOk())
+                .andExpect(
+                        content().contentType(new MediaType("application", "json", Charset.forName("UTF-8"))))
+                .andExpect(jsonPath("$.success.message", is(putResponseMsg.getMessage())))
+                .andExpect(jsonPath("$.success.status", is(putResponseMsg.getStatus())));
+        verify(articleService, times(1)).articleApproval(approve, article.getId(), jwtToken);
+    }
+
+    @Test
+    public void commentArticleTest() throws Exception {
+        // Arrange
+        Article article = articleTestDataRepository.getArticles()
+                .get("article-3");
+        String jwtToken = "testToken";
+        ResponseMsg putResponseMsg = new ResponseMsg(true, Constants.ARTICLE_POSTED_COMMENT);
+        Approve approve = new Approve();
+        approve.setApproved(false);
+        approve.setComment("test comment");
+
+        when(articleService.articleApproval(approve, article.getId(), jwtToken)).thenReturn(false);
+
+        HashMap<String, Approve> map = new HashMap<String, Approve>();
+        map.put("approve", approve);
+
+        String content = new ObjectMapper().writeValueAsString(map);
+
+        // Act
+        ResultActions resultActions = mockMvc.perform(
+                MockMvcRequestBuilders.put("/articles/approve/" + article.getId())
+                        .header(Constants.AUTHORIZATION, jwtToken)
+                        .content(content)
+                        .contentType(MediaType.APPLICATION_JSON));
+
+        // Assert
+        resultActions.andExpect(status().isOk())
+                .andExpect(
+                        content().contentType(new MediaType("application", "json", Charset.forName("UTF-8"))))
+                .andExpect(jsonPath("$.success.message", is(putResponseMsg.getMessage())))
+                .andExpect(jsonPath("$.success.status", is(putResponseMsg.getStatus())));
+        verify(articleService, times(1)).articleApproval(approve, article.getId(), jwtToken);
     }
     /**
      * Tear down.

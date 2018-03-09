@@ -37,5 +37,49 @@
         "restricted": true,
         "needsApproval": true,
         "approved": true
+    },
+    "article-4": {
+         "id": "4",
+         "version": "1",
+         "lastModifiedTime": "Tue Feb 24 17:14:43 IST 2018",
+         "lastModifiedBy": "1",
+         "createdBy": {
+               "id": "5a9fef0dfdad16d3a1f3e37f",
+               "firstName": "test",
+               "lastName": "test",
+               "email": "test@test.com"
+         },
+         "createdTime": "Tue Feb 27 17:14:43 IST 2018",
+         "title": "article-4",
+         "description": "<html>hello</html>",
+         "restricted": true,
+         "needsApproval": true,
+         "approved": true
+     },
+    "article-4": {
+        "id": "5",
+        "version": "1",
+        "lastModifiedTime": "Tue Feb 24 17:14:43 IST 2018",
+        "lastModifiedBy": "1",
+        "createdBy": "1",
+        "createdTime": "Tue Feb 27 17:14:43 IST 2018",
+        "title": "article-5",
+        "description": "<html>hello</html>",
+        "restricted": true,
+        "needsApproval": true,
+        "approved": true,
+        "comments":[
+           {
+               "id": "5aa1eaa161f02d2a0403ca46",
+               "comment": "test comment",
+               "createdTime": "Thu Mar 08 18:00:01 PST 2018",
+               "commentedBy": {
+                   "id": "5a9fef0dfdad16d3a1f3e37f",
+                   "firstName": "test",
+                   "lastName": "test",
+                   "email": "test@test.com"
+               }
+           }
+       ]
     }
 }
