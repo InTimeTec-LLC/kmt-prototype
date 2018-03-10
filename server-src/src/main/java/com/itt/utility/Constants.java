@@ -67,6 +67,8 @@ public final class Constants {
     
     /** The Constant ATTACHMENT_DELETED_MESSAGE. */
     public static final String ATTACHMENT_DELETED_MESSAGE = "Attachment has been deleted successfully";
+    /** The Constant ATTACHMENT_ADDED_MESSAGE. */
+    public static final String ATTACHMENT_ADDED_MESSAGE = "Attachment has been added successfully";
     
 
 }

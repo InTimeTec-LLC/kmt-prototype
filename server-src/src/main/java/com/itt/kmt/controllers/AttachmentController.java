@@ -63,7 +63,7 @@ public class AttachmentController {
      * @return the response entity
      */
     @RequestMapping(method = RequestMethod.POST)
-    public AttachmentResponseMsg uploadFile(@RequestParam("file")
+    public ModelMap uploadFile(@RequestParam("file")
     final MultipartFile uploadfile, @RequestParam("fileName") String fileName,
         @RequestParam("fileType") String fileType) {
 
@@ -86,7 +86,7 @@ public class AttachmentController {
                 attachment.setUrl("api/attachments/" + attachment.getId());
 
                 attachmentResponseMsg.setStatus(Boolean.TRUE);
-
+                attachmentResponseMsg.setMessage(Constants.ATTACHMENT_ADDED_MESSAGE);
                 attachmentResponseMsg.setAttachement(attachment);
 
             } else {
@@ -99,8 +99,7 @@ public class AttachmentController {
             attachmentResponseMsg.setStatus(Boolean.FALSE);
             attachmentResponseMsg.setMessage(e.getMessage());
         }
-
-        return attachmentResponseMsg;
+        return new ModelMap().addAttribute("success", attachmentResponseMsg);
     }
 
     /**
