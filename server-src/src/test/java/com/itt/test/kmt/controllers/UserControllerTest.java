@@ -172,7 +172,8 @@ public class UserControllerTest extends AbstractShiroTest {
         users.add(userOne);
         users.add(userTwo);
 
-        when(userService.getAllUsers()).thenReturn(users);
+        when(userService.filterUsersByStatusAndRole(null, null, null)).thenReturn(users);
+        when(userService.arrangeUsersByCreatedDate(users, null, null)).thenReturn(users);
         RequestBuilder requestBuilder = MockMvcRequestBuilders.get("/users")
                                                               .accept(MediaType.APPLICATION_JSON);
 
@@ -181,18 +182,56 @@ public class UserControllerTest extends AbstractShiroTest {
 
         resultActions.andExpect(status().isOk())
                      .andExpect(content().contentType(contentType))
-                     .andExpect(jsonPath("$.users", Matchers.hasSize(2)))
-                     .andExpect(jsonPath("$.users[0].id", is(userOne.getId())))
-                     .andExpect(jsonPath("$.users[0].firstName", is(userOne.getFirstName())))
-                     .andExpect(jsonPath("$.users[0].lastName", is(userOne.getLastName())))
-                     .andExpect(jsonPath("$.users[0].email", is(userOne.getEmail())))
-                     .andExpect(jsonPath("$.users[0].userRole", is(userOne.getUserRole())))
-                     .andExpect(jsonPath("$.users[1].id", is(userTwo.getId())))
-                     .andExpect(jsonPath("$.users[1].firstName", is(userTwo.getFirstName())))
-                     .andExpect(jsonPath("$.users[1].lastName", is(userTwo.getLastName())))
-                     .andExpect(jsonPath("$.users[1].email", is(userTwo.getEmail())))
-                     .andExpect(jsonPath("$.users[1].userRole", is(userTwo.getUserRole())));
-        verify(userService, times(1)).getAllUsers();
+                     .andExpect(jsonPath("$.content", Matchers.hasSize(2)))
+                     .andExpect(jsonPath("$.content[0].id", is(userOne.getId())))
+                     .andExpect(jsonPath("$.content[0].firstName", is(userOne.getFirstName())))
+                     .andExpect(jsonPath("$.content[0].lastName", is(userOne.getLastName())))
+                     .andExpect(jsonPath("$.content[0].email", is(userOne.getEmail())))
+                     .andExpect(jsonPath("$.content[0].userRole", is(userOne.getUserRole())))
+                     .andExpect(jsonPath("$.content[1].id", is(userTwo.getId())))
+                     .andExpect(jsonPath("$.content[1].firstName", is(userTwo.getFirstName())))
+                     .andExpect(jsonPath("$.content[1].lastName", is(userTwo.getLastName())))
+                     .andExpect(jsonPath("$.content[1].email", is(userTwo.getEmail())))
+                     .andExpect(jsonPath("$.content[1].userRole", is(userTwo.getUserRole())));
+        verify(userService, times(1)).filterUsersByStatusAndRole(null, null, null);
+    }
+
+    /**
+     * Gets the all users.
+     *
+     * @return the all users
+     * @throws Exception the exception
+     */
+    @Test
+    public void getAllUsersWithFilters()
+        throws Exception {
+
+        User userOne = testDataRepository.getUsers()
+                                         .get("user-1");
+
+        ArrayList<User> users = new ArrayList<User>();
+        users.add(userOne);
+        List<String> roles = new ArrayList<String>();
+        roles.add("admin");
+
+        when(userService.filterUsersByStatusAndRole(null, "admin", true)).thenReturn(users);
+        when(userService.arrangeUsersByCreatedDate(users, null, null)).thenReturn(users);
+
+        RequestBuilder requestBuilder = MockMvcRequestBuilders.get("/users?role=admin&status=true")
+                                                              .accept(MediaType.APPLICATION_JSON);
+
+        // Act
+        ResultActions resultActions = mockMvc.perform(requestBuilder);
+
+        resultActions.andExpect(status().isOk())
+                     .andExpect(content().contentType(contentType))
+                     .andExpect(jsonPath("$.content", Matchers.hasSize(1)))
+                     .andExpect(jsonPath("$.content[0].id", is(userOne.getId())))
+                     .andExpect(jsonPath("$.content[0].firstName", is(userOne.getFirstName())))
+                     .andExpect(jsonPath("$.content[0].lastName", is(userOne.getLastName())))
+                     .andExpect(jsonPath("$.content[0].email", is(userOne.getEmail())))
+                     .andExpect(jsonPath("$.content[0].userRole", is(userOne.getUserRole())));
+        verify(userService, times(1)).filterUsersByStatusAndRole(null, "admin", true);
     }
 
     /**
@@ -221,7 +260,7 @@ public class UserControllerTest extends AbstractShiroTest {
         roles.add("admin");
         roles.add("manager");
 
-        when(userService.getAllActiveUsersByRoles(roles)).thenReturn(adminsAndManagers);
+        when(userService.getAllUsersByRolesAndStatus(roles, true)).thenReturn(adminsAndManagers);
         RequestBuilder requestBuilder = MockMvcRequestBuilders.get("/users/approvers")
                                                               .accept(MediaType.APPLICATION_JSON);
 
@@ -241,7 +280,7 @@ public class UserControllerTest extends AbstractShiroTest {
                      .andExpect(jsonPath("$.users[1].lastName", is(userTwo.getLastName())))
                      .andExpect(jsonPath("$.users[1].email", is(userTwo.getEmail())))
                      .andExpect(jsonPath("$.users[1].userRole", is(userTwo.getUserRole())));
-        verify(userService, times(1)).getAllActiveUsersByRoles(roles);
+        verify(userService, times(1)).getAllUsersByRolesAndStatus(roles, true);
     }
 
     /**

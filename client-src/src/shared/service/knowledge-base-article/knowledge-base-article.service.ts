@@ -85,7 +85,9 @@ export class KnowledgeBaseArticleService {
    */
 
   approvedKnowledgeBaseArticle (id: string, articleInfo: ApprovedKnowledgeBaseArticle): Observable<any> {
-    return this.http.put(this.apiUrl + '/approved/' + id, {'article': articleInfo}, httpOptions)
+    console.log(id);
+    console.log(articleInfo);
+    return this.http.put(this.apiUrl + '/approve/' + id, {'approve': articleInfo}, httpOptions)
                .catch(this.handleErrorObservable);
   }
 
@@ -97,6 +99,16 @@ export class KnowledgeBaseArticleService {
   reteriveKnowledgeBaseArticleById(articleId: Number): Observable<any> {
     return this.http.get(this.apiUrl + '/' + articleId).catch(this.handleErrorObservable);
 }
+
+  /**
+   * Returns an Observable for the HTTP DELETE request for the JSON resource.
+   * @return {UserService} The Observable for the HTTP request.
+   */
+
+  deleteArticle (id): Observable<any> {
+    return this.http.delete(this.apiUrl + '/' + id,  httpOptions)
+               .catch(this.handleErrorObservable);
+  }
 
 
 

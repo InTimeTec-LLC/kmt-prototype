@@ -22,11 +22,17 @@ export class UserListComponent implements OnInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
 
+  searchTxt: any = '';
+  finalTxt: any = '';
   userList: any;
+  totalNumberItems: Number;
+  filterList: any = [];
   selectedFilter: any = {
     status: undefined,
     role: undefined
   };
+
+  bFilterStatus = undefined;
 
   constructor(
     private userService: UserService,
@@ -39,7 +45,21 @@ export class UserListComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.getUserList();
+        this.getUserList(0, '' , this.selectedFilter.role, this.bFilterStatus, this.finalTxt);
+    }
+
+    onTapSearchIcon() {
+        console.log(this.searchTxt);
+        this.finalTxt = this.searchTxt.trim();
+        this.finalTxt = this.finalTxt.toLowerCase();
+        console.log(this.finalTxt);
+        // this.dataSource.filter = filterValue;
+        this.getUserList(0, '' , this.selectedFilter.role, this.bFilterStatus, this.finalTxt);
+    }
+
+    onPaginateChange(pageInfo) {
+        console.log(pageInfo.pageIndex);
+        this.getUserList(pageInfo.pageIndex, '' , this.selectedFilter.role, this.bFilterStatus, this.finalTxt);
     }
 
     onTapActions(status, userId) {
@@ -49,7 +69,7 @@ export class UserListComponent implements OnInit {
             this.userService.activateDeactivateUsers(status, userId).subscribe(
                 data => {
                     this.toasterService.pop('success', '', data.success.message);
-                    this.getUserList();
+                    this.getUserList(0, '' , '', '', '');
                 },
                 error => {
                     this.toasterService.pop('error', '', error.success.message);
@@ -57,13 +77,30 @@ export class UserListComponent implements OnInit {
             }
     }
 
-    getUserList() {
-        this.userService.listUser()
+    getUserList(pageNum, sortField, role, status, search) {
+        console.log(pageNum, sortField, role, status, search);
+        let queryParam = '?page=' + pageNum;
+        if (role !== '' && role !== undefined && role !== null) {
+            queryParam = queryParam.concat('&role=' + role.toLowerCase());
+        }
+        if (status !== '' && status !== undefined && status !== null) {
+            queryParam = queryParam.concat('&status=' + status);
+        }
+        if (search !== '' && search !== undefined && search !== null) {
+            console.log(search);
+            queryParam = queryParam.concat('&search=' + search.toLowerCase());
+        }
+        if (sortField !== '' && sortField !== undefined && sortField !== null) {
+            queryParam = queryParam.concat('&sortField=' + sortField);
+        }
+        console.log(queryParam);
+
+        this.userService.listUser(queryParam)
         .subscribe(
             data => {
-                this.userList = JSON.parse(JSON.stringify(data.users));
-                console.log(data.users);
-                this.createData(data.users);
+                console.log(data);
+                this.totalNumberItems = data.totalElements;
+                this.createData(data.content);
             },
             error => {
                 this.toasterService.pop('error', '', error.success.message);
@@ -81,35 +118,27 @@ export class UserListComponent implements OnInit {
         });
 
         dialogRef.afterClosed().subscribe(result => {
-            let filteStatus = [];
-            let filteRole = [];
+            this.bFilterStatus = undefined;
+            let filterRole = '';
             if (result && result.status !== undefined) {
                 this.selectedFilter.status = result.status;
                 if (result.status === 'Activate') {
-                    this.userList.forEach(function(element) {
-                        if (element.active) { filteStatus.push(element); }
-                    }.bind(this));
+                    this.bFilterStatus = true;
                 } else if (result.status === 'Deactivate') {
-                    this.userList.forEach(function(element) {
-                        if (!element.active) { filteStatus.push(element); }
-                    }.bind(this));
+                    this.bFilterStatus = false;
                 }
             } else {
                 this.selectedFilter.status = undefined;
-                filteStatus = this.userList;
             }
 
             if (result && result.role !== undefined) {
                 this.selectedFilter.role = result.role;
-                filteStatus.forEach(function(element) {
-                    if (element.userRole === String(result.role).toLowerCase()) { filteRole.push(element); }
-                }.bind(this));
+                filterRole = String(result.role).toLowerCase();
             } else {
-                filteRole = filteStatus;
                 this.selectedFilter.role = undefined;
             }
 
-            this.createData(filteRole);
+            this.getUserList(0, '' , filterRole, this.bFilterStatus, this.finalTxt);
         });
     }
 
@@ -120,15 +149,10 @@ export class UserListComponent implements OnInit {
         }
 
         console.log(users);
+        this.filterList = users;
         this.dataSource = new MatTableDataSource(users);
-        this.dataSource.paginator = this.paginator;
-        this.dataSource.sort = this.sort;
-    }
-
-    applyFilter(filterValue: string) {
-        filterValue = filterValue.trim(); // Remove whitespace
-        filterValue = filterValue.toLowerCase(); // Datasource defaults to lowercase matches
-        this.dataSource.filter = filterValue;
+        // this.dataSource.paginator = this.paginator;
+        // this.dataSource.sort = this.sort;
     }
 
   createNewUser(item: any): User {
@@ -160,6 +184,13 @@ export class UserListComponent implements OnInit {
         private dialogRef: MatDialogRef<UserListFilterComponent>,
         @Inject(MAT_DIALOG_DATA) public data: any) {
             this.roleList = this.userService.getRoles();
+            this.roleList.sort(function(a, b) {
+                if (a.role < b.role) {return -1;
+                }
+                if (a.role > b.role) { return 1;
+                }
+                return 0;
+            });
             if (data.selFilter !== undefined) {
                 if (data.selFilter.status !== undefined) {
                     this.selectedStatus = data.selFilter.status;

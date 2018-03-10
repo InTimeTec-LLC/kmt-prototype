@@ -34,7 +34,6 @@ import { UserListComponent, UserListFilterComponent } from './user-list/user-lis
 import { SearchKnowledgeBaseComponent } from './search-knowledge-base/search-knowledge-base.component';
 
 
-
 @NgModule({
   declarations: [
     AppComponent,
@@ -73,7 +72,7 @@ import { SearchKnowledgeBaseComponent } from './search-knowledge-base/search-kno
     Ng4LoadingSpinnerModule.forRoot()
 
   ],
-  entryComponents: [UserListFilterComponent, ArticleListFilterComponent],
+  entryComponents: [ArticleListFilterComponent, UserListFilterComponent],
   providers: [],
   bootstrap: [AppComponent]
 })

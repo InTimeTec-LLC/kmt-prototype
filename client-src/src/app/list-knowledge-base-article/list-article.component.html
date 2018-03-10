@@ -13,8 +13,9 @@
   
   <div class="table-input-list mat-elevation-z8">
   
-    <mat-table [dataSource]="dataSource" matSort class="list_table">
-   
+    <div *ngIf='filterList.length === 0' class="noRecord">No Record Found</div>
+    <mat-table [dataSource]="dataSource" matSort class="list_table" *ngIf='filterList.length > 0'>
+  
       <!-- Title Column -->
       <ng-container matColumnDef="title">
           <mat-header-cell *matHeaderCellDef>Title</mat-header-cell>
@@ -43,7 +44,7 @@
           <ng-container matColumnDef="actions">
           <mat-header-cell *matHeaderCellDef> Actions </mat-header-cell>
           <mat-cell *matCellDef="let row" class="action-link">
-              <a (click)="onTapNavigation('/article/edit/'+row.id)">Edit</a> | <a>Delete</a>
+              <a (click)="onTapNavigation('/article/edit/'+row.id)">Edit</a> | <a (click)="onTapDelete(row.id)">Delete</a>
           </mat-cell>
           </ng-container>
   
@@ -52,7 +53,7 @@
       </mat-row>
     </mat-table>
   
-    <mat-paginator [pageSizeOptions]="[10, 20, 50]"></mat-paginator>
+    <mat-paginator [pageSizeOptions]="[10, 20, 50]" *ngIf='filterList.length > 0'></mat-paginator>
   </div>
 
   </div>

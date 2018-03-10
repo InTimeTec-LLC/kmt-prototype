@@ -7,15 +7,16 @@
 
   <div class="filter-input">
     <mat-form-field>
-      <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Search within the table">
-      <input class="searchsubmit" type="submit" id="searchsubmit" value="">
+      <input matInput [(ngModel)]="searchTxt" placeholder="Search here">
     </mat-form-field>
+    <img src="../../assets/images/search_gray.png" (click)="onTapSearchIcon()" alt="Filtericon" class="filter_icon">
     <img src="../../assets/images/filter-icon.png" (click)="onTapFilterIcon()" alt="Filtericon" class="filter_icon">
   </div>
   
   <div class="table-input-list mat-elevation-z8">
   
-    <mat-table [dataSource]="dataSource" matSort class="list_table">
+    <div *ngIf='filterList.length === 0' class="noRecord">No Record Found</div>
+    <mat-table [dataSource]="dataSource" matSort class="list_table" *ngIf='filterList.length > 0'>
   
       <!-- ID Column -->
       <ng-container matColumnDef="name">
@@ -39,8 +40,8 @@
        <ng-container matColumnDef="status">
           <mat-header-cell *matHeaderCellDef mat-sort-header> Status </mat-header-cell>
           <mat-cell *matCellDef="let row"> 
-              <span *ngIf="!row.status">Deactivated</span>
-              <span *ngIf="row.status">Activated</span>
+              <span *ngIf="!row.status">Deactivate</span>
+              <span *ngIf="row.status">Activate</span>
           </mat-cell>
         </ng-container>
 
@@ -65,7 +66,8 @@
       </mat-row>
     </mat-table>
   
-    <mat-paginator [pageSizeOptions]="[10, 20, 50]"></mat-paginator>
+    <mat-paginator *ngIf='filterList.length > 0' [length]="totalNumberItems" [pageSize]="10" (page)="pageEvent = $event; onPaginateChange($event)">
+    </mat-paginator>
   </div>
 
   </div>

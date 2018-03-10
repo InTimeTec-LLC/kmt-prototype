@@ -6,7 +6,7 @@ import org.springframework.data.annotation.Id;
 import java.io.Serializable;
 
 /**
- * This class represents a User.
+ * This class represents a Role.
  *
  * @author Rohan Sahu
  */

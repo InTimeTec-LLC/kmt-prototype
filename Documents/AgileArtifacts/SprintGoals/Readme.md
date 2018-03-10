@@ -13,7 +13,7 @@ Sprint Goals Readme File
   6) Quality Assurance
   7) User Guide Template for the application
   
-# Sprint 3 Goals - Current
+# Sprint 3 Goals - 5th March 2018 - 9th March 2018
   1) End to End functionality of KA creation/deletion/approval
   2) End to end functionality of KA Search (Knowledgebase)
   3) Wireframes for Sprint 3 items and Mobile - View
@@ -23,3 +23,23 @@ Sprint Goals Readme File
   7) QA - Sprint 2 test execution, Sprint 3 Test Planning
   8) Tech Doc - User Manual, Admin Manual, Review Application
   
+
+# Sprint 4 Goals - 9th March 2018 - 12th March 2018
+
+  1) End to End functionality of KA creation/deletion/approval
+    - Attachment (Pending - Unit testcases. Front End integration), 
+    - Pagination
+    - Pending Approvals filter in KA
+    - Approval from Manager 
+    - Comments on unpublished article (Email and to be shown on the article) for both user and manager
+    - Email template 
+    - Unit Tests
+  2) End to end functionality of KA Search (Knowledgebase)
+    - Pagination
+    - Unit test
+    - Back End and Front End integration
+  3) Wireframes for Sprint 3 items and Mobile - View
+    - Implement Responsive UI
+  4) Application Integration
+    - Ensure successful integration and predictable behaviour of the application
+  5) Severity 1 Defect Fixes

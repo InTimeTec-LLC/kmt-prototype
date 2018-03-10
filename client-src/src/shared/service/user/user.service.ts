@@ -36,8 +36,8 @@ export class UserService {
    * @return {User[]} The Observable for the HTTP request.
    */
 
-   listUser (): Observable<any> {
-    return this.http.get(this.apiUrl)
+   listUser (queryParams): Observable<any> {
+    return this.http.get(this.apiUrl + '' + queryParams)
     .catch(this.handleErrorObservable);
   }
 

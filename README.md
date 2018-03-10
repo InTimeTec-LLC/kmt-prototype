@@ -18,7 +18,7 @@ We assembled a multidisciplinary and collaborative team that included the follow
 2. Overall Technical Architect - Shiva Dixit
 3. Technical Architect (Interaction Designer/User Researcher/Usability Test) - Inwinder Kochhar
 4. Front End Web Developers - Harish Patidar, Sweta Lavaniya, Manish Tripathi
-5. Back End Web Developers - Koteswara Rao, Sachin Singh, Rakshit Rajeev, Ashish Y, Manoj Mewara
+5. Back End Web Developers - Koteswara Varanasi, Rohan Sahu, Sachin Singh, Rakshit Rajeev, Ashish Y, Manoj Mewara
 6. Visual Designers - Jennifer Barker, Parul Sharma, Nidhi Saini, Inwinder Kochhar
 7. DevOps Engineer - Simarpreet Gujral, Yashwant Mahawar
 8. Quality Assurance - Raunak Shah, Jitendra Sen, Raksha Deshpande
