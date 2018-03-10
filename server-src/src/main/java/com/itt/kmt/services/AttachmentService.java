@@ -35,8 +35,6 @@ import lombok.extern.slf4j.Slf4j;
 /** The Constant log. */
 
 /** The Constant log. */
-
-/** The Constant log. */
 @Slf4j
 
 public class AttachmentService {
@@ -53,12 +51,15 @@ public class AttachmentService {
 
     /** The uploaded folder. */
     @Value("${attachments.path}")
-    private String UPLOADED_FOLDER;
+    private String attachmentPath;
 
     /** The max allowed file size. */
     @Value("${attachments.maxallowed.filesize}")
     private int maxAllowedFileSize;
 
+    /** The Constant convertor. */
+    public static final int CONVERTOR = 1024;
+    
     /**
      * Save attachment.
      *
@@ -103,7 +104,7 @@ public class AttachmentService {
      * @param attachments the attachments
      * @param articleId the article id
      */
-    public void updateAttachmentWithArticleId(List<Attachment> attachments, String articleId) {
+    public void updateAttachmentWithArticleId(final List<Attachment> attachments, final String articleId) {
 
         try {
             for (Attachment attachment : attachments) {
@@ -121,7 +122,7 @@ public class AttachmentService {
      *
      * @param articleId the article id
      */
-    public void deleteAttachmentWithArticleId(String articleId) {
+    public void deleteAttachmentWithArticleId(final String articleId) {
 
         try {
             List<Attachment> attachments = getArticleAttachments(articleId);
@@ -195,7 +196,7 @@ public class AttachmentService {
         }
 
         try {
-            File file = new File(UPLOADED_FOLDER + attachment.getFileName());
+            File file = new File(attachmentPath + attachment.getFileName());
             file.delete();
             // delete from database
             attachmentRepository.delete(id);
@@ -245,7 +246,7 @@ public class AttachmentService {
             log.info("Uploaded file type : " + file.getContentType());
 
             byte[] bytes = file.getBytes();
-            Path path = Paths.get(UPLOADED_FOLDER + fileName);
+            Path path = Paths.get(attachmentPath + fileName);
             Files.write(path, bytes);
 
             responseMsg = new ResponseMsg(Boolean.TRUE, fileName);
@@ -263,7 +264,7 @@ public class AttachmentService {
      * @param fileExtension the file extension
      * @return true, if successful
      */
-    public boolean validateFileTypes(String fileExtension) {
+    public boolean validateFileTypes(final String fileExtension) {
 
         boolean isValid = false;
         List<String> validTypeList = new ArrayList<String>(Arrays.asList(validFileTypes.split("\\s*,\\s*")));
@@ -279,12 +280,12 @@ public class AttachmentService {
      * @param fileSize the file size
      * @return true, if successful
      */
-    public boolean validateFileSize(long fileSize) {
-
+    public boolean validateFileSize(final long fileSize) {
+        
         boolean isValid = false;
         if (fileSize > 0) {
             // converting bytes to mb
-            long fileSizeInMB = (fileSize / 1024) / 1024;
+            long fileSizeInMB = (fileSize / CONVERTOR) / CONVERTOR;
             if (fileSizeInMB < maxAllowedFileSize) {
                 isValid = true;
             }

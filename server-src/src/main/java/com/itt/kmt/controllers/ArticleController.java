@@ -53,6 +53,7 @@ public class ArticleController {
     @Autowired
     private ArticleService articleService;
 
+    /** The attachment service. */
     @Autowired
     private AttachmentService attachmentService;
 
@@ -158,10 +159,10 @@ public class ArticleController {
 
     /**
      * REST API for approval process of article.
-     * 
+     *
      * @param id ID of the Article.
-     * @param httpServletRequest servlet request.
      * @param approveMap from which we can take article to be updated.
+     * @param httpServletRequest servlet request.
      * @return ModelMap.
      */
     @RequestMapping(value = "/approve/{id}", method = RequestMethod.PUT)

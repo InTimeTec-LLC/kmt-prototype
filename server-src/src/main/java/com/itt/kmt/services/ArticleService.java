@@ -10,6 +10,7 @@ import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.mail.MailException;
 import org.springframework.stereotype.Service;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -28,18 +29,6 @@ import com.itt.kmt.repositories.CommentRepository;
 import com.itt.utility.Constants;
 
 import lombok.extern.slf4j.Slf4j;
-
-import org.apache.commons.lang3.StringUtils;
-import org.bson.types.ObjectId;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
-import org.springframework.mail.MailException;
-import org.springframework.stereotype.Service;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
 
 /**
  * Service class that acts as an intermediary between controller and the
@@ -78,6 +67,7 @@ public class ArticleService {
     @Autowired
     private CommentRepository commentRepository;
     
+    /** The attachment service. */
     @Autowired
     private AttachmentService attachmentService;
 
@@ -191,15 +181,13 @@ public class ArticleService {
         if (loggedInUser.getUserRole().equals(Constants.ROLE_MANAGER)) {
             Page<Article> articles = articleRepository.findByCreatedByAndAndApprover(new ObjectId(loggedInUser.getId()),
                     new ObjectId(loggedInUser.getId()), page);
-            for(Article article :articles)
-            {
+            for (Article article :articles) {
                 List<Attachment> attachments = attachmentService.getArticleAttachments(article.getId());
                 article.setAttachments(attachments);
             }
         } else if (loggedInUser.getUserRole().equals(Constants.ROLE_USER)) {
             Page<Article> articles = articleRepository.findByCreatedBy(new ObjectId(loggedInUser.getId()), page);
-            for(Article article :articles)
-            {
+            for (Article article :articles) {
                 List<Attachment> attachments = attachmentService.getArticleAttachments(article.getId());
                 article.setAttachments(attachments);
             }
@@ -207,8 +195,7 @@ public class ArticleService {
         }
 
         Page<Article> articles = articleRepository.findAll(page);
-        for(Article article :articles)
-        {
+        for (Article article :articles) {
             List<Attachment> attachments = attachmentService.getArticleAttachments(article.getId());
             article.setAttachments(attachments);
         }

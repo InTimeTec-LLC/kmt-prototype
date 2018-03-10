@@ -8,7 +8,6 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.websocket.server.PathParam;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -20,7 +19,6 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -29,13 +27,9 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.itt.kmt.models.Attachment;
 import com.itt.kmt.response.models.AttachmentResponseMsg;
-import com.itt.kmt.response.models.LoginResponseMsg;
 import com.itt.kmt.response.models.ResponseMsg;
-import com.itt.kmt.response.models.LoginResponseMsg.StatusMsg;
 import com.itt.kmt.services.AttachmentService;
 import com.itt.utility.Constants;
-
-import lombok.extern.slf4j.Slf4j;
 
 /**
  * This class is responsible for exposing REST APis for Attachments.
@@ -49,23 +43,26 @@ import lombok.extern.slf4j.Slf4j;
 @RequestMapping(value = "/attachments")
 public class AttachmentController {
 
+    /** The attachment service. */
     @Autowired
     private AttachmentService attachmentService;
 
     /** The uploaded folder. */
     @Value("${attachments.path}")
-    private String UPLOADED_FOLDER;
+    private String attachmentPath;
 
     /**
      * Upload file.
      *
      * @param uploadfile the uploadfile
+     * @param fileName the file name
+     * @param fileType the file type
      * @return the response entity
      */
     @RequestMapping(method = RequestMethod.POST)
     public ModelMap uploadFile(@RequestParam("file")
-    final MultipartFile uploadfile, @RequestParam("fileName") String fileName,
-        @RequestParam("fileType") String fileType) {
+    final MultipartFile uploadfile, @RequestParam("fileName") final String fileName,
+        @RequestParam("fileType") final String fileType) {
 
         AttachmentResponseMsg attachmentResponseMsg = new AttachmentResponseMsg();
         if (uploadfile.isEmpty()) {
@@ -105,7 +102,7 @@ public class AttachmentController {
     /**
      * Download.
      *
-     * @param fileName the file name
+     * @param id the id
      * @return the response entity
      * @throws IOException Signals that an I/O exception has occurred.
      */
@@ -115,7 +112,7 @@ public class AttachmentController {
         throws IOException {
 
         Attachment attachment = attachmentService.getAttachmentByID(id);
-        File file = new File(UPLOADED_FOLDER + attachment.getFileName());
+        File file = new File(attachmentPath + attachment.getFileName());
         Path path = Paths.get(file.getAbsolutePath());
         ByteArrayResource resource = new ByteArrayResource(Files.readAllBytes(path));
         HttpHeaders headers = new HttpHeaders();
@@ -131,6 +128,13 @@ public class AttachmentController {
                              .body(resource);
     }
 
+    /**
+     * Delete attachment by id.
+     *
+     * @param id the id
+     * @param httpServletRequest the http servlet request
+     * @return the model map
+     */
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
     public ModelMap deleteAttachmentById(@PathVariable(value = "id")
     final String id, final HttpServletRequest httpServletRequest) {

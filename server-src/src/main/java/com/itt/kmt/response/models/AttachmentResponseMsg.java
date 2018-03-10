@@ -22,23 +22,20 @@ public class AttachmentResponseMsg {
      *
      * @param attachement the new attachement
      */
-    public void setAttachement(Attachment attachement) {
+    public void setAttachement(final Attachment attachement) {
 
         this.attachement = attachement;
     }
-    
-    
+
     /**
      * Gets the attachement.
      *
      * @return the attachement
      */
     public Attachment getAttachement() {
-    
+
         return attachement;
     }
-
-
 
     /**
      * Checks if is status.
@@ -55,7 +52,7 @@ public class AttachmentResponseMsg {
      *
      * @param status the new status
      */
-    public void setStatus(boolean status) {
+    public void setStatus(final boolean status) {
 
         this.status = status;
     }
@@ -75,7 +72,7 @@ public class AttachmentResponseMsg {
      *
      * @param message the new message
      */
-    public void setMessage(String message) {
+    public void setMessage(final String message) {
 
         this.message = message;
     }
