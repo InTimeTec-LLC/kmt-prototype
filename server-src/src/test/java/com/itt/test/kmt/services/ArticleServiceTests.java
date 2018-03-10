@@ -277,6 +277,36 @@ public class ArticleServiceTests {
         verify(articleRepository, times(1)).delete(article.getId());
     }
 
+
+    @Test
+    public void articalReviewCommentTest() {
+
+        User user = testDataRepository.getUsers()
+                .get("user-4");
+        Article article = articleTestDataRepository.getArticles().get("article-5");
+        String jwtToken = "testToken";
+        String testComment = "test comment";
+
+        //test approve
+        Approve approve = new Approve();
+        approve.setApproved(true);
+        approve.setComment(testComment);
+
+        //test comment
+        Comment comment = new Comment();
+        comment.setComment(testComment);
+        comment.setCommentedBy(user);
+
+        when(userService.getLoggedInUser(jwtToken)).thenReturn(user);
+        when(articleRepository.findOne(article.getId())).thenReturn(article);
+        when(commentRepository.save(comment)).thenReturn(comment);
+        doNothing().when(commentRepository).delete(comment.getId());
+        articleService.articleApproval(approve, article.getId(), jwtToken);
+        // Assert
+
+        verify(articleRepository, times(1)).save(article);
+    }
+
     @Test
     public void articalApprovalTest() {
 
@@ -299,7 +329,6 @@ public class ArticleServiceTests {
         when(userService.getLoggedInUser(jwtToken)).thenReturn(user);
         when(articleRepository.findOne(article.getId())).thenReturn(article);
         when(commentRepository.save(comment)).thenReturn(comment);
-        doNothing().when(articleRepository).delete(article.getId());
         articleService.articleApproval(approve, article.getId(), jwtToken);
         // Assert
 
@@ -328,7 +357,6 @@ public class ArticleServiceTests {
         when(userService.getLoggedInUser(jwtToken)).thenReturn(user);
         when(articleRepository.findOne(article.getId())).thenReturn(article);
         when(commentRepository.save(comment)).thenReturn(comment);
-        doNothing().when(articleRepository).delete(article.getId());
         articleService.articleApproval(approve, article.getId(), jwtToken);
         // Assert
 
