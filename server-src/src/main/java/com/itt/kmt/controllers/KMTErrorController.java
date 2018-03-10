@@ -2,6 +2,7 @@ package com.itt.kmt.controllers;
 
 import java.io.IOException;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.boot.autoconfigure.web.ErrorController;
@@ -38,9 +39,9 @@ public class KMTErrorController implements ErrorController {
      *@param response , response is a reference of HttpServletResponse object, which we are use to redirect 
      */
     @RequestMapping(value = "/{[path:[^\\.]*}")
-    public void redirectToIndex(final HttpServletResponse response)  {
+    public void redirectToIndex(final HttpServletRequest request,final HttpServletResponse response)  {
         try {
-            response.sendRedirect("/");
+            response.sendRedirect("/#" + request.getRequestURL());
         } catch (IOException e) {
             e.printStackTrace();
         }

@@ -84,13 +84,13 @@ public class ArticleController {
      * @param httpServletRequest , Servlet request object.
      * @return Page<Article> objects.
      */
-    @RequestMapping(method = RequestMethod.GET)
+  /*  @RequestMapping(method = RequestMethod.GET)
     public Page<Article> getArticles(@PageableDefault(value = Constants.PAGE_SIZE)final Pageable page,
                                      final HttpServletRequest httpServletRequest) {
         String jwtToken = httpServletRequest.getHeader(Constants.AUTHORIZATION);
         return articleService.getAllArticles(page, jwtToken);
     }
-
+*/
     /**
      * REST API to return all Article types.
      * @return ModelMap.
@@ -102,6 +102,7 @@ public class ArticleController {
         return new ModelMap().addAttribute("types", articleTypeList);
     }
 
+//    @RequiresRole
     /**
      * REST Interface for Article retrieval by id.
      *
@@ -149,12 +150,13 @@ public class ArticleController {
 //        return articleService.getAllArticlesByApprover(assigned, search, page);
 //    }
     
-    @RequestMapping(method = RequestMethod.GET, params = { "assigned", "createdBy", "type", "status", "search"})
-    public Page<Article>  getArticlesByCreated(@RequestParam(value = "assigned") final String assigned,
-                                               @RequestParam(value = "createdBy") final String createdBy,
-                                               @RequestParam(value = "type") final String type,
-                                               @RequestParam(value = "status") final String status,
-            @RequestParam(value = "search") final String search,
+    //@RequestMapping(method = RequestMethod.GET, params = { "assigned", "createdBy", "type", "status", "search"})
+    @RequestMapping(method = RequestMethod.GET)
+    public Page<Article>  getArticlesByCreated(@RequestParam(value = "assigned", required = false) final String assigned,
+                                               @RequestParam(value = "createdBy", required = false) final String createdBy,
+                                               @RequestParam(value = "type", required = false) final String type,
+                                               @RequestParam(value = "status", required = false) final String status,
+                                               @RequestParam(value = "search", required = false, defaultValue = "") final String search,
             @PageableDefault(value = Constants.PAGE_SIZE)final Pageable page) {
         return articleService.getAllWithFiltersAndSearch(assigned, createdBy, type, search, status, page);
     }

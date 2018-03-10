@@ -12,6 +12,8 @@ import com.itt.kmt.repositories.ArticleRepository;
 import com.itt.kmt.repositories.ArticleTypeRepository;
 import com.itt.kmt.repositories.CommentRepository;
 import com.itt.utility.Constants;
+
+import org.apache.commons.lang3.StringUtils;
 import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -131,7 +133,7 @@ public class ArticleService {
      * @return Page<Article> get list of articles.
      */
     public Page<Article> getAllArticles(final Pageable page, final String token) {
-/*
+        
         //Get Logged in user
         User loggedInUser = userService.getLoggedInUser(token);
 
@@ -142,7 +144,7 @@ public class ArticleService {
         } else if (loggedInUser.getUserRole().equals(Constants.ROLE_USER)) {
             return articleRepository.findByCreatedBy(new ObjectId(loggedInUser.getId()), page);
         }
-*/
+         
         return articleRepository.findAll(page);
     }
 
@@ -284,43 +286,62 @@ public class ArticleService {
         }
         return comment;
     }
-//
-//    public Page<Article> getAllArticlesByApprover(String assigned, String search, Pageable page) {
-//        return articleRepository.findByApproverIdAndTitle(new ObjectId(assigned), search, page);
-//    }
-//
-//    public Page<Article> getAllArticlesByCreated(String createdBy, String search, Pageable page) {
-//        return articleRepository.findByCreatedByAndTitle(new ObjectId(createdBy), search, page);
-//    }
-//
-//    public Page<Article> getArticlesByTypeAndStatus(String type, String status, String search, Pageable page) {
-//
-////        if (type != null && stringutils.isblank(stringutils.isblank) && search != null) {
-////            return articleRepository.findByArticleTypeAndStatusAndTitleLike(type, status, search, page);
-////        } else if (type != null && status != null && search == null) {
-////            return articleRepository.findByArticleTypeAndStatus(type, status, page);
-////        } else if (type != null && status == null && search != null) {
-////            return articleRepository.findByArticleTypeAndTitleLike(type, search, page);
-////        } else if (type != null && status == null && search == null) {
-////            return articleRepository.findByArticleType(type, page);
-////        } else if (type == null && status != null && search != null) {
-////            return articleRepository.findByStatusAndTitleLike(status, search, page);
-////        } else if (type == null && status != null && search == null) {
-////            return articleRepository.findByStatus(status, page);
-////        } else if (type == null && status == null && search != null) {
-////            return articleRepository.findByTitleLike(search, page);
-////        } else {
-////            return articleRepository.findAll(page);
-////        }
-//
-//        return articleRepository.findByArticleTypeAndStatusAndTitleLike(type, status, search, page);
-//
-//    }
-
-    public Page<Article> getAllWithFiltersAndSearch (String assigned, String createdBy, String type,
-                                                     String search, String status, Pageable page){
-        return articleRepository.findByFiltersAndSearch(new ObjectId(assigned), new ObjectId(createdBy), new ObjectId(type),
-                Boolean.parseBoolean(status), search, page);
+    
+    private Page<Article> findByCreatorAndTypeAndStatus(String createdBy,String type,
+             String status, String search, Pageable page) {
+        if(StringUtils.isNotBlank(type) && StringUtils.isNotBlank(status)){
+            return articleRepository.findByCreatorAndTypeAndStatus(new ObjectId(createdBy), new ObjectId(type),
+                    Boolean.parseBoolean(status), search, page);
+        } else if(StringUtils.isBlank(type) && StringUtils.isNotBlank(status)){
+            return articleRepository.findByCreatorAndStatus(new ObjectId(createdBy), Boolean.parseBoolean(status), search, page);
+        } else if(StringUtils.isNotBlank(type) && StringUtils.isBlank(status)){
+            return articleRepository.findByCreatorAndType(new ObjectId(createdBy), new ObjectId(type), search, page);
+        } else {
+            return articleRepository.findByCreatorAndSearch(new ObjectId(createdBy), search, page);
+        }
     }
 
+    private Page<Article> findByApproverAndTypeAndStatus(String assigned,String type,
+             String status, String search, Pageable page) {
+        if(StringUtils.isNotBlank(type) && StringUtils.isNotBlank(status)){
+            return articleRepository.findByApproverAndTypeAndStatus(new ObjectId(assigned), new ObjectId(type),
+                    Boolean.parseBoolean(status), search, page);
+        } else if(StringUtils.isBlank(type) && StringUtils.isNotBlank(status)){
+            return articleRepository.findByApproverAndStatus(new ObjectId(assigned), Boolean.parseBoolean(status), search, page);
+        } else if(StringUtils.isNotBlank(type) && StringUtils.isBlank(status)){
+            return articleRepository.findByApproverAndType(new ObjectId(assigned), new ObjectId(type), search, page);
+        } else {
+            return articleRepository.findByApproverAndSearch(new ObjectId(assigned), search, page);
+        }
+    }
+
+
+    private Page<Article> findByTypeAndStatus(String type,
+            String status, String search, Pageable page) {
+        if(StringUtils.isNotBlank(type) && StringUtils.isNotBlank(status)){
+            return articleRepository.findByTypeAndStatus(new ObjectId(type),
+                    Boolean.parseBoolean(status), search, page);
+        } else if(StringUtils.isBlank(type) && StringUtils.isNotBlank(status)){
+            return articleRepository.findByStatus(Boolean.parseBoolean(status), search, page);
+        } else if(StringUtils.isNotBlank(type) && StringUtils.isBlank(status)){
+            return articleRepository.findByType(new ObjectId(type), search, page);
+        } else {
+            return articleRepository.findBySearch(search, page);
+        }
+    }
+
+    public Page<Article> getAllWithFiltersAndSearch (String assigned, String createdBy, String type,
+            String search, String status, Pageable page) {
+        if(assigned==createdBy && StringUtils.isNotBlank(assigned)){
+            throw new RuntimeException(Constants.BAD_REQUEST_MSG);
+        }
+        if(StringUtils.isNotBlank(assigned)) {
+            return findByApproverAndTypeAndStatus(assigned, type,
+                    status, search, page);
+        }else if(StringUtils.isNotBlank(createdBy)) {
+            return findByCreatorAndTypeAndStatus(createdBy, type, status, search, page);
+        } else {
+            return findByTypeAndStatus(type, status, search, page);
+        }
+    }
 }
