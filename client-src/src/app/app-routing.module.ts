@@ -11,6 +11,7 @@ import { UserListComponent } from './user-list/user-list.component';
 import { ListArticleComponent } from './list-knowledge-base-article/list-article.component';
 import { EditUserComponent } from './edit-user/edit-user.component';
 import { ApprovedKnowledgeBaseArticleComponent } from './approved-knowledge-base-article/approved-knowledge-base-article.component';
+import { SearchKnowledgeBaseComponent } from './search-knowledge-base/search-knowledge-base.component';
 
 const routes:  Routes = [
     {
@@ -63,6 +64,11 @@ const routes:  Routes = [
       path: 'article-approved-view/:id',
       component: ApprovedKnowledgeBaseArticleComponent,
       data: { title: 'Approved Articles' }
+    },
+    {
+      path: 'knowledge-base',
+      component: SearchKnowledgeBaseComponent,
+      data: { title: 'Knowledge Base' }
     },
   ];
 

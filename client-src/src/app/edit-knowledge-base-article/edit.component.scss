@@ -1,2 +1,20 @@
 
 
+.edit-article-details {
+    float: left;
+    width: 100%;
+}
+
+.approver-input,.user-article-details {
+    float: left;
+    width: 50%;
+}
+
+.edit-article-details .mat-form-field {
+    width: 90%;
+    margin-right: 26px;
+}
+
+.user-article-details .mat-input-element{
+    color: #a3a3a3;
+}
