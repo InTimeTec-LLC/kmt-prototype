@@ -30,9 +30,9 @@ export function main() {
       const expectedUsers = [];
 
       let actualUser: User[] = [];
-      kbContentService.listUser().subscribe((user: User[]) => {
-        actualUser = user;
-      });
+      // kbContentService.listUser().subscribe((user: User[]) => {
+      //   actualUser = user;
+      // });
 
       httpMock.expectOne('assets/data.json').flush(expectedUsers);
 
