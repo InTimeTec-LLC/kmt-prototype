@@ -1,23 +1,16 @@
+
 <div class="container">
-  <div class="add-heading"><h2 class="heading-margin">{{article.title}}</h2></div>
-  <div class="example-container article_view">
+    <div class="container-heading"><h2 class="heading-margin">{{article.title}} <sub><span> {{article.createdBy.firstName}}  {{article.createdBy.lastName}} </span></sub></h2></div>
+<div class="container-body article_view">
   <div class="left-container">
       <div class="type">
         <label>Type</label>
         <span>{{article.articleType.type}}</span>
       </div>
-      <div class="createdBy-container">
-        <label>Created By</label>
-        <span>{{article.createdBy.firstName}}  {{article.createdBy.lastName}}</span>
-    </div>
       <div class="reviewed">
         <label>Reviewed By</label>
         <span>{{article.approver.firstName}}  {{article.approver.lastName}}</span>
       </div>
-      <div class="createdBy-container">
-        <label>Created By</label>
-        <span>{{article.createdBy.firstName}}  {{article.createdBy.lastName}}</span>
-    </div>
       <div class="description">
           <label>Description</label>
           <p class="description" [innerHTML]="article.description"></p>
@@ -25,27 +18,20 @@
       <div class="description">
           <label>Uploaded File</label>
           <div class="img-container">
-          <div class="img-multiple">suniljoshi.jpg</div> 
-          <div class="img-multiple">patidar.jpg</div>
-          <div class="img-multiple">abc.jpg</div>
-          <div class="img-multiple">manishtripathi.jpg</div>
-          <div class="img-multiple">luvmathur.jpg</div>
-          <div class="img-multiple">abcxyz.jpg</div>
-          <div class="img-multiple">demo1.jpg</div>  
-          <div class="img-multiple">intimetecvision.jpg</div>
+          <div class="img-multiple">image.jpg</div> 
+          <div class="img-multiple">image1.jpg</div>
+          <div class="img-multiple">image2.jpg</div>
+         
         </div>
       </div>
 
   </div>
-
-
-
-  <mat-form-field class="example-full-width">
+ <mat-form-field class="example-full-width">
     <textarea matInput placeholder="Leave a comment" [(ngModel)]="comment"></textarea>
   </mat-form-field>
 
-  <div class="button-postion">
-    <button type="button" mat-raised-button (click)="onCancle()">Review Comments</button>
+  <div class="button-container">
+    <button type="button" mat-raised-button (click)="onCancle()">Post Comment</button>
     <button mat-raised-button type="button" (click)="onApproved()">Approved</button>
   </div>
     

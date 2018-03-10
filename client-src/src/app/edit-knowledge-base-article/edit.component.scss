@@ -3,6 +3,7 @@
 .edit-article-details {
     float: left;
     width: 100%;
+    margin-top: 30px;
 }
 
 .approver-input,.user-article-details {
@@ -17,4 +18,54 @@
 
 .user-article-details .mat-input-element{
     color: #a3a3a3;
+}
+
+.description {
+    margin: 20px 0;
+}
+
+.img-container {
+    margin: 10px;
+}
+.upload-file {
+    color: #a5a5a5;
+    padding-left: 5px;
+}
+
+.file-margin {
+    margin-right: 20px;
+}
+.lable {
+    float: left;
+}
+.upload-button {
+    float: right;
+}
+.upload-button .mat-raised-button {
+    
+    background-color: #33b7fc;
+    color: white;
+   
+}
+
+.image-area {
+    border: 1px dashed gray;
+    margin-top: 10px;
+    float: left;
+    width: 100%;
+    background-color: white;
+}
+
+.img-multiple{
+    cursor: pointer;
+    margin-bottom: 12px!important;
+    float: left;
+    border: 1px solid #c1c1c1;
+    padding: 5px 10px;
+    min-width: 120px;
+    text-align: center;
+    background: #fff;
+    color: #33b7fc;
+    border-radius: 2px;
+    margin-right: 14px;
 }
