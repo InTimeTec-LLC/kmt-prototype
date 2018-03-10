@@ -1,6 +1,5 @@
 <!-- When a user creates a new article, an email is sent to the reviewer.-->
-<p>Sub: Article submitted for review</p>
 <p>Hi ${firstName},</p>
-<p>An article has been submitted for review. Review should be done within the next 5 days.</p>
-<p>Regards,</p>
-<p>ADPQ-KMT</p>
+<p>An article <a href="localhost:8080/index.html+/#/+articlePage">article name</a> has been submitted for review. Please review.</p>
+<p>Regards,<br>
+ADPQ-KMT</p>

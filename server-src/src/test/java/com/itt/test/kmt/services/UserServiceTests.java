@@ -231,13 +231,14 @@ public class UserServiceTests {
     }
 
     @Test
-    public final void updateUser() {
+    public final void updateUser() throws MailException, InterruptedException {
 
         // Arrange
         User user = testDataRepository.getUsers()
                 .get("user-1");
         user.setFirstName("test");
         when(userRepository.findOne(user.getId())).thenReturn(user);
+        when(mailService.sendResetPasswordMail(user, user.getPassword())).thenReturn(new AsyncResult<Boolean>(true));
 
         when(userRepository.save(user)).thenReturn(user);
 
@@ -290,14 +291,13 @@ public class UserServiceTests {
     }
 
     @Test
-    public final void changeUserStatus() {
+    public final void changeUserStatus() throws MailException, InterruptedException {
 
         // Arrange
         User user = testDataRepository.getUsers()
                 .get("user-1");
         user.setActive(false);
         when(userRepository.findOne(user.getId())).thenReturn(user);
-
         when(userRepository.save(user)).thenReturn(user);
 
         // Act
@@ -310,7 +310,7 @@ public class UserServiceTests {
     }
 
     @Test()
-    public final void changeUserStatusToDeactivate() {
+    public final void changeUserStatusToDeactivate() throws MailException, InterruptedException {
 
         // Arrange
         User user = testDataRepository.getUsers()
@@ -318,7 +318,7 @@ public class UserServiceTests {
         user.setActive(true);
 
         when(userRepository.findOne(user.getId())).thenReturn(user);
-
+        when(mailService.sendUserActivateMail(user, false)).thenReturn(new AsyncResult<Boolean>(true)); 
         when(userRepository.save(user)).thenReturn(user);
 
         // Act
@@ -331,7 +331,7 @@ public class UserServiceTests {
     }
 
     @Test(expected = RuntimeException.class)
-    public final void activateActiveUser() {
+    public final void activateActiveUser() throws MailException, InterruptedException {
 
         // Arrange
         User user = testDataRepository.getUsers()
@@ -342,6 +342,8 @@ public class UserServiceTests {
         .thenReturn(user);
         when(userService.changeUserStatus(user.getId(), true))
         .thenThrow(new RuntimeException("Operation not permitted"));
+        when(mailService.sendUserActivateMail(user, true)).thenReturn(new AsyncResult<Boolean>(true)); 
+
         userService.changeUserStatus(user.getId(), true);
 
         // Assert
