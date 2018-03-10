@@ -33,12 +33,11 @@
       background: #dadada;
       border: none;
       color: #5d3250;
-      cursor: hand;
       cursor: pointer;
   }
   
   .created-articles {
-      width: 75%;
+      width: 100%;
   }
   .article-box:nth-child(1) {
       margin-top:50px;
@@ -46,3 +45,5 @@
   .article-date {
       color: #a5a2a2;
   }
+
+  

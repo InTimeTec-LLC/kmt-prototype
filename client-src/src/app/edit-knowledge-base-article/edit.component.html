@@ -20,6 +20,11 @@
                   {{ type.type | titlecase}}
                 </mat-option>
             </mat-select>
+            <span class="error" 
+            *ngIf="article.get('articleType').touched 
+            && article.get('articleType').hasError('required')">
+            Article Type is required
+           </span>
         </mat-form-field>
       
         <div class="article-description">
@@ -39,6 +44,8 @@
         </div>        
       
         <div item-height="10">&nbsp;</div>
+        <div class="edit-article-details">
+        <div class="approver-input">
         <mat-form-field>
             <mat-select 
             formControlName="approver" 
@@ -49,15 +56,19 @@
                 </mat-option>
             </mat-select>
         </mat-form-field>
-
+        </div>
+<div class="user-article-details">
         <mat-form-field>
           <input formControlName="lastModified" matInput placeholder="Last Modified" readonly>
         </mat-form-field>
         <mat-form-field>
           <input formControlName="createdByUser" matInput placeholder="Created By" readonly>
         </mat-form-field>
+        <div>
         <mat-checkbox class="restricted-checkbox" formControlName="restricted" >Restricted Article</mat-checkbox>
-       
+       </div>
+       </div>
+      </div>
       </div>
       <div class="button-container">
         <button type="button" mat-raised-button (click)="onCancle()">Cancel</button>
