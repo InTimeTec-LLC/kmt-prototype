@@ -160,10 +160,12 @@ public class ArticleService {
         if (article == null) {
             throw new RuntimeException("Article not found");
         }
+        List<Attachment> attachments = updatedArticle.getAttachments();
+        updatedArticle.setAttachments(null);
         Article dbArticle = articleRepository.save(updateArticle(article, updatedArticle));
         
         // linking attached attachments
-        List<Attachment> attachments = updatedArticle.getAttachments();
+        
         if (attachments != null && attachments.size() > 0) {
             attachmentService.updateAttachmentWithArticleId(attachments, dbArticle.getId());
         }
