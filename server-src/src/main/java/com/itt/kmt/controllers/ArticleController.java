@@ -1,11 +1,10 @@
 package com.itt.kmt.controllers;
 
-import com.itt.kmt.models.Article;
-import com.itt.kmt.models.ArticleType;
-import com.itt.kmt.response.models.ResponseMsg;
-import com.itt.kmt.models.Approve;
-import com.itt.kmt.services.ArticleService;
-import com.itt.utility.Constants;
+import java.util.HashMap;
+import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
+
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -16,11 +15,15 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import javax.servlet.http.HttpServletRequest;
-import java.util.HashMap;
-import java.util.List;
+import com.itt.kmt.models.Approve;
+import com.itt.kmt.models.Article;
+import com.itt.kmt.models.ArticleType;
+import com.itt.kmt.response.models.ResponseMsg;
+import com.itt.kmt.services.ArticleService;
+import com.itt.utility.Constants;
 
 
 /**
@@ -138,4 +141,28 @@ public class ArticleController {
         }
         return new ModelMap().addAttribute("success", activateResponseMsg);
     }
+    
+    @RequestMapping(method = RequestMethod.GET, params = {"assigned", "search"})
+    public Page<Article>  getArticlesByApprover(@RequestParam(value = "assigned") final String assigned,
+            @RequestParam(value = "search") final String search,
+            @PageableDefault(value = Constants.PAGE_SIZE)final Pageable page) {
+        return articleService.getAllArticlesByApprover(assigned, search, page);
+    }
+    
+    @RequestMapping(method = RequestMethod.GET, params = { "createdBy", "search"})
+    public Page<Article>  getArticlesByCreated(@RequestParam(value = "createdBy") final String createdBy,
+            @RequestParam(value = "search") final String search,
+            @PageableDefault(value = Constants.PAGE_SIZE)final Pageable page) {
+        return articleService.getAllArticlesByCreated(createdBy, search, page);
+    }
+    
+    
+    @RequestMapping(method = RequestMethod.GET, params = { "type", "status", "search"})
+    public Page<Article>  getArticlesByTypeAndStatus(@RequestParam(value = "type") final String type,
+            @RequestParam(value = "status") final String status,
+            @RequestParam(value = "search") final String search,
+            @PageableDefault(value = Constants.PAGE_SIZE)final Pageable page) {
+        return articleService.getArticlesByTypeAndStatus(type, status, search, page);
+    }
+    
 }

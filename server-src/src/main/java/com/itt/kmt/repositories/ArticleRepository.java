@@ -42,4 +42,6 @@ public interface ArticleRepository extends PagingAndSortingRepository<Article, S
      */
     @Query("{'$or':[ {'createdBy._id': ?0}, {'approver._id':?0} ] }")
     Page<Article> findByCreatedByAndAndApprover(ObjectId createdById, ObjectId aprroverId, Pageable page);
+
+    Page<Article> findByApprover(ObjectId objectId, Pageable page);
 }

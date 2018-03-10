@@ -131,7 +131,7 @@ public class ArticleService {
      * @return Page<Article> get list of articles.
      */
     public Page<Article> getAllArticles(final Pageable page, final String token) {
-
+/*
         //Get Logged in user
         User loggedInUser = userService.getLoggedInUser(token);
 
@@ -142,7 +142,7 @@ public class ArticleService {
         } else if (loggedInUser.getUserRole().equals(Constants.ROLE_USER)) {
             return articleRepository.findByCreatedBy(new ObjectId(loggedInUser.getId()), page);
         }
-
+*/
         return articleRepository.findAll(page);
     }
 
@@ -189,7 +189,7 @@ public class ArticleService {
         if (updatedArticle.getApprover() != null) {
             article.setApprover(updatedArticle.getApprover());
         }
-        article.setApproved(false);
+        article.setApproved("false");
 
         return article;
     }
@@ -251,7 +251,7 @@ public class ArticleService {
         article.setComments(comments);
 
         if (approve.isApproved()) {
-            article.setApproved(true);
+            article.setApproved("true");
             articleRepository.save(article);
             // TODO : Send mail to user for approval with comment, if there are any
             return true;
@@ -284,4 +284,19 @@ public class ArticleService {
         }
         return comment;
     }
+
+    public Page<Article> getAllArticlesByApprover(String assigned, String search, Pageable page) {
+        return articleRepository.findByApprover(new ObjectId(assigned), page);
+    }
+
+    public Page<Article> getAllArticlesByCreated(String createdBy, String search, Pageable page) {
+        return articleRepository.findByCreatedBy(new ObjectId(createdBy), page);
+    }
+
+    public Page<Article> getArticlesByTypeAndStatus(String type, String status, String search, Pageable page) {
+        return articleRepository.findAll(page);
+
+    }
+    
+    
 }
