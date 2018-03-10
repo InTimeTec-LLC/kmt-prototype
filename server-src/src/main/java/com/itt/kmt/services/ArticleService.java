@@ -48,7 +48,7 @@ public class ArticleService {
     @Autowired
     private UserService userService;
     /**
-     * Instance of user service.
+     * Instance of mail service.
      */
     @Autowired
     private MailService mailService;
@@ -62,6 +62,7 @@ public class ArticleService {
      */
     @Autowired
     private CommentRepository commentRepository;
+
     /**
      * Saves the Article to database.
      * 
@@ -245,6 +246,12 @@ public class ArticleService {
                 return;
             }
             throw new UnauthorizedException();
+        } else {
+            try {
+                mailService.sendDeleteKAMail(article, true);
+            } catch (MailException | InterruptedException e) {
+                log.error(e.getMessage());
+            }
         }
 
         articleRepository.delete(articleID);
@@ -255,7 +262,6 @@ public class ArticleService {
             log.error(e.getMessage());
         }
     }
-
     /**
      * Function to approve or review a article.
      * 
