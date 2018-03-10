@@ -30,7 +30,7 @@ public class ExceptionAdvice {
     @ResponseStatus(HttpStatus.UNAUTHORIZED)
     @ExceptionHandler(ShiroException.class)
     public ModelMap handle401(final ShiroException e) {
-
+e.printStackTrace();
         return new ModelMap().addAttribute(
             "success", new ResponseMsg(Boolean.FALSE, Constants.UNAUTHORIZED_ACCESS_MSG));
     }
@@ -59,7 +59,7 @@ public class ExceptionAdvice {
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public ModelMap globalException(final HttpServletRequest request, final Throwable ex) {
         log.debug("Failed due to exception : " + ex.getMessage());
-//        ex.printStackTrace();
+        ex.printStackTrace();
         return new ModelMap().addAttribute("success", new ResponseMsg(Boolean.FALSE, Constants.BAD_REQUEST_MSG));
     }
 }

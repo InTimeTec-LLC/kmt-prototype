@@ -42,4 +42,13 @@ public interface ArticleRepository extends PagingAndSortingRepository<Article, S
      */
     @Query("{'$or':[ {'createdBy._id': ?0}, {'approver._id':?0} ] }")
     Page<Article> findByCreatedByAndAndApprover(ObjectId createdById, ObjectId aprroverId, Pageable page);
+    //@Query("{'$and':[ {'createdBy._id': ?0}, {'articleType._id': ?1}, {approved: ?2}, { 'title' : {$regex:?3 ,$options:'i'} }] }")
+    
+    @Query("{'$and':[ {'createdBy._id': ?0}, {'articleType._id': ?1 },{approved: ?2 }, { 'title' : {$regex:?3 } }] }")
+    Page<Article> findArticlesCreatedBy(ObjectId objectId, ObjectId type, Boolean status,String search ,Pageable page);
+
+    @Query("{'$and':[ {'approver._id': ?0}, {'articleType._id': {$regex:?1 ,$options:'i'}},{approved: ?2}, { 'title' : {$regex:?3 ,$options:'i'} }] }")
+    Page<Article> findArticlesApprover(ObjectId objectId, ObjectId type, Boolean status,String search ,Pageable page);
+
+    
 }

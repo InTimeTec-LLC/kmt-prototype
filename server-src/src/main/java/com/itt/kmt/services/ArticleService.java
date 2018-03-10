@@ -15,6 +15,7 @@ import com.itt.utility.Constants;
 
 import lombok.extern.slf4j.Slf4j;
 
+import org.apache.commons.lang3.StringUtils;
 import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -146,7 +147,7 @@ public class ArticleService {
      *            jwt token of current session.
      * @return Page<Article> get list of articles.
      */
-    public Page<Article> getAllArticles(final Pageable page, final String token) {
+  /*  public Page<Article> getAllArticles(final Pageable page, final String token) {
 
         // Get Logged in user
         User loggedInUser = userService.getLoggedInUser(token);
@@ -161,7 +162,7 @@ public class ArticleService {
 
         return articleRepository.findAll(page);
     }
-
+*/
     /**
      * Gets the Article given the id.
      * 
@@ -354,4 +355,29 @@ public class ArticleService {
             commentRepository.delete(comment.getId());
         }
     }
+
+    public Page<Article> getAllWithFiltersAndSearch(String filter, String type, String status,
+            String search, Pageable page, String token) {
+        User loggedInUser = userService.getLoggedInUser(token);
+        switch(loggedInUser.getUserRole()){
+        case Constants.ROLE_USER: return articleRepository.findArticlesCreatedBy(new ObjectId(loggedInUser.getId()),new ObjectId(type),Boolean.parseBoolean(status) ,search,page);
+        case Constants.ROLE_MANAGER:
+        case Constants.ROLE_ADMIN:if(StringUtils.isBlank(filter)){
+            return articleRepository.findAll(page);
+        } else if(filter == "assigned"){
+            return articleRepository.findArticlesApprover(new ObjectId(loggedInUser.getId()),new ObjectId(type),Boolean.parseBoolean(status),search,page);
+        } else{
+            return articleRepository.findArticlesCreatedBy(new ObjectId(loggedInUser.getId()),new ObjectId(type),Boolean.parseBoolean(status),search,page);
+        }
+        }
+        return articleRepository.findAll(page);
+    }
+    /*        if (loggedInUser.getUserRole().equals(Constants.ROLE_MANAGER)) {
+            return articleRepository.findByCreatedByAndAndApprover(new ObjectId(loggedInUser.getId()),new ObjectId(loggedInUser.getId()), page);
+        } else if (loggedInUser.getUserRole().equals(Constants.ROLE_USER)) {
+            return articleRepository.findByCreatedBy(new ObjectId(loggedInUser.getId()), page);
+        }
+
+        return articleRepository.findAll(page);}
+     */
 }
