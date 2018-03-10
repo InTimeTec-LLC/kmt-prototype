@@ -14,7 +14,7 @@
           
           
 
-          <mat-form-field>
+          <mat-form-field class="f-right">
               <mat-select formControlName="articleType" placeholder="Types*">
                   <mat-option>Select Types</mat-option>
                   <mat-option [value]="type.id" *ngFor="let type of types">
@@ -34,7 +34,7 @@
                   #description id="description"
                   placeholder="Description"
                   formControlName="description"
-                  [style]="{'min-height': '150px'}">
+                  [style]="{'min-height': '150px','background-color': '#fff'}">
               </quill-editor>
           
               <div class="error" 
@@ -46,20 +46,21 @@
         
           <div class="upload-attachment">
               <div class="upload-file-container">
-                <div class="left-container-upload"><label class="upload-title">Upload File</label><span class="light-color">Upload Max 10 files 20 MB each</span> </div>
-                <div class="right-container-upload"><span class="light-color">Allowed File Type:  &nbsp;  .pdf, .png, .jpg, .pdf, .doc  </span>
+                <div class="f-left"><label class="upload-title">Upload File</label><span class="light-color">Upload Max 10 files 20 MB each</span> </div>
+                <div class="f-right upload-button"><span class="light-color">Allowed File Type:  &nbsp;  .pdf, .png, .jpg, .pdf, .doc  </span>
                     <div style="display:none;"><input accept=".jpg,.pdf,.doc,.png, doc, ppt, xls, txt" #file_new type="file" multiple (change)="onChange($event)" /></div>
-                    <a class="upload-button" #upload_new (click)="file_new.click();">Upload file</a>
+                    <a  #upload_new (click)="file_new.click();">Add File</a>
                 </div>
               </div>
 
               <div class="description">
                   <div class="img-container">
-                      <div class="img-multiple" *ngFor="let attachement of attachements"><span>{{attachement.fileName}}</span><label (click)="deleteAttachment(attachement.id)">X</label></div>
+                      <div class="img-multiple" *ngFor="let attachement of attachements"><span>{{attachement.fileName}}</span><label class="x-icon"(click)="deleteAttachment(attachement.id)">x</label></div>
                 </div>
               </div>
           </div>
-          
+          <div class="edit-article-details">
+          <div class="user-article-details">
           <mat-form-field>
               <mat-select 
               formControlName="approver" 
@@ -75,8 +76,11 @@
             Approver is required
            </span>
           </mat-form-field>
+          </div>
+          <div class="user-checkbox">
           <mat-checkbox class="restricted-checkbox" formControlName="restricted" >Restricted Article</mat-checkbox>
-        
+        </div>
+        </div>
         </div>
         <div class="button-container">
           <button type="button" mat-raised-button (click)="onCancle()">Cancel</button>
