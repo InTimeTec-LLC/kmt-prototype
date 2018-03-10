@@ -197,10 +197,22 @@ public class ArticleService {
                 article.setAttachments(attachments);
             }
         } else if (loggedInUser.getUserRole().equals(Constants.ROLE_USER)) {
-            return articleRepository.findByCreatedBy(new ObjectId(loggedInUser.getId()), page);
+            Page<Article> articles = articleRepository.findByCreatedBy(new ObjectId(loggedInUser.getId()), page);
+            for(Article article :articles)
+            {
+                List<Attachment> attachments = attachmentService.getArticleAttachments(article.getId());
+                article.setAttachments(attachments);
+            }
+            return articles;
         }
 
-        return articleRepository.findAll(page);
+        Page<Article> articles = articleRepository.findAll(page);
+        for(Article article :articles)
+        {
+            List<Attachment> attachments = attachmentService.getArticleAttachments(article.getId());
+            article.setAttachments(attachments);
+        }
+        return articles;
     }
 
     /**
