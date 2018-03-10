@@ -1,3 +1,4 @@
+import { Attachement } from './../../shared/modals/knowledge-base-article';
 import { Component, OnInit } from '@angular/core';
 import { KnowledgeBaseArticleService } from '../../shared/service/knowledge-base-article/knowledge-base-article.service';
 import { Router } from '@angular/router';
@@ -20,6 +21,8 @@ export class AddArticleComponent implements OnInit {
   article: FormGroup;
   types: any[];
   approvers: any[];
+  file_obj: any;
+  attachements: any[] = [];
 
   constructor(
     private kbContentService: KnowledgeBaseArticleService,
@@ -32,14 +35,16 @@ export class AddArticleComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.article = this.fb.group({
+
+     this.article = this.fb.group({
       title: ['', [Validators.required, Validators.minLength(2)]],
      description: ['', Validators.required],
      articleType: ['', Validators.required],
      approver: ['', Validators.required],
      createdBy: '',
      restricted: '',
-     needsApproval: false
+     needsApproval: false,
+     attachments: []
     });
 
     this.article.patchValue({
@@ -59,6 +64,12 @@ export class AddArticleComponent implements OnInit {
 
 
   onSubmit({value, valid}: {value: KnowledgeBaseArticle, valid: boolean }) {
+    const ids = this.attachements.map(obj => {
+
+      return { 'id': obj.id };
+    });
+
+    value.attachments = ids;
     this.kbContentService.createKnowledgeBaseArticle(value)
     .subscribe( data => {
             this.toasterService.pop('success', '', data.success.message);
@@ -73,5 +84,43 @@ export class AddArticleComponent implements OnInit {
 
   onCancle() {
     this.router.navigateByUrl('/articlelist');
+  }
+  deleteAttachment(attachment_id) {
+        if (confirm('Would you like to delete the attachment?')) {
+            this.kbContentService.deleteAttachement(attachment_id).subscribe(
+                data => {
+                    this.updateAttachement(attachment_id);
+                    this.toasterService.pop('success', '', data.success.message);
+                },
+                error => {
+                    this.toasterService.pop('error', '', error.success.message);
+                });
+            }
+  }
+
+  updateAttachement(id) {
+    for (let i = 0; i < this.attachements.length; i++) {
+        const obj = this.attachements[i];
+
+        if (obj.id === id) {
+          this.attachements.splice(i, 1);
+        }
+    }
+  }
+
+  onChange(event: any) {
+    const files = [].slice.call(event.target.files);
+    const fd = new FormData();
+    for (const file of files) {
+      fd.append('file', file);
+    }
+    fd.append('fileName', files[0].name);
+    fd.append('fileType', files[0].type);
+    this.kbContentService.uploadAttachement(fd).subscribe(data => {
+        this.attachements.push(data.success.attachement);
+        this.toasterService.pop('success', '', data.success.message);
+      }, error => {
+        this.toasterService.pop('error', '', error.success.message);
+      });
   }
 }

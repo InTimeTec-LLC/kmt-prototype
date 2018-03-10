@@ -43,7 +43,8 @@
               Description is required
             </div>
         </div>        
-        <div class="description">
+
+        <!--<div class="description">
           <div class="lable">
             <label>Uploaded File </label>
             <span class="upload-file"> Upload Max 10 files of 20MB each</span>
@@ -59,7 +60,24 @@
             <div class="img-multiple">image2.jpg</div>
            </div>
            </div>
-        </div>
+        </div>-->
+      
+        
+        <div class="upload-attachment">
+          <div class="upload-file-container">
+            <div class="left-container-upload"><label class="upload-title">Upload File</label><span class="light-color">Upload Max 10 files 20 MB each</span> </div>
+            <div class="right-container-upload"><span class="light-color">Allowed File Type:  &nbsp;  .pdf, .png, .jpg, .pdf, .doc  </span>
+                <div style="display:none;"><input accept=".jpg,.pdf,.doc,.png, doc, ppt, xls, txt" #file_new type="file" multiple (change)="onChange($event)" /></div>
+                <a class="upload-button" #upload_new (click)="file_new.click();">Upload file</a>
+            </div>
+          </div>
+
+          <div class="description">
+              <div class="img-container">
+                  <div class="img-multiple" *ngFor="let attachement of attachements"><span>{{attachement.fileName}}</span><label (click)="deleteAttachment(attachement.id)">X</label></div>
+            </div>
+          </div>
+      </div>
         <div item-height="10">&nbsp;</div>
         <div class="edit-article-details">
         <div class="approver-input">
@@ -90,7 +108,7 @@
       </div>
       <div class="button-container">
         <button type="button" mat-raised-button (click)="onCancle()">Cancel</button>
-        <button mat-raised-button type="submit" [disabled]="article.invalid">Save</button>
+        <button mat-raised-button type="submit" [disabled]="article.invalid">Submit for review</button>
       </div>
       
       </div>

@@ -22,6 +22,7 @@ export class EditArticleComponent implements OnInit {
   types: any[];
   approvers: any[];
   articleId: any;
+  attachements: any[] = [];
 
   constructor(
     private kbContentService: KnowledgeBaseArticleService,
@@ -40,7 +41,7 @@ export class EditArticleComponent implements OnInit {
           if (data.hasOwnProperty('article')) {
             data = data.article;
           }
-          console.log(data.createdBy.firstName + ' ' + data.createdBy.lastName);
+          this.attachements = data.attachments;
           this.article.setValue({
             title: data.title,
             description: data.description,
@@ -50,7 +51,8 @@ export class EditArticleComponent implements OnInit {
             restricted: data.restricted,
             createdByUser: data.createdBy.firstName + ' ' + data.createdBy.lastName,
             lastModified: data.lastModifiedTime,
-            needsApproval: data.needsApproval
+            needsApproval: data.needsApproval,
+            attachments: []
 
           });
         });
@@ -70,7 +72,8 @@ export class EditArticleComponent implements OnInit {
      restricted: '',
      createdByUser: '',
      lastModified: '',
-     needsApproval: ''
+     needsApproval: '',
+     attachments: []
     });
 
     this.kbContentService.listKnowledgeBaseArticleTypes().subscribe((data: any) => {
@@ -87,6 +90,11 @@ export class EditArticleComponent implements OnInit {
   onSubmit({value, valid}: {value: any, valid: boolean }) {
     delete value.createdByUser;
     delete value.lastModified;
+    const ids = this.attachements.map(obj => {
+      return { 'id': obj.id };
+    });
+
+    value.attachments = ids;
     value = <UpdateKnowledgeBaseArticle> value;
     this.kbContentService.updateKnowledgeBaseArticle(this.articleId, value)
     .subscribe( data => {
@@ -104,5 +112,42 @@ export class EditArticleComponent implements OnInit {
     this.router.navigateByUrl('/articlelist');
   }
 
+  updateAttachement(id) {
+    for (let i = 0; i < this.attachements.length; i++) {
+        const obj = this.attachements[i];
 
+        if (obj.id === id) {
+          this.attachements.splice(i, 1);
+        }
+    }
+  }
+
+  onChange(event: any) {
+    const files = [].slice.call(event.target.files);
+    const fd = new FormData();
+    for (const file of files) {
+      fd.append('file', file);
+    }
+    fd.append('fileName', files[0].name);
+    fd.append('fileType', files[0].type);
+    this.kbContentService.uploadAttachement(fd).subscribe(data => {
+        this.attachements.push(data.success.attachement);
+        this.toasterService.pop('success', '', data.success.message);
+      }, error => {
+        this.toasterService.pop('error', '', error.success.message);
+      });
+  }
+
+  deleteAttachment(attachment_id) {
+        if (confirm('Would you like to delete existing attachment?')) {
+            this.kbContentService.deleteAttachement(attachment_id).subscribe(
+                data => {
+                    this.updateAttachement(attachment_id);
+                    this.toasterService.pop('success', '', data.success.message);
+                },
+                error => {
+                    this.toasterService.pop('error', '', error.success.message);
+                });
+            }
+  }
 }

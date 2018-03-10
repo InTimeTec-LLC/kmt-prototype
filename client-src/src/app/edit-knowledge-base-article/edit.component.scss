@@ -57,6 +57,27 @@
 }
 
 .img-multiple{
+
+
+.article-description {
+    margin-bottom:20px;
+  }
+  .article-description .error{
+    color: #ff1010;
+    font-size: 12px;
+    padding-top: 10px
+  }
+  
+  .img-container{
+    width: 100%;
+    box-sizing: border-box;
+    float: left;
+    margin: 14px 0px;
+    padding: 15px 15px 5px 15px!important;
+    background: #fff;
+    border: 1px dashed #bfbcbc;
+  }
+  .img-multiple{
     cursor: pointer;
     margin-bottom: 12px!important;
     float: left;
@@ -69,3 +90,44 @@
     border-radius: 2px;
     margin-right: 14px;
 }
+  }
+  .img-multiple label{
+    float: right;
+    color: gray;
+    cursor: pointer;
+    font-size: 11px;
+    padding: 3px 5px;
+    margin-bottom: -2px;
+    font-weight: 600;
+  }
+  .upload-file-container{
+    width:100%;
+    float:left;
+    padding: 10px 0px;
+  }
+  .left-container-upload{
+    width:55%;
+    float:left;
+  }
+  .upload-title{
+    margin-right: 10px;
+    font-size: 14px;
+    font-weight: 600;
+  }
+  .light-color{
+    color: #c5c5c5;
+  }
+  .right-container-upload{
+    width:45%;
+    float:right;
+  
+  }
+  .upload-button{
+    background: #046b99;
+      color: #fff;
+      border-radius: 3px;
+      border: none;
+      padding: 10px 20px;
+      float: right;
+      margin-top: -11px;
+  }

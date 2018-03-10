@@ -1,8 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { AuthenticationService } from '../../shared/service/authentication/authentication.service';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs/Subscription';
- 
+
 import { MessageService } from '../../shared/service/message/message';
 
 
@@ -11,15 +11,14 @@ import { MessageService } from '../../shared/service/message/message';
   templateUrl: './left-panel.component.html',
   styleUrls: ['./left-panel.component.scss']
 })
-export class LeftPanelComponent implements OnInit {
+export class LeftPanelComponent implements OnInit, OnDestroy {
 
-  userType : any;
+  userType: any;
   subscription: Subscription;
 
-  constructor(private auth: AuthenticationService, private router: Router,private messageService: MessageService) { 
-     this.userType = this.auth.getUserType(); 
-     this.subscription = this.messageService.getMessage().subscribe(message => { 
-        console.log("LeftPanelComponent subscribe");
+  constructor(private auth: AuthenticationService, private router: Router, private messageService: MessageService) { 
+     this.userType = this.auth.getUserType();
+     this.subscription = this.messageService.getMessage().subscribe(message => {
         this.userType = this.auth.getUserType();
      });
   }
@@ -30,7 +29,6 @@ export class LeftPanelComponent implements OnInit {
   }
 
   ngOnInit() {
-    
   }
 
   refreshUserType() {

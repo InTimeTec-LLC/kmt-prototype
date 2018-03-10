@@ -110,7 +110,28 @@ export class KnowledgeBaseArticleService {
                .catch(this.handleErrorObservable);
   }
 
+/**
+   * Returns an Observable for the HTTP POST request for the JSON resource.
+   * @return {any} The Observable for the HTTP request.
+   */
 
+uploadAttachement(formData: any): Observable<any> {
+  const endpoint = environment.API_ENDPOINT + 'attachments';
+  return this.http.post(endpoint, formData, {}).
+  catch(this.handleErrorObservable);
+}
+
+
+/**
+   * Returns an Observable for the HTTP DELETE request for the JSON resource.
+   * @return {any} The Observable for the HTTP request.
+   */
+
+  deleteAttachement(id: string): Observable<any> {
+    const endpoint = environment.API_ENDPOINT + 'attachments/' + id;
+    return this.http.delete(endpoint, {}).
+    catch(this.handleErrorObservable);
+  }
 
 /**
     * Handle HTTP error
