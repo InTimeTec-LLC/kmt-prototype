@@ -1,4 +1,4 @@
-<div class="sidenav" *ngIf="isAuthenticated()">
+<div class="sidenav" *ngIf="loggeInStatus">
     <div class="user-profile">
       <div class="user-image">
      <a (click)="onTapNavigation('')"> <img src="../../assets/images/user.png" alt="usericon" class="user_icon">
@@ -57,11 +57,4 @@
        </ul>
      </div>
    </div>
-   <!--<div class="main">
-       <div class="content-box">
-         <div class="some-header">
-           Something
-         </div> 
-        </div>
-      </div>-->
-        
+   

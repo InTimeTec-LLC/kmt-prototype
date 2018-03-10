@@ -15,6 +15,7 @@ export class LeftPanelComponent implements OnInit, OnDestroy {
 
   userType: any;
   subscription: Subscription;
+  loggeInStatus: boolean;
 
   constructor(private auth: AuthenticationService, private router: Router, private messageService: MessageService) { 
      this.userType = this.auth.getUserType();
@@ -29,6 +30,7 @@ export class LeftPanelComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
+    this.isAuthenticated();
   }
 
   refreshUserType() {
@@ -40,7 +42,8 @@ export class LeftPanelComponent implements OnInit, OnDestroy {
   }
 
   isAuthenticated() {
-    return this.auth.isAuthenticated();
+    this.auth.isAuthenticated().subscribe(status => this.loggeInStatus = status );
+    return this.loggeInStatus;
   }
 
   getUserName() {
@@ -48,8 +51,10 @@ export class LeftPanelComponent implements OnInit, OnDestroy {
   }
 
   logout() {
+    this.messageService.sendMessage('closeMatDrawer');
     this.auth.logout();
     this.onTapNavigation('/login');
-    // window.location.reload()
+    this.isAuthenticated();
   }
+
 }
