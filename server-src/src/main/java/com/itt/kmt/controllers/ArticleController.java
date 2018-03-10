@@ -66,10 +66,12 @@ public class ArticleController {
     public ModelMap addArticle(@RequestBody
             final HashMap<String, Article> articleMap) {
         Article article = articleMap.get("article");
+        List<Attachment> attachments = article.getAttachments();
+        article.setAttachments(null);
         article = articleService.save(article);
         
         // linking attached attachments
-        List<Attachment> attachments = article.getAttachments();
+        
         if (attachments != null && attachments.size() > 0) {
             attachmentService.updateAttachmentWithArticleId(attachments, article.getId());
         }

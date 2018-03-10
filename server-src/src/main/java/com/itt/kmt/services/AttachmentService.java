@@ -140,9 +140,9 @@ public class AttachmentService {
      * @return the article attachments
      */
     public List<Attachment> getArticleAttachments(final String articleId) {
+
         List<Attachment> attachments = attachmentRepository.findByArticleId(articleId);
-        for(Attachment attachment: attachments)
-        {
+        for (Attachment attachment : attachments) {
             attachment.setUrl("api/attachments/" + attachment.getId());
         }
         return attachments;
@@ -157,8 +157,8 @@ public class AttachmentService {
      */
     private Attachment updateAttachment(final Attachment attachment, final Attachment updatedAttachment) {
 
-        if (!updatedAttachment.getFileName()
-                              .isEmpty()) {
+        if (updatedAttachment.getFileName() != null && !updatedAttachment.getFileName()
+                                                                         .isEmpty()) {
             attachment.setFileName(updatedAttachment.getFileName());
         }
         if (updatedAttachment.getFileSize() != 0) {
@@ -167,12 +167,12 @@ public class AttachmentService {
         if (updatedAttachment.getFileType() != null) {
             attachment.setFileType(updatedAttachment.getFileType());
         }
-        if (!updatedAttachment.getArticleId()
-                              .isEmpty()) {
+        if (updatedAttachment.getArticleId() != null && !updatedAttachment.getArticleId()
+                                                                          .isEmpty()) {
             attachment.setArticleId(updatedAttachment.getArticleId());
         }
-        if (!updatedAttachment.getUrl()
-                              .isEmpty()) {
+        if (updatedAttachment.getUrl() != null && updatedAttachment.getUrl()
+                                                                   .isEmpty()) {
             attachment.setUrl(updatedAttachment.getUrl());
         }
 
