@@ -189,7 +189,7 @@ public class ArticleService {
         if (updatedArticle.getApprover() != null) {
             article.setApprover(updatedArticle.getApprover());
         }
-        article.setApproved("false");
+        article.setApproved(false);
 
         return article;
     }
@@ -251,7 +251,7 @@ public class ArticleService {
         article.setComments(comments);
 
         if (approve.isApproved()) {
-            article.setApproved("true");
+            article.setApproved(true);
             articleRepository.save(article);
             // TODO : Send mail to user for approval with comment, if there are any
             return true;
@@ -284,19 +284,43 @@ public class ArticleService {
         }
         return comment;
     }
+//
+//    public Page<Article> getAllArticlesByApprover(String assigned, String search, Pageable page) {
+//        return articleRepository.findByApproverIdAndTitle(new ObjectId(assigned), search, page);
+//    }
+//
+//    public Page<Article> getAllArticlesByCreated(String createdBy, String search, Pageable page) {
+//        return articleRepository.findByCreatedByAndTitle(new ObjectId(createdBy), search, page);
+//    }
+//
+//    public Page<Article> getArticlesByTypeAndStatus(String type, String status, String search, Pageable page) {
+//
+////        if (type != null && stringutils.isblank(stringutils.isblank) && search != null) {
+////            return articleRepository.findByArticleTypeAndStatusAndTitleLike(type, status, search, page);
+////        } else if (type != null && status != null && search == null) {
+////            return articleRepository.findByArticleTypeAndStatus(type, status, page);
+////        } else if (type != null && status == null && search != null) {
+////            return articleRepository.findByArticleTypeAndTitleLike(type, search, page);
+////        } else if (type != null && status == null && search == null) {
+////            return articleRepository.findByArticleType(type, page);
+////        } else if (type == null && status != null && search != null) {
+////            return articleRepository.findByStatusAndTitleLike(status, search, page);
+////        } else if (type == null && status != null && search == null) {
+////            return articleRepository.findByStatus(status, page);
+////        } else if (type == null && status == null && search != null) {
+////            return articleRepository.findByTitleLike(search, page);
+////        } else {
+////            return articleRepository.findAll(page);
+////        }
+//
+//        return articleRepository.findByArticleTypeAndStatusAndTitleLike(type, status, search, page);
+//
+//    }
 
-    public Page<Article> getAllArticlesByApprover(String assigned, String search, Pageable page) {
-        return articleRepository.findByApprover(new ObjectId(assigned), page);
+    public Page<Article> getAllWithFiltersAndSearch (String assigned, String createdBy, String type,
+                                                     String search, String status, Pageable page){
+        return articleRepository.findByFiltersAndSearch(new ObjectId(assigned), new ObjectId(createdBy), new ObjectId(type),
+                Boolean.parseBoolean(status), search, page);
     }
 
-    public Page<Article> getAllArticlesByCreated(String createdBy, String search, Pageable page) {
-        return articleRepository.findByCreatedBy(new ObjectId(createdBy), page);
-    }
-
-    public Page<Article> getArticlesByTypeAndStatus(String type, String status, String search, Pageable page) {
-        return articleRepository.findAll(page);
-
-    }
-    
-    
 }

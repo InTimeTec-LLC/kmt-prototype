@@ -142,27 +142,30 @@ public class ArticleController {
         return new ModelMap().addAttribute("success", activateResponseMsg);
     }
     
-    @RequestMapping(method = RequestMethod.GET, params = {"assigned", "search"})
-    public Page<Article>  getArticlesByApprover(@RequestParam(value = "assigned") final String assigned,
+//    @RequestMapping(method = RequestMethod.GET, params = {"assigned", "type", "status", "search"})
+//    public Page<Article>  getArticlesByApprover(@RequestParam(value = "assigned") final String assigned,
+//            @RequestParam(value = "search") final String search,
+//            @PageableDefault(value = Constants.PAGE_SIZE)final Pageable page) {
+//        return articleService.getAllArticlesByApprover(assigned, search, page);
+//    }
+    
+    @RequestMapping(method = RequestMethod.GET, params = { "assigned", "createdBy", "type", "status", "search"})
+    public Page<Article>  getArticlesByCreated(@RequestParam(value = "assigned") final String assigned,
+                                               @RequestParam(value = "createdBy") final String createdBy,
+                                               @RequestParam(value = "type") final String type,
+                                               @RequestParam(value = "status") final String status,
             @RequestParam(value = "search") final String search,
             @PageableDefault(value = Constants.PAGE_SIZE)final Pageable page) {
-        return articleService.getAllArticlesByApprover(assigned, search, page);
+        return articleService.getAllWithFiltersAndSearch(assigned, createdBy, type, search, status, page);
     }
-    
-    @RequestMapping(method = RequestMethod.GET, params = { "createdBy", "search"})
-    public Page<Article>  getArticlesByCreated(@RequestParam(value = "createdBy") final String createdBy,
-            @RequestParam(value = "search") final String search,
-            @PageableDefault(value = Constants.PAGE_SIZE)final Pageable page) {
-        return articleService.getAllArticlesByCreated(createdBy, search, page);
-    }
-    
-    
-    @RequestMapping(method = RequestMethod.GET, params = { "type", "status", "search"})
-    public Page<Article>  getArticlesByTypeAndStatus(@RequestParam(value = "type") final String type,
-            @RequestParam(value = "status") final String status,
-            @RequestParam(value = "search") final String search,
-            @PageableDefault(value = Constants.PAGE_SIZE)final Pageable page) {
-        return articleService.getArticlesByTypeAndStatus(type, status, search, page);
-    }
+
+
+//    @RequestMapping(method = RequestMethod.GET, params = { "type", "status", "search"})
+//    public Page<Article>  getArticlesByTypeAndStatus(@RequestParam(value = "type") final String type,
+//            @RequestParam(value = "status") final String status,
+//            @RequestParam(value = "search") final String search,
+//            @PageableDefault(value = Constants.PAGE_SIZE)final Pageable page) {
+//        return articleService.getArticlesByTypeAndStatus(type, status, search, page);
+//    }
     
 }

@@ -84,7 +84,7 @@ public class Article {
      * approval Status of this article.
      * default value is false. 
      */
-    private String approved = "false";
+    private Boolean approved = false;
 
     /**
      * review comment for the article.

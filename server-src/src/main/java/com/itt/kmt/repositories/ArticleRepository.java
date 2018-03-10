@@ -43,5 +43,21 @@ public interface ArticleRepository extends PagingAndSortingRepository<Article, S
     @Query("{'$or':[ {'createdBy._id': ?0}, {'approver._id':?0} ] }")
     Page<Article> findByCreatedByAndAndApprover(ObjectId createdById, ObjectId aprroverId, Pageable page);
 
-    Page<Article> findByApprover(ObjectId objectId, Pageable page);
+
+//    @Query("{'approver._id': ?0}")
+    @Query("{'$and':[ {'approver._id': ?0}, { 'title' : {$regex:?1,$options:'i'} }] }")
+    Page<Article> findByApproverIdAndTitle(ObjectId objectId, String title, Pageable page);
+
+//
+//    @Query("{'$and':[ {'createdBy._id': ?0}, { 'title' : {$regex:?1,$options:'i'} }] }")
+//    Page<Article> findByCreatedByAndTitle(ObjectId objectId, String title, Pageable page);
+//
+//    @Query("{'$and':[ {'createdBy._id': ?0}, { 'title' : {$regex:?1,$options:'i'} }] }")
+//    Page<Article> findByCreatedByAndTitle(ObjectId objectId, String title, Pageable page);
+
+    @Query("{'$and':[ {'approver._id': ?0}, {'createdBy._id': ?1}, {'articleType._id': ?2}, {approved: ?3}, " +
+            " { 'title' : {$regex:?4 ,$options:'i'} }] }")
+    Page<Article> findByFiltersAndSearch(ObjectId assigned, ObjectId createdBy, ObjectId type,
+                                         Boolean status,  String search, Pageable page);
+
 }
