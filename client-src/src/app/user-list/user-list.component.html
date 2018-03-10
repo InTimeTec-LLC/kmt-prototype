@@ -40,8 +40,8 @@
        <ng-container matColumnDef="status">
           <mat-header-cell *matHeaderCellDef mat-sort-header> Status </mat-header-cell>
           <mat-cell *matCellDef="let row"> 
-              <span *ngIf="!row.status">Deactivate</span>
-              <span *ngIf="row.status">Activate</span>
+              <span *ngIf="!row.status">Inactive</span>
+              <span *ngIf="row.status">Active</span>
           </mat-cell>
         </ng-container>
 
