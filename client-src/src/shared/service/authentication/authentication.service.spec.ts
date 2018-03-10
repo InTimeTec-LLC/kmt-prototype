@@ -1,8 +1,9 @@
-import { TestBed, inject } from '@angular/core/testing';
-
-import { AuthenticationService } from './authentication.service';
-import { HttpModule } from '@angular/http';
+import { TestBed, async, inject} from '@angular/core/testing';
+import { HttpModule, Http , Response,  ResponseOptions,  XHRBackend} from '@angular/http';
 import { HttpClientModule } from '@angular/common/http';
+import { MockBackend } from '@angular/http/testing';
+import { Mock } from 'protractor/built/driverProviders';
+import { AuthenticationService } from './authentication.service';
 
 describe('AuthenticationService', () => {
   var loginResponse = `{"success": { 
@@ -14,91 +15,119 @@ describe('AuthenticationService', () => {
    "firstName": "John",
    "lastName": "Doe",
    "email": "john.doe@email.com",
-   "password": "null",
+   "password": "123",
    "userRole": "manager"
  }
 }`;
 
+let service: AuthenticationService;
+let backend: MockBackend;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [HttpModule, HttpClientModule],
-      providers: [AuthenticationService]
+      providers: [
+        AuthenticationService, 
+        MockBackend, 
+         
+        {
+          provide: XHRBackend,
+          useClass: MockBackend,
+          
+        }]
     });
-  });
+    // backend = TestBed.get(MockBackend);
+    // service = TestBed.get(AuthenticationService);
+      });
 
-  //service created
-  it('should be created', inject([AuthenticationService], (service: AuthenticationService) => {
-    expect(service).toBeTruthy();
-  }));
+      it('login should return login response', inject([AuthenticationService, XHRBackend], (authenticationService, mockBackend) => {
+          mockBackend.connections.subscribe((connection) => {
+                                                              connection.mockRespond(new Response(new ResponseOptions(
+                                                                {
+                                                                body: JSON.stringify(loginResponse)
+                                                              }))
+                                                            );
 
-  // logout
-it('Logout user', inject([AuthenticationService], (service: AuthenticationService) => {
-  localStorage.setItem('currentUser', loginResponse);
-  expect(service.token).toBeUndefined();
-}));
+    
+                                });
 
-  // login - pending
+          authenticationService.login('john.doe@email.com','123').subscribe((data) => {
+              expect(data).toBeUndefined();
+          });
 
-  // Authentication successfull
-  it('Authetication Successfull', inject([AuthenticationService], (service: AuthenticationService) => {
-   localStorage.setItem('currentUser', loginResponse);
-   expect(service.isAuthenticated()).toBeTruthy();
- }));
+      }));
 
- // Authentication failed.
- it('Authentication failed', inject([AuthenticationService], (service: AuthenticationService) => {
-  localStorage.setItem('currentUser', "{}");
-  expect(service.isAuthenticated()).toBeFalsy();
-}));
+    //service created
+    it('should be created', inject([AuthenticationService], (service: AuthenticationService) => {
+      expect(service).toBeTruthy();
+    }));
 
-// Get username successfull
-it('Get username success', inject([AuthenticationService], (service: AuthenticationService) => {
-  localStorage.setItem('currentUser', loginResponse);
-  expect(service.getUserName()).toEqual("John Doe");
-}));
+    // logout
+    it('Logout user', inject([AuthenticationService], (service: AuthenticationService) => {
+      localStorage.setItem('currentUser', loginResponse);
+      service.logout();
+      expect(service.token).toBeNull();
+    }));
 
-// Get username failure
-it('Get username failure', inject([AuthenticationService], (service: AuthenticationService) => {
-  localStorage.setItem('currentUser', null);
-  expect(service.getUserName()).toBeNull();
-}));
+    // Authentication successfull
+    it('Authetication Successfull', inject([AuthenticationService], (service: AuthenticationService) => {
+      localStorage.setItem('currentUser', loginResponse);
+      expect(service.isAuthenticated()).toBeTruthy();
+    }));
 
-// Get userrole successfull
-it('Get userrole success', inject([AuthenticationService], (service: AuthenticationService) => {
-  localStorage.setItem('currentUser', loginResponse);
-  expect(service.getUserType()).toEqual("manager");
-}));
+    // Authentication failed.
+    it('Authentication failed', inject([AuthenticationService], (service: AuthenticationService) => {
+      localStorage.setItem('currentUser', "{}");
+      expect(service.isAuthenticated()).toBeFalsy();
+    }));
 
-// Get userrole failure
-it('Get userrole failure', inject([AuthenticationService], (service: AuthenticationService) => {
-  localStorage.setItem('currentUser', null);
-  expect(service.getUserType()).toBeUndefined();
-}));
+    // Get username successfull
+    it('Get username success', inject([AuthenticationService], (service: AuthenticationService) => {
+      localStorage.setItem('currentUser', loginResponse);
+      expect(service.getUserName()).toEqual("John Doe");
+    }));
 
-// Get access token successfull
-it('Get access token success', inject([AuthenticationService], (service: AuthenticationService) => {
-  localStorage.setItem('currentUser', loginResponse);
-  expect(service.getAccessToken()).toBeTruthy();
-}));
+    // Get username failure
+    it('Get username failure', inject([AuthenticationService], (service: AuthenticationService) => {
+      localStorage.setItem('currentUser', null);
+      expect(service.getUserName()).toBeNull();
+    }));
 
-// Get access token failure
-it('Get access token failure', inject([AuthenticationService], (service: AuthenticationService) => {
-  localStorage.setItem('currentUser', null);
-  expect(service.getAccessToken()).toBeNull();
-}));
+    // Get userrole successfull
+    it('Get userrole success', inject([AuthenticationService], (service: AuthenticationService) => {
+      localStorage.setItem('currentUser', loginResponse);
+      expect(service.getUserType()).toEqual("manager");
+    }));
+
+    // Get userrole failure
+    it('Get userrole failure', inject([AuthenticationService], (service: AuthenticationService) => {
+      localStorage.setItem('currentUser', null);
+      expect(service.getUserType()).toBeUndefined();
+    }));
+
+    // Get access token successfull
+    it('Get access token success', inject([AuthenticationService], (service: AuthenticationService) => {
+      localStorage.setItem('currentUser', loginResponse);
+      expect(service.getAccessToken()).toBeTruthy();
+    }));
+
+    // Get access token failure
+    it('Get access token failure', inject([AuthenticationService], (service: AuthenticationService) => {
+      localStorage.setItem('currentUser', null);
+      expect(service.getAccessToken()).toBeNull();
+    }));
 
 
-// Get user id successfull
-it('Get user id success', inject([AuthenticationService], (service: AuthenticationService) => {
-  localStorage.setItem('currentUser', loginResponse);
-  expect(service.getUserId()).toEqual("1");
-}));
+    // Get user id successfull
+    it('Get user id success', inject([AuthenticationService], (service: AuthenticationService) => {
+      localStorage.setItem('currentUser', loginResponse);
+      expect(service.getUserId()).toEqual("1");
+    }));
 
-// Get user id failure
-it('Get user id failure', inject([AuthenticationService], (service: AuthenticationService) => {
-  localStorage.setItem('currentUser', null);
-  expect(service.getUserId()).toBeNull();
-}));
+    // Get user id failure
+    it('Get user id failure', inject([AuthenticationService], (service: AuthenticationService) => {
+      localStorage.setItem('currentUser', null);
+      expect(service.getUserId()).toBeNull();
+    }));
 
 });
