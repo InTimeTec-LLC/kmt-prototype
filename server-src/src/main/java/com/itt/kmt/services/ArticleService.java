@@ -309,6 +309,9 @@ public class ArticleService {
         }
 
         articleRepository.delete(articleID);
+        
+        // Deleting attached attachments
+        attachmentService.deleteAttachmentWithArticleId(articleID);
 
         try {
             mailService.sendDeleteKAMail(article, true);
