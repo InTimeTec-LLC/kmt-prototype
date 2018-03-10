@@ -155,6 +155,7 @@ public class ArticleService {
     public Article getArticleById(final String id) {
 
         Article article = articleRepository.findOne(id);
+
         if (article == null) {
             throw new RuntimeException("No articles found");
         }
@@ -237,6 +238,21 @@ public class ArticleService {
         }
 
         User loggedInUser = userService.getLoggedInUser(token);
+
+        if (approve.isApproved()) {
+
+            article.setApproved(true);
+            List<Comment> comments = article.getComments();
+
+            if (comments.size() > 0) {
+                deleteComments(comments);
+                article.setComments(null);
+            }
+            articleRepository.save(article);
+            // TODO : Send mail to user for approval with comment, if there are any
+            return true;
+        }
+
         Comment savedComment = saveComment(approve, loggedInUser);
 
         List<Comment> comments = article.getComments();
@@ -250,12 +266,6 @@ public class ArticleService {
         }
         article.setComments(comments);
 
-        if (approve.isApproved()) {
-            article.setApproved(true);
-            articleRepository.save(article);
-            // TODO : Send mail to user for approval with comment, if there are any
-            return true;
-        }
 
         articleRepository.save(article);
         // TODO : Send mail to user with review comments.
@@ -283,5 +293,15 @@ public class ArticleService {
             comment = commentRepository.save(comment);
         }
         return comment;
+    }
+
+    /**
+     * Function to delete comment in DB.
+     * @param comments List of comment article has.
+     */
+    private void deleteComments(final List<Comment> comments) {
+        for (Comment comment: comments) {
+            commentRepository.delete(comment.getId());
+        }
     }
 }
