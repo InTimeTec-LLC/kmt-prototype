@@ -1,64 +1,88 @@
-.left-container{
-    float: left;
-    width: 45%;
-    padding: 20px;
-}
-.right-container{
-    float: right;
-    width: 45%;
-    padding: 20px;
-}
 .description p{
 text-align: justify;
 }
-.left-container div{
-margin-bottom:20px 
-}
-.left-container label,
-.right-container label{
+
+.left-container label {
     color: #000;
     font-weight: bold;
     display: inline-block;
     width:200px;
 }
-.right-lower-container{
-    float: left;
+
+
+.container-heading {
+    position: relative;
 }
-.lastModified-container,
-.createdBy-container{
+
+  .edit {
+    font-family: 'FontAwesome';
+    width: 30px;
+    height: 30x;
+    position: absolute;
+    top: 9px;
+    font-size: 31px;
+    right: 7px;
+    background: #33b7fc;
+    border: none;
+    color: #fafafa;
+    cursor: pointer;
+}
+
+.left-container{
+    float: left;
+    width: 100%;
+    padding: 20px;
+}
+
+.description p{
+text-align: left;
+}
+.left-container div{
+margin-bottom:20px 
+}
+.type, .reviewed, .description label{
+    width: 70%!important;
+    float: left;
     font-size: 12px;
-    float: right;
-    margin-bottom: 26px;
 }
-.related-article{
+.description {
     float: left;
-    width:100%;
+    width: 100%;
+    font-size:13px;
 }
-.related-article p{
-    margin: 0px;
-    color: #606060;
-    font-weight: bold;
-    font-size: 19px;
-    border-bottom: 2px solid #adadad;
-    padding-bottom: 7px;
+textarea.mat-input-element {
+    resize: none;
+    border-radius: 2px;
+    height: 100px;
+    border: 1px solid #c7c7c7;
 }
-.related-article ul{
-    padding-left: 19px;
+
+.mat-form-field-label-wrapper {
+    font-size: 14px!important;
+    margin: 4px 10px!important;
 }
-.related-article ul li{
-    color:#1464f6;
+
+
+.img-container{
+    width: 100%;
+    float: left;
+    padding-top: 17px;
 }
+.img-multiple{
+    cursor: pointer;
+    margin-bottom: 12px!important;
+    float: left;
+    border: 1px solid #c1c1c1;
+    padding: 5px 10px;
+    min-width: 120px;
+    text-align: center;
+    background: #fff;
+    color: #33b7fc;
+    border-radius: 2px;
+    margin-right: 14px;
+}
+
+
 .article_view{
     float: left;
 }
-
-.example-container {
-    -webkit-box-orient: vertical;
-    -webkit-box-direction: normal;
-    -ms-flex-direction: column;
-    flex-direction: column;
-    background-color: #fbfbfb;
-    padding: 20px;
-    -webkit-box-shadow: 0px 5px 8px rgba(0, 0, 0, 0.3);
-    box-shadow: 0px 5px 8px rgba(0, 0, 0, 0.3);
-  }
