@@ -64,6 +64,14 @@ public class ArticleService {
     @Autowired
     private CommentRepository commentRepository;
 
+
+//    private static List<Boolean> allStatus = null;
+//
+//    static {
+//        allStatus.add(true);
+//        allStatus.add(false);
+//    }
+
     /**
      * Saves the Article to database.
      * 
@@ -358,20 +366,44 @@ public class ArticleService {
 
     public Page<Article> getAllWithFiltersAndSearch(String filter, String type, String status,
             String search, Pageable page, String token) {
+
         User loggedInUser = userService.getLoggedInUser(token);
+
+        List<ObjectId> articleTypes = new ArrayList<>();
+        List<Boolean> allStatus = new ArrayList<>();
+
+        //check for status
+        if( !StringUtils.isBlank(status)) {
+            allStatus.clear();
+            allStatus.add(Boolean.parseBoolean(status));
+        } else {
+            allStatus.add(true);
+            allStatus.add(false);
+        }
+
+        //check for type
+        if( !StringUtils.isBlank(type)) {
+            articleTypes.clear();
+            articleTypes.add(new ObjectId(type));
+        } else {
+            articleTypes = getArticleTypeObject();
+        }
+
         switch(loggedInUser.getUserRole()){
-        case Constants.ROLE_USER: return articleRepository.findArticlesCreatedBy(new ObjectId(loggedInUser.getId()),new ObjectId(type),Boolean.parseBoolean(status) ,search,page);
+        case Constants.ROLE_USER: return articleRepository.findArticlesCreatedBy(new ObjectId(loggedInUser.getId()), articleTypes, allStatus ,search,page);
         case Constants.ROLE_MANAGER:
         case Constants.ROLE_ADMIN:if(StringUtils.isBlank(filter)){
             return articleRepository.findAll(page);
         } else if(filter == "assigned"){
             return articleRepository.findArticlesApprover(new ObjectId(loggedInUser.getId()),new ObjectId(type),Boolean.parseBoolean(status),search,page);
         } else{
-            return articleRepository.findArticlesCreatedBy(new ObjectId(loggedInUser.getId()),new ObjectId(type),Boolean.parseBoolean(status),search,page);
+            return articleRepository.findArticlesCreatedBy(new ObjectId(loggedInUser.getId()),articleTypes,allStatus,search,page);
         }
         }
         return articleRepository.findAll(page);
     }
+
+
     /*        if (loggedInUser.getUserRole().equals(Constants.ROLE_MANAGER)) {
             return articleRepository.findByCreatedByAndAndApprover(new ObjectId(loggedInUser.getId()),new ObjectId(loggedInUser.getId()), page);
         } else if (loggedInUser.getUserRole().equals(Constants.ROLE_USER)) {
@@ -380,4 +412,14 @@ public class ArticleService {
 
         return articleRepository.findAll(page);}
      */
+
+    private List<ObjectId> getArticleTypeObject () {
+
+        List<ArticleType> articleTypes = articleTypes = getArticleTypes();
+        List<ObjectId> articleTypeObject = new ArrayList<>();
+        for(ArticleType articleType: articleTypes) {
+            articleTypeObject.add(new ObjectId(articleType.getId()));
+        }
+        return articleTypeObject;
+    }
 }

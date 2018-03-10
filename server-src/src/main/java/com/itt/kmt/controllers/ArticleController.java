@@ -145,8 +145,8 @@ public class ArticleController {
     @RequestMapping(method = RequestMethod.GET)
     public Page<Article>  getArticles(final HttpServletRequest httpServletRequest,
             @RequestParam(value = "filter", required = false, defaultValue = ".") final String filter,
-            @RequestParam(value = "type", required = false, defaultValue = "") final String type,
-            @RequestParam(value = "status", required = false, defaultValue = ".") final String status,
+            @RequestParam(value = "type", required = false) final String type,
+            @RequestParam(value = "status", required = false) final String status,
             @RequestParam(value = "search", required = false, defaultValue = ".") final String search,
             @PageableDefault(value = Constants.PAGE_SIZE)final Pageable page) {
         return articleService.getAllWithFiltersAndSearch(filter, type, status, search, page, httpServletRequest.getHeader(Constants.AUTHORIZATION));
