@@ -1,9 +1,22 @@
 package com.itt.kmt.services;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Map;
+
+import org.apache.commons.lang3.StringUtils;
+import org.bson.types.ObjectId;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.stereotype.Service;
+
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.itt.kmt.jwt.exception.UnauthorizedException;
 import com.itt.kmt.models.Approve;
 import com.itt.kmt.models.Article;
+import com.itt.kmt.models.ArticleFilter;
 import com.itt.kmt.models.ArticleType;
 import com.itt.kmt.models.Comment;
 import com.itt.kmt.models.User;
@@ -65,12 +78,12 @@ public class ArticleService {
     private CommentRepository commentRepository;
 
 
-//    private static List<Boolean> allStatus = null;
-//
-//    static {
-//        allStatus.add(true);
-//        allStatus.add(false);
-//    }
+    //    private static List<Boolean> allStatus = null;
+    //
+    //    static {
+    //        allStatus.add(true);
+    //        allStatus.add(false);
+    //    }
 
     /**
      * Saves the Article to database.
@@ -155,7 +168,7 @@ public class ArticleService {
      *            jwt token of current session.
      * @return Page<Article> get list of articles.
      */
-  /*  public Page<Article> getAllArticles(final Pageable page, final String token) {
+    /*  public Page<Article> getAllArticles(final Pageable page, final String token) {
 
         // Get Logged in user
         User loggedInUser = userService.getLoggedInUser(token);
@@ -170,7 +183,7 @@ public class ArticleService {
 
         return articleRepository.findAll(page);
     }
-*/
+     */
     /**
      * Gets the Article given the id.
      * 
@@ -364,62 +377,97 @@ public class ArticleService {
         }
     }
 
-    public Page<Article> getAllWithFiltersAndSearch(String filter, String type, String status,
-            String search, Pageable page, String token) {
-
+    /**
+     * Function to get articles based on search and filters.
+     * @param filter , the key to be filter the article.
+     * @param type , the type of the article to be fetched.
+     * @param status , the status of the article to be fetched.
+     * @param search , the key to be searched in title of the article.
+     * @param page Pageable object.
+     * @param token jwt token of current session.
+     * @return Page<Article> get list of articles.
+     */
+    public Page<Article> getAllWithFiltersAndSearch(final ArticleFilter filter, final String type, final String status,
+            final String search, final Pageable page, final String token) {
+        String filterBy = getFilter(filter);
         User loggedInUser = userService.getLoggedInUser(token);
+        List<ObjectId> articleTypes = getArticleTypeObject(type); 
+        List<Boolean> allStatus = getApprovalStatus(status);
+        return getAllWithFiltersAndSearch(loggedInUser.getUserRole(), new ObjectId(loggedInUser.getId()), 
+                filterBy, articleTypes, allStatus, search, page);
+    }    
 
-        List<ObjectId> articleTypes = new ArrayList<>();
-        List<Boolean> allStatus = new ArrayList<>();
 
-        //check for status
-        if( !StringUtils.isBlank(status)) {
-            allStatus.clear();
-            allStatus.add(Boolean.parseBoolean(status));
-        } else {
-            allStatus.add(true);
-            allStatus.add(false);
-        }
-
-        //check for type
-        if( !StringUtils.isBlank(type)) {
-            articleTypes.clear();
-            articleTypes.add(new ObjectId(type));
-        } else {
-            articleTypes = getArticleTypeObject();
-        }
-
-        switch(loggedInUser.getUserRole()){
-        case Constants.ROLE_USER: return articleRepository.findArticlesCreatedBy(new ObjectId(loggedInUser.getId()), articleTypes, allStatus ,search,page);
+    /**
+     * private method to get articles based on search and filters.
+     * @param userRole , go get articles based on Role of the logged in user.
+     * @param userId , the id of the user.
+     * @param filter , the key to be filtered.
+     * @param type , the list of articletype .
+     * @param status , the list of valid status.
+     * @param search , the key to be searched in title of the article.
+     * @param page Pageable object.
+     * @return Page<Article> get list of articles.
+     */
+    private Page<Article> getAllWithFiltersAndSearch(final String userRole, final ObjectId userId, final String filter,
+            final List<ObjectId> type, final List<Boolean> status, final String search, final Pageable page) {
+        switch (userRole) {
+        case Constants.ROLE_USER: return articleRepository.findArticlesByCreatedBy(userId, type, status, search, page);
         case Constants.ROLE_MANAGER:
-        case Constants.ROLE_ADMIN:if(StringUtils.isBlank(filter)){
-            return articleRepository.findAll(page);
-        } else if(filter == "assigned"){
-            return articleRepository.findArticlesApprover(new ObjectId(loggedInUser.getId()),new ObjectId(type),Boolean.parseBoolean(status),search,page);
-        } else{
-            return articleRepository.findArticlesCreatedBy(new ObjectId(loggedInUser.getId()),articleTypes,allStatus,search,page);
+            if (StringUtils.isBlank(filter)) {
+                return articleRepository.findAllArticles(userId, type, status, search, page);
+            } else {
+                return articleRepository.findArticlesByFilter(filter, userId, type, status, search, page);
+            }
+        case Constants.ROLE_ADMIN: 
+            if (StringUtils.isBlank(filter)) {
+                return articleRepository.findAllArticles(type, status, search, page);
+            } else {
+                return articleRepository.findArticlesByFilter(filter, userId, type, status, search, page);
+            }
+        default : throw new RuntimeException(Constants.UNAUTHORIZED_ACCESS_MSG);
         }
-        }
-        return articleRepository.findAll(page);
+
     }
 
 
-    /*        if (loggedInUser.getUserRole().equals(Constants.ROLE_MANAGER)) {
-            return articleRepository.findByCreatedByAndAndApprover(new ObjectId(loggedInUser.getId()),new ObjectId(loggedInUser.getId()), page);
-        } else if (loggedInUser.getUserRole().equals(Constants.ROLE_USER)) {
-            return articleRepository.findByCreatedBy(new ObjectId(loggedInUser.getId()), page);
-        }
-
-        return articleRepository.findAll(page);}
+    /**
+     * Function to get articlestype objects.
+     * @param type , the article type. 
+     * @return List<ObjectId> get list of articleTypes.
      */
-
-    private List<ObjectId> getArticleTypeObject () {
-
-        List<ArticleType> articleTypes = articleTypes = getArticleTypes();
+    private List<ObjectId> getArticleTypeObject(final String type) {
+        if (StringUtils.isNotBlank(type)) {
+         return Arrays.asList(new ObjectId(type));    
+        } 
         List<ObjectId> articleTypeObject = new ArrayList<>();
-        for(ArticleType articleType: articleTypes) {
-            articleTypeObject.add(new ObjectId(articleType.getId()));
-        }
+        getArticleTypes().forEach(articleType-> articleTypeObject.add(new ObjectId(articleType.getId())));
         return articleTypeObject;
     }
+    
+    /**
+     * Function to get filter string.
+     * @param filter , get valid filter value.
+     * @return String get filter value.
+     */
+    private String getFilter(final ArticleFilter filter) {
+        if (filter == null) {
+            return null;
+        }
+        return (filter.toString() + "._id");
+    }
+
+    /**
+     * Function to get approval status.
+     * @param status , get valid status value.
+     * @return List<Boolean> get list of approval status.
+     */
+    private List<Boolean> getApprovalStatus(final String status) {
+        if (StringUtils.isBlank(status)) { 
+            return Arrays.asList(true, false);
+        } else {
+            return Arrays.asList(Boolean.parseBoolean(status));
+        }
+    }
+
 }

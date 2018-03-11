@@ -155,7 +155,8 @@ public class ArticleServiceTests {
         when(articleRepository.findAll(new PageRequest(Constants.PAGE_NUMBER, Constants.PAGE_SIZE))).thenReturn(page);
         when(userService.getLoggedInUser(token)).thenReturn(user);
         Page<Article> firstPage = articleService
-                .getAllArticles(new PageRequest(Constants.PAGE_NUMBER, Constants.PAGE_SIZE), token);
+                .getAllWithFiltersAndSearch(null, null, null, null,
+                        new PageRequest(Constants.PAGE_NUMBER, Constants.PAGE_SIZE), token);
 
         // Assert
         assertThat(firstPage.getTotalPages()).isEqualTo(1);
@@ -177,7 +178,8 @@ public class ArticleServiceTests {
                 new PageRequest(Constants.PAGE_NUMBER, Constants.PAGE_SIZE))).thenReturn(page);
         when(userService.getLoggedInUser(token)).thenReturn(user);
         Page<Article> firstPage = articleService
-                .getAllArticles(new PageRequest(Constants.PAGE_NUMBER, Constants.PAGE_SIZE), token);
+                .getAllWithFiltersAndSearch(null, null, null, null,
+                        new PageRequest(Constants.PAGE_NUMBER, Constants.PAGE_SIZE), token);
 
         // Assert
         assertThat(firstPage.getTotalPages()).isEqualTo(1);
@@ -202,7 +204,8 @@ public class ArticleServiceTests {
                 new PageRequest(Constants.PAGE_NUMBER, Constants.PAGE_SIZE))).thenReturn(page);
         when(userService.getLoggedInUser(token)).thenReturn(user);
         Page<Article> firstPage = articleService
-                .getAllArticles(new PageRequest(Constants.PAGE_NUMBER, Constants.PAGE_SIZE), token);
+                .getAllWithFiltersAndSearch(null, null, null, null,
+                        new PageRequest(Constants.PAGE_NUMBER, Constants.PAGE_SIZE), token);
 
         // Assert
         assertThat(firstPage.getTotalPages()).isEqualTo(1);
