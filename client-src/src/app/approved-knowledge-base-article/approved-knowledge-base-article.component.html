@@ -10,7 +10,8 @@
                 </ul>
               </div>
               </div>
-    <div class="container-heading"><h2 class="heading-margin">{{article.title}} <sub><span> {{article.createdBy.firstName}}  {{article.createdBy.lastName}} </span></sub></h2></div>
+    <div class="container-heading">
+      <p class="heading-margin">{{article.title}} <sub><span class="articleby"> by {{article.createdBy.firstName}}  {{article.createdBy.lastName}} </span></sub></p></div>
 <div class="container-body article_view">
   <div class="left-container">
       <div class="type">
@@ -25,12 +26,10 @@
           <label>Description</label>
           <p class="description" [innerHTML]="article.description"></p>
       </div>
-      <div class="description">
+      <div class="upload-files-section">
           <label>Uploaded File</label>
           <div class="img-container">
-          <div class="img-multiple">image.jpg</div> 
-          <div class="img-multiple">image1.jpg</div>
-          <div class="img-multiple">image2.jpg</div>
+          <div class="img-multiple" *ngFor="let attachement of attachements"><span (click)="downloadAttachment(attachement.id, attachement.fileName)">{{attachement.fileName}}</span></div>
          
         </div>
       </div>

@@ -1,23 +1,29 @@
 
-.article-description {
-  margin-bottom:20px;
+.description {
+  margin: 20px 0;
 }
-.article-description .error{
+.description label {
+  color: #111111;
+  font-weight: bold;
+  font-size: 15px;
+  display: inline-block;
+  margin-bottom: 17px;
+}
+.description .error{
   color: #ff1010;
   font-size: 12px;
   padding-top: 10px
 } 
-
-
-
 .img-container{
   width: 100%;
+  /* -webkit-box-sizing: border-box; */
   box-sizing: border-box;
   float: left;
   margin: 14px 0px;
-  padding: 15px 15px 5px 15px!important;
+  padding: 15px 15px 5px 15px !important;
   background: #fff;
   border: 1px dashed #bfbcbc;
+  min-height: 60px;
 }
 .img-multiple{
   cursor: pointer;
@@ -52,13 +58,15 @@
   float:left;
 }
 .upload-title{
+  color: #111111;
+  font-weight: bold;
+  font-size: 15px;
+  display: inline-block;
   margin-right: 10px;
-  font-size: 14px;
-  font-weight: 600;
 }
 .light-color{
   color: #c5c5c5;
-  margin-right: 50px;
+  margin-right: 6px;
 }
 .right-container-upload{
   width:45%;
@@ -73,9 +81,10 @@
 
 .upload-button a {
   text-decoration: none;
-  padding: 10px 12px;
+  padding: 10px 27px;
   background-color: #33b7fc;
   color: #fff;
+  border-radius: 5px;
 }
 
 .edit-article-details {

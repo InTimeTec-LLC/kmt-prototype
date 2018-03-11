@@ -100,6 +100,10 @@
          </div>
         </div>
         </div>
+        <div class="reviewer-comments f-left">
+          <label>Review Comments</label>
+          <p *ngFor="let c of comments">{{c.comment}}</p>
+        </div>
         <div class="button-container">
           <button type="button" mat-raised-button (click)="onCancle()">Cancel</button>
           <button mat-raised-button type="submit" [disabled]="article.invalid">Submit for review</button>
