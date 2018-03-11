@@ -24,8 +24,12 @@
 .description {
     margin: 20px 0;
 }
-.img-container {
-    margin: 10px;
+.description label {
+    color: #111111;
+    font-weight: bold;
+    font-size: 15px;
+    display: inline-block;
+    width: 200px;
 }
 .upload-file {
     color: #a5a5a5;
@@ -73,12 +77,14 @@
 }*/
 .img-container{
     width: 100%;
+    /* -webkit-box-sizing: border-box; */
     box-sizing: border-box;
     float: left;
     margin: 14px 0px;
-    padding: 15px 15px 5px 15px!important;
+    padding: 15px 15px 5px 15px !important;
     background: #fff;
     border: 1px dashed #bfbcbc;
+    min-height: 60px;
   }
 .img-multiple{
     cursor: pointer;

@@ -1,8 +1,10 @@
 <div class="container">
     <div class="container-heading">
-      <h2 class="heading-margin">{{article.title}} <sub><span> {{article.createdBy.firstName}}  {{article.createdBy.lastName}} </span></sub></h2>
-      <link href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css" rel="stylesheet">
-      <input class="edit" id="edit" value="&#xf044;">
+      <p class="heading-margin">{{article.title}} <sub><span class="articleby"> by {{article.createdBy.firstName}}  {{article.createdBy.lastName}} </span></sub></p>
+      
+      <a href="#" class="edit">
+        <img src="/assets/images/edit.png" alt="articleicon"class="menu-icon">
+       </a>
     </div>
     
     <div class="container-body article_view">
@@ -19,7 +21,7 @@
                 <label>Description</label>
                 <p class="description" [innerHTML]="article.description"></p>
             </div>
-            <div class="description">
+            <div  class="upload-files-section">
                 <label>Uploaded File</label>
                 <div class="img-container">
                 <div class="img-multiple">image.jpg</div> 
