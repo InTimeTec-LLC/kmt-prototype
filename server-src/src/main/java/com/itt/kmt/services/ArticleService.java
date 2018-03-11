@@ -160,31 +160,6 @@ public class ArticleService {
     }
 
     /**
-     * Get all available articles the DBEntity(Article) from the database.
-     * 
-     * @param page
-     *            Pageable object.
-     * @param token
-     *            jwt token of current session.
-     * @return Page<Article> get list of articles.
-     */
-    /*  public Page<Article> getAllArticles(final Pageable page, final String token) {
-
-        // Get Logged in user
-        User loggedInUser = userService.getLoggedInUser(token);
-
-        // get articles according to permission
-        if (loggedInUser.getUserRole().equals(Constants.ROLE_MANAGER)) {
-            return articleRepository.findByCreatedByAndAndApprover(new ObjectId(loggedInUser.getId()),
-                    new ObjectId(loggedInUser.getId()), page);
-        } else if (loggedInUser.getUserRole().equals(Constants.ROLE_USER)) {
-            return articleRepository.findByCreatedBy(new ObjectId(loggedInUser.getId()), page);
-        }
-
-        return articleRepository.findAll(page);
-    }
-     */
-    /**
      * Gets the Article given the id.
      * 
      * @param id
