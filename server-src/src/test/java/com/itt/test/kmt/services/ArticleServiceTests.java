@@ -26,6 +26,8 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.mail.MailException;
+import org.springframework.scheduling.annotation.AsyncResult;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import com.itt.kmt.models.Article;
@@ -34,6 +36,7 @@ import com.itt.kmt.models.User;
 import com.itt.kmt.repositories.ArticleRepository;
 import com.itt.kmt.repositories.ArticleTypeRepository;
 import com.itt.kmt.services.ArticleService;
+import com.itt.kmt.services.MailService;
 import com.itt.kmt.services.UserService;
 import com.itt.test_category.ServicesTests;
 import com.itt.test_data.ArticleTestDataRepository;
@@ -58,6 +61,9 @@ public class ArticleServiceTests {
      */
     @MockBean
     private UserService userService;
+
+    @MockBean
+    private MailService mailService;
 
     /**
      * The article type test data repository.
@@ -253,6 +259,9 @@ public class ArticleServiceTests {
 
         when(userService.getLoggedInUser(jwtToken)).thenReturn(user);
         when(articleRepository.findOne(article.getId())).thenReturn(article);
+        when(mailService.sendDeleteKAMail(article, false)).thenReturn(new AsyncResult<Boolean>(true));
+        when(mailService.sendDeleteKAMail(article, true)).thenReturn(new AsyncResult<Boolean>(true));
+
         doNothing().when(articleRepository).delete(article.getId());
         articleService.delete(article.getId(), jwtToken);
 
@@ -308,7 +317,7 @@ public class ArticleServiceTests {
     }
 
     @Test
-    public void articalApprovalTest() {
+    public void articalApprovalTest() throws MailException, InterruptedException {
 
         User user = testDataRepository.getUsers()
                 .get("user-4");
@@ -329,10 +338,18 @@ public class ArticleServiceTests {
         when(userService.getLoggedInUser(jwtToken)).thenReturn(user);
         when(articleRepository.findOne(article.getId())).thenReturn(article);
         when(commentRepository.save(comment)).thenReturn(comment);
+
+        when(mailService.sendKAapproveAndPublishMail(article, approve)).thenReturn(new AsyncResult<Boolean>(true));
+        when(mailService.sendKAReviewdMail(article, approve)).thenReturn(new AsyncResult<Boolean>(true));
+
+        doNothing().when(articleRepository).delete(article.getId());
+        articleService.articleApproval(approve, article.getId(), jwtToken);
+
+        approve.setApproved(true);
         articleService.articleApproval(approve, article.getId(), jwtToken);
         // Assert
 
-        verify(articleRepository, times(1)).save(article);
+        verify(articleRepository, times(2)).save(article);
     }
 
     @Test(expected = Exception.class)

@@ -1,6 +1,14 @@
 <!-- When a user deletes KA, an email is sent to the reviewer.-->
-<p>Sub: Article submitted for review is deleted</p>
+<!DOCTYPE html>
+<html>
+<head>
+</head>
+<body>
 <p>Hi ${firstName},</p>
-<p>The article submitted for your review has been deleted.</p>
-<p>Regards,</p>
-<p>ADPQ-KMT</p>
+
+<p>The <a href="localhost:8080/index.html+/#/+articlePage">article-name</a> submitted for your review has been deleted.</p>
+
+<p>Regards,<br>
+ADPQ-KMT</p>
+</body>
+</html>

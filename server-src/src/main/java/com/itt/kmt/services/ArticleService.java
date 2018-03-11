@@ -12,16 +12,19 @@ import com.itt.kmt.repositories.ArticleRepository;
 import com.itt.kmt.repositories.ArticleTypeRepository;
 import com.itt.kmt.repositories.CommentRepository;
 import com.itt.utility.Constants;
+
+import lombok.extern.slf4j.Slf4j;
+
 import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.mail.MailException;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-
 
 /**
  * Service class that acts as an intermediary between controller and the
@@ -30,6 +33,7 @@ import java.util.Map;
  * 
  * @author Ashish Y
  */
+@Slf4j
 @Service
 public class ArticleService {
 
@@ -38,19 +42,21 @@ public class ArticleService {
      */
     @Autowired
     private ArticleRepository articleRepository;
-
     /**
      * Instance of user service.
      */
     @Autowired
     private UserService userService;
-
+    /**
+     * Instance of user service.
+     */
+    @Autowired
+    private MailService mailService;
     /**
      * Instance of the basic Article Type repository.
      */
     @Autowired
     private ArticleTypeRepository articleTypeRepository;
-
     /**
      * Instance of the basic comment repository.
      */
@@ -60,7 +66,8 @@ public class ArticleService {
     /**
      * Saves the Article to database.
      * 
-     * @param article Article object to be saved
+     * @param article
+     *            Article object to be saved
      * @return Article object with userResponse included.
      */
     public Article save(final Article article) {
@@ -83,17 +90,19 @@ public class ArticleService {
     /**
      * Convert user object into article response user format.
      *
-     * @param user User object to be converted
+     * @param user
+     *            User object to be converted
      * @return article user response details.
      */
     private UserResponse convertUserIntoUserResponse(final User user) {
-        UserResponse userResponse = new UserResponse(user.getId(),
-                user.getFirstName(), user.getLastName(), user.getEmail());
+        UserResponse userResponse = new UserResponse(user.getId(), user.getFirstName(), user.getLastName(),
+                user.getEmail());
         return userResponse;
     }
 
     /**
      * Get all the Article Types.
+     * 
      * @return List of all the Article Type.
      */
     public List<ArticleType> getArticleTypes() {
@@ -102,7 +111,9 @@ public class ArticleService {
 
     /**
      * Get Article Type with ID.
-     * @param id Article ID.
+     * 
+     * @param id
+     *            Article ID.
      * @return Article Type.
      */
     private ArticleType getArticleTypeByID(final String id) {
@@ -112,8 +123,10 @@ public class ArticleService {
     /**
      * updates the DBEntity(Article) from the database.
      * 
-     * @param id of Article to be updated.
-     * @param updatedArticle , Article object that needs to be updated.
+     * @param id
+     *            of Article to be updated.
+     * @param updatedArticle
+     *            , Article object that needs to be updated.
      * @return Article
      */
     public Article updateArticle(final String id, final Article updatedArticle) {
@@ -123,16 +136,19 @@ public class ArticleService {
         }
         return articleRepository.save(updateArticle(article, updatedArticle));
     }
+
     /**
      * Get all available articles the DBEntity(Article) from the database.
      * 
-     * @param page Pageable object.
-     * @param token jwt token of current session.
+     * @param page
+     *            Pageable object.
+     * @param token
+     *            jwt token of current session.
      * @return Page<Article> get list of articles.
      */
     public Page<Article> getAllArticles(final Pageable page, final String token) {
 
-        //Get Logged in user
+        // Get Logged in user
         User loggedInUser = userService.getLoggedInUser(token);
 
         // get articles according to permission
@@ -149,7 +165,8 @@ public class ArticleService {
     /**
      * Gets the Article given the id.
      * 
-     * @param id ID of the Article.
+     * @param id
+     *            ID of the Article.
      * @return Article object matching the id.
      */
     public Article getArticleById(final String id) {
@@ -162,12 +179,13 @@ public class ArticleService {
         return article;
     }
 
-
     /**
      * Update the Article after validation.
      *
-     * @param article object of the Article.
-     * @param updatedArticle object of the Article.
+     * @param article
+     *            object of the Article.
+     * @param updatedArticle
+     *            object of the Article.
      * @return Article object matching the id.
      */
     private Article updateArticle(final Article article, final Article updatedArticle) {
@@ -188,7 +206,12 @@ public class ArticleService {
             article.setNeedsApproval(updatedArticle.getNeedsApproval());
         }
         if (updatedArticle.getApprover() != null) {
-            article.setApprover(updatedArticle.getApprover());
+            User approver = userService.getUserByID(updatedArticle.getApprover().toString());
+            article.setApprover(convertUserIntoUserResponse(approver));
+        }
+        if (updatedArticle.getLastModifiedBy() != null) {
+            User lastModifedBy = userService.getUserByID(article.getLastModifiedBy().toString());
+            article.setLastModifiedBy(convertUserIntoUserResponse(lastModifedBy));
         }
         article.setApproved(false);
 
@@ -197,8 +220,11 @@ public class ArticleService {
 
     /**
      * Function to delete a article.
-     * @param articleID which needs to be deleted.
-     * @param token jwt token of logged in user.
+     * 
+     * @param articleID
+     *            which needs to be deleted.
+     * @param token
+     *            jwt token of logged in user.
      */
     public void delete(final String articleID, final String token) {
         User user = userService.getLoggedInUser(token);
@@ -209,24 +235,37 @@ public class ArticleService {
         }
 
         if (user.getUserRole().equals(Constants.ROLE_USER) || user.getUserRole().equals(Constants.ROLE_MANAGER)) {
-            Map<String, String> createdBy =  new ObjectMapper().convertValue(article.getCreatedBy(), Map.class);
+            Map<String, String> createdBy = new ObjectMapper().convertValue(article.getCreatedBy(), Map.class);
             if (user.getId().equals(createdBy.get("id"))) {
                 articleRepository.delete(articleID);
-                // TODO : Send mail to user/manager they have deleted their created article.
+                try {
+                    mailService.sendDeleteKAMail(article, false);
+                } catch (MailException | InterruptedException e) {
+                    log.error(e.getMessage());
+                }
                 return;
             }
             throw new UnauthorizedException();
         }
-        articleRepository.delete(articleID);
-        // TODO : Send mail to approver and user article has been deleted.
-    }
 
+        articleRepository.delete(articleID);
+
+        try {
+            mailService.sendDeleteKAMail(article, true);
+        } catch (MailException | InterruptedException e) {
+            log.error(e.getMessage());
+        }
+    }
 
     /**
      * Function to approve or review a article.
-     * @param approve object for article approval process.
-     * @param articleID id of article.
-     * @param token jwt token of user.
+     * 
+     * @param approve
+     *            object for article approval process.
+     * @param articleID
+     *            id of article.
+     * @param token
+     *            jwt token of user.
      * @return boolean status for approval.
      */
     public boolean articleApproval(final Approve approve, final String articleID, final String token) {
@@ -249,7 +288,11 @@ public class ArticleService {
                 article.setComments(null);
             }
             articleRepository.save(article);
-            // TODO : Send mail to user for approval with comment, if there are any
+            try {
+                mailService.sendKAapproveAndPublishMail(article, approve);
+            } catch (MailException | InterruptedException e) {
+                log.error(e.getMessage());
+            }
             return true;
         }
 
@@ -266,17 +309,22 @@ public class ArticleService {
         }
         article.setComments(comments);
 
-
         articleRepository.save(article);
-        // TODO : Send mail to user with review comments.
-
+        try {
+            mailService.sendKAReviewdMail(article, approve);
+        } catch (MailException | InterruptedException e) {
+            log.error(e.getMessage());
+        }
         return false;
     }
 
     /**
      * Function to save comment in DB.
-     * @param approve object for article approval process.
-     * @param user object for comment given by user.
+     * 
+     * @param approve
+     *            object for article approval process.
+     * @param user
+     *            object for comment given by user.
      * @return Comment created object.
      */
     private Comment saveComment(final Approve approve, final User user) {
@@ -297,10 +345,12 @@ public class ArticleService {
 
     /**
      * Function to delete comment in DB.
-     * @param comments List of comment article has.
+     * 
+     * @param comments
+     *            List of comment article has.
      */
     private void deleteComments(final List<Comment> comments) {
-        for (Comment comment: comments) {
+        for (Comment comment : comments) {
             commentRepository.delete(comment.getId());
         }
     }
