@@ -111,11 +111,6 @@ public class MailService {
     }
 
     /**
-<<<<<<< HEAD
-=======
-<<<<<<< Updated upstream
-=======
->>>>>>> add all user managment and article mgmt notification scenarios
      * This method will call when new Article will be created.
      * 
      * @param user
