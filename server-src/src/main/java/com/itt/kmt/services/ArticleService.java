@@ -10,6 +10,7 @@ import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.mail.MailException;
 import org.springframework.stereotype.Service;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -18,6 +19,7 @@ import com.itt.kmt.models.Approve;
 import com.itt.kmt.models.Article;
 import com.itt.kmt.models.ArticleFilter;
 import com.itt.kmt.models.ArticleType;
+import com.itt.kmt.models.Attachment;
 import com.itt.kmt.models.Comment;
 import com.itt.kmt.models.User;
 import com.itt.kmt.models.UserResponse;
@@ -27,18 +29,6 @@ import com.itt.kmt.repositories.CommentRepository;
 import com.itt.utility.Constants;
 
 import lombok.extern.slf4j.Slf4j;
-
-import org.apache.commons.lang3.StringUtils;
-import org.bson.types.ObjectId;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
-import org.springframework.mail.MailException;
-import org.springframework.stereotype.Service;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
 
 /**
  * Service class that acts as an intermediary between controller and the
@@ -76,6 +66,10 @@ public class ArticleService {
      */
     @Autowired
     private CommentRepository commentRepository;
+    
+    /** The attachment service. */
+    @Autowired
+    private AttachmentService attachmentService;
 
 
     //    private static List<Boolean> allStatus = null;
@@ -156,7 +150,56 @@ public class ArticleService {
         if (article == null) {
             throw new RuntimeException("Article not found");
         }
-        return articleRepository.save(updateArticle(article, updatedArticle));
+        List<Attachment> attachments = updatedArticle.getAttachments();
+        updatedArticle.setAttachments(null);
+        Article dbArticle = articleRepository.save(updateArticle(article, updatedArticle));
+        
+        // linking attached attachments
+        
+        if (attachments != null && attachments.size() > 0) {
+            attachmentService.updateAttachmentWithArticleId(attachments, dbArticle.getId());
+        }
+        
+        return dbArticle;
+    }
+
+    /**
+     * Get all available articles the DBEntity(Article) from the database.
+     * 
+     * @param page
+     *            Pageable object.
+     * @param token
+     *            jwt token of current session.
+     * @return Page<Article> get list of articles.
+     */
+    public Page<Article> getAllArticles(final Pageable page, final String token) {
+
+        // Get Logged in user
+        User loggedInUser = userService.getLoggedInUser(token);
+
+        // get articles according to permission
+        if (loggedInUser.getUserRole().equals(Constants.ROLE_MANAGER)) {
+            Page<Article> articles = articleRepository.findByCreatedByAndAndApprover(new ObjectId(loggedInUser.getId()),
+                    new ObjectId(loggedInUser.getId()), page);
+            for (Article article :articles) {
+                List<Attachment> attachments = attachmentService.getArticleAttachments(article.getId());
+                article.setAttachments(attachments);
+            }
+        } else if (loggedInUser.getUserRole().equals(Constants.ROLE_USER)) {
+            Page<Article> articles = articleRepository.findByCreatedBy(new ObjectId(loggedInUser.getId()), page);
+            for (Article article :articles) {
+                List<Attachment> attachments = attachmentService.getArticleAttachments(article.getId());
+                article.setAttachments(attachments);
+            }
+            return articles;
+        }
+
+        Page<Article> articles = articleRepository.findAll(page);
+        for (Article article :articles) {
+            List<Attachment> attachments = attachmentService.getArticleAttachments(article.getId());
+            article.setAttachments(attachments);
+        }
+        return articles;
     }
 
     /**
@@ -173,6 +216,10 @@ public class ArticleService {
         if (article == null) {
             throw new RuntimeException("No articles found");
         }
+        
+        List<Attachment> attachments = attachmentService.getArticleAttachments(article.getId());
+        article.setAttachments(attachments);
+        
         return article;
     }
 
@@ -240,12 +287,18 @@ public class ArticleService {
                 } catch (MailException | InterruptedException e) {
                     log.error(e.getMessage());
                 }
+                
+                // Deleting attached attachments
+                attachmentService.deleteAttachmentWithArticleId(articleID);
                 return;
             }
             throw new UnauthorizedException();
         }
 
         articleRepository.delete(articleID);
+        
+        // Deleting attached attachments
+        attachmentService.deleteAttachmentWithArticleId(articleID);
 
         try {
             mailService.sendDeleteKAMail(article, true);

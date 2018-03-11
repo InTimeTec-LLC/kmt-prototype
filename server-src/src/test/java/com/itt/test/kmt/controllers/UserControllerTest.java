@@ -408,6 +408,7 @@ public class UserControllerTest extends AbstractShiroTest {
                    contentType(MediaType.APPLICATION_JSON).content(content));
 
         ResponseMsg activateResponseMsg = new ResponseMsg(false, Constants.BAD_REQUEST_MSG);
+
         // Assert
         resultActions.andExpect(status().isBadRequest())
         .andExpect(content().contentType(contentType))

@@ -52,7 +52,7 @@ import java.util.HashMap;
 import java.util.List;
 
 /**
- * The Class UserControllerTest.
+ * The Class ArticleControllerTest.
  */
 @RunWith(SpringRunner.class)
 @SpringBootTest

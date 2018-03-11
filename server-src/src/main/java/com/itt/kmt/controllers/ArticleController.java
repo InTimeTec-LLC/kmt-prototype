@@ -1,3 +1,4 @@
+
 package com.itt.kmt.controllers;
 
 import java.util.HashMap;
@@ -22,10 +23,11 @@ import com.itt.kmt.models.Approve;
 import com.itt.kmt.models.Article;
 import com.itt.kmt.models.ArticleFilter;
 import com.itt.kmt.models.ArticleType;
+import com.itt.kmt.models.Attachment;
 import com.itt.kmt.response.models.ResponseMsg;
 import com.itt.kmt.services.ArticleService;
+import com.itt.kmt.services.AttachmentService;
 import com.itt.utility.Constants;
-
 
 /**
  * This class is responsible for exposing REST APis for Article.
@@ -40,6 +42,10 @@ public class ArticleController {
     @Autowired
     private ArticleService articleService;
 
+    /** The attachment service. */
+    @Autowired
+    private AttachmentService attachmentService;
+
     /**
      * REST API to add a new Article.
      *
@@ -49,10 +55,21 @@ public class ArticleController {
     @RequestMapping(method = RequestMethod.POST, produces = "application/json")
     public ModelMap addArticle(@RequestBody
             final HashMap<String, Article> articleMap) {
-        articleService.save(articleMap.get("article"));
+        Article article = articleMap.get("article");
+        List<Attachment> attachments = article.getAttachments();
+        article.setAttachments(null);
+        article = articleService.save(article);
+        
+        // linking attached attachments
+        
+        if (attachments != null && attachments.size() > 0) {
+            attachmentService.updateAttachmentWithArticleId(attachments, article.getId());
+        }
+
         ResponseMsg postResponseMsg = new ResponseMsg(true, Constants.ARTICLE_CREATED_MESSAGE);
         return new ModelMap().addAttribute("success", postResponseMsg);
     }
+
     /**
      * REST Interface for Article updation by id.
      *
@@ -61,12 +78,14 @@ public class ArticleController {
      * @return Success object
      */
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT, produces = "application/json")
-    public ModelMap updateArticle(@PathVariable(value = "id") final String id,
-            @RequestBody final HashMap<String, Article> articleMap) {
+    public ModelMap updateArticle(@PathVariable(value = "id")
+    final String id, @RequestBody
+    final HashMap<String, Article> articleMap) {
+
         articleService.updateArticle(id, articleMap.get("article"));
-        return new ModelMap().addAttribute("success",
-                new ResponseMsg(true, Constants.DEFAULT_UPDATE_SUCCESS_MSG));
+        return new ModelMap().addAttribute("success", new ResponseMsg(true, Constants.DEFAULT_UPDATE_SUCCESS_MSG));
     }
+
     /**
      * REST Interface for Article retrieval by id.
      *
@@ -74,7 +93,9 @@ public class ArticleController {
      * @return Article object that corresponds to Article id.
      */
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
-    public ModelMap getArticleById(@PathVariable(value = "id") final String id) {
+    public ModelMap getArticleById(@PathVariable(value = "id")
+    final String id) {
+
         return new ModelMap().addAttribute("article", articleService.getArticleById(id));
     }
 
@@ -88,17 +109,23 @@ public class ArticleController {
     /*@RequestMapping(method = RequestMethod.GET)
     public Page<Article> getArticles(@PageableDefault(value = Constants.PAGE_SIZE)final Pageable page,
                                      final HttpServletRequest httpServletRequest) {
+    @RequestMapping(method = RequestMethod.GET)
+    public Page<Article> getArticles(@PageableDefault(value = Constants.PAGE_SIZE)
+    final Pageable page, final HttpServletRequest httpServletRequest) {
+
         String jwtToken = httpServletRequest.getHeader(Constants.AUTHORIZATION);
         return articleService.getAllArticles(page, jwtToken);
     }
      */
     /**
      * REST API to return all Article types.
+     * 
      * @return ModelMap.
      */
     @RequestMapping(value = "/types", method = RequestMethod.GET)
     @RequiresPermissions("getAllArticleType")
     public ModelMap getArticleTypes() {
+
         List<ArticleType> articleTypeList = articleService.getArticleTypes();
         return new ModelMap().addAttribute("types", articleTypeList);
     }
@@ -111,20 +138,20 @@ public class ArticleController {
      * @return Article object that corresponds to Article id.
      */
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
-    public ModelMap deleteArticleById(@PathVariable(value = "id") final String id,
-            final HttpServletRequest httpServletRequest) {
+    public ModelMap deleteArticleById(@PathVariable(value = "id")
+    final String id, final HttpServletRequest httpServletRequest) {
+
         String jwtToken = httpServletRequest.getHeader(Constants.AUTHORIZATION);
         articleService.delete(id, jwtToken);
-        return new ModelMap().addAttribute("success",
-                new ResponseMsg(true, Constants.ARTICLE_DELETED_MESSAGE));
+        return new ModelMap().addAttribute("success", new ResponseMsg(true, Constants.ARTICLE_DELETED_MESSAGE));
     }
-
 
     /**
      * REST API for approval process of article.
+     *
      * @param id ID of the Article.
-     * @param httpServletRequest servlet request.
      * @param approveMap from which we can take article to be updated.
+     * @param httpServletRequest servlet request.
      * @return ModelMap.
      */
     @RequestMapping(value = "/approve/{id}", method = RequestMethod.PUT)
