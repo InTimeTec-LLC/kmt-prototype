@@ -1,12 +1,6 @@
 
 package com.itt.kmt.controllers;
 
-import com.itt.kmt.models.Approve;
-import com.itt.kmt.models.Article;
-import com.itt.kmt.models.ArticleType;
-import com.itt.kmt.response.models.ResponseMsg;
-import com.itt.kmt.services.ArticleService;
-import com.itt.utility.Constants;
 import java.util.HashMap;
 import java.util.List;
 

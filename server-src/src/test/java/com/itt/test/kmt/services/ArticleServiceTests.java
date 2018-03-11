@@ -11,15 +11,11 @@ import static org.mockito.Mockito.when;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.itt.kmt.models.Approve;
-import com.itt.kmt.models.Comment;
-import com.itt.kmt.repositories.CommentRepository;
 import org.bson.types.ObjectId;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
 import org.junit.runner.RunWith;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
@@ -30,11 +26,14 @@ import org.springframework.mail.MailException;
 import org.springframework.scheduling.annotation.AsyncResult;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import com.itt.kmt.models.Approve;
 import com.itt.kmt.models.Article;
 import com.itt.kmt.models.ArticleType;
+import com.itt.kmt.models.Comment;
 import com.itt.kmt.models.User;
 import com.itt.kmt.repositories.ArticleRepository;
 import com.itt.kmt.repositories.ArticleTypeRepository;
+import com.itt.kmt.repositories.CommentRepository;
 import com.itt.kmt.services.ArticleService;
 import com.itt.kmt.services.MailService;
 import com.itt.kmt.services.UserService;
