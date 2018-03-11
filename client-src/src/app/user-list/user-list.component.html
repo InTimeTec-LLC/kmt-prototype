@@ -1,4 +1,12 @@
 <div class="table-list-container">
+    <div class="breadcrumb-bar">
+        <ul class="breadcrumb">
+          <li><a href="#">Dashboard</a></li>
+          <li><a href="#">settings</a></li>
+          <li><a href="#">User</a></li>
+          <li>Edit-user</li>
+        </ul>
+      </div>
   <div class="add-button"><a (click)="onTapNavigation('/user/add')">Add User</a></div>
   <div class="Container-table">
     <link href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css" rel="stylesheet">
@@ -9,7 +17,7 @@
     <mat-form-field>
       <input matInput [(ngModel)]="searchTxt" placeholder="Search here">
     </mat-form-field>
-    <img src="../../assets/images/search_gray.png" (click)="onTapSearchIcon()" alt="Filtericon" class="filter_icon">
+    <img src="../../assets/images/search_gray.png" (click)="onTapSearchIcon()" alt="Filtericon" class="search_icon">
     <img src="../../assets/images/filter-icon.png" (click)="onTapFilterIcon()" alt="Filtericon" class="filter_icon">
   </div>
   

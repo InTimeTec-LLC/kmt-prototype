@@ -2,6 +2,7 @@
 .container-article-body {
     flex-direction: column;
     padding: 20px;
+    float: left;
     
   }
   .searchform div {
