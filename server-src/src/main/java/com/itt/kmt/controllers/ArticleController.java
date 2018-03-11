@@ -1,11 +1,10 @@
 package com.itt.kmt.controllers;
 
-import com.itt.kmt.models.Approve;
-import com.itt.kmt.models.Article;
-import com.itt.kmt.models.ArticleType;
-import com.itt.kmt.response.models.ResponseMsg;
-import com.itt.kmt.services.ArticleService;
-import com.itt.utility.Constants;
+import java.util.HashMap;
+import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
+
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -16,11 +15,16 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import javax.servlet.http.HttpServletRequest;
-import java.util.HashMap;
-import java.util.List;
+import com.itt.kmt.models.Approve;
+import com.itt.kmt.models.Article;
+import com.itt.kmt.models.ArticleFilter;
+import com.itt.kmt.models.ArticleType;
+import com.itt.kmt.response.models.ResponseMsg;
+import com.itt.kmt.services.ArticleService;
+import com.itt.utility.Constants;
 
 
 /**
@@ -81,13 +85,13 @@ public class ArticleController {
      * @param httpServletRequest , Servlet request object.
      * @return Page<Article> objects.
      */
-    @RequestMapping(method = RequestMethod.GET)
+    /*@RequestMapping(method = RequestMethod.GET)
     public Page<Article> getArticles(@PageableDefault(value = Constants.PAGE_SIZE)final Pageable page,
                                      final HttpServletRequest httpServletRequest) {
         String jwtToken = httpServletRequest.getHeader(Constants.AUTHORIZATION);
         return articleService.getAllArticles(page, jwtToken);
     }
-
+     */
     /**
      * REST API to return all Article types.
      * @return ModelMap.
@@ -108,7 +112,7 @@ public class ArticleController {
      */
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
     public ModelMap deleteArticleById(@PathVariable(value = "id") final String id,
-                                      final HttpServletRequest httpServletRequest) {
+            final HttpServletRequest httpServletRequest) {
         String jwtToken = httpServletRequest.getHeader(Constants.AUTHORIZATION);
         articleService.delete(id, jwtToken);
         return new ModelMap().addAttribute("success",
@@ -125,8 +129,8 @@ public class ArticleController {
      */
     @RequestMapping(value = "/approve/{id}", method = RequestMethod.PUT)
     public ModelMap getArticleTypes(@PathVariable(value = "id") final String id,
-                                    @RequestBody final HashMap<String, Approve> approveMap,
-                                    final HttpServletRequest httpServletRequest) {
+            @RequestBody final HashMap<String, Approve> approveMap,
+            final HttpServletRequest httpServletRequest) {
         Approve approve = approveMap.get("approve");
         String jwtToken = httpServletRequest.getHeader(Constants.AUTHORIZATION);
         Boolean approval = articleService.articleApproval(approve, id, jwtToken);
@@ -137,5 +141,27 @@ public class ArticleController {
             activateResponseMsg = new ResponseMsg(true, Constants.ARTICLE_POSTED_COMMENT);
         }
         return new ModelMap().addAttribute("success", activateResponseMsg);
+    }
+
+    /**
+     * REST API for retrieval of Article list.
+     *
+     * @param httpServletRequest , It is a HttpServletRequest object.
+     * @param filter ,restrict the value of filter to specified values in ArticleFilter enum.
+     * @param type , object id of the ArticleType.
+     * @param status , to search published and unpublished article.
+     * @param search , key to be searched in title.
+     * @param page , It is a pageable object with default size of 10 elements.
+     * @return Page<Article> objects.
+     */
+    @RequestMapping(method = RequestMethod.GET)
+    public Page<Article>  getArticles(final HttpServletRequest httpServletRequest,
+            @RequestParam(value = "filter", required = false) final ArticleFilter filter,
+            @RequestParam(value = "type", required = false) final String type,
+            @RequestParam(value = "status", required = false) final String status,
+            @RequestParam(value = "search", required = false, defaultValue = "") final String search,
+            @PageableDefault(value = Constants.PAGE_SIZE)final Pageable page) {
+        return articleService.getAllWithFiltersAndSearch(filter, type, status, search,
+                page, httpServletRequest.getHeader(Constants.AUTHORIZATION));
     }
 }
