@@ -1,18 +1,11 @@
 package com.itt.kmt.services;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Map;
-
 import org.apache.commons.lang3.StringUtils;
 import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.mail.MailException;
-import org.springframework.stereotype.Service;
-
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.itt.kmt.jwt.exception.UnauthorizedException;
 import com.itt.kmt.models.Approve;
@@ -21,14 +14,21 @@ import com.itt.kmt.models.ArticleFilter;
 import com.itt.kmt.models.ArticleType;
 import com.itt.kmt.models.Attachment;
 import com.itt.kmt.models.Comment;
+import com.itt.kmt.models.KBArticle;
 import com.itt.kmt.models.User;
 import com.itt.kmt.models.UserResponse;
 import com.itt.kmt.repositories.ArticleRepository;
 import com.itt.kmt.repositories.ArticleTypeRepository;
 import com.itt.kmt.repositories.CommentRepository;
 import com.itt.utility.Constants;
-
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Service class that acts as an intermediary between controller and the
@@ -40,12 +40,12 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @Service
 public class ArticleService {
-
     /**
      * Instance of the basic Repository implementation.
      */
     @Autowired
     private ArticleRepository articleRepository;
+
     /**
      * Instance of user service.
      */
@@ -61,6 +61,7 @@ public class ArticleService {
      */
     @Autowired
     private ArticleTypeRepository articleTypeRepository;
+
     /**
      * Instance of the basic comment repository.
      */
@@ -71,13 +72,21 @@ public class ArticleService {
     @Autowired
     private AttachmentService attachmentService;
 
+    /**
+     * Constant for id.
+     */
+    private static final String ID = "id";
 
-    //    private static List<Boolean> allStatus = null;
-    //
-    //    static {
-    //        allStatus.add(true);
-    //        allStatus.add(false);
-    //    }
+    /**
+     * Constant for article not found comment.
+     */
+    private static final String ARTICLE_NOT_FOUND = "Article not found";
+
+
+    /** Description length for showing in knowledge base search. */
+    @Value("${description.length}")
+    private Integer descriptionLength;
+
 
     /**
      * Saves the Article to database.
@@ -148,7 +157,7 @@ public class ArticleService {
     public Article updateArticle(final String id, final Article updatedArticle) {
         Article article = articleRepository.findOne(id);
         if (article == null) {
-            throw new RuntimeException("Article not found");
+            throw new RuntimeException(ARTICLE_NOT_FOUND);
         }
         List<Attachment> attachments = updatedArticle.getAttachments();
         updatedArticle.setAttachments(null);
@@ -207,19 +216,45 @@ public class ArticleService {
      * 
      * @param id
      *            ID of the Article.
+     * @param token
+     *            jwt token of the user.
      * @return Article object matching the id.
      */
-    public Article getArticleById(final String id) {
+    public Article getArticleById(final String id, final String token) {
 
         Article article = articleRepository.findOne(id);
 
         if (article == null) {
-            throw new RuntimeException("No articles found");
+            throw new RuntimeException(ARTICLE_NOT_FOUND);
         }
+
+        String loggedInUserRole = userService.getLoggedInUser(token).getUserRole();
+
+        if (article.getRestricted()) {
+            Map<String, String> createdBy = new ObjectMapper().convertValue(article.getCreatedBy(), Map.class);
+            String createdByUserRole = userService.getUserByID(createdBy.get(ID)).getUserRole();
+            switch (loggedInUserRole) {
+                case Constants.ROLE_USER:
+                    if (createdByUserRole.equals(Constants.ROLE_MANAGER)
+                            || createdByUserRole.equals(Constants.ROLE_ADMIN)) {
+                        throw new RuntimeException(Constants.UNAUTHORIZED_ACCESS_MSG);
+                    }
         
         List<Attachment> attachments = attachmentService.getArticleAttachments(article.getId());
         article.setAttachments(attachments);
         
+                    return article;
+                case Constants.ROLE_MANAGER:
+                    if (createdByUserRole.equals(Constants.ROLE_ADMIN)) {
+                        throw new RuntimeException(Constants.UNAUTHORIZED_ACCESS_MSG);
+                    }
+                    return article;
+                case Constants.ROLE_ADMIN:
+                    return article;
+                default : throw new RuntimeException(Constants.UNAUTHORIZED_ACCESS_MSG);
+            }
+        }
+
         return article;
     }
 
@@ -275,12 +310,12 @@ public class ArticleService {
         Article article = articleRepository.findOne(articleID);
 
         if (article == null) {
-            throw new RuntimeException("No articles found");
+            throw new RuntimeException(ARTICLE_NOT_FOUND);
         }
 
         if (user.getUserRole().equals(Constants.ROLE_USER) || user.getUserRole().equals(Constants.ROLE_MANAGER)) {
             Map<String, String> createdBy = new ObjectMapper().convertValue(article.getCreatedBy(), Map.class);
-            if (user.getId().equals(createdBy.get("id"))) {
+            if (user.getId().equals(createdBy.get(ID))) {
                 articleRepository.delete(articleID);
                 try {
                     mailService.sendDeleteKAMail(article, false);
@@ -323,7 +358,7 @@ public class ArticleService {
         Article article = articleRepository.findOne(articleID);
 
         if (article == null) {
-            throw new RuntimeException("No articles found");
+            throw new RuntimeException(ARTICLE_NOT_FOUND);
         }
 
         User loggedInUser = userService.getLoggedInUser(token);
@@ -458,7 +493,6 @@ public class ArticleService {
 
     }
 
-
     /**
      * Function to get articlestype objects.
      * @param type , the article type. 
@@ -498,4 +532,25 @@ public class ArticleService {
         }
     }
 
+
+    /**
+     * Function to search article in knowledge base.
+     * @param search string to search in article list.
+     * @param page Pageable object.
+     * @return Page<KBArticle> get list of approved article.
+     */
+    public Page<KBArticle> getKBArticlesWithSearch(final String search, final Pageable page) {
+
+        if (StringUtils.isBlank(search)) {
+            return null;
+        }
+        Page<KBArticle> articlePage = articleRepository.findByTitleAndDescriptionAndApproved(search, true, page);
+        List<KBArticle> articles = articlePage.getContent();
+
+        for (KBArticle kbArticle:articles) {
+            String description = (kbArticle.getDescription()).replaceAll("(?s)<[^>]*>(\\s*<[^>]*>)*", " ");
+            kbArticle.setDescription(description.substring(0, Math.min(description.length(), descriptionLength)));
+        }
+        return articlePage;
+    }
 }

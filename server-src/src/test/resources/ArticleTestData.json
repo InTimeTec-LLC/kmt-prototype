@@ -80,5 +80,19 @@
                }
            }
        ]
-    }
+    },
+    "article-6":
+        {
+            "id": "5aa528ece9248611480dc319",
+            "title": "ten",
+            "description": "record",
+            "lastModifiedTime": "Sun Mar 11 06:02:36 PDT 2018",
+            "createdBy": {
+                "id": "5a9fef0dfdad16d3a1f3e37f",
+                "firstName": "test",
+                "lastName": "test",
+                "email": "test@mailinator.com"
+            },
+            "restricted": true
+        }
 }

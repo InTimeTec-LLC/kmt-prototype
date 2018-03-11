@@ -222,11 +222,13 @@ public class ArticleControllerTest extends AbstractShiroTest {
         Article article = articleTestDataRepository.getArticles()
                 .get("article-1");
 
-        when(articleService.getArticleById(article.getId())).thenReturn(article);
+        String jwtToken = "testToken";
+        when(articleService.getArticleById(article.getId(), jwtToken)).thenReturn(article);
 
         // Act
         ResultActions resultActions = mockMvc.perform(
                 MockMvcRequestBuilders.get("/articles/" + article.getId())
+                .header(Constants.AUTHORIZATION, jwtToken)
                 .contentType(MediaType.APPLICATION_JSON));
 
         // Assert

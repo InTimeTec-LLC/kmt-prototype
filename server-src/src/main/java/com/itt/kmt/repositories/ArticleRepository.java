@@ -1,6 +1,7 @@
 package com.itt.kmt.repositories;
 
 import com.itt.kmt.models.Article;
+import com.itt.kmt.models.KBArticle;
 import org.bson.types.ObjectId;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -105,5 +106,20 @@ public interface ArticleRepository extends PagingAndSortingRepository<Article, S
             + " {approved: { $in: ?2  }}, { 'title' : {$regex:?3 } }] } ] }")
     Page<Article> findAllArticles(ObjectId createdById, List<ObjectId> type, List<Boolean> status, String search,
             Pageable page);
+
+
+    /**
+     * Finds a List of Article object that matches the name parameter. Spring
+     * automatically formulates appropriate query depending on the name of the
+     * method. findByXXX() method would look for a match for XXX property and
+     * return the object instance.
+     *
+     * @param search string to be searched in articles.
+     * @param page object to get paginated Article list.
+     * @param approved approval status.
+     * @return Article Object matching the search parameter.
+     */
+    @Query("{ '$or': [ {'title': { $regex: ?0 } }, {'description': { $regex: ?0 } } ] , 'approved': ?1 }")
+    Page<KBArticle> findByTitleAndDescriptionAndApproved(String search, Boolean approved, Pageable page);
 
 }

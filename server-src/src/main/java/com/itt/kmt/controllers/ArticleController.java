@@ -1,11 +1,14 @@
 
 package com.itt.kmt.controllers;
 
-import java.util.HashMap;
-import java.util.List;
-
-import javax.servlet.http.HttpServletRequest;
-
+import com.itt.kmt.models.Approve;
+import com.itt.kmt.models.Article;
+import com.itt.kmt.models.ArticleFilter;
+import com.itt.kmt.models.ArticleType;
+import com.itt.kmt.models.KBArticle;
+import com.itt.kmt.response.models.ResponseMsg;
+import com.itt.kmt.services.ArticleService;
+import com.itt.utility.Constants;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -19,15 +22,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.itt.kmt.models.Approve;
-import com.itt.kmt.models.Article;
-import com.itt.kmt.models.ArticleFilter;
-import com.itt.kmt.models.ArticleType;
+import javax.servlet.http.HttpServletRequest;
+import java.util.HashMap;
+import java.util.List;
 import com.itt.kmt.models.Attachment;
-import com.itt.kmt.response.models.ResponseMsg;
-import com.itt.kmt.services.ArticleService;
 import com.itt.kmt.services.AttachmentService;
-import com.itt.utility.Constants;
 
 /**
  * This class is responsible for exposing REST APis for Article.
@@ -90,13 +89,14 @@ public class ArticleController {
      * REST Interface for Article retrieval by id.
      *
      * @param id ID of the Article.
+     * @param httpServletRequest servlet request.
      * @return Article object that corresponds to Article id.
      */
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
-    public ModelMap getArticleById(@PathVariable(value = "id")
-    final String id) {
-
-        return new ModelMap().addAttribute("article", articleService.getArticleById(id));
+    public ModelMap getArticleById(@PathVariable(value = "id") final String id,
+                                   final HttpServletRequest httpServletRequest) {
+        return new ModelMap().addAttribute("article",
+                articleService.getArticleById(id, httpServletRequest.getHeader(Constants.AUTHORIZATION)));
     }
 
     /**
@@ -190,5 +190,19 @@ public class ArticleController {
             @PageableDefault(value = Constants.PAGE_SIZE)final Pageable page) {
         return articleService.getAllWithFiltersAndSearch(filter, type, status, search,
                 page, httpServletRequest.getHeader(Constants.AUTHORIZATION));
+    }
+
+    /**
+     * REST API for approval process of article.
+     * @param search ID of the Article.
+     * @param httpServletRequest servlet request.
+     * @param page , It is a pageable object with default size of 10 elements
+     * @return ModelMap.
+     */
+    @RequestMapping(value = "/kb", method = RequestMethod.GET)
+    public Page<KBArticle>  getArticlesByTitle(@RequestParam(value = "search" , required = false) final String search,
+                                               @PageableDefault(value = Constants.PAGE_SIZE)final Pageable page,
+                                               final HttpServletRequest httpServletRequest) {
+        return articleService.getKBArticlesWithSearch(search, page);
     }
 }
