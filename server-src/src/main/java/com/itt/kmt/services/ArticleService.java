@@ -210,7 +210,7 @@ public class ArticleService {
             article.setApprover(convertUserIntoUserResponse(approver));
         }
         if (updatedArticle.getLastModifiedBy() != null) {
-            User lastModifedBy = userService.getUserByID(article.getLastModifiedBy().toString());
+            User lastModifedBy = userService.getUserByID(updatedArticle.getLastModifiedBy().toString());
             article.setLastModifiedBy(convertUserIntoUserResponse(lastModifedBy));
         }
         article.setApproved(false);
