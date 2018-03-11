@@ -7,6 +7,10 @@ import { UserService } from '../../shared/service/user/user.service';
 import { AuthenticationService } from '../../shared/service/authentication/authentication.service';
 import { ToasterService } from 'angular5-toaster';
 import {ActivatedRoute} from '@angular/router';
+import { environment } from '../../environments/environment';
+import { saveAs } from 'file-saver/FileSaver';
+import { Http, Headers } from '@angular/http';
+import 'rxjs/add/operator/toPromise';
 
 @Component({
   selector: 'app-edit-kb-article',
@@ -23,6 +27,7 @@ export class EditArticleComponent implements OnInit {
   approvers: any[];
   articleId: any;
   attachements: any[] = [];
+  quill_config: any;
 
   constructor(
     private kbContentService: KnowledgeBaseArticleService,
@@ -31,9 +36,11 @@ export class EditArticleComponent implements OnInit {
     private userService: UserService,
     private auth: AuthenticationService,
     private toasterService: ToasterService,
-    private activatedRoute: ActivatedRoute
+    private activatedRoute: ActivatedRoute,
+    private http: Http
 
   ) {
+    this.quill_config = environment.quillEditorConfig;
     this.activatedRoute.params.subscribe((params: any) => {
       this.articleId = params['id'];
       if (this.articleId) {
@@ -150,4 +157,12 @@ export class EditArticleComponent implements OnInit {
                 });
             }
   }
+
+  downloadAttachment(id, fileName) {
+    this.kbContentService.downloadAttachment(id)
+    .subscribe(fileData => saveAs(fileData, fileName));
+  }
+
+
+
 }

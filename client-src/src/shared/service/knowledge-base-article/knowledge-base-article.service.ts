@@ -6,6 +6,7 @@ import { of } from 'rxjs/observable/of';
 import { catchError, map, tap } from 'rxjs/operators';
 import 'rxjs/add/operator/catch';
 import { environment } from '../../../environments/environment';
+import { Http, Response, RequestOptions, ResponseContentType } from '@angular/http';
 
 
 /**
@@ -27,7 +28,7 @@ export class KnowledgeBaseArticleService {
    */
   private apiUrl = environment.API_ENDPOINT + 'articles';  // URL to web api environment.API_ENDPOINT
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private httpMain: Http) { }
 
   /**
    * Returns an Observable for the HTTP GET request for the JSON resource.
@@ -92,7 +93,7 @@ export class KnowledgeBaseArticleService {
   }
 
   /**
-   * Returns an Observable for the HTTP POST request for the JSON resource.
+   * Returns an Observable for the HTTP GET request for the JSON resource.
    * @return {any} The Observable for the HTTP request.
    */
 
@@ -110,16 +111,16 @@ export class KnowledgeBaseArticleService {
                .catch(this.handleErrorObservable);
   }
 
-/**
+  /**
    * Returns an Observable for the HTTP POST request for the JSON resource.
    * @return {any} The Observable for the HTTP request.
    */
 
-uploadAttachement(formData: any): Observable<any> {
-  const endpoint = environment.API_ENDPOINT + 'attachments';
-  return this.http.post(endpoint, formData, {}).
-  catch(this.handleErrorObservable);
-}
+  uploadAttachement(formData: any): Observable<any> {
+    const endpoint = environment.API_ENDPOINT + 'attachments';
+    return this.http.post(endpoint, formData, {}).
+    catch(this.handleErrorObservable);
+  }
 
 
 /**
@@ -132,6 +133,14 @@ uploadAttachement(formData: any): Observable<any> {
     return this.http.delete(endpoint, {}).
     catch(this.handleErrorObservable);
   }
+
+  public downloadAttachment(id: string): Observable<Blob> {
+    const endpoint = environment.API_ENDPOINT + 'attachments/' + id;
+    const options = new RequestOptions({responseType: ResponseContentType.Blob});
+    return this.httpMain.get(endpoint, options).map((response: Response) => <Blob>response.blob())              
+            .catch(this.handleErrorObservable);
+}
+
 
 /**
     * Handle HTTP error

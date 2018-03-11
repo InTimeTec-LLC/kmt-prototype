@@ -7,6 +7,8 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { UserService } from '../../shared/service/user/user.service';
 import { AuthenticationService } from '../../shared/service/authentication/authentication.service';
 import { ToasterService } from 'angular5-toaster';
+import { environment } from '../../environments/environment';
+import { saveAs } from 'file-saver/FileSaver';
 
 @Component({
   selector: 'app-add-kb-article',
@@ -23,6 +25,7 @@ export class AddArticleComponent implements OnInit {
   approvers: any[];
   file_obj: any;
   attachements: any[] = [];
+  quill_config: any;
 
   constructor(
     private kbContentService: KnowledgeBaseArticleService,
@@ -32,6 +35,7 @@ export class AddArticleComponent implements OnInit {
     private auth: AuthenticationService,
     private toasterService: ToasterService
   ) {
+    this.quill_config = environment.quillEditorConfig;
   }
 
   ngOnInit() {
@@ -122,5 +126,9 @@ export class AddArticleComponent implements OnInit {
       }, error => {
         this.toasterService.pop('error', '', error.success.message);
       });
+  }
+  downloadAttachment(id, fileName) {
+    this.kbContentService.downloadAttachment(id)
+    .subscribe(fileData => saveAs(fileData, fileName));
   }
 }

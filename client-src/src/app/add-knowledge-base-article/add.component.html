@@ -11,9 +11,6 @@
               Title is required
            </span>
           </mat-form-field>
-          
-          
-
           <mat-form-field class="f-right">
               <mat-select formControlName="articleType" placeholder="Types*">
                   <mat-option>Select Types</mat-option>
@@ -34,7 +31,7 @@
                   #description id="description"
                   placeholder="Description"
                   formControlName="description"
-                  [style]="{'min-height': '150px','background-color': '#fff'}">
+                  [style]="{'min-height': '150px','background-color': '#fff'}" [modules]="quill_config">
               </quill-editor>
           
               <div class="error" 
@@ -55,7 +52,7 @@
 
               <div class="description">
                   <div class="img-container">
-                      <div class="img-multiple" *ngFor="let attachement of attachements"><span>{{attachement.fileName}}</span><label class="x-icon"(click)="deleteAttachment(attachement.id)">x</label></div>
+                      <div class="img-multiple" *ngFor="let attachement of attachements"><span (click)="downloadAttachment(attachement.id, attachement.fileName)">{{attachement.fileName}}</span><label class="x-icon"(click)="deleteAttachment(attachement.id)">x</label></div>
                 </div>
               </div>
           </div>

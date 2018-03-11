@@ -36,6 +36,11 @@ export class AuthenticationService {
     }
 
     isAuthenticated(): any {
+        if (this.getAccessToken() != null) {
+            this.loggedIn.next(true);
+        } else {
+            this.loggedIn.next(false);
+        }
         return this.loggedIn.asObservable(); // {2}
     }
 
