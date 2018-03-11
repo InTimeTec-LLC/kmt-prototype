@@ -1,26 +1,39 @@
 .description p{
 text-align: justify;
 }
+.description {
+        float: left;
+        width: 100%;
+        font-size:13px;
+    }
+.description{
 
+    }
 .left-container label {
-    color: #000;
+    color: #111111;
     font-weight: bold;
+    font-size: 15px;
     display: inline-block;
-    width:200px;
+    width: 200px;
 }
-
-
+.left-container span {
+    color: #111111;
+}
+.left-container{
+    float: left;
+    padding: 20px;
+}
+.left-container div{
+    margin-bottom:20px 
+    }
 .container-heading {
     position: relative;
 }
 
   .edit {
-    font-family: 'FontAwesome';
-    width: 30px;
-    height: 30x;
     position: absolute;
     top: 9px;
-    font-size: 31px;
+    padding: 3px 4px;
     right: 7px;
     background: #33b7fc;
     border: none;
@@ -28,28 +41,7 @@ text-align: justify;
     cursor: pointer;
 }
 
-.left-container{
-    float: left;
-    width: 100%;
-    padding: 20px;
-}
 
-.description p{
-text-align: left;
-}
-.left-container div{
-margin-bottom:20px 
-}
-.type, .reviewed, .description label{
-    width: 70%!important;
-    float: left;
-    font-size: 12px;
-}
-.description {
-    float: left;
-    width: 100%;
-    font-size:13px;
-}
 textarea.mat-input-element {
     resize: none;
     border-radius: 2px;
@@ -64,7 +56,6 @@ textarea.mat-input-element {
 
 
 .img-container{
-    width: 100%;
     float: left;
     padding-top: 17px;
 }

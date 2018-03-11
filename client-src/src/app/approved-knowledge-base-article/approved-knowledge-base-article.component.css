@@ -1,28 +1,31 @@
+.left-container label {
+    color: #111111;
+    font-weight: bold;
+    font-size: 15px;
+    display: inline-block;
+    width: 200px;
+}
+.left-container span {
+    color: #111111;
+}
 .left-container{
     float: left;
-    width: 100%;
     padding: 20px;
-}
-.right-container{
-    float: right;
-    width: 45%;
-    padding: 20px;
-}
-.description p{
-text-align: left;
 }
 .left-container div{
-margin-bottom:20px 
+    margin-bottom:20px 
 }
-.type, .reviewed, .description label{
-    width: 70%!important;
-    float: left;
-    font-size: 12px;
+.description p{
+    text-align: justify;
+    }
+    
+.description p{
+        text-align: left;
 }
 .description {
-    float: left;
-    width: 100%;
-    font-size:13px;
+            float: left;
+            width: 100%;
+            font-size:13px;
 }
 textarea.mat-input-element {
     resize: none;
@@ -65,24 +68,6 @@ textarea.mat-input-element {
 .mat-form-field{
     width:100%!important;
 }
-.heading-margin{
-    font-size: 16px;
-    font-weight: 400;
-}
-.heading-margin::first-letter{
-    text-transform: uppercase;
-}
-.description h1{
-    font-size:13px;
-}
-.left-container label{
-    color: #000;
-    font-weight: bold;
-    text-align: left;
-    float: left;
-    min-width: 126px;
-}
-
 .lastModified-container,
 .createdBy-container{
     font-size: 12px;
