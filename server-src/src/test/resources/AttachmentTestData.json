@@ -1,0 +1,18 @@
+{
+	"attachment-1": {
+		"id": "5aa3c9106f48113e288a7fd9",
+		"fileName": "1_1520683280152.jpg",
+		"fileType": "jpg",
+		"url": "api/attachments/5aa3c9106f48113e288a7fd9",
+		"fileSize": 54038,
+		"articleId": "5aa3c92e6f48113e288a7fda"
+	},
+	"attachment-2": {
+		"id": "5aa3c9106f48113e288a7fd0",
+		"fileName": "1_1520683280151.jpg",
+		"fileType": "jpg",
+		"url": "api/attachments/5aa3c9106f48113e288a7fd0",
+		"fileSize": 44038,
+		"articleId": "5aa3c92e6f48113e288a7fda"
+	}
+}

@@ -156,7 +156,7 @@ public class AttachmentService {
      * @param updatedAttachment the updated attachment
      * @return the attachment
      */
-    private Attachment updateAttachment(final Attachment attachment, final Attachment updatedAttachment) {
+    public Attachment updateAttachment(final Attachment attachment, final Attachment updatedAttachment) {
 
         if (updatedAttachment.getFileName() != null && !updatedAttachment.getFileName()
                                                                          .isEmpty()) {
