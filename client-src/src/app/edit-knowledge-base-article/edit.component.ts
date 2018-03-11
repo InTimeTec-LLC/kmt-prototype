@@ -28,6 +28,7 @@ export class EditArticleComponent implements OnInit {
   articleId: any;
   attachements: any[] = [];
   quill_config: any;
+  comments: any[] = [];
 
   constructor(
     private kbContentService: KnowledgeBaseArticleService,
@@ -49,6 +50,7 @@ export class EditArticleComponent implements OnInit {
             data = data.article;
           }
           this.attachements = data.attachments;
+          this.comments = data.comments;
           this.article.setValue({
             title: data.title,
             description: data.description,
@@ -162,7 +164,4 @@ export class EditArticleComponent implements OnInit {
     this.kbContentService.downloadAttachment(id)
     .subscribe(fileData => saveAs(fileData, fileName));
   }
-
-
-
 }

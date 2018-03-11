@@ -3,6 +3,8 @@ import { KnowledgeBaseArticleService } from '../../shared/service/knowledge-base
 import { Router } from '@angular/router';
 import {ActivatedRoute} from '@angular/router';
 import { AuthenticationService } from '../../shared/service/authentication/authentication.service';
+import { saveAs } from 'file-saver/FileSaver';
+import { Http, Headers } from '@angular/http';
 
 
 @Component({
@@ -14,6 +16,8 @@ export class ViewKnowledgeBaseArticleComponent implements OnInit {
 
   articleId: any;
   article: any;
+  attachements: any[] = [];
+
 
   constructor(private kbContentService: KnowledgeBaseArticleService,
               private router: Router,
@@ -27,26 +31,19 @@ export class ViewKnowledgeBaseArticleComponent implements OnInit {
       this.articleId = params['id'];
       if (this.articleId) {
       this.kbContentService.reteriveKnowledgeBaseArticleById(this.articleId).subscribe((data: any) => {
-      if (data.hasOwnProperty('article')) {
-        data = data.article;
+          if (data.hasOwnProperty('article')) {
+            data = data.article;
+            this.attachements = data.attachments;
+          }
+          this.article = data;
+         });
       }
-      this.article = data;
-      /*this.article.setValue({
-      title: data.title,
-      description: data.description,
-      lastModifiedBy: this.auth.getUserId(),
-      approver: data.approver.id,
-      articleType: data.articleType.id,
-      restricted: data.restricted,
-      createdByUser: data.createdBy.firstName + ' ' + data.createdBy.lastName,
-      lastModified: data.lastModifiedTime,
-      needsApproval: data.needsApproval,
-      approved: data.approved
-      });*/
-      console.log(this.article);
-});
-}
-});
+    });
+  }
+
+  downloadAttachment(id, fileName) {
+    this.kbContentService.downloadAttachment(id)
+    .subscribe(fileData => saveAs(fileData, fileName));
   }
 
 }

@@ -1,42 +1,35 @@
 <div class="container">
-    <div class="container-heading">
-      <p class="heading-margin">{{article.title}} <sub><span class="articleby"> by {{article.createdBy.firstName}}  {{article.createdBy.lastName}} </span></sub></p>
-      
-      <a href="#" class="edit">
-        <img src="/assets/images/edit.png" alt="articleicon"class="menu-icon">
-       </a>
-    </div>
+  <div class="container-heading">
+    <p class="heading-margin">{{article.title}} <sub><span class="articleby"> by {{article.createdBy.firstName}}  {{article.createdBy.lastName}} </span></sub></p>
     
-    <div class="container-body article_view">
-        <div class="left-container">
-            <div class="type">
-              <label>Type</label>
-              <span>{{article.articleType.type}}</span>
-            </div>
-            <div class="reviewed">
-              <label>Reviewed By</label>
-              <span>{{article.approver.firstName}}  {{article.approver.lastName}}</span>
-            </div>
-            <div class="description">
-                <label>Description</label>
-                <p class="description" [innerHTML]="article.description"></p>
-            </div>
-            <div  class="upload-files-section">
-                <label>Uploaded File</label>
-                <div class="img-container">
-                <div class="img-multiple">image.jpg</div> 
-                <div class="img-multiple">image1.jpg</div>
-                <div class="img-multiple">image2.jpg</div>
-                <div class="img-multiple">image.jpg</div> 
-                <div class="img-multiple">image1.jpg</div>
-                <div class="img-multiple">image2.jpg</div>
-               
-              </div>
-            </div>
-      
-        </div>
-      
-        
-      </div>
+    <a  class="edit" [routerLink]="['/article/edit', article.id]">
+      <img src="/assets/images/edit.png" alt="articleicon"class="menu-icon">
+     </a>
   </div>
-
+  
+  <div class="container-body article_view">
+      <div class="left-container">
+          <div class="type">
+            <label>Type</label>
+            <span>{{article.articleType.type}}</span>
+          </div>
+          <div class="reviewed">
+            <label>Reviewed By</label>
+            <span>{{article.approver.firstName}}  {{article.approver.lastName}}</span>
+          </div>
+          <div class="description">
+              <label>Description</label>
+              <p class="description" [innerHTML]="article.description"></p>
+          </div>
+          <div  class="upload-files-section">
+              <label>Uploaded File</label>
+              <div class="img-container">
+                <div class="img-multiple" *ngFor="let attachement of attachements"><span (click)="downloadAttachment(attachement.id, attachement.fileName)">{{attachement.fileName}}</span></div>             
+            </div>
+          </div>
+    
+      </div>
+    
+      
+    </div>
+</div>

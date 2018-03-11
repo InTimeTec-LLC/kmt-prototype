@@ -19,9 +19,7 @@
       <div class="upload-files-section">
           <label>Uploaded File</label>
           <div class="img-container">
-          <div class="img-multiple">image.jpg</div> 
-          <div class="img-multiple">image1.jpg</div>
-          <div class="img-multiple">image2.jpg</div>
+          <div class="img-multiple" *ngFor="let attachement of attachements"><span (click)="downloadAttachment(attachement.id, attachement.fileName)">{{attachement.fileName}}</span></div>
          
         </div>
       </div>

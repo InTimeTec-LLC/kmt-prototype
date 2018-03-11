@@ -5,6 +5,8 @@ import {ActivatedRoute} from '@angular/router';
 import { AuthenticationService } from '../../shared/service/authentication/authentication.service';
 import { ApprovedKnowledgeBaseArticle } from '../../shared/modals/knowledge-base-article';
 import { ToasterService } from 'angular5-toaster';
+import { saveAs } from 'file-saver/FileSaver';
+import { Http, Headers } from '@angular/http';
 
 @Component({
   selector: 'app-approved-knowledge-base-article',
@@ -17,6 +19,8 @@ export class ApprovedKnowledgeBaseArticleComponent implements OnInit {
   article: any;
   comment: any;
   articleInfo: any;
+  attachements: any[] = [];
+
 
   constructor(private kbContentService: KnowledgeBaseArticleService,
               private router: Router,
@@ -32,6 +36,9 @@ export class ApprovedKnowledgeBaseArticleComponent implements OnInit {
         data = data.article;
       }
       this.article = data;
+      this.attachements = data.attachments;
+      const lastComment = this.article.comments.pop();
+      this.comment = lastComment.comment;
     });
     }
 } );
@@ -64,6 +71,11 @@ export class ApprovedKnowledgeBaseArticleComponent implements OnInit {
 
   onApproved() {
     this.submit({'comment': this.comment, 'approved': true});
+  }
+
+  downloadAttachment(id, fileName) {
+    this.kbContentService.downloadAttachment(id)
+    .subscribe(fileData => saveAs(fileData, fileName));
   }
 
 }
