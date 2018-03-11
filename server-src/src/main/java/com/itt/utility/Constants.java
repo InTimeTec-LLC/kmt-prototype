@@ -71,4 +71,7 @@ public final class Constants {
     public static final String ATTACHMENT_ADDED_MESSAGE = "Attachment has been added successfully";
     
 
+    /** The Constant EMPTY_STRING. */
+    public static final String EMPTY_STRING = "";
+
 }

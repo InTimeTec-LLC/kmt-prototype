@@ -1,7 +1,7 @@
 package com.itt.kmt.repositories;
 
-import java.util.List;
-
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.mongodb.repository.Query;
 import org.springframework.data.repository.PagingAndSortingRepository;
 
@@ -24,46 +24,119 @@ public interface UserRepository extends PagingAndSortingRepository<User, String>
      */
    User findByEmail(String email);
    /**
-    * Finds list of User object that matches the userRole parameter. Spring
+    * Finds list of User object that matches the parameters passed. Spring
+    * automatically formulates appropriate query depending on the name of the
+    * method. findByXXX() method would look for a match for XXX property and
+    * return the object instance.
+    *
+    * @param emailOfLoggedInUser email of the user logged in.
+    * @param page Page consisting of users.
+    * @return Page<User> page of users.
+    */
+   @Query("{'email': { $ne: ?0 } }")
+   Page<User> findAll(String emailOfLoggedInUser, Pageable page);
+   /**
+    * Finds list of User object that matches the parameters passed. Spring
     * automatically formulates appropriate query depending on the name of the
     * method. findByXXX() method would look for a match for XXX property and
     * return the object instance.
     *
     * @param userRole of the User
     * @param active status of user
-    * @return List<User> Object matching the userRole parameter
+    * @param emailOfLoggedInUser email of the user logged in.
+    * @param page Page consisting of users.
+    * @return Page<User> page of users
     */
-   List<User> findByUserRoleAndActive(String userRole, boolean active);
+   @Query("{'email': { $ne: ?2 }, 'userRole': ?0, 'active': ?1 }")
+   Page<User> findByUserRoleAndActive(String userRole, boolean active, String emailOfLoggedInUser, Pageable page);
    /**
-    * Finds list of User object that matches the userRole parameter. Spring
+    * Finds list of User object that matches the parameters passed. Spring
     * automatically formulates appropriate query depending on the name of the
     * method. findByXXX() method would look for a match for XXX property and
     * return the object instance.
     *
     * @param userRole of the User
-    * @return List<User> Object matching the userRole parameter
+    * @param emailOfLoggedInUser email of the user logged in.
+    * @param page Page consisting of users.
+    * @return Page<User> page of users.
     */
-   List<User> findByUserRole(String userRole);
+   @Query("{'email': { $ne: ?1 }, 'userRole': ?0 }")
+   Page<User> findByUserRole(String userRole, String emailOfLoggedInUser, Pageable page);
    /**
-    * Finds list of User object that matches the active parameter. Spring
+    * Finds list of User object that matches the parameters passed. Spring
     * automatically formulates appropriate query depending on the name of the
     * method. findByXXX() method would look for a match for XXX property and
     * return the object instance.
     *
     * @param active status of user
-    * @return List<User> Object matching the userRole parameter
+    * @param emailOfLoggedInUser email of the user logged in.
+    * @param page Page consisting of users.
+    * @return Page<User> page of users.
     */
-   List<User> findByActive(boolean active);
+   @Query("{'email': { $ne: ?1 }, 'active': ?0 }")
+   Page<User> findByActive(boolean active,  String emailOfLoggedInUser, Pageable page);
    /**
-    * Finds list of User object that matches the param0 parameter. Spring
+    * Finds list of User object that matches the parameters passed. Spring
     * automatically formulates appropriate query depending on the name of the
     * method. findByXXX() method would look for a match for XXX property and
     * return the object instance.
     *
-    * @param param0 attribute of user
-    * @return List<User> Object matching the userRole parameter
+    * @param param0 search parameter.
+    * @param emailOfLoggedInUser email of the user logged in.
+    * @param page Page consisting of users.
+    * @return Page<User> page of users.
     */
-   @Query("{ $or: [ {'firstName': { $regex: ?0 } }, {'lastName': { $regex: ?0 } }, {'email': { $regex: ?0 } } ]}")
-   List<User> findByFirstNameOrLastNameOrEmail(String param0);
+   @Query("{'email': { $ne: ?1  }, $or: [ {'firstName': { $regex: ?0 } }, {'lastName': { $regex: ?0 } }, "
+          + "{'email': { $regex: ?0 } } ]}")
+   Page<User> findByFirstNameOrLastNameOrEmail(String param0, String emailOfLoggedInUser, Pageable page);
+   /**
+    * Finds list of User object that matches the parameters passed. Spring
+    * automatically formulates appropriate query depending on the name of the
+    * method. findByXXX() method would look for a match for XXX property and
+    * return the object instance.
+    *
+    * @param param0 search parameter.
+    * @param emailOfLoggedInUser email of the user logged in.
+    * @param active status of user.
+    * @param userRole role of user.
+    * @param page Page consisting of users.
+    * @return Page<User> page of users.
+    */
+   @Query("{'email': { $ne: ?1  }, $or: [ {'firstName': { $regex: ?0 } }, {'lastName': { $regex: ?0 } }, "
+         + "{'email': { $regex: ?0 } } ], 'active': ?2, 'userRole': ?3}")
+   Page<User> findByFirstNameOrLastNameOrEmailAndActiveAndUserRole(String param0, String emailOfLoggedInUser, 
+           boolean active, String userRole, Pageable page);
+   /**
+    * Finds list of User object that matches the parameters passed. Spring
+    * automatically formulates appropriate query depending on the name of the
+    * method. findByXXX() method would look for a match for XXX property and
+    * return the object instance.
+    *
+    * @param param0 search parameter.
+    * @param emailOfLoggedInUser email of the user logged in.
+    * @param userRole role of user.
+    * @param page Page consisting of users.
+    * @return Page<User> page of users.
+    */
+   @Query("{'email': { $ne: ?1  }, $or: [ {'firstName': { $regex: ?0 } }, {'lastName': { $regex: ?0 } }, "
+           + "{'email': { $regex: ?0 } } ], 'userRole': ?2}")
+   Page<User> findByFirstNameOrLastNameOrEmailAndUserRole(String param0, String emailOfLoggedInUser, String userRole, 
+               Pageable page);
+   /**
+    * Finds list of User object that matches the parameters passed. Spring
+    * automatically formulates appropriate query depending on the name of the
+    * method. findByXXX() method would look for a match for XXX property and
+    * return the object instance.
+    *
+    * @param param0 search parameter.
+    * @param emailOfLoggedInUser email of the user logged in.
+    * @param active status of user.
+    * @param page Page consisting of users.
+    * @return Page<User> page of users.
+    */
+   @Query("{'email': { $ne: ?1  }, $or: [ {'firstName': { $regex: ?0 } }, {'lastName': { $regex: ?0 } }, "
+          + "{'email': { $regex: ?0 } } ], 'active': ?2}")
+   Page<User> findByFirstNameOrLastNameOrEmailAndActive(String param0, String emailOfLoggedInUser, boolean active, 
+             Pageable page);
 
 }

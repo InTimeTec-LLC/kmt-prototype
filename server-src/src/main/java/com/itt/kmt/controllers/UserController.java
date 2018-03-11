@@ -10,7 +10,6 @@ import javax.validation.Valid;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.ui.ModelMap;
@@ -85,50 +84,45 @@ public class UserController {
      * @param role of the user.
      * @param status of the user.
      * @param search parameter to search user.
-     * @param page number.
-     * @param size number of users to be displayed.
      * @return Page page of users.
      */
     @RequestMapping(method = RequestMethod.GET)
     @RequiresPermissions("getAllUser")
     public Page<User> getAllUsers(final HttpServletRequest request,
-                @PageableDefault(value = Constants.PAGE_SIZE)final Pageable pageablePage, 
+                @PageableDefault(value = Constants.PAGE_SIZE)final Pageable pageablePage,
                 @RequestParam(required = false) final String role,
                 @RequestParam(required = false) final Boolean status,
-                @RequestParam(required = false) final String search,
-                @RequestParam(required = false) final Integer page,
-                @RequestParam(required = false) final Integer size) {
+                @RequestParam(required = false) final String search) {
 
         String jwtToken = request.getHeader("Authorization");
 
         User loggedInUser = userService.getLoggedInUser(jwtToken);
-        List<User> users = userService.filterUsersByStatusAndRole(search, role, status);
-        users = userService.arrangeUsersByCreatedDate(users, page, size);
+        Page<User> users = userService.filterUsersByStatusAndRole(search, role, status, 
+                     loggedInUser.getEmail(), pageablePage);
 
-        users.remove(loggedInUser);
-
-        Page<User> pages = new PageImpl<User>(users);
-
-        return pages;
+        return users;
     }
     /**
      * REST Interface for Admin and Managers retrieval.
      * @param request request sent.
+     * @param pageablePage page containing users.
      * @param response response received.
      * @return ModelMap.
      */
     @RequestMapping(value = "/approvers", method = RequestMethod.GET)
     @RequiresPermissions("getAllApprovers")
-    public ModelMap getAllApprovers(final HttpServletRequest request, final HttpServletResponse response) {
+    public ModelMap getAllApprovers(final HttpServletRequest request, final HttpServletResponse response, 
+               final Pageable pageablePage) {
 
         String jwtToken = request.getHeader("Authorization");
         User loggedInUser = userService.getLoggedInUser(jwtToken);
 
         List<User> adminAndManager = new ArrayList<User>();
-        List<String> roles = new ArrayList<String>();
-        roles.add("admin");
-        roles.add("manager");
-        adminAndManager.addAll(userService.getAllUsersByRolesAndStatus(roles, true));
+
+        adminAndManager.addAll(userService.getAllUsersByRolesAndStatus("admin", true, loggedInUser.getEmail(), 
+                pageablePage).getContent());
+        adminAndManager.addAll(userService.getAllUsersByRolesAndStatus("manager", true, loggedInUser.getEmail(), 
+                pageablePage).getContent());
         adminAndManager.remove(loggedInUser);
 
         return new ModelMap().addAttribute("users", adminAndManager);
@@ -170,11 +164,10 @@ public class UserController {
         User user = userRequest.getUser();
         String errorMsg = userService.validateUser(user, result);
         if (errorMsg != null && !errorMsg.isEmpty()) {
-            
             ResponseMsg postResponseMsg = new ResponseMsg(false, errorMsg);
             return new ModelMap().addAttribute("success", postResponseMsg);
         }
-        
+
         userService.updateUser(user, id);
         ResponseMsg updateResponseMsg = new ResponseMsg(true, Constants.DEFAULT_UPDATE_SUCCESS_MSG);
         return new ModelMap().addAttribute("success", updateResponseMsg);
