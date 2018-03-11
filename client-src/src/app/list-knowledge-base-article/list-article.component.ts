@@ -31,6 +31,7 @@ export class ListArticleComponent implements OnInit {
     type: undefined
   };
   currentUserId: any;
+  currentUserRole: any;
 
   constructor(
     private router: Router,
@@ -42,6 +43,7 @@ export class ListArticleComponent implements OnInit {
         this.kbContentService.listKnowledgeBaseArticleTypes().subscribe((data: any) => {
         this.kbContentService.setTypes(data.types);
         this.currentUserId = this.auth.getUserId();
+        this.currentUserRole = this.auth.getUserRole();
       });
     }
 

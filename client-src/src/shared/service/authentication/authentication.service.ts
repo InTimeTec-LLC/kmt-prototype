@@ -76,4 +76,12 @@ export class AuthenticationService {
         return null;
     }
 
+    getUserRole(): string {
+        const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+        if (currentUser && currentUser.success && currentUser.user) {
+            return currentUser.user.userRole;
+        }
+        return null;
+    }
+
 }
