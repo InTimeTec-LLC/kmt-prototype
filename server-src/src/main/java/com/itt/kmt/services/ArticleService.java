@@ -48,7 +48,11 @@ public class ArticleService {
     @Autowired
     private UserService userService;
     /**
+<<<<<<< HEAD
+     * Instance of mail service.
+=======
      * Instance of user service.
+>>>>>>> 7fc3c5b61c1ec5c497f86c01a0ca95b98ee8e18f
      */
     @Autowired
     private MailService mailService;
@@ -246,7 +250,15 @@ public class ArticleService {
                 return;
             }
             throw new UnauthorizedException();
+        } else {
+            try {
+                mailService.sendDeleteKAMail(article, true);
+            } catch (MailException | InterruptedException e) {
+                log.error(e.getMessage());
+            }
         }
+
+        articleRepository.delete(articleID);
 
         articleRepository.delete(articleID);
 
@@ -255,8 +267,13 @@ public class ArticleService {
         } catch (MailException | InterruptedException e) {
             log.error(e.getMessage());
         }
-    }
 
+        try {
+            mailService.sendDeleteKAMail(article, true);
+        } catch (MailException | InterruptedException e) {
+            log.error(e.getMessage());
+        }
+    }
     /**
      * Function to approve or review a article.
      * 
