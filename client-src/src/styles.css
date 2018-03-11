@@ -14,6 +14,12 @@ a{
   cursor: pointer;
   text-decoration: none;
 }
+.f-left {
+  float: left;
+}
+.f-right {
+  float: right;
+}
 .basic-container {
   padding: 5px;
 }
@@ -27,14 +33,14 @@ a{
   width: 100%;
 }
 .form-box .mat-form-field {
-  width: 45%;
-  margin-right: 26px;
+  width: 48%;
 } 
 .article-description label {
     color: rgb(121, 120, 120);
     display: block;
     padding: 20px 0;
   }
+
 
 /* for the Bar heading.... .....*/
 .container{
@@ -71,11 +77,10 @@ h2 {
 .button-container {
   float: right;
   margin-top: 70px;
-  margin-right: 60px;
 }
 /* for the input text area in edit and add  user page................*/
 .form-field-error mat-form-field .error{
-  color: #ff1010;
+  color: #ff1010; 
   font-size: 12px;
   position: absolute;
   top: 33px;

@@ -1,8 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { AuthenticationService } from '../../shared/service/authentication/authentication.service';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs/Subscription';
- 
+
 import { MessageService } from '../../shared/service/message/message';
 
 
@@ -11,15 +11,15 @@ import { MessageService } from '../../shared/service/message/message';
   templateUrl: './left-panel.component.html',
   styleUrls: ['./left-panel.component.scss']
 })
-export class LeftPanelComponent implements OnInit {
+export class LeftPanelComponent implements OnInit, OnDestroy {
 
-  userType : any;
+  userType: any;
   subscription: Subscription;
+  loggeInStatus: boolean;
 
-  constructor(private auth: AuthenticationService, private router: Router,private messageService: MessageService) { 
-     this.userType = this.auth.getUserType(); 
-     this.subscription = this.messageService.getMessage().subscribe(message => { 
-        console.log("LeftPanelComponent subscribe");
+  constructor(private auth: AuthenticationService, private router: Router, private messageService: MessageService) { 
+     this.userType = this.auth.getUserType();
+     this.subscription = this.messageService.getMessage().subscribe(message => {
         this.userType = this.auth.getUserType();
      });
   }
@@ -30,7 +30,7 @@ export class LeftPanelComponent implements OnInit {
   }
 
   ngOnInit() {
-    
+    this.isAuthenticated();
   }
 
   refreshUserType() {
@@ -42,7 +42,8 @@ export class LeftPanelComponent implements OnInit {
   }
 
   isAuthenticated() {
-    return this.auth.isAuthenticated();
+    this.auth.isAuthenticated().subscribe(status => this.loggeInStatus = status );
+    return this.loggeInStatus;
   }
 
   getUserName() {
@@ -50,8 +51,10 @@ export class LeftPanelComponent implements OnInit {
   }
 
   logout() {
+    this.messageService.sendMessage('closeMatDrawer');
     this.auth.logout();
     this.onTapNavigation('/login');
-    // window.location.reload()
+    this.isAuthenticated();
   }
+
 }

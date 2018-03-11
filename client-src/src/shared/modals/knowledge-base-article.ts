@@ -1,3 +1,7 @@
+export class Attachement {
+  id: string;
+}
+
 export class KnowledgeBaseArticle {
   title: string;
   description: string;
@@ -6,6 +10,7 @@ export class KnowledgeBaseArticle {
   articleType: string;
   restricted: boolean;
   needsApproval: boolean;
+  attachments: Attachement[];
 }
 
 
@@ -17,6 +22,7 @@ export class UpdateKnowledgeBaseArticle {
   articleType: string;
   restricted: boolean;
   needsApproval: boolean;
+  attachments: Attachement[];
 }
 
 export class Aritcles {

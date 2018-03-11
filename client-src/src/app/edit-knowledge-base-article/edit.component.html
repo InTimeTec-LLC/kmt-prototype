@@ -1,98 +1,101 @@
 <div class="container">
-  <div class="container-heading"><h2 class="heading-margin">Edit Article</h2></div>
-  <form  (ngSubmit)="onSubmit(article)" [formGroup]="article" #formDir="ngForm">
-      <div class="container-body">
-
-      <div class="form-box form-field-error">
-        <mat-form-field>
-          <input formControlName="title" matInput placeholder="Title*">
-          <span class="error" 
-          *ngIf="article.get('title').touched 
-          && article.get('title').hasError('required')">
-            Title is required
-        </span>
-        </mat-form-field>
-        
-
-        <mat-form-field>
-            <mat-select formControlName="articleType" placeholder="Types*">
-                <mat-option>Select Types</mat-option>
-                <mat-option [value]="type.id" *ngFor="let type of types">
-                  {{ type.type | titlecase}}
-                </mat-option>
-            </mat-select>
+    <div class="container-heading"><h2 class="heading-margin">Edit Article</h2></div>
+    <form  (ngSubmit)="onSubmit(article)" [formGroup]="article" #formDir="ngForm">
+        <div class="container-body">
+  
+        <div class="form-box form-field-error">
+          <mat-form-field>
+            <input formControlName="title" matInput placeholder="Title*">
             <span class="error" 
-            *ngIf="article.get('articleType').touched 
-            && article.get('articleType').hasError('required')">
-            Article Type is required
-           </span>
-        </mat-form-field>
-      
-        <div class="article-description">
-            <label>Description*: </label>
-            <quill-editor 
-                #description id="description" 
-                placeholder="Description"
-                formControlName="description"
-                [style]="{'min-height': '150px'}">
-            </quill-editor>
+            *ngIf="article.get('title').touched 
+            && article.get('title').hasError('required')">
+              Title is required
+          </span>
+          </mat-form-field>
+          
+  
+          <mat-form-field class="f-right">
+              <mat-select formControlName="articleType" placeholder="Types*">
+                  <mat-option>Select Types</mat-option>
+                  <mat-option [value]="type.id" *ngFor="let type of types">
+                    {{ type.type | titlecase}}
+                  </mat-option>
+              </mat-select>
+              <span class="error" 
+              *ngIf="article.get('articleType').touched 
+              && article.get('articleType').hasError('required')">
+              Article Type is required
+             </span>
+          </mat-form-field>
         
-            <div class="error" 
-            *ngIf="article.get('description').touched 
-            && article.get('description').hasError('required')">
-              Description is required
+          <div class="article-description">
+              <label>Description*: </label>
+              <quill-editor 
+                  #description id="description" 
+                  placeholder="Description"
+                  formControlName="description"
+                  [style]="{'min-height': '150px','background-color': '#fff'}" 
+                  [modules]="quill_config"
+                  >
+              </quill-editor>
+          
+              <div class="error" 
+              *ngIf="article.get('description').touched 
+              && article.get('description').hasError('required')">
+                Description is required
+              </div>
+          </div>        
+  
+          <div class="description">
+            <div class="lable">
+              <label>Uploaded File </label>
+              <span class="upload-file"> Upload Max 10 files of 20MB each</span>
             </div>
-        </div>        
-        <div class="description">
-          <div class="lable">
-            <label>Uploaded File </label>
-            <span class="upload-file"> Upload Max 10 files of 20MB each</span>
+            <div class="upload-button">
+                <sub><span class="upload-file file-margin"> Allowed File Type: pdf, png, jpg, gif, doc, ppt, xlx, txt</span></sub>
+                <div style="display:none;"><input accept=".jpg,.pdf,.doc,.png, doc, ppt, xls, txt" #file_new type="file" multiple (change)="onChange($event)" /></div>
+                <a  #upload_new (click)="file_new.click();">Add file</a>
+             </div> 
+             <div class="description">
+                <div class="img-container">
+                    <div class="img-multiple" *ngFor="let attachement of attachements"><span (click)="downloadAttachment(attachement.id, attachement.fileName)">{{attachement.fileName}}</span><label class="x-icon" (click)="deleteAttachment(attachement.id)">x</label></div>
+              </div>
+            </div>
+        </div>
+          <div item-height="10">&nbsp;</div>
+          <div class="edit-article-details">
+          <div class="approver-input">
+          <mat-form-field>
+              <mat-select 
+              formControlName="approver" 
+              placeholder="Assign to Review*">
+                  <mat-option>Select Reviewer</mat-option>
+                  <mat-option [value]="approver.id" *ngFor="let approver of approvers">
+                    {{ approver.firstName | titlecase}} {{ approver.lastName | titlecase}}
+                  </mat-option>
+              </mat-select>
+          </mat-form-field>
           </div>
-          <div class="upload-button">
-              <sub><span class="upload-file file-margin"> Allowed File Type: pdf, png, jpg, gif, doc, ppt, xlx, txt</span></sub>
-              <button type="button" mat-raised-button>Add File</button>
-           </div> 
-            <div class="image-area">
-            <div class="img-container">
-            <div class="img-multiple">image.jpg</div> 
-            <div class="img-multiple">image1.jpg</div>
-            <div class="img-multiple">image2.jpg</div>
-           </div>
-           </div>
+         
+  <div class="user-article-details">
+          <mat-form-field>
+            <input formControlName="lastModified" matInput placeholder="Last Modified" readonly>
+          </mat-form-field>
+          <mat-form-field>
+            <input formControlName="createdByUser" matInput placeholder="Created By" readonly>
+          </mat-form-field>
+          <div>
+          <mat-checkbox class="restricted-checkbox" formControlName="restricted" >Restricted </mat-checkbox>
+         </div>
+         </div>
         </div>
-        <div item-height="10">&nbsp;</div>
-        <div class="edit-article-details">
-        <div class="approver-input">
-        <mat-form-field>
-            <mat-select 
-            formControlName="approver" 
-            placeholder="Assign to Review*">
-                <mat-option>Select Reviewer</mat-option>
-                <mat-option [value]="approver.id" *ngFor="let approver of approvers">
-                  {{ approver.firstName | titlecase}} {{ approver.lastName | titlecase}}
-                </mat-option>
-            </mat-select>
-        </mat-form-field>
         </div>
-       
-<div class="user-article-details">
-        <mat-form-field>
-          <input formControlName="lastModified" matInput placeholder="Last Modified" readonly>
-        </mat-form-field>
-        <mat-form-field>
-          <input formControlName="createdByUser" matInput placeholder="Created By" readonly>
-        </mat-form-field>
-        <div>
-        <mat-checkbox class="restricted-checkbox" formControlName="restricted" >Restricted </mat-checkbox>
-       </div>
-       </div>
-      </div>
-      </div>
-      <div class="button-container">
-        <button type="button" mat-raised-button (click)="onCancle()">Cancel</button>
-        <button mat-raised-button type="submit" [disabled]="article.invalid">Save</button>
-      </div>
-      
-      </div>
-      </form>
-</div>
+        <div class="button-container">
+          <button type="button" mat-raised-button (click)="onCancle()">Cancel</button>
+          <button mat-raised-button type="submit" [disabled]="article.invalid">Submit for review</button>
+        </div>
+        
+        </div>
+        </form>
+  </div>
+  
