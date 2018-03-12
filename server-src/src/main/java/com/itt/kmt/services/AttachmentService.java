@@ -268,7 +268,7 @@ public class AttachmentService {
 
         boolean isValid = false;
         List<String> validTypeList = new ArrayList<String>(Arrays.asList(validFileTypes.split("\\s*,\\s*")));
-        if (validTypeList.contains(fileExtension)) {
+        if (validTypeList.contains(fileExtension.toLowerCase())) {
             isValid = true;
         }
         return isValid;
