@@ -32,6 +32,7 @@ import { FooterComponent } from './footer/footer.component';
 import { ListArticleComponent, ArticleListFilterComponent } from './list-knowledge-base-article/list-article.component';
 import { UserListComponent, UserListFilterComponent } from './user-list/user-list.component';
 import { SearchKnowledgeBaseComponent } from './search-knowledge-base/search-knowledge-base.component';
+import { KnowledgeBaseSearchComponent } from './knowledge-base-search/knowledge-base-search.component';
 
 
 @NgModule({
@@ -52,7 +53,8 @@ import { SearchKnowledgeBaseComponent } from './search-knowledge-base/search-kno
     ArticleListFilterComponent,
     ViewKnowledgeBaseArticleComponent,
     ApprovedKnowledgeBaseArticleComponent,
-    SearchKnowledgeBaseComponent
+    SearchKnowledgeBaseComponent,
+    KnowledgeBaseSearchComponent
   ],
   imports: [
     BrowserModule,

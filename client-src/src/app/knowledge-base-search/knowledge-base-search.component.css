@@ -3,11 +3,13 @@
     flex-direction: column;
     padding: 20px;
     float: left;
+    width: 100%;
     
   }
   .searchform div {
       height: 26px;
       margin-top: 15px;
+      text-align: center;
   }
       
   .searchboxwrapper {
@@ -21,7 +23,7 @@
       height: 30px;
       background: #fff;
       padding-left: 10px;
-      width: 100%;
+      width: 40%;
   }
       
   .searchsubmit {
@@ -30,7 +32,6 @@
       height: 33px;
       position: absolute;
       top: 0;
-      right: -11px;
       background: #dadada;
       border: none;
       color: #5d3250;
@@ -40,11 +41,10 @@
   .created-articles {
       width: 100%;
   }
-  .article-box:nth-child(1) {
-      margin-top:50px;
+
+  .article-box {
+      text-align: center;
   }
-  .article-date {
-      color: #a5a2a2;
-  }
+  
 
   
