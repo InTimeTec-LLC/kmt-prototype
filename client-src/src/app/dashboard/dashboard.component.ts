@@ -15,16 +15,12 @@ export class DashboardComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.kbContentService.listKnowledgeBaseArticle().subscribe(
+    /* his.kbContentService.listKnowledgeBaseArticle().subscribe(
       result => {
         this.knowledge_base_contents = result;
         },
       error => {
-        // To Do proper error handling at application level
-        // console.log("error in api call");
     }
-  );
-
+  );*/
   }
-
 }

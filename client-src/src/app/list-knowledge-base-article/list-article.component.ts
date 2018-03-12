@@ -24,14 +24,23 @@ export class ListArticleComponent implements OnInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
 
+  searchTxt: any = '';
+  finalTxt: any = '';
   articleList: any;
   filterList: any = [];
+  appliedFilter: any = [];
   selectedFilter: any = {
     status: undefined,
-    type: undefined
+    type: undefined,
+    typeId : undefined
   };
   currentUserId: any;
   currentUserRole: any;
+  totalNumberItems: Number;
+
+  bFilterStatus = undefined;
+  pageNo = 0;
+  articleBy = '';
 
   constructor(
     private router: Router,
@@ -48,15 +57,33 @@ export class ListArticleComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.getArticleList();
+        this.getArticleList(0, this.articleBy , this.selectedFilter.typeId, this.bFilterStatus, this.finalTxt);
+    }
+
+    onClickAssignedCreatedList(fromWhich) {
+        this.articleBy = fromWhich;
+        this.getArticleList(0, this.articleBy , this.selectedFilter.typeId, this.bFilterStatus, this.finalTxt);
+    }
+
+    onTapSearchIcon() {
+        console.log(this.searchTxt);
+        this.finalTxt = this.searchTxt.trim();
+        this.finalTxt = this.finalTxt.toLowerCase();
+        console.log(this.finalTxt);
+        this.getArticleList(0, this.articleBy , this.selectedFilter.typeId, this.bFilterStatus, this.finalTxt);
+    }
+
+    onPaginateChange(pageInfo) {
+        this.pageNo = pageInfo.pageIndex;
+        this.getArticleList(this.pageNo, this.articleBy , this.selectedFilter.typeId, this.bFilterStatus, this.finalTxt);
     }
 
     onTapDelete(articleId) {
-        if (confirm('Would you like to the article?')) {
+        if (confirm('Would you like to delete the article?')) {
             this.kbContentService.deleteArticle(articleId).subscribe(
                 data => {
                     this.toasterService.pop('success', '', data.success.message);
-                    this.getArticleList();
+                    this.getArticleList(this.pageNo, this.articleBy , this.selectedFilter.typeId, this.bFilterStatus, this.finalTxt);
                 },
                 error => {
                     this.toasterService.pop('error', '', error.success.message);
@@ -64,12 +91,29 @@ export class ListArticleComponent implements OnInit {
             }
     }
 
-    getArticleList() {
-        this.kbContentService.listKnowledgeBaseArticle()
+    getArticleList(pageNum, filter, type, status, search) {
+        console.log(pageNum, filter, type, status, search);
+        let queryParam = '?page=' + pageNum;
+        if (filter !== '' && filter !== undefined && filter !== null) {
+            queryParam = queryParam.concat('&filter=' + filter);
+        }
+        if (type !== '' && type !== undefined && type !== null) {
+            queryParam = queryParam.concat('&type=' + type);
+        }
+        if (status !== '' && status !== undefined && status !== null) {
+            queryParam = queryParam.concat('&status=' + status);
+        }
+        if (search !== '' && search !== undefined && search !== null) {
+            queryParam = queryParam.concat('&search=' + search.toLowerCase());
+        }
+
+        console.log(queryParam);
+        this.kbContentService.listKnowledgeBaseArticle(queryParam)
         .subscribe(
             data => {
                 this.articleList = JSON.parse(JSON.stringify(data)).content;
                 console.log(this.articleList);
+                this.totalNumberItems = JSON.parse(JSON.stringify(data)).totalElements;
                 this.createData(this.articleList);
             },
             error => {
@@ -88,37 +132,37 @@ export class ListArticleComponent implements OnInit {
         });
 
         dialogRef.afterClosed().subscribe(result => {
-            let filterStatus = [];
-            let filteType = [];
-            if (result && result.status !== undefined) {
-                this.selectedFilter.status = result.status;
-                if (result.status === 'Published') {
-                    this.articleList.forEach(function(element) {
-                        if (element.active) {
-                            filterStatus.push(element);
-                        }
-                    }.bind(this));
-                } else if (result.status === 'Unpublished') {
-                    this.articleList.forEach(function(element) {
-                        if (!element.active) { filterStatus.push(element); }
-                    }.bind(this));
+            console.log(result);
+            if (result) {
+                this.appliedFilter = [];
+                this.bFilterStatus = undefined;
+                if (result.status !== undefined) {
+                    this.selectedFilter.status = result.status;
+                    if (result.status === 'Published') {
+                        this.bFilterStatus = true;
+                    } else if (result.status === 'Unpublished') {
+                        this.bFilterStatus = false;
+                    }
+                    this.appliedFilter.push(result.status);
+                } else {
+                    if (result === 'doClear') {
+                        this.selectedFilter.status = undefined;
+                    }
                 }
-            } else {
-              filterStatus = this.articleList;
-              this.selectedFilter.status = undefined;
-            }
 
-            if (result && result.type !== undefined) {
-              this.selectedFilter.type = result.type;
-              filterStatus.forEach(function(element) {
-                    if (element.type === String(result.type).toLowerCase()) { filteType.push(element); }
-                }.bind(this));
-            } else {
-              filteType = filterStatus;
-              this.selectedFilter.type = undefined;
+                if (result.type !== undefined) {
+                    this.appliedFilter.push(result.type);
+                    this.selectedFilter.type = result.type;
+                    this.selectedFilter.typeId = (this.kbContentService.getTypes().find(i => (i.type === result.type))).id;
+                } else {
+                    if (result === 'doClear') {
+                        this.selectedFilter.type = undefined;
+                        this.selectedFilter.typeId = undefined;
+                    }
+                }
+                console.log(this.selectedFilter);
+                this.getArticleList(0, this.articleBy , this.selectedFilter.typeId, this.bFilterStatus, this.finalTxt);
             }
-
-            this.createData(filteType);
         });
     }
 
@@ -131,14 +175,6 @@ export class ListArticleComponent implements OnInit {
         console.log(aritcles);
         this.filterList = aritcles;
         this.dataSource = new MatTableDataSource(aritcles);
-        this.dataSource.paginator = this.paginator;
-        this.dataSource.sort = this.sort;
-    }
-
-    applyFilter(filterValue: string) {
-        filterValue = filterValue.trim(); // Remove whitespace
-        filterValue = filterValue.toLowerCase(); // Datasource defaults to lowercase matches
-        this.dataSource.filter = filterValue;
     }
 
   createNewUser(item: any): any {
@@ -190,6 +226,6 @@ export class ListArticleComponent implements OnInit {
         }
 
     onCancelClick() {
-        this.dialogRef.close();
+        this.dialogRef.close('doClear');
     }
   }

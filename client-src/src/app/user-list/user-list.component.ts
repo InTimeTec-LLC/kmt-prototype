@@ -27,6 +27,7 @@ export class UserListComponent implements OnInit {
   userList: any;
   totalNumberItems: Number;
   filterList: any = [];
+  appliedFilter: any = [];
   selectedFilter: any = {
     status: undefined,
     role: undefined
@@ -121,6 +122,7 @@ export class UserListComponent implements OnInit {
             console.log(result);
             if (result) {
                 let filterRole = '';
+                this.appliedFilter = [];
                 this.bFilterStatus = undefined;
                 if (result.status !== undefined) {
                     this.selectedFilter.status = result.status;
@@ -129,11 +131,13 @@ export class UserListComponent implements OnInit {
                     } else if (result.status === 'Inactive') {
                         this.bFilterStatus = false;
                     }
+                    this.appliedFilter.push(result.status);
                 } else {
                     if (result === 'doClear') { this.selectedFilter.status = undefined; }
                 }
 
                 if (result.role !== undefined) {
+                    this.appliedFilter.push(result.role);
                     this.selectedFilter.role = result.role;
                     filterRole = String(result.role).toLowerCase();
                 } else {

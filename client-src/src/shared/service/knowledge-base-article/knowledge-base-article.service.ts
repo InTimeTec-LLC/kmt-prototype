@@ -35,10 +35,9 @@ export class KnowledgeBaseArticleService {
    * @return {KnowledgeBaseArticle[]} The Observable for the HTTP request.
    */
 
-   listKnowledgeBaseArticle (): Observable<any[]> {
-    return this.http.get(this.apiUrl)
+  listKnowledgeBaseArticle (queryParams): Observable<any[]> {
+    return this.http.get(this.apiUrl + '' + queryParams)
     .catch(this.handleErrorObservable);
-
   }
 
   setTypes(data) {
