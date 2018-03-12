@@ -33,6 +33,7 @@ export class UserListComponent implements OnInit {
   };
 
   bFilterStatus = undefined;
+  pageNo = 0;
 
   constructor(
     private userService: UserService,
@@ -53,13 +54,12 @@ export class UserListComponent implements OnInit {
         this.finalTxt = this.searchTxt.trim();
         this.finalTxt = this.finalTxt.toLowerCase();
         console.log(this.finalTxt);
-        // this.dataSource.filter = filterValue;
         this.getUserList(0, '' , this.selectedFilter.role, this.bFilterStatus, this.finalTxt);
     }
 
     onPaginateChange(pageInfo) {
-        console.log(pageInfo.pageIndex);
-        this.getUserList(pageInfo.pageIndex, '' , this.selectedFilter.role, this.bFilterStatus, this.finalTxt);
+        this.pageNo = pageInfo.pageIndex;
+        this.getUserList(this.pageNo, '' , this.selectedFilter.role, this.bFilterStatus, this.finalTxt);
     }
 
     onTapActions(status, userId) {
@@ -69,7 +69,7 @@ export class UserListComponent implements OnInit {
             this.userService.activateDeactivateUsers(status, userId).subscribe(
                 data => {
                     this.toasterService.pop('success', '', data.success.message);
-                    this.getUserList(0, '' , '', '', '');
+                    this.getUserList(this.pageNo, '' , this.selectedFilter.role, this.bFilterStatus, this.finalTxt);
                 },
                 error => {
                     this.toasterService.pop('error', '', error.success.message);
@@ -118,27 +118,29 @@ export class UserListComponent implements OnInit {
         });
 
         dialogRef.afterClosed().subscribe(result => {
-            this.bFilterStatus = undefined;
-            let filterRole = '';
-            if (result && result.status !== undefined) {
-                this.selectedFilter.status = result.status;
-                if (result.status === 'Activate') {
-                    this.bFilterStatus = true;
-                } else if (result.status === 'Deactivate') {
-                    this.bFilterStatus = false;
+            console.log(result);
+            if (result) {
+                let filterRole = '';
+                this.bFilterStatus = undefined;
+                if (result.status !== undefined) {
+                    this.selectedFilter.status = result.status;
+                    if (result.status === 'Active') {
+                        this.bFilterStatus = true;
+                    } else if (result.status === 'Inactive') {
+                        this.bFilterStatus = false;
+                    }
+                } else {
+                    if (result === 'doClear') { this.selectedFilter.status = undefined; }
                 }
-            } else {
-                this.selectedFilter.status = undefined;
-            }
 
-            if (result && result.role !== undefined) {
-                this.selectedFilter.role = result.role;
-                filterRole = String(result.role).toLowerCase();
-            } else {
-                this.selectedFilter.role = undefined;
+                if (result.role !== undefined) {
+                    this.selectedFilter.role = result.role;
+                    filterRole = String(result.role).toLowerCase();
+                } else {
+                    if (result === 'doClear') { this.selectedFilter.role = undefined; }
+                }
+                this.getUserList(0, '' , filterRole, this.bFilterStatus, this.finalTxt);
             }
-
-            this.getUserList(0, '' , filterRole, this.bFilterStatus, this.finalTxt);
         });
     }
 
@@ -151,8 +153,6 @@ export class UserListComponent implements OnInit {
         console.log(users);
         this.filterList = users;
         this.dataSource = new MatTableDataSource(users);
-        // this.dataSource.paginator = this.paginator;
-        // this.dataSource.sort = this.sort;
     }
 
   createNewUser(item: any): User {
@@ -174,7 +174,7 @@ export class UserListComponent implements OnInit {
     templateUrl: 'user-filter.html',
   })
   export class UserListFilterComponent {
-    statusList = ['Activate', 'Deactivate'];
+    statusList = ['Active', 'Inactive'];
     roleList: any[];
     selectedStatus: any;
     selectedRole: any;
@@ -203,6 +203,6 @@ export class UserListComponent implements OnInit {
         }
 
     onCancelClick() {
-        this.dialogRef.close();
+        this.dialogRef.close('doClear');
     }
   }
