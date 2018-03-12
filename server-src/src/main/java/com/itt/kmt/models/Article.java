@@ -6,6 +6,7 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.annotation.Version;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -31,7 +32,7 @@ public class Article {
      * lastModified date and time of the Article.
      */
     @LastModifiedDate
-    private String lastModifiedTime;
+    private Date lastModifiedTime;
 
     /**
      * last Modified user id  of the Article.
@@ -57,7 +58,7 @@ public class Article {
      * created time of the Article.
      */
     @CreatedDate
-    private String createdTime;
+    private Date createdTime;
 
     /**
      * name of the Article.

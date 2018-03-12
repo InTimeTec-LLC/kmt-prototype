@@ -4,6 +4,8 @@ package com.itt.kmt.models;
 import lombok.Data;
 import org.springframework.data.annotation.Id;
 
+import java.util.Date;
+
 
 /**
  * This class represents a Knowledge Base Article search page.
@@ -33,7 +35,7 @@ public class KBArticle {
     /**
      * lastModified date and time of the Article.
      */
-    private String lastModifiedTime;
+    private Date lastModifiedTime;
 
 
     /**
