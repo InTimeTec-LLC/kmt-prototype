@@ -21,29 +21,12 @@ public class KMTErrorController implements ErrorController {
      * when /error is called it will invoke this method,  
      * which in turn redirects to "/" which is index page
      * 
-     *@param request , request is a reference of HttpServletRequest object, which use to forward the request 
-     *@param response , response is a reference of HttpServletResponse object, which use to forward the request
+     *@param request , request is a reference of HttpServletRequest object, which we use to forward the request 
+     *@param response , response is a reference of HttpServletResponse object, which we use to forward the request
      */
     
-    @RequestMapping(value = "/errorPage", method = RequestMethod.GET)
+    @RequestMapping(value = {"/errorPage" , "/{[path:[^\\.]*}"}, method = RequestMethod.GET)
     public void redirect(final HttpServletRequest request, final HttpServletResponse response) {
-        try {
-            request.getRequestDispatcher("/index.html").forward(request, response);
-        } catch (Exception e) {
-            e.printStackTrace();
-        } 
-    }
-
-    /**
-     * This is custom implementation of Angular Routes.
-     * when a route like /login is called it will invoke this method,  
-     * which in turn redirects to "/" which is index page
-     * 
-     *@param request , request is a reference of HttpServletRequest object, which use to forward the request 
-     *@param response , response is a reference of HttpServletResponse object, which use to forward the request
-     */
-    @RequestMapping(value = "/{[path:[^\\.]*}")
-    public void redirectToIndex(final HttpServletRequest request, final HttpServletResponse response)  {
         try {
             request.getRequestDispatcher("/index.html").forward(request, response);
         } catch (Exception e) {
