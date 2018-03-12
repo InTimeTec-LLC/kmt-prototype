@@ -108,8 +108,14 @@ public class ArticleService {
         if (article.getArticleType() != null) {
             article.setArticleType(getArticleTypeByID(article.getArticleType().toString()));
         }
-
-        return articleRepository.save(article);
+        UserResponse approver = (UserResponse) article.getApprover();
+        Article savedArticle = articleRepository.save(article);
+        try {
+            mailService.sendCreateArticleMail(approver);
+        } catch (MailException | InterruptedException e) {
+            log.error(e.getMessage());
+        }
+        return savedArticle;
     }
 
     /**
@@ -316,12 +322,13 @@ public class ArticleService {
             Map<String, String> createdBy = new ObjectMapper().convertValue(article.getCreatedBy(), Map.class);
             if (user.getId().equals(createdBy.get(ID))) {
                 articleRepository.delete(articleID);
-                try {
-                    mailService.sendDeleteKAMail(article, false);
-                } catch (MailException | InterruptedException e) {
-                    log.error(e.getMessage());
+                if (!article.getApproved()) {
+                    try {
+                        mailService.sendDeleteKAMail(article, false);
+                    } catch (MailException | InterruptedException e) {
+                        log.error(e.getMessage());
+                    }
                 }
-
                 // Deleting attached attachments
                 attachmentService.deleteAttachmentWithArticleId(articleID);
                 return;
@@ -333,11 +340,12 @@ public class ArticleService {
 
         // Deleting attached attachments
         attachmentService.deleteAttachmentWithArticleId(articleID);
-
-        try {
-            mailService.sendDeleteKAMail(article, true);
-        } catch (MailException | InterruptedException e) {
-            log.error(e.getMessage());
+        if (!article.getApproved()) {
+            try {
+                mailService.sendDeleteKAMail(article, true);
+            } catch (MailException | InterruptedException e) {
+                log.error(e.getMessage());
+            }
         }
     }
 

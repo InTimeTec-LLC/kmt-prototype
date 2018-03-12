@@ -187,11 +187,13 @@ public class MailServiceTests {
 
         // Arrange
         User user = testDataRepository.getUsers().get("user-3");
+        UserResponse usercreator = new UserResponse(user.getId(), user.getFirstName(), user.getLastName(),
+                user.getEmail());
 
         // when()
         when(javaMailSender.createMimeMessage()).thenReturn(new JavaMailSenderImpl().createMimeMessage());
 
-        boolean status = mailService.sendCreateArticleMail(user).get();
+        boolean status = mailService.sendCreateArticleMail(usercreator).get();
 
         // assert
         assertTrue(status);
