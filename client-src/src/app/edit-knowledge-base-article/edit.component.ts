@@ -11,6 +11,7 @@ import { environment } from '../../environments/environment';
 import { saveAs } from 'file-saver/FileSaver';
 import { Http, Headers } from '@angular/http';
 import 'rxjs/add/operator/toPromise';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-edit-kb-article',
@@ -38,9 +39,8 @@ export class EditArticleComponent implements OnInit {
     private auth: AuthenticationService,
     private toasterService: ToasterService,
     private activatedRoute: ActivatedRoute,
-    private http: Http
-
-  ) {
+    private http: Http,
+      ) {
     this.quill_config = environment.quillEditorConfig;
     this.activatedRoute.params.subscribe((params: any) => {
       this.articleId = params['id'];
@@ -49,6 +49,7 @@ export class EditArticleComponent implements OnInit {
           if (data.hasOwnProperty('article')) {
             data = data.article;
           }
+          const pipe = new DatePipe('en-US');
           this.attachements = data.attachments;
           this.comments = data.comments;
           this.article.setValue({
@@ -59,7 +60,7 @@ export class EditArticleComponent implements OnInit {
             articleType: data.articleType.id,
             restricted: data.restricted,
             createdByUser: data.createdBy.firstName + ' ' + data.createdBy.lastName,
-            lastModified: data.lastModifiedTime,
+            lastModified: pipe.transform(data.lastModifiedTime, 'short'),
             needsApproval: data.needsApproval,
             attachments: []
 

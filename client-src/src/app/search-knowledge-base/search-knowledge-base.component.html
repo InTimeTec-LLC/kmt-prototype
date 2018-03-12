@@ -24,13 +24,14 @@
     <div class="article-box" *ngFor="let article of kbSearchResults.content"> 
         <h3><a [routerLink]="['/article-detail', article.id]">{{article.title}}</a> </h3>
         <p [innerHTML]="article.description">{{article.description}}</p>
-        <p class="article-date">{{article.createdBy.firstName}} {{article.createdBy.lastName}},12/11/2017 {{article.articleType.type}}</p>
+        <p class="article-date">{{article.createdBy.firstName}} {{article.createdBy.lastName}},{{article.lastModifiedTime | date: 'mm/dd/yyyy'}}
+                {{article.articleType.type}}</p>
         <hr>
       </div>
   </div>
   <br /><br />
   <div *ngIf='kbSearchResults.content.length === 0' class="noRecord">No Record Found</div>
-  <mat-paginator *ngIf="kbSearchResults.content.length > 0" [length]="kbSearchResults.totalElements" [pageSize]="1" (page)="pageEvent = $event; onPaginateChange($event)">
+  <mat-paginator *ngIf="kbSearchResults.content.length > 0" [length]="kbSearchResults.totalElements" [pageSize]="10" (page)="pageEvent = $event; onPaginateChange($event)">
   </mat-paginator>
 </div>
 </div>

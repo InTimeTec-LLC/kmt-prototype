@@ -57,13 +57,13 @@ export class SearchKnowledgeBaseComponent implements OnInit {
 
 
   getQueryParam (pageNum, sortField, search) {
-    let queryParam = '?size=1&page=' + pageNum;
+    let queryParam = '?size=10&page=' + pageNum;
     if (search !== '' && search !== undefined && search !== null) {
       console.log(search);
       queryParam = queryParam.concat('&search=' + search.toLowerCase());
     }
     if (sortField !== '' && sortField !== undefined && sortField !== null) {
-      queryParam = queryParam.concat('&sortField=' + sortField);
+      // queryParam = queryParam.concat('&sort=' + sortField);
     }
     return queryParam;
   }
