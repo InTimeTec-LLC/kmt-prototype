@@ -53,13 +53,15 @@ a{
 .container-heading {
   background-color: #33b7fc;
   color: #fff;
-  padding: 6px 20px;
+  float: left;
+  width: 100%;
   border-radius: 5px 5px 0px 0;
 }
 .heading-margin{
   margin: 0px;
   font-size: 25px;
   font-weight: 500;
+  padding: 10px 20px;
 }
 .articleby{
   font-size: 12px;
@@ -117,12 +119,14 @@ a{
 
 /* top button add for actical and user ............*/
 .add-button {
-     float: right;
-     margin: 25px 0 25px 0;
+  float: right;
+  margin: 25px 0 25px 0;
+  width: 16%;
+  text-align: center;
 }
 .add-button a {
   text-decoration: none;
-  padding: 10px 30px;
+  padding: 10px 0px;
   background-color: #33b7fc;
   display: block;
   color: #fff;
@@ -195,6 +199,14 @@ background-color: #fff;
   vertical-align: text-top;
   margin-left: 11px;
 }
+
+/* for the search icon .........*/
+.search_icon {
+  vertical-align: text-top;
+  margin-top: -6px;
+  margin-left: -33px;
+  }
+
 /* globle table.....................*/
 .list_table mat-header-row mat-header-cell,
 .list_table mat-row mat-cell{
@@ -221,3 +233,41 @@ background-color: #fff;
   border-top: 0.6em double #33b7fc;
   border-bottom: 0.2em solid #33b7fc;
 }
+
+/* for the breadcrumb..............*/
+.breadcrumb-fullwidth {
+    float: left;
+    width: 100%
+  }
+  
+  .breadcrumb-bar {
+    float: left;
+    width: 81%;
+    margin: 25px 0 25px 0;
+  }
+  .breadcrumb-fullwidth .breadcrumb-bar {
+    width: 100%;
+  }
+  
+  ul.breadcrumb {
+    padding: 10px 16px;
+    list-style: none;
+    background-color: #eee;
+    margin: 0px;
+  }
+  ul.breadcrumb li {
+    display: inline;
+  }
+  ul.breadcrumb li+li:before {
+    padding: 8px;
+    color: black;
+    content: "/\00a0";
+  }
+  ul.breadcrumb li a {
+    color: #0275d8;
+    text-decoration: none;
+  }
+  ul.breadcrumb li a:hover {
+    color: #01447e;
+    text-decoration: underline;
+   }

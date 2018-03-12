@@ -12,6 +12,7 @@ import { ListArticleComponent } from './list-knowledge-base-article/list-article
 import { EditUserComponent } from './edit-user/edit-user.component';
 import { ApprovedKnowledgeBaseArticleComponent } from './approved-knowledge-base-article/approved-knowledge-base-article.component';
 import { SearchKnowledgeBaseComponent } from './search-knowledge-base/search-knowledge-base.component';
+import { KnowledgeBaseSearchComponent } from './knowledge-base-search/knowledge-base-search.component';
 
 const routes:  Routes = [
     {
@@ -69,6 +70,11 @@ const routes:  Routes = [
       path: 'knowledge-base',
       component: SearchKnowledgeBaseComponent,
       data: { title: 'Knowledge Base' }
+    },
+    {
+      path: 'knowledge-base-search',
+      component: KnowledgeBaseSearchComponent,
+      data: { title: 'Knowledge Base Search' }
     },
   ];
 
