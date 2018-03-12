@@ -34,7 +34,7 @@ import java.util.Map;
  * Service class that acts as an intermediary between controller and the
  * database for all basic CRUD operations. The business logic should reside in
  * service class.
- * 
+ *
  * @author Ashish Y
  */
 @Slf4j
@@ -67,7 +67,7 @@ public class ArticleService {
      */
     @Autowired
     private CommentRepository commentRepository;
-    
+
     /** The attachment service. */
     @Autowired
     private AttachmentService attachmentService;
@@ -90,7 +90,7 @@ public class ArticleService {
 
     /**
      * Saves the Article to database.
-     * 
+     *
      * @param article
      *            Article object to be saved
      * @return Article object with userResponse included.
@@ -127,7 +127,7 @@ public class ArticleService {
 
     /**
      * Get all the Article Types.
-     * 
+     *
      * @return List of all the Article Type.
      */
     public List<ArticleType> getArticleTypes() {
@@ -136,7 +136,7 @@ public class ArticleService {
 
     /**
      * Get Article Type with ID.
-     * 
+     *
      * @param id
      *            Article ID.
      * @return Article Type.
@@ -147,7 +147,7 @@ public class ArticleService {
 
     /**
      * updates the DBEntity(Article) from the database.
-     * 
+     *
      * @param id
      *            of Article to be updated.
      * @param updatedArticle
@@ -162,19 +162,19 @@ public class ArticleService {
         List<Attachment> attachments = updatedArticle.getAttachments();
         updatedArticle.setAttachments(null);
         Article dbArticle = articleRepository.save(updateArticle(article, updatedArticle));
-        
+
         // linking attached attachments
-        
+
         if (attachments != null && attachments.size() > 0) {
             attachmentService.updateAttachmentWithArticleId(attachments, dbArticle.getId());
         }
-        
+
         return dbArticle;
     }
 
     /**
      * Get all available articles the DBEntity(Article) from the database.
-     * 
+     *
      * @param page
      *            Pageable object.
      * @param token
@@ -213,7 +213,7 @@ public class ArticleService {
 
     /**
      * Gets the Article given the id.
-     * 
+     *
      * @param id
      *            ID of the Article.
      * @param token
@@ -230,6 +230,9 @@ public class ArticleService {
 
         String loggedInUserRole = userService.getLoggedInUser(token).getUserRole();
 
+        List<Attachment> attachments = attachmentService.getArticleAttachments(article.getId());
+        article.setAttachments(attachments);
+
         if (article.getRestricted()) {
             Map<String, String> createdBy = new ObjectMapper().convertValue(article.getCreatedBy(), Map.class);
             String createdByUserRole = userService.getUserByID(createdBy.get(ID)).getUserRole();
@@ -239,10 +242,6 @@ public class ArticleService {
                             || createdByUserRole.equals(Constants.ROLE_ADMIN)) {
                         throw new RuntimeException(Constants.UNAUTHORIZED_ACCESS_MSG);
                     }
-        
-        List<Attachment> attachments = attachmentService.getArticleAttachments(article.getId());
-        article.setAttachments(attachments);
-        
                     return article;
                 case Constants.ROLE_MANAGER:
                     if (createdByUserRole.equals(Constants.ROLE_ADMIN)) {
@@ -299,7 +298,7 @@ public class ArticleService {
 
     /**
      * Function to delete a article.
-     * 
+     *
      * @param articleID
      *            which needs to be deleted.
      * @param token
@@ -322,7 +321,7 @@ public class ArticleService {
                 } catch (MailException | InterruptedException e) {
                     log.error(e.getMessage());
                 }
-                
+
                 // Deleting attached attachments
                 attachmentService.deleteAttachmentWithArticleId(articleID);
                 return;
@@ -331,7 +330,7 @@ public class ArticleService {
         }
 
         articleRepository.delete(articleID);
-        
+
         // Deleting attached attachments
         attachmentService.deleteAttachmentWithArticleId(articleID);
 
@@ -344,7 +343,7 @@ public class ArticleService {
 
     /**
      * Function to approve or review a article.
-     * 
+     *
      * @param approve
      *            object for article approval process.
      * @param articleID
@@ -405,7 +404,7 @@ public class ArticleService {
 
     /**
      * Function to save comment in DB.
-     * 
+     *
      * @param approve
      *            object for article approval process.
      * @param user
@@ -430,7 +429,7 @@ public class ArticleService {
 
     /**
      * Function to delete comment in DB.
-     * 
+     *
      * @param comments
      *            List of comment article has.
      */
@@ -451,14 +450,14 @@ public class ArticleService {
      * @return Page<Article> get list of articles.
      */
     public Page<Article> getAllWithFiltersAndSearch(final ArticleFilter filter, final String type, final String status,
-            final String search, final Pageable page, final String token) {
+                                                    final String search, final Pageable page, final String token) {
         String filterBy = getFilter(filter);
         User loggedInUser = userService.getLoggedInUser(token);
-        List<ObjectId> articleTypes = getArticleTypeObject(type); 
+        List<ObjectId> articleTypes = getArticleTypeObject(type);
         List<Boolean> allStatus = getApprovalStatus(status);
-        return getAllWithFiltersAndSearch(loggedInUser.getUserRole(), new ObjectId(loggedInUser.getId()), 
+        return getAllWithFiltersAndSearch(loggedInUser.getUserRole(), new ObjectId(loggedInUser.getId()),
                 filterBy, articleTypes, allStatus, search, page);
-    }    
+    }
 
 
     /**
@@ -473,40 +472,40 @@ public class ArticleService {
      * @return Page<Article> get list of articles.
      */
     private Page<Article> getAllWithFiltersAndSearch(final String userRole, final ObjectId userId, final String filter,
-            final List<ObjectId> type, final List<Boolean> status, final String search, final Pageable page) {
+                                                     final List<ObjectId> type, final List<Boolean> status, final String search, final Pageable page) {
         switch (userRole) {
-        case Constants.ROLE_USER: return articleRepository.findArticlesByCreatedBy(userId, type, status, search, page);
-        case Constants.ROLE_MANAGER:
-            if (StringUtils.isBlank(filter)) {
-                return articleRepository.findAllArticles(userId, type, status, search, page);
-            } else {
-                return articleRepository.findArticlesByFilter(filter, userId, type, status, search, page);
-            }
-        case Constants.ROLE_ADMIN: 
-            if (StringUtils.isBlank(filter)) {
-                return articleRepository.findAllArticles(type, status, search, page);
-            } else {
-                return articleRepository.findArticlesByFilter(filter, userId, type, status, search, page);
-            }
-        default : throw new RuntimeException(Constants.UNAUTHORIZED_ACCESS_MSG);
+            case Constants.ROLE_USER: return articleRepository.findArticlesByCreatedBy(userId, type, status, search, page);
+            case Constants.ROLE_MANAGER:
+                if (StringUtils.isBlank(filter)) {
+                    return articleRepository.findAllArticles(userId, type, status, search, page);
+                } else {
+                    return articleRepository.findArticlesByFilter(filter, userId, type, status, search, page);
+                }
+            case Constants.ROLE_ADMIN:
+                if (StringUtils.isBlank(filter)) {
+                    return articleRepository.findAllArticles(type, status, search, page);
+                } else {
+                    return articleRepository.findArticlesByFilter(filter, userId, type, status, search, page);
+                }
+            default : throw new RuntimeException(Constants.UNAUTHORIZED_ACCESS_MSG);
         }
 
     }
 
     /**
      * Function to get articlestype objects.
-     * @param type , the article type. 
+     * @param type , the article type.
      * @return List<ObjectId> get list of articleTypes.
      */
     private List<ObjectId> getArticleTypeObject(final String type) {
         if (StringUtils.isNotBlank(type)) {
-         return Arrays.asList(new ObjectId(type));    
-        } 
+            return Arrays.asList(new ObjectId(type));
+        }
         List<ObjectId> articleTypeObject = new ArrayList<>();
         getArticleTypes().forEach(articleType-> articleTypeObject.add(new ObjectId(articleType.getId())));
         return articleTypeObject;
     }
-    
+
     /**
      * Function to get filter string.
      * @param filter , get valid filter value.
@@ -525,7 +524,7 @@ public class ArticleService {
      * @return List<Boolean> get list of approval status.
      */
     private List<Boolean> getApprovalStatus(final String status) {
-        if (StringUtils.isBlank(status)) { 
+        if (StringUtils.isBlank(status)) {
             return Arrays.asList(true, false);
         } else {
             return Arrays.asList(Boolean.parseBoolean(status));
@@ -541,9 +540,6 @@ public class ArticleService {
      */
     public Page<KBArticle> getKBArticlesWithSearch(final String search, final Pageable page) {
 
-        if (StringUtils.isBlank(search)) {
-            return null;
-        }
         Page<KBArticle> articlePage = articleRepository.findByTitleAndDescriptionAndApproved(search, true, page);
         List<KBArticle> articles = articlePage.getContent();
 

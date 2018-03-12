@@ -53,14 +53,14 @@ public class ArticleController {
      */
     @RequestMapping(method = RequestMethod.POST, produces = "application/json")
     public ModelMap addArticle(@RequestBody
-            final HashMap<String, Article> articleMap) {
+                               final HashMap<String, Article> articleMap) {
         Article article = articleMap.get("article");
         List<Attachment> attachments = article.getAttachments();
         article.setAttachments(null);
         article = articleService.save(article);
-        
+
         // linking attached attachments
-        
+
         if (attachments != null && attachments.size() > 0) {
             attachmentService.updateAttachmentWithArticleId(attachments, article.getId());
         }
@@ -78,8 +78,8 @@ public class ArticleController {
      */
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT, produces = "application/json")
     public ModelMap updateArticle(@PathVariable(value = "id")
-    final String id, @RequestBody
-    final HashMap<String, Article> articleMap) {
+                                  final String id, @RequestBody
+                                  final HashMap<String, Article> articleMap) {
 
         articleService.updateArticle(id, articleMap.get("article"));
         return new ModelMap().addAttribute("success", new ResponseMsg(true, Constants.DEFAULT_UPDATE_SUCCESS_MSG));
@@ -119,7 +119,7 @@ public class ArticleController {
      */
     /**
      * REST API to return all Article types.
-     * 
+     *
      * @return ModelMap.
      */
     @RequestMapping(value = "/types", method = RequestMethod.GET)
@@ -139,7 +139,7 @@ public class ArticleController {
      */
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
     public ModelMap deleteArticleById(@PathVariable(value = "id")
-    final String id, final HttpServletRequest httpServletRequest) {
+                                      final String id, final HttpServletRequest httpServletRequest) {
 
         String jwtToken = httpServletRequest.getHeader(Constants.AUTHORIZATION);
         articleService.delete(id, jwtToken);
@@ -156,8 +156,8 @@ public class ArticleController {
      */
     @RequestMapping(value = "/approve/{id}", method = RequestMethod.PUT)
     public ModelMap getArticleTypes(@PathVariable(value = "id") final String id,
-            @RequestBody final HashMap<String, Approve> approveMap,
-            final HttpServletRequest httpServletRequest) {
+                                    @RequestBody final HashMap<String, Approve> approveMap,
+                                    final HttpServletRequest httpServletRequest) {
         Approve approve = approveMap.get("approve");
         String jwtToken = httpServletRequest.getHeader(Constants.AUTHORIZATION);
         Boolean approval = articleService.articleApproval(approve, id, jwtToken);
@@ -183,11 +183,11 @@ public class ArticleController {
      */
     @RequestMapping(method = RequestMethod.GET)
     public Page<Article>  getArticles(final HttpServletRequest httpServletRequest,
-            @RequestParam(value = "filter", required = false) final ArticleFilter filter,
-            @RequestParam(value = "type", required = false) final String type,
-            @RequestParam(value = "status", required = false) final String status,
-            @RequestParam(value = "search", required = false, defaultValue = "") final String search,
-            @PageableDefault(value = Constants.PAGE_SIZE)final Pageable page) {
+                                      @RequestParam(value = "filter", required = false) final ArticleFilter filter,
+                                      @RequestParam(value = "type", required = false) final String type,
+                                      @RequestParam(value = "status", required = false) final String status,
+                                      @RequestParam(value = "search", required = false, defaultValue = "") final String search,
+                                      @PageableDefault(value = Constants.PAGE_SIZE)final Pageable page) {
         return articleService.getAllWithFiltersAndSearch(filter, type, status, search,
                 page, httpServletRequest.getHeader(Constants.AUTHORIZATION));
     }
@@ -200,9 +200,10 @@ public class ArticleController {
      * @return ModelMap.
      */
     @RequestMapping(value = "/kb", method = RequestMethod.GET)
-    public Page<KBArticle>  getArticlesByTitle(@RequestParam(value = "search" , required = false) final String search,
-                                               @PageableDefault(value = Constants.PAGE_SIZE)final Pageable page,
-                                               final HttpServletRequest httpServletRequest) {
+    public Page<KBArticle> getArticlesByTitle(
+            @RequestParam(value = "search", required = false, defaultValue = "") final String search,
+            @PageableDefault(value = Constants.PAGE_SIZE)final Pageable page,
+            final HttpServletRequest httpServletRequest) {
         return articleService.getKBArticlesWithSearch(search, page);
     }
 }

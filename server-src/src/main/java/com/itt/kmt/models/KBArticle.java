@@ -45,5 +45,10 @@ public class KBArticle {
      * Restriction of article.
      */
     private Boolean restricted;
+
+    /**
+     * ArticleType of Article.
+     */
+    private Object articleType;
 }
 
