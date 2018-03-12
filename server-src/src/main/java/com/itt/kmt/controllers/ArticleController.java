@@ -1,11 +1,14 @@
 
 package com.itt.kmt.controllers;
 
-import java.util.HashMap;
-import java.util.List;
-
-import javax.servlet.http.HttpServletRequest;
-
+import com.itt.kmt.models.Approve;
+import com.itt.kmt.models.Article;
+import com.itt.kmt.models.ArticleFilter;
+import com.itt.kmt.models.ArticleType;
+import com.itt.kmt.models.KBArticle;
+import com.itt.kmt.response.models.ResponseMsg;
+import com.itt.kmt.services.ArticleService;
+import com.itt.utility.Constants;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -19,15 +22,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.itt.kmt.models.Approve;
-import com.itt.kmt.models.Article;
-import com.itt.kmt.models.ArticleFilter;
-import com.itt.kmt.models.ArticleType;
+import javax.servlet.http.HttpServletRequest;
+import java.util.HashMap;
+import java.util.List;
 import com.itt.kmt.models.Attachment;
-import com.itt.kmt.response.models.ResponseMsg;
-import com.itt.kmt.services.ArticleService;
 import com.itt.kmt.services.AttachmentService;
-import com.itt.utility.Constants;
 
 /**
  * This class is responsible for exposing REST APis for Article.
@@ -54,14 +53,14 @@ public class ArticleController {
      */
     @RequestMapping(method = RequestMethod.POST, produces = "application/json")
     public ModelMap addArticle(@RequestBody
-            final HashMap<String, Article> articleMap) {
+                               final HashMap<String, Article> articleMap) {
         Article article = articleMap.get("article");
         List<Attachment> attachments = article.getAttachments();
         article.setAttachments(null);
         article = articleService.save(article);
-        
+
         // linking attached attachments
-        
+
         if (attachments != null && attachments.size() > 0) {
             attachmentService.updateAttachmentWithArticleId(attachments, article.getId());
         }
@@ -79,8 +78,8 @@ public class ArticleController {
      */
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT, produces = "application/json")
     public ModelMap updateArticle(@PathVariable(value = "id")
-    final String id, @RequestBody
-    final HashMap<String, Article> articleMap) {
+                                  final String id, @RequestBody
+                                  final HashMap<String, Article> articleMap) {
 
         articleService.updateArticle(id, articleMap.get("article"));
         return new ModelMap().addAttribute("success", new ResponseMsg(true, Constants.DEFAULT_UPDATE_SUCCESS_MSG));
@@ -90,13 +89,14 @@ public class ArticleController {
      * REST Interface for Article retrieval by id.
      *
      * @param id ID of the Article.
+     * @param httpServletRequest servlet request.
      * @return Article object that corresponds to Article id.
      */
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
-    public ModelMap getArticleById(@PathVariable(value = "id")
-    final String id) {
-
-        return new ModelMap().addAttribute("article", articleService.getArticleById(id));
+    public ModelMap getArticleById(@PathVariable(value = "id") final String id,
+                                   final HttpServletRequest httpServletRequest) {
+        return new ModelMap().addAttribute("article",
+                articleService.getArticleById(id, httpServletRequest.getHeader(Constants.AUTHORIZATION)));
     }
 
     /**
@@ -119,7 +119,7 @@ public class ArticleController {
      */
     /**
      * REST API to return all Article types.
-     * 
+     *
      * @return ModelMap.
      */
     @RequestMapping(value = "/types", method = RequestMethod.GET)
@@ -139,7 +139,7 @@ public class ArticleController {
      */
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
     public ModelMap deleteArticleById(@PathVariable(value = "id")
-    final String id, final HttpServletRequest httpServletRequest) {
+                                      final String id, final HttpServletRequest httpServletRequest) {
 
         String jwtToken = httpServletRequest.getHeader(Constants.AUTHORIZATION);
         articleService.delete(id, jwtToken);
@@ -156,8 +156,8 @@ public class ArticleController {
      */
     @RequestMapping(value = "/approve/{id}", method = RequestMethod.PUT)
     public ModelMap getArticleTypes(@PathVariable(value = "id") final String id,
-            @RequestBody final HashMap<String, Approve> approveMap,
-            final HttpServletRequest httpServletRequest) {
+                                    @RequestBody final HashMap<String, Approve> approveMap,
+                                    final HttpServletRequest httpServletRequest) {
         Approve approve = approveMap.get("approve");
         String jwtToken = httpServletRequest.getHeader(Constants.AUTHORIZATION);
         Boolean approval = articleService.articleApproval(approve, id, jwtToken);
@@ -183,12 +183,27 @@ public class ArticleController {
      */
     @RequestMapping(method = RequestMethod.GET)
     public Page<Article>  getArticles(final HttpServletRequest httpServletRequest,
-            @RequestParam(value = "filter", required = false) final ArticleFilter filter,
-            @RequestParam(value = "type", required = false) final String type,
-            @RequestParam(value = "status", required = false) final String status,
-            @RequestParam(value = "search", required = false, defaultValue = "") final String search,
-            @PageableDefault(value = Constants.PAGE_SIZE)final Pageable page) {
+                                      @RequestParam(value = "filter", required = false) final ArticleFilter filter,
+                                      @RequestParam(value = "type", required = false) final String type,
+                                      @RequestParam(value = "status", required = false) final String status,
+                                      @RequestParam(value = "search", required = false, defaultValue = "") final String search,
+                                      @PageableDefault(value = Constants.PAGE_SIZE)final Pageable page) {
         return articleService.getAllWithFiltersAndSearch(filter, type, status, search,
                 page, httpServletRequest.getHeader(Constants.AUTHORIZATION));
+    }
+
+    /**
+     * REST API for approval process of article.
+     * @param search ID of the Article.
+     * @param httpServletRequest servlet request.
+     * @param page , It is a pageable object with default size of 10 elements
+     * @return ModelMap.
+     */
+    @RequestMapping(value = "/kb", method = RequestMethod.GET)
+    public Page<KBArticle> getArticlesByTitle(
+            @RequestParam(value = "search", required = false, defaultValue = "") final String search,
+            @PageableDefault(value = Constants.PAGE_SIZE)final Pageable page,
+            final HttpServletRequest httpServletRequest) {
+        return articleService.getKBArticlesWithSearch(search, page);
     }
 }
