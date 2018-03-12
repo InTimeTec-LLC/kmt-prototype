@@ -1,4 +1,4 @@
-<div class="container">
+<!--<div class="container">
     <div class="breadcrumb-fullwidth">
         <div class="breadcrumb-bar">
              <ul class="breadcrumb">
@@ -29,40 +29,40 @@
             <div *ngIf='filterList.length === 0' class="noRecord">No Record Found</div>
             <mat-table [dataSource]="dataSource" matSort class="list_table" *ngIf='filterList.length > 0'>
           
-              <!-- ID Column -->
+              <!-- ID Column 
               <ng-container matColumnDef="name">
                 <mat-header-cell *matHeaderCellDef mat-sort-header> Name </mat-header-cell>
                 <mat-cell *matCellDef="let row"> {{row.firstName}} {{row.lastName}} </mat-cell>
-              </ng-container>
+              </ng-container>-->
           
-              <!-- Progress Column -->
+              <!-- Progress Column 
               <ng-container matColumnDef="email">
                 <mat-header-cell *matHeaderCellDef mat-sort-header> Email </mat-header-cell>
                 <mat-cell *matCellDef="let row"> {{row.email}} </mat-cell>
-              </ng-container>
+              </ng-container>-->
           
-              <!-- Name Column -->
+              <!-- Name Column 
               <ng-container matColumnDef="role">
                 <mat-header-cell *matHeaderCellDef mat-sort-header> Role </mat-header-cell>
                 <mat-cell *matCellDef="let row"> {{row.userRole}} </mat-cell>
-              </ng-container>
+              </ng-container>-->
         
-               <!-- status Column -->
+               <!-- status Column 
                <ng-container matColumnDef="status">
                   <mat-header-cell *matHeaderCellDef mat-sort-header> Status </mat-header-cell>
                   <mat-cell *matCellDef="let row"> 
                       <span *ngIf="!row.status">Inactive</span>
                       <span *ngIf="row.status">Active</span>
                   </mat-cell>
-                </ng-container>
+                </ng-container>-->
         
-              <!-- status Column -->
+              <!-- status Column 
               <ng-container matColumnDef="createdon">
                   <mat-header-cell *matHeaderCellDef mat-sort-header> Created On </mat-header-cell>
                   <mat-cell *matCellDef="let row"> {{row.createdOn | date }} </mat-cell>
                 </ng-container>
         
-                <!-- Color Column -->
+                <!-- Color Column 
               <ng-container matColumnDef="actions">
                   <mat-header-cell *matHeaderCellDef mat-sort-header> Actions </mat-header-cell>
                   <mat-cell *matCellDef="let row" class="action-link">
@@ -70,9 +70,9 @@
                     <a *ngIf="row.status" (click)="onTapActions(false, row.id)">Deactivate</a>
                     <a *ngIf="!row.status" (click)="onTapActions(true, row.id)">Activate</a> 
                   </mat-cell>
-                </ng-container>
+                </ng-container>-->
           
-              <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+             <!-- <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
               <mat-row *matRowDef="let row; columns: displayedColumns;">
               </mat-row>
             </mat-table>
@@ -100,40 +100,40 @@
                     <div *ngIf='filterList.length === 0' class="noRecord">No Record Found</div>
                     <mat-table [dataSource]="dataSource" matSort class="list_table" *ngIf='filterList.length > 0'>
                   
-                      <!-- ID Column -->
+                      <!-- ID Column 
                       <ng-container matColumnDef="name">
                         <mat-header-cell *matHeaderCellDef mat-sort-header> Name </mat-header-cell>
                         <mat-cell *matCellDef="let row"> {{row.firstName}} {{row.lastName}} </mat-cell>
-                      </ng-container>
+                      </ng-container>-->
                   
-                      <!-- Progress Column -->
+                      <!-- Progress Column
                       <ng-container matColumnDef="email">
                         <mat-header-cell *matHeaderCellDef mat-sort-header> Email </mat-header-cell>
                         <mat-cell *matCellDef="let row"> {{row.email}} </mat-cell>
-                      </ng-container>
+                      </ng-container> -->
                   
-                      <!-- Name Column -->
+                      <!-- Name Column 
                       <ng-container matColumnDef="role">
                         <mat-header-cell *matHeaderCellDef mat-sort-header> Role </mat-header-cell>
                         <mat-cell *matCellDef="let row"> {{row.userRole}} </mat-cell>
-                      </ng-container>
+                      </ng-container>-->
                 
-                       <!-- status Column -->
+                       <!-- status Column
                        <ng-container matColumnDef="status">
                           <mat-header-cell *matHeaderCellDef mat-sort-header> Status </mat-header-cell>
                           <mat-cell *matCellDef="let row"> 
                               <span *ngIf="!row.status">Inactive</span>
                               <span *ngIf="row.status">Active</span>
                           </mat-cell>
-                        </ng-container>
+                        </ng-container> -->
                 
-                      <!-- status Column -->
+                      <!-- status Column 
                       <ng-container matColumnDef="createdon">
                           <mat-header-cell *matHeaderCellDef mat-sort-header> Created On </mat-header-cell>
                           <mat-cell *matCellDef="let row"> {{row.createdOn | date }} </mat-cell>
-                        </ng-container>
+                        </ng-container>-->
                 
-                        <!-- Color Column -->
+                        <!-- Color Column
                       <ng-container matColumnDef="actions">
                           <mat-header-cell *matHeaderCellDef mat-sort-header> Actions </mat-header-cell>
                           <mat-cell *matCellDef="let row" class="action-link">
@@ -169,41 +169,41 @@
                             <div *ngIf='filterList.length === 0' class="noRecord">No Record Found</div>
                             <mat-table [dataSource]="dataSource" matSort class="list_table" *ngIf='filterList.length > 0'>
                           
-                              <!-- ID Column -->
+                              <!-- ID Column 
                               <ng-container matColumnDef="name">
                                 <mat-header-cell *matHeaderCellDef mat-sort-header> Name </mat-header-cell>
                                 <mat-cell *matCellDef="let row"> {{row.firstName}} {{row.lastName}} </mat-cell>
-                              </ng-container>
+                              </ng-container>-->
                           
-                              <!-- Progress Column -->
+                              <!-- Progress Column 
                               <ng-container matColumnDef="email">
                                 <mat-header-cell *matHeaderCellDef mat-sort-header> Email </mat-header-cell>
                                 <mat-cell *matCellDef="let row"> {{row.email}} </mat-cell>
-                              </ng-container>
+                              </ng-container>-->
                           
-                              <!-- Name Column -->
+                              <!-- Name Column 
                               <ng-container matColumnDef="role">
                                 <mat-header-cell *matHeaderCellDef mat-sort-header> Role </mat-header-cell>
                                 <mat-cell *matCellDef="let row"> {{row.userRole}} </mat-cell>
-                              </ng-container>
+                              </ng-container>-->
                         
-                               <!-- status Column -->
+                               <!-- status Column
                                <ng-container matColumnDef="status">
                                   <mat-header-cell *matHeaderCellDef mat-sort-header> Status </mat-header-cell>
                                   <mat-cell *matCellDef="let row"> 
                                       <span *ngIf="!row.status">Inactive</span>
                                       <span *ngIf="row.status">Active</span>
                                   </mat-cell>
-                                </ng-container>
+                                </ng-container> -->
                         
-                              <!-- status Column -->
+                              <!-- status Column 
                               <ng-container matColumnDef="createdon">
                                   <mat-header-cell *matHeaderCellDef mat-sort-header> Created On </mat-header-cell>
                                   <mat-cell *matCellDef="let row"> {{row.createdOn | date }} </mat-cell>
                                 </ng-container>
                         
-                                <!-- Color Column -->
-                              <ng-container matColumnDef="actions">
+                                Color Column -->
+                             <!-- <ng-container matColumnDef="actions">
                                   <mat-header-cell *matHeaderCellDef mat-sort-header> Actions </mat-header-cell>
                                   <mat-cell *matCellDef="let row" class="action-link">
                                     <a [routerLink]="['/user/edit', row.id]">Edit</a> |
@@ -223,4 +223,4 @@
                     </div>
                     </div>
          
-</div>
+</div>-->
