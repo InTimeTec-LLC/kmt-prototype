@@ -10,8 +10,9 @@
           </div>
         </div>
     <div class="container-heading"><h2 class="heading-margin">Edit Article</h2></div>
+    <div class="container-body">
     <form  (ngSubmit)="onSubmit(article)" [formGroup]="article" #formDir="ngForm">
-        <div class="container-body">
+        
   
         <div class="form-box form-field-error">
           <mat-form-field>
@@ -109,7 +110,8 @@
           <button mat-raised-button type="submit" [disabled]="article.invalid">Submit for review</button>
         </div>
         
-        </div>
+       
         </form>
+      </div>
   </div>
   

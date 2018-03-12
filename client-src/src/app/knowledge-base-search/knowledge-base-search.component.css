@@ -1,7 +1,7 @@
 
 .container-article-body {
     flex-direction: column;
-    padding: 20px;
+    padding: 20px 0;
     float: left;
     width: 100%;
     
