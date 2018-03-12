@@ -1,0 +1,53 @@
+
+.dashboard-lists {
+    float: left;
+    width: 100%;
+   
+}
+.dashboard-lists-fullwidth {
+    background: #fbfbfb;
+}
+.dashboard-lists-left {
+    float: left;
+    width: 45%;
+    background: #fbfbfb;
+}
+
+.dashboard-lists-right {
+    float: right;
+    width: 45%;
+    background: #fbfbfb;
+}
+
+.dashboard-table-lists {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    min-width: 300px;
+    margin: 10px 0 40px 0;
+    padding: 20px;
+}
+
+.pending-list hr {
+    border: 3px solid orange;
+}
+.filter-input {
+    position: relative;
+}
+
+.searchsubmit {
+    font-family: 'FontAwesome';
+    width: 25px;
+    height: 25px;
+    position: absolute;
+    top: 0;
+    right: 0px;
+    background: #525050;
+    border: none;
+    color: #fff;
+    cursor: pointer;
+}
