@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-knowledge-base-search',
@@ -7,9 +8,17 @@ import { Component, OnInit } from '@angular/core';
 })
 export class KnowledgeBaseSearchComponent implements OnInit {
 
-  constructor() { }
+  searchTxt: string;
+
+  constructor(private router: Router) {
+    this.searchTxt = '';
+  }
 
   ngOnInit() {
+  }
+
+  onSubmit() {
+    this.router.navigate(['knowledge-base'], { queryParams: { search: this.searchTxt }});
   }
 
 }

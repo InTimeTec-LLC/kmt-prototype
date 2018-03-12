@@ -61,6 +61,18 @@ export class KnowledgeBaseArticleService {
   }
 
   /**
+   * Returns an Observable for the HTTP GET request for the JSON resource.
+   * @return {any[]} The Observable for the HTTP request.
+   */
+
+  listKnowledgeBaseSearchResults (queryParam): Observable<any[]> {
+      const url = this.apiUrl + '/kb' + queryParam;
+      return this.http.get(url)
+   .catch(this.handleErrorObservable);
+ }
+
+
+  /**
    * Returns an Observable for the HTTP POST request for the JSON resource.
    * @return {any} The Observable for the HTTP request.
    */
@@ -71,7 +83,7 @@ export class KnowledgeBaseArticleService {
 }
 
   /**
-   * Returns an Observable for the HTTP POST request for the JSON resource.
+   * Returns an Observable for the HTTP PUT request for the JSON resource.
    * @return {any} The Observable for the HTTP request.
    */
 
@@ -81,13 +93,11 @@ export class KnowledgeBaseArticleService {
   }
 
   /**
-   * Returns an Observable for the HTTP POST request for the JSON resource.
+   * Returns an Observable for the HTTP PUT request for the JSON resource.
    * @return {any} The Observable for the HTTP request.
    */
 
   approvedKnowledgeBaseArticle (id: string, articleInfo: ApprovedKnowledgeBaseArticle): Observable<any> {
-    console.log(id);
-    console.log(articleInfo);
     return this.http.put(this.apiUrl + '/approve/' + id, {'approve': articleInfo}, httpOptions)
                .catch(this.handleErrorObservable);
   }
@@ -133,6 +143,11 @@ export class KnowledgeBaseArticleService {
     return this.http.delete(endpoint, {}).
     catch(this.handleErrorObservable);
   }
+
+  /**
+   * Returns an Observable for the HTTP GET request for the JSON resource.
+   * @return {any} The Observable for the HTTP request.
+   */
 
   public downloadAttachment(id: string): Observable<Blob> {
     const endpoint = environment.API_ENDPOINT + 'attachments/' + id;

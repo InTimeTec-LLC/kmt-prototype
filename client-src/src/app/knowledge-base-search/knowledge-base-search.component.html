@@ -18,9 +18,9 @@
             <h3>How can we help you today?</h3>
               
           </div>
-<form role="search" method="get" id="searchform" class="searchform" action="#" _lpchecked="1">
+<form (ngSubmit)="onSubmit();" role="search" method="get" id="searchform" class="searchform" action="#" _lpchecked="1">
 <div class="searchboxwrapper">
-  <input class="searchbox" type="text" value="" name="s" placeholder="Search for" id="s">
+  <input class="searchbox" type="text" value="" name="s" placeholder="Search for" id="search" [(ngModel)]="searchTxt">
   <input class="searchsubmit" type="submit" id="searchsubmit" value="">
 </div>
 </form>

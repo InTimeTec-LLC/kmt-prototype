@@ -14,55 +14,23 @@
 <div class="container-article-body">
 <form role="search" method="get" id="searchform" class="searchform" action="#" _lpchecked="1">
 <div class="searchboxwrapper">
-  <input class="searchbox" type="text" value="" name="s" placeholder="Search for" id="s">
-  <input class="searchsubmit" type="submit" id="searchsubmit" value="">
+  <input class="searchbox" type="text" value="" name="s" placeholder="Search for" id="s" [(ngModel)]="searchTxt">
+  <input class="searchsubmit" type="submit" id="searchsubmit" value="" (click)="onSubmit()">
 </div>
 </form>
 <div class="created-articles">
-    <div class="article-box"> 
-        <h3><a href="#">Title</a> </h3>
-        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, 
-          sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-           Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-            aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in 
-            voluptate velit esse cillum dolore .
-         </p>
-        <p class="article-date">John Doe 12/11/2017 Article Type</p>
+
+    
+    <div class="article-box" *ngFor="let article of kbSearchResults.content"> 
+        <h3><a href="#">{{article.title}}</a> </h3>
+        <p [innerHTML]="article.description">{{article.description}}</p>
+        <p class="article-date">{{article.createdBy.firstName}} {{article.createdBy.lastName}},12/11/2017 Article Type</p>
         <hr>
       </div>
-      <div class="article-box"> 
-          <h3><a href="#">Title</a> </h3>
-          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, 
-            sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-             Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-              aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in 
-              voluptate velit esse cillum dolore .
-           </p>
-           <p class="article-date">John Doe 12/11/2017 Article Type</p>
-          <hr>
-        </div>
-        <div class="article-box"> 
-            <h3><a href="#">Title</a> </h3>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, 
-              sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-               Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-                aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in 
-                voluptate velit esse cillum dolore .
-             </p>
-             <p class="article-date">John Doe 12/11/2017 Article Type</p>
-            <hr>
-          </div>
-          <div class="article-box"> 
-              <h3><a href="#">Title</a> </h3>
-              <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, 
-                sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                 Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-                  aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in 
-                  voluptate velit esse cillum dolore .
-               </p>
-               <p class="article-date">John Doe 12/11/2017 Article Type</p>
-              <hr>
-            </div>
   </div>
+  <br /><br />
+  <div *ngIf='kbSearchResults.content.length === 0' class="noRecord">No Record Found</div>
+  <mat-paginator *ngIf="kbSearchResults.content.length > 0" [length]="kbSearchResults.totalElements" [pageSize]="1" (page)="pageEvent = $event; onPaginateChange($event)">
+  </mat-paginator>
 </div>
 </div>
