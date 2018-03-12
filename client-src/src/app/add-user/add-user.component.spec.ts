@@ -9,6 +9,7 @@ import { ToasterService } from 'angular5-toaster';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AddUserComponent } from './add-user.component';
 
+
 describe('AddUserComponent', () => {
   let component: AddUserComponent;
   let fixture: ComponentFixture<AddUserComponent>;
