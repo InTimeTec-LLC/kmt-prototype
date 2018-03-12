@@ -159,7 +159,6 @@ background-color: #fff;
 /* for user setting and artical table action ..........*/
 .action-link a{
   color: #4388f3;
-  user-select: none;
 }
 .action-link a:visited {
   color:#164fa5;
@@ -255,6 +254,7 @@ background-color: #fff;
     list-style: none;
     background-color: #eee;
     margin: 0px;
+    user-select: none;
   }
   ul.breadcrumb li {
     display: inline;
@@ -265,14 +265,10 @@ background-color: #fff;
     content: "/\00a0";
   }
   ul.breadcrumb li a {
-    color: #0275d8;
+    color: #262626;
     text-decoration: none;
   }
   ul.breadcrumb li a:hover {
     color: #01447e;
     text-decoration: underline;
-   }
-
-   span {
-    user-select: none;
    }
