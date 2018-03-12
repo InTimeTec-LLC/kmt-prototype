@@ -12,15 +12,15 @@
     <div class="container-heading"><h2 class="heading-margin">Articles</h2></div>
     <div class="container-table-body">
 
-  <div class="filter-input">
-    <mat-form-field>
-      <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Search within the table">
-    </mat-form-field>
-    <img src="../../assets/images/search_gray.png" alt="Filtericon" class="search_icon">
-    <img src="../../assets/images/filter-icon.png" (click)="onTapFilterIcon()" alt="Filtericon" class="filter_icon">
-     <span class="filter_text"><b> Filter Applied:</b> status | <b> Pending Approvals:</b>  <a href="#"> Assigned to me</a> | <a href="#"> Created by me</a></span>
+      <div class="filter-input">
+        <mat-form-field>
+          <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Search within the table">
+        </mat-form-field>
+        <img src="../../assets/images/search_gray.png" alt="Filtericon" class="search_icon">
+        <img src="../../assets/images/filter-icon.png" (click)="onTapFilterIcon()" alt="Filtericon" class="filter_icon">
+        <span class="filter_text"><b> Filter Applied:</b> status | <b> Pending Approvals:</b>  <a href="#"> Assigned to me</a> | <a href="#"> Created by me</a></span>
 
-  </div>
+      </div>
   
   <div class="table-input-list mat-elevation-z8">
   

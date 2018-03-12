@@ -9,12 +9,20 @@
              </ul>
           </div>
         </div>
-  <h1>Dashboard
-    <a class="btn btn-default btn-lg">
-      <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
-    </a>
-  </h1>
-
-  <div>Coming Soon</div>
   
+        <div class="Container-table">
+            <div class="container-heading"><h2 class="heading-margin">Dashboard</h2></div>
+            <div class="container-table-body">
+
+                <div class="filter-input">
+                    <mat-form-field>
+                      <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Search within the table">
+                    </mat-form-field>
+                    <img src="../../assets/images/search_gray.png" alt="Filtericon" class="search_icon">
+                 </div>
+
+                 
+                
+  </div>
+  </div>
 </div>
