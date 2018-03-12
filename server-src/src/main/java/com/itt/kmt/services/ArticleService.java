@@ -367,9 +367,11 @@ public class ArticleService {
             article.setApproved(true);
             List<Comment> comments = article.getComments();
 
-            if (comments.size() > 0) {
-                deleteComments(comments);
-                article.setComments(null);
+            if (comments != null) {
+                if (comments.size() > 0) {
+                    deleteComments(comments);
+                    article.setComments(null);
+                }
             }
             articleRepository.save(article);
             try {
@@ -472,9 +474,11 @@ public class ArticleService {
      * @return Page<Article> get list of articles.
      */
     private Page<Article> getAllWithFiltersAndSearch(final String userRole, final ObjectId userId, final String filter,
-                                                     final List<ObjectId> type, final List<Boolean> status, final String search, final Pageable page) {
+                                                     final List<ObjectId> type, final List<Boolean> status,
+                                                     final String search, final Pageable page) {
         switch (userRole) {
-            case Constants.ROLE_USER: return articleRepository.findArticlesByCreatedBy(userId, type, status, search, page);
+            case Constants.ROLE_USER:
+                return articleRepository.findArticlesByCreatedBy(userId, type, status, search, page);
             case Constants.ROLE_MANAGER:
                 if (StringUtils.isBlank(filter)) {
                     return articleRepository.findAllArticles(userId, type, status, search, page);
