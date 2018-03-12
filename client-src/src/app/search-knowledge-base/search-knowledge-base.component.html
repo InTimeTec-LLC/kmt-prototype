@@ -24,7 +24,7 @@
     <div class="article-box" *ngFor="let article of kbSearchResults.content"> 
         <h3><a [routerLink]="['/article-detail', article.id]">{{article.title}}</a> </h3>
         <p [innerHTML]="article.description">{{article.description}}</p>
-        <p class="article-date">{{article.createdBy.firstName}} {{article.createdBy.lastName}},{{article.lastModifiedTime | date: 'mm/dd/yyyy'}}
+        <p class="article-date">{{article.createdBy.firstName}} {{article.createdBy.lastName}},{{article.lastModifiedTime: date: 'mm/dd/YYYY'}}
                 {{article.articleType.type}}</p>
         <hr>
       </div>
