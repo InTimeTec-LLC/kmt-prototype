@@ -4,6 +4,8 @@ import lombok.Data;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.Id;
 
+import java.util.Date;
+
 /**
  * This class represents a Comment.
  *
@@ -26,7 +28,7 @@ public class Comment {
      *  role.
      */
     @CreatedDate
-    private String createdTime;
+    private Date createdTime;
 
     /**
      * user gave comment.
