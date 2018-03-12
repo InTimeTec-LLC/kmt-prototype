@@ -3,6 +3,7 @@
     flex-direction: column;
     padding: 20px;
     float: left;
+    width: 96%;
     
   }
   .searchform div {

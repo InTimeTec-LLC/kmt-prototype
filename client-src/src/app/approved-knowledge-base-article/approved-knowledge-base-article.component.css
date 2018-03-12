@@ -11,6 +11,7 @@
 .left-container{
     float: left;
     padding: 20px;
+    width: 96%
 }
 .left-container div{
     margin-bottom:20px 
