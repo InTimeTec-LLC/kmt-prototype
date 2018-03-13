@@ -122,7 +122,7 @@ public class MailService {
      * @return boolean
      **/
     @Async
-    public Future<Boolean> sendCreateArticleMail(final User user) throws MailException, InterruptedException {
+    public Future<Boolean> sendCreateArticleMail(final UserResponse user) throws MailException, InterruptedException {
 
         Map<String, String> model = new HashMap<String, String>();
 
@@ -187,19 +187,19 @@ public class MailService {
             tmplt = EmailConstants.DELETE_KA_BYADMIN_MAIL_TMPLT;
             subject = EmailConstants.SUBJECT_ARTICLE_DELETEDBY_ADMIN_MAIL;
 
-            UserResponse approver = (UserResponse) article.getApprover();
+            UserResponse createdBy = (UserResponse) article.getCreatedBy();
 
-            model.put(EmailConstants.PARAM_USER_FIRST_NAME, approver.getFirstName());
-            model.put(EmailConstants.PARAM_USER_MAIL_ID, approver.getEmail());
+            model.put(EmailConstants.PARAM_USER_FIRST_NAME, createdBy.getFirstName());
+            model.put(EmailConstants.PARAM_USER_MAIL_ID, createdBy.getEmail());
             model.put(EmailConstants.PARAM_EMAIL_SUBJECT, subject);
             sendMail(tmplt, model);
             model.clear();
         }
 
-        UserResponse createdBy = (UserResponse) article.getCreatedBy();
+        UserResponse approver = (UserResponse) article.getApprover();
 
-        model.put(EmailConstants.PARAM_USER_FIRST_NAME, createdBy.getFirstName());
-        model.put(EmailConstants.PARAM_USER_MAIL_ID, createdBy.getEmail());
+        model.put(EmailConstants.PARAM_USER_FIRST_NAME, approver.getFirstName());
+        model.put(EmailConstants.PARAM_USER_MAIL_ID, approver.getEmail());
         model.put(EmailConstants.PARAM_EMAIL_SUBJECT, subject);
 
         return new AsyncResult<Boolean>(sendMail(tmplt, model));
