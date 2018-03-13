@@ -22,6 +22,7 @@
 		"permissions": [
 			"addContent",
 			"updateContent",
+			"getUserById",
 			"deleteContent",
 			"getAllApprovers",
 			"getAllRoles",
@@ -32,6 +33,7 @@
 		"role": "user",
 		"permissions": [
 			"addContent",
+			"getUserById",
 			"updateContent",
 			"deleteContent",
 			"getAllApprovers",
