@@ -1,7 +1,6 @@
 package com.itt.kmt.controllers;
 
-import java.io.IOException;
-
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.boot.autoconfigure.web.ErrorController;
@@ -22,28 +21,17 @@ public class KMTErrorController implements ErrorController {
      * when /error is called it will invoke this method,  
      * which in turn redirects to "/" which is index page
      * 
-     *@param response , response is a reference of HttpServletResponse object, which we are use to redirect. 
-     *@throws IOException .
+     *@param request , request is a reference of HttpServletRequest object, which we use to forward the request 
+     *@param response , response is a reference of HttpServletResponse object, which we use to forward the request
      */
-    @RequestMapping(value = "/errorPage", method = RequestMethod.GET)
-    public void redirect(final HttpServletResponse response) throws IOException {
-        response.sendRedirect("/");
-    }
-
-    /**
-     * This is custom implementation of Angular Routes.
-     * when a route like /login is called it will invoke this method,  
-     * which in turn redirects to "/" which is index page
-     * 
-     *@param response , response is a reference of HttpServletResponse object, which we are use to redirect 
-     */
-    @RequestMapping(value = "/{[path:[^\\.]*}")
-    public void redirectToIndex(final HttpServletResponse response)  {
+    
+    @RequestMapping(value = {"/errorPage" , "/{[path:[^\\.]*}"}, method = RequestMethod.GET)
+    public void redirect(final HttpServletRequest request, final HttpServletResponse response) {
         try {
-            response.sendRedirect("/");
-        } catch (IOException e) {
+            request.getRequestDispatcher("/index.html").forward(request, response);
+        } catch (Exception e) {
             e.printStackTrace();
-        }
+        } 
     }
 
     /**
