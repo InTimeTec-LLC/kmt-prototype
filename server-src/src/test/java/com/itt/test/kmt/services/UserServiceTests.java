@@ -140,7 +140,7 @@ public class UserServiceTests {
     }
 
     @Test
-    public final void filterUsersByStatusAndRole() {
+    public final void filterUsersWithoutFiltersAndSearch() {
 
         // Arrange
         User user1 = testDataRepository.getUsers()
@@ -159,6 +159,198 @@ public class UserServiceTests {
         // Assert
         assertTrue(pages.getContent().containsAll(pageOfUsers.getContent()));
         verify(userRepository, times(1)).findAll(user1.getEmail(), pageReq);
+    }
+
+    @Test
+    public final void filterUsersWithRoleAndEmptySearch() {
+
+        // Arrange
+        User user1 = testDataRepository.getUsers()
+                .get("user-1");
+        User user2 = testDataRepository.getUsers()
+                .get("user-2");
+        List<User> usersList = new ArrayList<User>();
+        usersList.add(user2);
+        PageRequest pageReq = new PageRequest(0, 1);
+
+        Page<User> pages = new PageImpl<User>(usersList);
+        when(userRepository.findByUserRole("manager", user1.getEmail(), pageReq)).thenReturn(pages);
+        //Act
+        Page<User> pageOfUsers = userService.filterUsersByStatusAndRole(null, "manager", null, 
+                 user1.getEmail(), pageReq);
+
+        // Assert
+        assertTrue(pages.getContent().containsAll(pageOfUsers.getContent()));
+        verify(userRepository, times(1)).findByUserRole("manager", user1.getEmail(), pageReq);
+    }
+    
+
+    @Test
+    public final void filterUsersWithRoleAndStatusAndEmptySearch() {
+
+        // Arrange
+        User user1 = testDataRepository.getUsers()
+                .get("user-1");
+        User user2 = testDataRepository.getUsers()
+                .get("user-2");
+        List<User> usersList = new ArrayList<User>();
+        usersList.add(user2);
+        PageRequest pageReq = new PageRequest(0, 1);
+
+        Page<User> pages = new PageImpl<User>(usersList);
+        when(userRepository.findByUserRoleAndActive("manager", true, user1.getEmail(), pageReq)).thenReturn(pages);
+        //Act
+        Page<User> pageOfUsers = userService.filterUsersByStatusAndRole(null, "manager", true, 
+                   user1.getEmail(), pageReq);
+
+        // Assert
+        assertTrue(pages.getContent().containsAll(pageOfUsers.getContent()));
+        verify(userRepository, times(1)).findByUserRoleAndActive("manager", true, user1.getEmail(), pageReq);
+    }
+
+    @Test
+    public final void filterUsersWithStatusAndEmptySearch() {
+
+        // Arrange
+        User user1 = testDataRepository.getUsers()
+                .get("user-1");
+        User user2 = testDataRepository.getUsers()
+                .get("user-2");
+        User user3 = testDataRepository.getUsers()
+                .get("user-3");
+        List<User> usersList = new ArrayList<User>();
+        usersList.add(user2);
+        usersList.add(user3);
+        PageRequest pageReq = new PageRequest(0, 1);
+
+        Page<User> pages = new PageImpl<User>(usersList);
+        when(userRepository.findByActive(true, user1.getEmail(), pageReq)).thenReturn(pages);
+        //Act
+        Page<User> pageOfUsers = userService.filterUsersByStatusAndRole(null, null, true, 
+                   user1.getEmail(), pageReq);
+
+        // Assert
+        assertTrue(pages.getContent().containsAll(pageOfUsers.getContent()));
+        verify(userRepository, times(1)).findByActive(true, user1.getEmail(), pageReq);
+    }
+
+    @Test
+    public final void filterUsersWithFiltersAndSearch() {
+
+        // Arrange
+        User user1 = testDataRepository.getUsers()
+                .get("user-1");
+        User user2 = testDataRepository.getUsers()
+                .get("user-2");
+
+        List<User> usersList = new ArrayList<User>();
+        usersList.add(user2);
+
+        PageRequest pageReq = new PageRequest(0, 1);
+
+        Page<User> pages = new PageImpl<User>(usersList);
+
+        when(userRepository.findByFirstNameOrLastNameOrEmailAndActiveAndUserRole(user2.getFirstName(),
+                user1.getEmail(), 
+                true, "manager", pageReq)).thenReturn(pages);
+        //Act
+        Page<User> pageOfUsers = userService.filterUsersByStatusAndRole(user2.getFirstName(), 
+                   "manager", true, 
+                   user1.getEmail(), pageReq);
+
+        // Assert
+        assertTrue(pages.getContent().containsAll(pageOfUsers.getContent()));
+        verify(userRepository, times(1)).findByFirstNameOrLastNameOrEmailAndActiveAndUserRole(user2.getFirstName(), 
+                user1.getEmail(), 
+                true, "manager", pageReq);
+    }
+
+    @Test
+    public final void filterUsersWithStatusAndSearch() {
+
+        // Arrange
+        User user1 = testDataRepository.getUsers()
+                .get("user-1");
+        User user2 = testDataRepository.getUsers()
+                .get("user-2");
+
+        List<User> usersList = new ArrayList<User>();
+        usersList.add(user2);
+
+        PageRequest pageReq = new PageRequest(0, 1);
+
+        Page<User> pages = new PageImpl<User>(usersList);
+
+        when(userRepository.findByFirstNameOrLastNameOrEmailAndActive(user2.getFirstName(), user1.getEmail(), 
+             true, pageReq)).thenReturn(pages);
+        //Act
+        Page<User> pageOfUsers = userService.filterUsersByStatusAndRole(user2.getFirstName(), 
+                   null, true, 
+                   user1.getEmail(), pageReq);
+
+        // Assert
+        assertTrue(pages.getContent().containsAll(pageOfUsers.getContent()));
+        verify(userRepository, times(1)).findByFirstNameOrLastNameOrEmailAndActive(user2.getFirstName(), 
+                 user1.getEmail(), true, pageReq);
+    }
+
+    @Test
+    public final void filterUsersWithRoleAndSearch() {
+
+        // Arrange
+        User user1 = testDataRepository.getUsers()
+                .get("user-1");
+        User user2 = testDataRepository.getUsers()
+                .get("user-2");
+
+        List<User> usersList = new ArrayList<User>();
+        usersList.add(user2);
+
+        PageRequest pageReq = new PageRequest(0, 1);
+
+        Page<User> pages = new PageImpl<User>(usersList);
+
+        when(userRepository.findByFirstNameOrLastNameOrEmailAndUserRole(user2.getFirstName(), user1.getEmail(), 
+             "manager", pageReq)).thenReturn(pages);
+        //Act
+        Page<User> pageOfUsers = userService.filterUsersByStatusAndRole(user2.getFirstName(), 
+                   "manager", null, 
+                   user1.getEmail(), pageReq);
+
+        // Assert
+        assertTrue(pages.getContent().containsAll(pageOfUsers.getContent()));
+        verify(userRepository, times(1)).findByFirstNameOrLastNameOrEmailAndUserRole(user2.getFirstName(), 
+                 user1.getEmail(), 
+                "manager", pageReq);
+    }
+
+    @Test
+    public final void filterUsersWithSearchOnly() {
+
+        // Arrange
+        User user1 = testDataRepository.getUsers()
+                .get("user-1");
+        User user2 = testDataRepository.getUsers()
+                .get("user-2");
+
+        List<User> usersList = new ArrayList<User>();
+        usersList.add(user2);
+
+        PageRequest pageReq = new PageRequest(0, 1);
+
+        Page<User> pages = new PageImpl<User>(usersList);
+
+        when(userRepository.findByFirstNameOrLastNameOrEmail(user2.getFirstName(), user1.getEmail(), 
+             pageReq)).thenReturn(pages);
+        //Act
+        Page<User> pageOfUsers = userService.filterUsersByStatusAndRole(user2.getFirstName(), 
+                   null, null, 
+                   user1.getEmail(), pageReq);
+
+        // Assert
+        assertTrue(pages.getContent().containsAll(pageOfUsers.getContent()));
+        verify(userRepository, times(1)).findByFirstNameOrLastNameOrEmail(user2.getFirstName(), user1.getEmail(), 
+                pageReq);
     }
 
     @Test
@@ -342,7 +534,7 @@ public class UserServiceTests {
         .thenReturn(user);
         when(userService.changeUserStatus(user.getId(), true))
         .thenThrow(new RuntimeException("Operation not permitted"));
-        when(mailService.sendUserActivateMail(user, true)).thenReturn(new AsyncResult<Boolean>(true)); 
+        when(mailService.sendUserActivateMail(user, true)).thenReturn(new AsyncResult<Boolean>(true));
 
         userService.changeUserStatus(user.getId(), true);
 
