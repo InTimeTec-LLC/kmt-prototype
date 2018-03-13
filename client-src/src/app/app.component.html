@@ -1,11 +1,11 @@
 <ng4-loading-spinner> </ng4-loading-spinner>
 <toaster-container [toasterconfig]="toasterconfig"></toaster-container>
 <mat-drawer-container class="app-container" autosize>
-  <mat-drawer #drawer class="app-sidenav" mode="side">
+  <mat-drawer #drawer class="app-sidenav" mode="side" #sidenav [opened]="screenWidth > 1024" [mode]="(screenWidth > 1024) ? 'side' : 'over'">
     <app-left-panel></app-left-panel >
   </mat-drawer>
 
-  <div class="app-sidenav-content">
+  <div class="app-sidenav-content" [ngStyle]="{'display' : (screenWidth > 1024) ? 'none' : 'block'}">
     <button *ngIf="isAuthenticated()" type="button" class="hamburger-icon" mat-button (click)="drawer.toggle()">
       <div href="#menu" class="border-menu">
       </div>
