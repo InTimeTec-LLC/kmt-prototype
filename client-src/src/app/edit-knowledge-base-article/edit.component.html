@@ -69,7 +69,7 @@
              </div> 
              <div class="description">
                 <div class="img-container">
-                    <div class="img-multiple" *ngFor="let attachement of attachements"><span (click)="downloadAttachment(attachement.id, attachement.fileName)">{{attachement.fileName}}</span><label class="x-icon" (click)="deleteAttachment(attachement.id)">x</label></div>
+                    <div class="img-multiple" *ngFor="let attachement of attachements"><span (click)="downloadAttachment(attachement.id, attachement.fileName)">{{attachement.fileName}}</span><span class="x-icon" (click)="deleteAttachment(attachement.id)">x</span></div>
               </div>
             </div>
         </div>

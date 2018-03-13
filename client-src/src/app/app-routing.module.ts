@@ -13,6 +13,7 @@ import { EditUserComponent } from './edit-user/edit-user.component';
 import { ApprovedKnowledgeBaseArticleComponent } from './approved-knowledge-base-article/approved-knowledge-base-article.component';
 import { SearchKnowledgeBaseComponent } from './search-knowledge-base/search-knowledge-base.component';
 import { KnowledgeBaseSearchComponent } from './knowledge-base-search/knowledge-base-search.component';
+import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
 
 const routes:  Routes = [
     {
@@ -75,6 +76,11 @@ const routes:  Routes = [
       path: 'knowledge-base-search',
       component: KnowledgeBaseSearchComponent,
       data: { title: 'Knowledge Base Search' }
+    },
+    {
+      path: 'forgot-password',
+      component: ForgotPasswordComponent,
+      data: { title: 'Forgot Password' }
     },
   ];
 
