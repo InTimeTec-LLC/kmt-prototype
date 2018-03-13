@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>MockServiceConfig.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">kmt-prototype</a> &gt; <a href="index.source.html" class="el_package">com.itt.mock</a> &gt; <span class="el_source">MockServiceConfig.java</span></div><h1>MockServiceConfig.java</h1><pre class="source lang-java linenums">
+package com.itt.mock;
+
+import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+
+import lombok.Data;
+import lombok.extern.slf4j.Slf4j;
+
+/**
+ * This class provides access to application configuration as defined in,
+ * application.properties. The configuration starting with &quot;mock.rest&quot; prefix
+ * are accessed by this class.
+ * 
+ * @author Rakesh Sawan
+ */
+@Configuration(&quot;mockConfig&quot;)
+@ConfigurationProperties(prefix = &quot;mock.rest&quot;)
+<span class="pc bnc" id="L20" title="All 22 branches missed.">@Data</span>
+<span class="fc" id="L21">@Slf4j</span>
+public class MockServiceConfig {
+
+    /**
+     * Default constructor that is called when the Bean is initialized.
+     */
+<span class="fc" id="L27">    public MockServiceConfig() {</span>
+<span class="fc" id="L28">        log.info(&quot;Initalizing MockConfig bean&quot;);</span>
+<span class="fc" id="L29">    }</span>
+    /**
+     * Determines if the Mock service should start or not.
+     */
+<span class="fc" id="L33">    private boolean enabled;</span>
+    /**
+     * Port to be used by Mock Service.
+     */
+<span class="fc" id="L37">    private int servicePort;</span>
+    /**
+     * Port to be used by Mock Proxy.
+     */
+<span class="fc" id="L41">    private int proxyPort;</span>
+    /**
+     * Host where the Mock service and proxy would run.
+     */
+<span class="fc" id="L45">    private String host;</span>
+
+    /**
+     * Get's the url of the Mock Service.
+     * 
+     * @return URL
+     */
+    public String getServiceUrl() {
+
+<span class="nc" id="L54">        return &quot;http://&quot; + host + &quot;:&quot; + servicePort;</span>
+    }
+
+    /**
+     * Creates a @MockRestService bean.
+     * @param mockServiceConfig Instance of @MockServiceConfig
+     * @return Instance of @MockRestService
+     */
+    @Bean (name = &quot;mockRestService&quot;)
+    public MockRestService getRestService(final MockServiceConfig mockServiceConfig) {
+
+<span class="fc" id="L65">        return MockRestService.getInstance(mockServiceConfig);</span>
+
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.1.201405082137</span></div></body></html>

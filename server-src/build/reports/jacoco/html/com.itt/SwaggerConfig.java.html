@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>SwaggerConfig.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">kmt-prototype</a> &gt; <a href="index.source.html" class="el_package">com.itt</a> &gt; <span class="el_source">SwaggerConfig.java</span></div><h1>SwaggerConfig.java</h1><pre class="source lang-java linenums">
+package com.itt;
+
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+
+import springfox.documentation.builders.PathSelectors;
+import springfox.documentation.builders.RequestHandlerSelectors;
+import springfox.documentation.spi.DocumentationType;
+import springfox.documentation.spring.web.plugins.Docket;
+import springfox.documentation.swagger2.annotations.EnableSwagger2;
+
+/**
+ * Swagger configuration.
+ * 
+ * @author Rakesh Sawan
+ */
+@Configuration
+@EnableSwagger2
+<span class="fc" id="L20">public class SwaggerConfig {</span>
+
+    /**
+     * Base package for the apis.
+     */
+    private static final String BASE_PACKAGE = &quot;com.itt&quot;;
+
+    /**
+     * Swagger2 configuration.
+     * 
+     * @return Docket instance of Docket Bean
+     */
+    @Bean
+    public Docket dbentityApi() {
+
+<span class="fc" id="L35">        return new Docket(DocumentationType.SWAGGER_2).select().apis(</span>
+<span class="fc" id="L36">            RequestHandlerSelectors.basePackage(BASE_PACKAGE)).paths(PathSelectors.any()).build();</span>
+
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.1.201405082137</span></div></body></html>

@@ -1,0 +1,104 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<project>
+  <actions/>
+  <description></description>
+  <keepDependencies>false</keepDependencies>
+  <properties/>
+  <scm class="hudson.plugins.git.GitSCM" plugin="git@3.7.0">
+    <configVersion>2</configVersion>
+    <userRemoteConfigs>
+      <hudson.plugins.git.UserRemoteConfig>
+        <url>https://github.com/InTimeTec-LLC/kmt-prototype.git</url>
+      </hudson.plugins.git.UserRemoteConfig>
+    </userRemoteConfigs>
+    <branches>
+      <hudson.plugins.git.BranchSpec>
+        <name>*/master</name>
+      </hudson.plugins.git.BranchSpec>
+    </branches>
+    <doGenerateSubmoduleConfigurations>false</doGenerateSubmoduleConfigurations>
+    <submoduleCfg class="list"/>
+    <extensions/>
+  </scm>
+  <canRoam>true</canRoam>
+  <disabled>false</disabled>
+  <blockBuildWhenDownstreamBuilding>false</blockBuildWhenDownstreamBuilding>
+  <blockBuildWhenUpstreamBuilding>false</blockBuildWhenUpstreamBuilding>
+  <triggers>
+    <hudson.triggers.SCMTrigger>
+      <spec>*/5 * * * *</spec>
+      <ignorePostCommitHooks>false</ignorePostCommitHooks>
+    </hudson.triggers.SCMTrigger>
+  </triggers>
+  <concurrentBuild>false</concurrentBuild>
+  <builders>
+    <hudson.tasks.Shell>
+      <command>#!/bin/bash
+
+isContainerRunning=$(docker ps -q -f &quot;name=adpq-web&quot;)
+if [ &quot;$isContainerRunning&quot; == &quot;&quot; ]
+then
+        #docker stop $isContainerRunning
+        #docker rm $isContainerRunning
+        echo &quot;running web&quot;
+        tomcatDeployLocation=$USERDIR&quot;/devops/tomcatDeployFiles&quot;
+        docker run -d --name adpq-web -p 80:8080 -v $tomcatDeployLocation:/usr/local/tomcat/webapps/ ittdocker/adpq-web:latest
+fi
+
+
+isContainerRunning=$(docker ps -q -f &quot;name=adpq-mongo&quot;)
+if [ &quot;$isContainerRunning&quot; == &quot;&quot; ]
+then
+        #docker stop $isContainerRunning
+        #docker rm $isContainerRunning
+        echo &quot;running mongo&quot;
+        mongoDbFiles=$USERDIR&quot;/devops/packageRepo/kmt-prototype/devops/mongoconfig/data/db/&quot;
+        docker run -d --name adpq-mongo -v $mongoDbFiles:/data/db -p 27017:27017 ittdocker/adpq-mongo:latest_1.1
+fi
+
+
+echo &quot;********* FRONT-END BUILD START *********&quot;
+cd ${WORKSPACE}/client-src
+REDIRECT_URL=&quot;&apos;http://$HOSTIP:80/api/&apos;,&quot;
+echo $REDIRECT_URL
+sed -i &quot;s#API_ENDPOINT.*#API_ENDPOINT:$REDIRECT_URL#g&quot; src/environments/environment.prod.ts
+echo &quot;********* NPM INSTALLATION *********&quot;
+npm install
+echo &quot;********* NG BUILD START *********&quot;
+ng build --prod --aot=false
+echo &quot;********* COPYING DIST FOLDER TO src/main/webapp IN SERVER-SRC *********&quot;
+if [[ -d &quot;../server-src/src/main/webapp&quot; ]]
+then
+rm -rf ../server-src/src/main/webapp
+fi
+mkdir ../server-src/src/main/webapp
+cp -r dist/* ../server-src/src/main/webapp
+
+echo &quot;********* BACK-END BUILD START *********&quot;
+cd ${WORKSPACE}/server-src
+echo &quot;********* CHANGING THE MONGO DB IP IN application.properties with $HOSTIP *********&quot;
+#sed -i &quot;s/^spring.data.mongodb.host.*/spring.data.mongodb.host=$HOSTIP/g&quot; config/application.properties
+sed -i &quot;s#^spring.data.mongodb.uri.*#spring.data.mongodb.uri=mongodb://$HOSTIP/kmt_db#g&quot; src/main/resources/application.properties
+chmod +x setenv.sh
+./setenv.sh
+chmod +x gradlew
+./gradlew -x test check
+echo &quot;********* RUNNING UNIT TEST CASES *********&quot;
+./gradlew runUnitTests
+echo &quot;********* BUILD START *********&quot;
+./gradlew clean build
+echo &quot;********* Deploying war file *********&quot;
+cp -r build/libs/*.war /var/jenkins_home/deployCodeFiles/
+
+docker restart adpq-web</command>
+    </hudson.tasks.Shell>
+  </builders>
+  <publishers/>
+  <buildWrappers>
+    <hudson.plugins.ws__cleanup.PreBuildCleanup plugin="ws-cleanup@0.34">
+      <deleteDirs>false</deleteDirs>
+      <cleanupParameter></cleanupParameter>
+      <externalDelete></externalDelete>
+    </hudson.plugins.ws__cleanup.PreBuildCleanup>
+  </buildWrappers>
+</project>

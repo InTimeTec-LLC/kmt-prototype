@@ -1,0 +1,10 @@
+Started by an SCM change
+Building in workspace /var/jenkins_home/workspace/adpq-builddeploycode
+[WS-CLEANUP] Deleting project workspace...
+[WS-CLEANUP] Done
+Cloning the remote Git repository
+Cloning repository https://github.com/InTimeTec-LLC/kmt-prototype.git
+ > git init /var/jenkins_home/workspace/adpq-builddeploycode # timeout=10
+Fetching upstream changes from https://github.com/InTimeTec-LLC/kmt-prototype.git
+ > git --version # timeout=10
+ > git fetch --tags --progress https://github.com/InTimeTec-LLC/kmt-prototype.git +refs/heads/*:refs/remotes/origin/*
