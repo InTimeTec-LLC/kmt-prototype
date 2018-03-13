@@ -133,10 +133,15 @@ public class UserControllerTest extends AbstractShiroTest {
         throws Exception {
 
         // Arrange
-        User user = testDataRepository.getUsers()
+        User user1 = testDataRepository.getUsers()
                                       .get("user-1");
-        when(userService.getUserByID(user.getId())).thenReturn(user);
-        RequestBuilder requestBuilder = MockMvcRequestBuilders.get("/users/" + user.getId())
+        User user2 = testDataRepository.getUsers()
+                .get("user-2");
+        String jwtToken = "testtoken";
+        when(userService.getLoggedInUser(jwtToken)).thenReturn(user1);
+        when(userService.getUserByID(user2.getId())).thenReturn(user2);
+        RequestBuilder requestBuilder = MockMvcRequestBuilders.get("/users/" + user2.getId())
+                                                              .header(Constants.AUTHORIZATION, jwtToken)
                                                               .accept(MediaType.APPLICATION_JSON);
 
         // Act
@@ -145,12 +150,12 @@ public class UserControllerTest extends AbstractShiroTest {
         // Assert
         resultActions.andExpect(status().isOk())
                      .andExpect(content().contentType(contentType))
-                     .andExpect(jsonPath("$.user.firstName", is(user.getFirstName())))
-                     .andExpect(jsonPath("$.user.lastName", is(user.getLastName())))
-                     .andExpect(jsonPath("$.user.email", is(user.getEmail())))
-                     .andExpect(jsonPath("$.user.userRole", is(user.getUserRole())));
+                     .andExpect(jsonPath("$.user.firstName", is(user2.getFirstName())))
+                     .andExpect(jsonPath("$.user.lastName", is(user2.getLastName())))
+                     .andExpect(jsonPath("$.user.email", is(user2.getEmail())))
+                     .andExpect(jsonPath("$.user.userRole", is(user2.getUserRole())));
 
-        verify(userService, times(1)).getUserByID(user.getId());
+        verify(userService, times(1)).getUserByID(user2.getId());
     }
 
     /**
@@ -246,7 +251,7 @@ public class UserControllerTest extends AbstractShiroTest {
                     + "/" + user.isActive()).
                    contentType(MediaType.APPLICATION_JSON).content(content));
 
-        ResponseMsg activateResponseMsg = new ResponseMsg(true, "activated successfully");
+        ResponseMsg activateResponseMsg = new ResponseMsg(true, Constants.USER_ACTIVATED_SUCCESS_MSG);
         // Assert
         resultActions.andExpect(status().isOk())
         .andExpect(content().contentType(contentType))
@@ -269,7 +274,7 @@ public class UserControllerTest extends AbstractShiroTest {
         user.setActive(true);
 
         when(userService.changeUserStatus(user.getId(), user.isActive()))
-            .thenThrow(new RuntimeException("Operation not permitted"));
+            .thenThrow(new RuntimeException(Constants.CHANGE_USER_STATUS_ERROR_MSG));
 
         String content = new ObjectMapper().writeValueAsString(null);
         // Act
@@ -278,7 +283,7 @@ public class UserControllerTest extends AbstractShiroTest {
                    contentType(MediaType.APPLICATION_JSON).content(content));
 
 
-        ResponseMsg activateResponseMsg = new ResponseMsg(false, Constants.BAD_REQUEST_MSG);
+        ResponseMsg activateResponseMsg = new ResponseMsg(false, Constants.CHANGE_USER_STATUS_ERROR_MSG);
 
         // Assert
         resultActions.andExpect(status().isBadRequest())
@@ -309,7 +314,7 @@ public class UserControllerTest extends AbstractShiroTest {
                     + "/" + user.isActive()).
                    contentType(MediaType.APPLICATION_JSON).content(content));
 
-        ResponseMsg activateResponseMsg = new ResponseMsg(true, "deactivated successfully");
+        ResponseMsg activateResponseMsg = new ResponseMsg(true, Constants.USER_DEACTIVATED_SUCCESS_MSG);
         // Assert
         resultActions.andExpect(status().isOk())
         .andExpect(content().contentType(contentType))

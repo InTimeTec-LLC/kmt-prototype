@@ -19,6 +19,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.itt.kmt.models.Attachment;
 import com.itt.kmt.repositories.AttachmentRepository;
 import com.itt.kmt.response.models.ResponseMsg;
+import com.itt.utility.Constants;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -93,7 +94,7 @@ public class AttachmentService {
 
         Attachment attachment = attachmentRepository.findOne(id);
         if (attachment == null) {
-            throw new RuntimeException("Attachment not found");
+            throw new RuntimeException(Constants.ATTACHMENT_NOT_FOUND_ERROR_MESSAGE);
         }
         return attachmentRepository.save(updateAttachment(attachment, updatedAttachment));
     }
@@ -192,7 +193,7 @@ public class AttachmentService {
         Attachment attachment = attachmentRepository.findOne(id);
 
         if (attachment == null) {
-            throw new RuntimeException("No attachment found");
+            throw new RuntimeException(Constants.ATTACHMENT_NOT_FOUND_ERROR_MESSAGE);
         }
 
         try {
@@ -221,7 +222,7 @@ public class AttachmentService {
 
         ResponseMsg responseMsg = null;
         if (file.isEmpty()) {
-            responseMsg = new ResponseMsg(Boolean.FALSE, "file is empty");
+            responseMsg = new ResponseMsg(Boolean.FALSE, Constants.NO_ATTACHMENT_UPLOADED_ERROR_MESSAGE);
             return responseMsg;
         }
 
@@ -232,12 +233,12 @@ public class AttachmentService {
             fileName = fileName.substring(0, fileName.lastIndexOf(".")) + "_" + timeStamp + "." + fileExtension;
 
             if (!validateFileTypes(fileExtension)) {
-                responseMsg = new ResponseMsg(Boolean.FALSE, "invalid file type");
+                responseMsg = new ResponseMsg(Boolean.FALSE, Constants.ATTACHMENT_SUPPORTED_FORMAT_ERROR_MESSAGE);
                 return responseMsg;
             }
 
             if (!validateFileSize(file.getSize())) {
-                responseMsg = new ResponseMsg(Boolean.FALSE, "invalid file size");
+                responseMsg = new ResponseMsg(Boolean.FALSE, Constants.ATTACHMENT_SIZE_ERROR_MESSAGE);
                 return responseMsg;
             }
 
