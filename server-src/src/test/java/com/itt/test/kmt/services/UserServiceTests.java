@@ -1,6 +1,7 @@
 package com.itt.test.kmt.services;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
@@ -28,11 +29,13 @@ import com.itt.kmt.models.Role;
 import com.itt.kmt.models.User;
 import com.itt.kmt.repositories.RoleRepository;
 import com.itt.kmt.repositories.UserRepository;
+import com.itt.kmt.response.models.ResponseMsg;
 import com.itt.kmt.services.MailService;
 import com.itt.kmt.services.UserService;
 import com.itt.test_category.ServicesTests;
 import com.itt.test_data.RoleTestDataRepository;
 import com.itt.test_data.TestDataRepository;
+import com.itt.utility.Constants;
 import com.itt.utility.EmailConstants;
 
 @Category(ServicesTests.class)
@@ -579,5 +582,37 @@ public class UserServiceTests {
         // Assert
         assertTrue(roles.containsAll(role));
         verify(roleRepository, times(1)).findAll();
+    }
+    
+    @Test
+    public final void processForgotPassowrd() throws Exception {
+
+        // Arrange
+        User user = testDataRepository.getUsers()
+                                      .get("user-1");
+
+        when(userService.getUserByEmail(user.getEmail())).thenReturn(user);
+
+        when(mailService.sendResetPasswordMail(user, "somerandompassword")).thenReturn(
+            new AsyncResult<Boolean>(true));
+
+        when(userRepository.findOne(user.getId())).thenReturn(user);
+        when(userRepository.save(user)).thenReturn(user);
+
+        ResponseMsg responseMsg = userService.processForgotPassowrd(user.getEmail());
+
+        assertTrue(responseMsg.getStatus());
+        assertEquals(responseMsg.getMessage(), Constants.PASSWORD_RESET_SUCCESS);
+    }
+
+    @Test
+    public final void generateRandomPassword() {
+
+        // Arrange
+        User user = testDataRepository.getUsers()
+                                      .get("user-1");
+
+        String password = userService.generateRandomPassword(user);
+        assertNotNull(password);
     }
 }

@@ -9,6 +9,7 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -40,30 +41,32 @@ public class LoginController {
      */
     @RequestMapping(value = "/login", method = RequestMethod.POST, produces = "application/json",
                     consumes = "application/json")
-    public LoginResponseMsg login(@RequestBody final User user) {
+    public LoginResponseMsg login(@RequestBody
+    final User user) {
 
-            User dbUser = userService.getUserByEmail(user.getEmail());
-            String jwtToken = "";
-            if (dbUser != null && dbUser.getPassword()
-                                        .equals(user.getPassword()) && dbUser.isActive()) {
-                LoginResponseMsg responseMsg = new LoginResponseMsg();
+        User dbUser = userService.getUserByEmail(user.getEmail());
+        String jwtToken = "";
+        if (dbUser != null 
+                        && dbUser.getPassword().equals(user.getPassword()) 
+                                    && dbUser.isActive()) {
+            LoginResponseMsg responseMsg = new LoginResponseMsg();
 
-                jwtToken = JWTUtil.sign(dbUser.getEmail(), dbUser.getPassword());
-                
-                LoginResponseMsg.StatusMsg statusMsg = responseMsg.new StatusMsg();
-                statusMsg.setStatus(Boolean.TRUE);
-                statusMsg.setAccessToken(jwtToken);
+            jwtToken = JWTUtil.sign(dbUser.getEmail(), dbUser.getPassword());
 
-                // Updating user login status as true
-                userService.setUserSession(jwtToken, Boolean.TRUE);
-                
-                dbUser.setPassword(null);
-                responseMsg.setUser(dbUser);
-                responseMsg.setSuccess(statusMsg);
-                return responseMsg;
-            } else {
-                throw new UnauthorizedException();
-            }
+            LoginResponseMsg.StatusMsg statusMsg = responseMsg.new StatusMsg();
+            statusMsg.setStatus(Boolean.TRUE);
+            statusMsg.setAccessToken(jwtToken);
+
+            // Updating user login status as true
+            userService.setUserSession(jwtToken, Boolean.TRUE);
+
+            dbUser.setPassword(null);
+            responseMsg.setUser(dbUser);
+            responseMsg.setSuccess(statusMsg);
+            return responseMsg;
+        } else {
+            throw new UnauthorizedException();
+        }
     }
 
     /**
@@ -75,15 +78,29 @@ public class LoginController {
     @RequestMapping(value = "/logout", method = RequestMethod.GET, produces = "application/json",
                     consumes = "application/json")
     public ModelMap logout(final HttpServletRequest request) {
-        
+
         String jwtToken = request.getHeader("Authorization");
 
         userService.setUserSession(jwtToken, Boolean.FALSE);
-        
+
         ResponseMsg postResponseMsg = new ResponseMsg(Boolean.TRUE, Constants.USER_LOGOUT_SUCCESS_MSG);
         return new ModelMap().addAttribute("success", postResponseMsg);
     }
-    
+
+    /**
+     * Forgot Password.
+     *
+     * @param emailId the emailId
+     * @return the model map
+     */
+    @RequestMapping(value = "/forgotpassword", method = RequestMethod.GET, produces = "application/json",
+                    consumes = "application/json")
+    public ModelMap logout(@RequestParam("emailid")
+    final String emailId) {
+
+        return new ModelMap().addAttribute("success", userService.processForgotPassowrd(emailId));
+    }
+
     /**
      * Unauthorized.
      *

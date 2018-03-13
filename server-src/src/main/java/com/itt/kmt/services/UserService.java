@@ -1,7 +1,9 @@
+
 package com.itt.kmt.services;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Random;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -16,19 +18,22 @@ import com.itt.kmt.models.Role;
 import com.itt.kmt.models.User;
 import com.itt.kmt.repositories.RoleRepository;
 import com.itt.kmt.repositories.UserRepository;
+import com.itt.kmt.response.models.ResponseMsg;
 import com.itt.kmt.validators.UserValidator;
 import com.itt.utility.Constants;
 import com.itt.utility.EmailConstants;
 
 import lombok.extern.slf4j.Slf4j;
 
-
 /**
  * Service class that acts as an intermediary between controller and the
  * database for all basic CRUD operations. The business logic should reside in
  * service class.
+ * 
  * @author Rakshit Rajeev
  */
+
+/** The Constant log. */
 @Slf4j
 @Service
 public class UserService {
@@ -49,6 +54,13 @@ public class UserService {
      */
     @Autowired
     private MailService mailService;
+
+    /** The Constant PASSWORD_PREFIX_LENGTH. */
+    public static final int PASSWORD_PREFIX_LENGTH = 3;
+
+    /** The Constant PASSWORD_SALT_LENGTH. */
+    public static final int PASSWORD_SALT_LENGTH = 4;
+
     /**
      * Gets the User given the email.
      * 
@@ -56,54 +68,68 @@ public class UserService {
      * @return User object matching the email.
      */
     public User getUserByEmail(final String email) {
+
         return repository.findByEmail(email);
     }
+
     /**
      * Gets all the Users.
+     * 
      * @param email Email of the User.
      * @param page Page consisting Users.
      * @return List of all the users.
      */
     public Page<User> getAllUsers(final String email, final Pageable page) {
+
         return repository.findAll(email, page);
     }
+
     /**
      * Gets the logged in User.
+     * 
      * @param jwtToken jwtToken of the logged in User.
      * @return User who has logged in.
      */
     public User getLoggedInUser(final String jwtToken) {
+
         String email = JWTUtil.getemail(jwtToken);
         return getUserByEmail(email);
     }
+
     /**
      * Gets all the users by role and status.
+     * 
      * @param role role by which active users are retrieved.
      * @param active status of users to be retrieved.
      * @param loggedInUserEmail email of logged in user.
      * @param page Page consisting users.
      * @return Page<User> page of users.
      */
-    public Page<User> getAllUsersByRolesAndStatus(final String role, final boolean active, 
-                   final String loggedInUserEmail, final Pageable page) {
+    public Page<User> getAllUsersByRolesAndStatus(
+        final String role, final boolean active, final String loggedInUserEmail, final Pageable page) {
 
         Page<User> users = repository.findByUserRoleAndActive(role, active, loggedInUserEmail, page);
 
         return users;
     }
+
     /**
      * Gets all the users by role.
+     * 
      * @param role role by which users are retrieved.
      * @param loggedInUserEmail email of logged in user.
      * @param page Page consisting users.
      * @return Page<User> page of users.
      */
-    public  Page<User> getAllUsersByRoles(final String role, final String loggedInUserEmail, final Pageable page) {
+    public Page<User> getAllUsersByRoles(final String role, final String loggedInUserEmail, final Pageable page) {
+
         Page<User> users = repository.findByUserRole(role, loggedInUserEmail, page);
         return users;
     }
+
     /**
      * Gets all the Users by attributes passed.
+     * 
      * @param search parameter by which users are filtered.
      * @param role role by which active users are retrieved.
      * @param status status by which active users are retrieved.
@@ -111,42 +137,53 @@ public class UserService {
      * @param page Page consisting users.
      * @return Page<User> page of users.
      */
-    public Page<User> filterUsersByStatusAndRole(final String search, final String role, final Boolean status, 
-              final String loggedInUserEmail, final Pageable page) {
+    public Page<User> filterUsersByStatusAndRole(
+        final String search, final String role, final Boolean status, final String loggedInUserEmail,
+        final Pageable page) {
 
         Page<User> users = null;
 
-        if ((role == null || role.equals(Constants.EMPTY_STRING)) && status == null 
-               && (search == null || search.equals(Constants.EMPTY_STRING))) {
+        if ((role == null || role.equals(Constants.EMPTY_STRING)) 
+                        && status == null 
+                        && (search == null || search.equals(Constants.EMPTY_STRING))) {
 
             users = getAllUsers(loggedInUserEmail, page);
 
-        } else if ((role != null && !Constants.EMPTY_STRING.equals(role)) 
-                && (search == null || search.equals(Constants.EMPTY_STRING))) {
+        } else if ((role != null 
+                        && !Constants.EMPTY_STRING.equals(role)) 
+                        && (search == null || search.equals(Constants.EMPTY_STRING))) {
 
             if (status != null) {
-               users = getAllUsersByRolesAndStatus(role, status, loggedInUserEmail, page);
+                users = getAllUsersByRolesAndStatus(role, status, loggedInUserEmail, page);
             } else {
-               users = getAllUsersByRoles(role, loggedInUserEmail, page);
+                users = getAllUsersByRoles(role, loggedInUserEmail, page);
             }
 
         } else if (status != null && (search == null || search.equals(Constants.EMPTY_STRING))) {
-            users =  repository.findByActive(status, loggedInUserEmail, page);
+            users = repository.findByActive(status, loggedInUserEmail, page);
 
-        } else if (search != null && !Constants.EMPTY_STRING.equals(search)) {
+        } else if (search != null 
+                        && !Constants.EMPTY_STRING.equals(search)) {
 
-            if ((role != null && !Constants.EMPTY_STRING.equals(role)) && status != null) {
+            if ((role != null 
+                            && !Constants.EMPTY_STRING.equals(role)) 
+                            && status != null) {
 
-                users = repository.findByFirstNameOrLastNameOrEmailAndActiveAndUserRole(search, loggedInUserEmail, 
-                          status, role, page);
+                users = repository.findByFirstNameOrLastNameOrEmailAndActiveAndUserRole(
+                    search, loggedInUserEmail, status, role, page);
 
-            } else if ((role == null || role.equals(Constants.EMPTY_STRING)) && status != null) {
+            } else if ((role == null || role.equals(Constants.EMPTY_STRING)) 
+                            && status != null) {
 
-                users = repository.findByFirstNameOrLastNameOrEmailAndActive(search, loggedInUserEmail, status, page);
+                users =
+                    repository.findByFirstNameOrLastNameOrEmailAndActive(search, loggedInUserEmail, status, page);
 
-            } else if ((role != null && !Constants.EMPTY_STRING.equals(role)) && status == null) {
+            } else if ((role != null 
+                            && !Constants.EMPTY_STRING.equals(role)) 
+                            && status == null) {
 
-                users = repository.findByFirstNameOrLastNameOrEmailAndUserRole(search, loggedInUserEmail, role, page);
+                users =
+                    repository.findByFirstNameOrLastNameOrEmailAndUserRole(search, loggedInUserEmail, role, page);
 
             } else {
                 users = repository.findByFirstNameOrLastNameOrEmail(search, loggedInUserEmail, page);
@@ -155,12 +192,15 @@ public class UserService {
         }
         return users;
     }
+
     /**
      * Saves the User.
+     * 
      * @param user User object to be saved.
      * @return Users saved.
      */
     public User save(final User user) {
+
         User existingUser = getUserByEmail(user.getEmail());
         if (existingUser == null) {
             user.setDateJoined(new Date());
@@ -176,39 +216,47 @@ public class UserService {
             throw new RuntimeException("user already exists");
         }
     }
+
     /**
      * Changes the User status given the id and isActive status to be updated.
+     * 
      * @param id Id of the User.
      * @param isActive isActive status of the User.
      * @return User.
      */
     public User changeUserStatus(final String id, final boolean isActive) {
-       User existingUser = repository.findOne(id);
 
-       if (existingUser != null && existingUser.isActive() != isActive) {
-           existingUser.setActive(isActive);
-           try {
-            mailService.sendUserActivateMail(existingUser, isActive);
-        } catch (MailException | InterruptedException e) {
-            log.error(e.getMessage());
-        }
-           return repository.save(existingUser);
+        User existingUser = repository.findOne(id);
+
+        if (existingUser != null 
+                        && existingUser.isActive() != isActive) {
+            existingUser.setActive(isActive);
+            try {
+                mailService.sendUserActivateMail(existingUser, isActive);
+            } catch (MailException | InterruptedException e) {
+                log.error(e.getMessage());
+            }
+            return repository.save(existingUser);
         } else if (existingUser == null) {
             throw new RuntimeException("user with the id does not exist");
         } else {
             throw new RuntimeException("Operation not permitted");
         }
     }
+
     /**
      * Updates User.
+     * 
      * @param user user to be updated.
      * @param id id of the user to be updated.
      * @return user.
      */
     public User updateUser(final User user, final String id) {
+
         User existingUser = repository.findOne(id);
 
-        if (existingUser != null && !existingUser.isActive()) {
+        if (existingUser != null 
+                        && !existingUser.isActive()) {
             throw new RuntimeException("user is not active");
         } else if (existingUser != null) {
 
@@ -225,18 +273,22 @@ public class UserService {
 
     /**
      * Get all the User Roles.
+     * 
      * @return List of all the User Roles.
      */
     public List<Role> getUserRoles() {
-       return (List<Role>) roleRepository.findAll();
+
+        return (List<Role>) roleRepository.findAll();
     }
 
     /**
      * Get the User by ID.
+     * 
      * @param id Id of the User.
      * @return User.
      */
     public User getUserByID(final String id) {
+
         User user = repository.findOne(id);
         if (user == null) {
             throw new RuntimeException("user with the id does not exist");
@@ -244,7 +296,6 @@ public class UserService {
         return user;
     }
 
-    
     /**
      * Validate user.
      *
@@ -253,7 +304,7 @@ public class UserService {
      * @return the string
      */
     public String validateUser(final User user, final BindingResult result) {
-        
+
         UserValidator userValidator = new UserValidator();
         userValidator.validate(user, result);
         String errorMsg = "";
@@ -271,6 +322,7 @@ public class UserService {
         }
         return errorMsg;
     }
+
     /**
      * Sets the user session.
      *
@@ -278,13 +330,94 @@ public class UserService {
      * @param status the status
      */
     public void setUserSession(final String jwtToken, final boolean status) {
+
         User loggedInUser = getLoggedInUser(jwtToken);
-        
+
         if (loggedInUser != null) {
             loggedInUser.setSession(status);
             repository.save(loggedInUser);
-         } else {
-             throw new RuntimeException("user doesnot exist");
-         }
-     }
+        } else {
+            throw new RuntimeException("user doesnot exist");
+        }
+    }
+
+    /**
+     * Process forgot passowrd.
+     *
+     * @param emailId the email id
+     * @return the response msg
+     */
+    public ResponseMsg processForgotPassowrd(final String emailId) {
+
+        String message = "";
+        boolean status = false;
+        if (emailId != null 
+                        && !emailId.isEmpty()) {
+            User user = getUserByEmail(emailId);
+            if (user != null) {
+                if (user.isActive()) {
+
+                    String password = generateRandomPassword(user);
+                    user.setPassword(password);
+
+                    try {
+                        mailService.sendResetPasswordMail(user, password);
+                        updateUser(user, user.getId());
+                        message = Constants.PASSWORD_RESET_SUCCESS;
+                        status = true;
+                    } catch (MailException | InterruptedException e) {
+                        log.error(e.getMessage());
+                        message = Constants.COULD_NOT_PROCESS;
+                    }
+
+                } else {
+                    message = Constants.COULD_NOT_PROCESS;
+                }
+            } else {
+                message = Constants.USER_NOT_EXIST;
+            }
+
+        } else {
+            message = Constants.INVALID_EMAIL_ID;
+        }
+
+        return new ResponseMsg(status, message);
+    }
+
+    /**
+     * Generate random password.
+     *
+     * @param user the user
+     * @return the string
+     */
+    public String generateRandomPassword(final User user) {
+
+        String password = "";
+        String firstName = user.getFirstName();
+        String lastName = user.getLastName();
+        if (firstName.length() >= PASSWORD_PREFIX_LENGTH) {
+            password = firstName.substring(0, PASSWORD_PREFIX_LENGTH);
+        } else {
+            password = firstName;
+        }
+
+        if (lastName.length() >= PASSWORD_PREFIX_LENGTH) {
+            password = password + lastName.substring(0, PASSWORD_PREFIX_LENGTH);
+        } else {
+            password = password + lastName;
+        }
+
+        String saltChars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890";
+        StringBuilder salt = new StringBuilder();
+        Random rnd = new Random();
+        while (salt.length() < PASSWORD_SALT_LENGTH) { // length of the random
+                                                       // string.
+            int index = (int) (rnd.nextFloat() * saltChars.length());
+            salt.append(saltChars.charAt(index));
+        }
+        String saltStr = salt.toString();
+        password = password + saltStr;
+        return password;
+    }
+
 }
