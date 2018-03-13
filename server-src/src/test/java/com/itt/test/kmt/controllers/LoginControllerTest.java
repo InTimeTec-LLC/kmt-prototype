@@ -1,3 +1,4 @@
+
 package com.itt.test.kmt.controllers;
 
 import static org.hamcrest.core.Is.is;
@@ -139,8 +140,9 @@ public class LoginControllerTest extends AbstractShiroTest {
 
         LoginResponseMsg.StatusMsg ic = loginResponseMsg.new StatusMsg();
         ic.setStatus(Boolean.TRUE);
-        ic.setAccessToken("eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHAiOjE1MTk4NDY4NzAsImVtYWlsIjoiYWFhMUBnb" 
-                        + "WFpbC5jb20ifQ.MY63G1AgD5LOE8loGIGYA_K9atPcUtF5R2DRZwkbdj4");
+        ic.setAccessToken(
+            "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHAiOjE1MTk4NDY4NzAsImVtYWlsIjoiYWFhMUBnb" 
+        + "WFpbC5jb20ifQ.MY63G1AgD5LOE8loGIGYA_K9atPcUtF5R2DRZwkbdj4");
         loginResponseMsg.setUser(user);
         loginResponseMsg.setSuccess(ic);
 
@@ -225,22 +227,22 @@ public class LoginControllerTest extends AbstractShiroTest {
                                  .contentType(new MediaType("application", "json", Charset.forName("UTF-8"))));
     }
 
-
     /**
      * deactivate user trying to log in.
      *
      * @throws Exception the exception
      */
     @Test
-    public void deactiveUserUnAuhtorizedTest() throws Exception {
+    public void deactiveUserUnAuhtorizedTest()
+        throws Exception {
 
         User user = testDataRepository.getUsers()
-                .get("user-3");
+                                      .get("user-3");
         ResponseMsg unauthorizedAccessMsg = new ResponseMsg(false, Constants.UNAUTHORIZED_ACCESS_MSG);
 
         when(userService.getUserByEmail(user.getEmail())).thenReturn(user);
 
-        //setting user as inActive
+        // setting user as inActive
         user.setActive(false);
 
         String content = new ObjectMapper().writeValueAsString(user);
@@ -248,17 +250,17 @@ public class LoginControllerTest extends AbstractShiroTest {
 
         // Act
         MockHttpServletRequestBuilder cc = MockMvcRequestBuilders.post("/login")
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(content);
+                                                                 .contentType(MediaType.APPLICATION_JSON)
+                                                                 .content(content);
 
         resultActions = mockMvc.perform(cc);
 
         // to-do: Need to assert with status and response
         resultActions.andExpect(
-                MockMvcResultMatchers.content()
-                        .contentType(new MediaType("application", "json", Charset.forName("UTF-8"))))
-                .andExpect(jsonPath("$.success.message", is(unauthorizedAccessMsg.getMessage())))
-                .andExpect(jsonPath("$.success.status", is(unauthorizedAccessMsg.getStatus())));
+            MockMvcResultMatchers.content()
+                                 .contentType(new MediaType("application", "json", Charset.forName("UTF-8"))))
+                     .andExpect(jsonPath("$.success.message", is(unauthorizedAccessMsg.getMessage())))
+                     .andExpect(jsonPath("$.success.status", is(unauthorizedAccessMsg.getStatus())));
     }
 
     /**
@@ -279,6 +281,37 @@ public class LoginControllerTest extends AbstractShiroTest {
         resultActions.andExpect(status().isUnauthorized())
                      .andExpect(content().contentType(contentType));
 
+    }
+
+    /**
+     * forgotPassword.
+     *
+     * @throws Exception the exception
+     */
+    @Test
+    public void forgotPassword()
+        throws Exception {
+
+        User user = testDataRepository.getUsers()
+                                      .get("user-1");
+
+        ResponseMsg responseMsg = new ResponseMsg(Boolean.TRUE, Constants.PASSWORD_RESET_SUCCESS);
+
+        when(userService.processForgotPassowrd(user.getEmail())).thenReturn(responseMsg);
+
+        // Act
+        MockHttpServletRequestBuilder cc =
+            MockMvcRequestBuilders.get("/forgotpassword?emailid=" + user.getEmail())
+                                  .contentType(MediaType.APPLICATION_JSON);
+
+        ResultActions resultActions = mockMvc.perform(cc);
+
+        // to-do: Need to assert with status and response
+        resultActions.andExpect(
+            MockMvcResultMatchers.content()
+                                 .contentType(new MediaType("application", "json", Charset.forName("UTF-8"))))
+                     .andExpect(jsonPath("$.success.message", is(Constants.PASSWORD_RESET_SUCCESS)))
+                     .andExpect(jsonPath("$.success.status", is(Boolean.TRUE)));
     }
 
     /**
