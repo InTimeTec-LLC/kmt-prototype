@@ -392,7 +392,11 @@ public class MailService {
         return new AsyncResult<Boolean>(sendMail(EmailConstants.REVIEWED_USER_NOTIFICATION_TMPLT, model));
     }
     /**
+<<<<<<< HEAD
      * method is responsible to inform the user when article approver is deactivated by admin.
+=======
+     * method is required to inform the user when article approver is deactivate by admin.
+>>>>>>> mail related changes and forgot pasword fixes
      * 
      * @param articles to get the details of article.
      * 
