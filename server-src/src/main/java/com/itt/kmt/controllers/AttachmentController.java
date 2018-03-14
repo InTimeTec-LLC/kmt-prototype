@@ -67,7 +67,7 @@ public class AttachmentController {
         AttachmentResponseMsg attachmentResponseMsg = new AttachmentResponseMsg();
         if (uploadfile.isEmpty()) {
             attachmentResponseMsg.setStatus(Boolean.FALSE);
-            attachmentResponseMsg.setMessage("please select a file!");
+            attachmentResponseMsg.setMessage(Constants.NO_ATTACHMENT_UPLOADED_ERROR_MESSAGE);
         }
 
         try {

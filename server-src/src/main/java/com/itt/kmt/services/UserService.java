@@ -213,7 +213,7 @@ public class UserService {
             }
             return savedUser;
         } else {
-            throw new RuntimeException("user already exists");
+            throw new RuntimeException(Constants.DUPLICATE_RECORD);
         }
     }
 
@@ -238,9 +238,9 @@ public class UserService {
             }
             return repository.save(existingUser);
         } else if (existingUser == null) {
-            throw new RuntimeException("user with the id does not exist");
+            throw new RuntimeException(Constants.USER_DOES_NOT_EXIST_ERROR_MSG);
         } else {
-            throw new RuntimeException("Operation not permitted");
+            throw new RuntimeException(Constants.CHANGE_USER_STATUS_ERROR_MSG);
         }
     }
 
@@ -255,9 +255,9 @@ public class UserService {
 
         User existingUser = repository.findOne(id);
 
-        if (existingUser != null 
-                        && !existingUser.isActive()) {
-            throw new RuntimeException("user is not active");
+        if (existingUser != null && !existingUser.isActive()) {
+            throw new RuntimeException(Constants.UPDATE_INACTIVE_USER_ERROR_MSG);
+
         } else if (existingUser != null) {
 
             existingUser.setFirstName(user.getFirstName());
@@ -267,7 +267,7 @@ public class UserService {
 
             return repository.save(existingUser);
         } else {
-            throw new RuntimeException("user does not exist");
+            throw new RuntimeException(Constants.USER_DOES_NOT_EXIST_ERROR_MSG);
         }
     }
 
@@ -291,7 +291,7 @@ public class UserService {
 
         User user = repository.findOne(id);
         if (user == null) {
-            throw new RuntimeException("user with the id does not exist");
+            throw new RuntimeException(Constants.USER_DOES_NOT_EXIST_ERROR_MSG);
         }
         return user;
     }
@@ -336,6 +336,7 @@ public class UserService {
         if (loggedInUser != null) {
             loggedInUser.setSession(status);
             repository.save(loggedInUser);
+
         } else {
             throw new RuntimeException("user doesnot exist");
         }
@@ -421,3 +422,4 @@ public class UserService {
     }
 
 }
+
