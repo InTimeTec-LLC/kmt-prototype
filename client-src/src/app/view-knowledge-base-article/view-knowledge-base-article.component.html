@@ -1,18 +1,8 @@
 <div class="container" *ngIf="article!=undefined">
-    <div class="breadcrumb-fullwidth">
-        <div class="breadcrumb-bar">
-             <ul class="breadcrumb">
-                <li><a href="#">Dashboard</a></li>
-                <li><a href="#">settings</a></li>
-                <li><a href="#">User</a></li>
-                <li>Edit-user</li>
-             </ul>
-          </div>
-        </div>
   <div class="container-heading">
     <p class="heading-margin">{{article.title}} <sub><span class="articleby"> by {{article.createdBy.firstName}}  {{article.createdBy.lastName}} </span></sub></p>
     
-    <a  class="edit" (click)="onTapNavigation('/article/edit/'+article.id)">
+    <a  class="edit" (click)="onTapNavigation('../../edit', article.id)">
       <img src="/assets/images/edit.png" alt="articleicon"class="menu-icon">
      </a>
   </div>

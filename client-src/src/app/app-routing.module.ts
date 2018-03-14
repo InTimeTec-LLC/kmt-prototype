@@ -13,74 +13,83 @@ import { EditUserComponent } from './edit-user/edit-user.component';
 import { ApprovedKnowledgeBaseArticleComponent } from './approved-knowledge-base-article/approved-knowledge-base-article.component';
 import { SearchKnowledgeBaseComponent } from './search-knowledge-base/search-knowledge-base.component';
 import { KnowledgeBaseSearchComponent } from './knowledge-base-search/knowledge-base-search.component';
+import { RootComponent } from './root.component';
 
 const routes:  Routes = [
     {
-      path: 'dashboard',
-      component: DashboardComponent,
-      data: { title: 'Dashboard' },
-      canActivate: [AuthGuard]
-    },
-    {
-      path: 'login',
-      component: LoginComponent,
-      data: { title: 'Login' }
-    },
-    { path: 'articlelist',
-      component: ListArticleComponent,
-      data: { title: 'Article List' }
-    },
-    {
-      path: 'article/add',
-      component: AddArticleComponent,
-      data: { title: 'Add Article' }
-    },
-    {
-      path: 'article-detail/:id',
-      component: ViewKnowledgeBaseArticleComponent,
-      data: { title: 'Articles' }
-    },
-    {
-      path: 'article/edit/:id',
-      component: EditArticleComponent,
-      data: { title: 'Edit Article' }
-    },
-    { path: 'user/add',
-      component: AddUserComponent,
-      data: { title: 'Add User' }
-    },
-    { path: 'userlist',
-      component: UserListComponent,
-      data: { title: 'User List' }
-    },
-    { path: '',
-      redirectTo: '/dashboard',
-      pathMatch: 'full'
-    },
-    { path: 'user/edit/:id',
-      component: EditUserComponent,
-      data: { title: 'Edit User' }
-    },
-    {
-      path: 'article-approved-view/:id',
-      component: ApprovedKnowledgeBaseArticleComponent,
-      data: { title: 'Approved Articles' }
-    },
-    {
-      path: 'knowledge-base',
-      component: SearchKnowledgeBaseComponent,
-      data: { title: 'Knowledge Base' }
-    },
-    {
-      path: 'knowledge-base-search',
-      component: KnowledgeBaseSearchComponent,
-      data: { title: 'Knowledge Base Search' }
-    },
+      path: '',
+      component: RootComponent,
+      children : [
+        {
+          path: '',
+          component: DashboardComponent,
+          data: { title: 'Dashboard'},
+          canActivate: [AuthGuard],
+        },
+        {
+          path: 'login',
+          component: LoginComponent,
+          data: { title: 'Login' }
+        },
+        {
+          path: 'knowledge-base',
+          component: SearchKnowledgeBaseComponent,
+          data: { title: 'Knowledge Base', breadcrumb: 'Knowledge Base' }
+        },
+        {
+          path: 'knowledge-base-search',
+          component: KnowledgeBaseSearchComponent,
+          data: { title: 'Knowledge Base Search', breadcrumb: 'Knowledge Base Search' }
+        },
+        {
+          path: 'users',
+          component: UserListComponent,
+          data: { breadcrumb: 'Users' },
+          runGuardsAndResolvers: 'always',
+          children : [
+            { path: 'edit/:id',
+              component: EditUserComponent,
+              data: { breadcrumb: 'Edit User' }
+            },
+            { path: 'add',
+              component: AddUserComponent,
+              data: { breadcrumb: 'Add User' }
+            }
+          ]
+        },
+        { path: 'articles',
+          component: ListArticleComponent,
+          data: { breadcrumb: 'Articles' },
+          children : [
+            {
+              path: 'edit/:id',
+              component: EditArticleComponent,
+              data: { breadcrumb: 'Edit Article' }
+            },
+            {
+              path: 'add',
+              component: AddArticleComponent,
+              data: { breadcrumb: 'Add Article' }
+            },
+            {
+              path: 'detail/:id',
+              component: ViewKnowledgeBaseArticleComponent,
+              data: { breadcrumb: 'Article Detail' }
+            },
+            {
+              path: 'approved-view/:id',
+              component: ApprovedKnowledgeBaseArticleComponent,
+              data: { breadcrumb: 'Approved Articles' }
+            }
+          ]
+        }
+      ]
+    }
   ];
 
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes, { enableTracing: false })],
+  imports: [RouterModule.forRoot(routes, {onSameUrlNavigation: 'reload', enableTracing: false })],
   exports: [RouterModule]
 })
 export class AppRoutingModule { }

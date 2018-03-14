@@ -58,7 +58,7 @@ export class ApprovedKnowledgeBaseArticleComponent implements OnInit {
     .subscribe( article => {
             // article.success.message
               this.toasterService.pop('success', 'Success', article.success.message);
-              this.router.navigateByUrl('/articlelist');
+              this.router.navigateByUrl('/articles');
          },
               // error.failure.message
                error => this.toasterService.pop('error', 'Error', error.failure.message)

@@ -31,7 +31,7 @@ export class LoginComponent implements OnInit {
                 data => {
                     this.messageService.sendMessage('set user type');
                     this.messageService.sendMessage('openMatDrawer');
-                    this.router.navigate(['/dashboard']);
+                    this.router.navigate(['']);
                 },
                 error => {
                     this.loading = false;

@@ -14,6 +14,8 @@ import { HttpModule } from '@angular/http';
 import { MaterialModule } from '../shared/material.module';
 import {ToasterModule, ToasterService} from 'angular5-toaster';
 import { Ng4LoadingSpinnerModule } from 'ng4-loading-spinner';
+import { BreadcrumbComponent } from './app.breadcrumbs';
+import { RootComponent } from './root.component';
 
 // components
 import { LoginComponent } from './login/login.component';
@@ -38,6 +40,8 @@ import { KnowledgeBaseSearchComponent } from './knowledge-base-search/knowledge-
 @NgModule({
   declarations: [
     AppComponent,
+    BreadcrumbComponent,
+    RootComponent,
     DashboardComponent,
     LoginComponent,
     AddArticleComponent,
@@ -72,7 +76,6 @@ import { KnowledgeBaseSearchComponent } from './knowledge-base-search/knowledge-
     BrowserAnimationsModule,
     ToasterModule,
     Ng4LoadingSpinnerModule.forRoot()
-
   ],
   entryComponents: [ArticleListFilterComponent, UserListFilterComponent],
   providers: [],

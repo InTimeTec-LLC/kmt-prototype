@@ -90,7 +90,7 @@ export class EditUserComponent implements OnInit {
   }
 
   onCancle() {
-    this.router.navigateByUrl('/userlist');
+    this.router.navigateByUrl('/users');
   }
 
   onDeactivate() {
