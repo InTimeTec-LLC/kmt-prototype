@@ -9,8 +9,12 @@ import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 export class AuthenticationService {
     public token: string;
     private loggedIn = new BehaviorSubject<boolean>(false); // {1}
+    httpOptions: any;
 
     constructor(private http: HttpClient) {
+        this.httpOptions = {
+            headers: new HttpHeaders({ 'Content-Type': 'application/json'})
+          };
 
     }
 
@@ -23,9 +27,13 @@ export class AuthenticationService {
                     this.loggedIn.next(true);
                     localStorage.setItem('currentUser', JSON.stringify(data));
                 }
-
                 return data;
             });
+    }
+
+    forgotPassword(email: string): Observable<any> {
+        return this.http.get(environment.API_ENDPOINT + 'forgotpassword?emailid=' + email, this.httpOptions).
+        catch(this.handleErrorObservable);
     }
 
     logout(): void {
@@ -83,5 +91,14 @@ export class AuthenticationService {
         }
         return null;
     }
+
+    /**
+    * Handle HTTP error
+    */
+  private handleErrorObservable (error: Response | any) {
+    console.error(error.success || error);
+    return Observable.throw(error.success || error);
+  }
+
 
 }

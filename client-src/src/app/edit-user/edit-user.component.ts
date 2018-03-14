@@ -60,7 +60,7 @@ export class EditUserComponent implements OnInit {
     this.user = this.fb.group({
       firstName: ['', [Validators.required, Validators.minLength(2)]],
       lastName: ['', Validators.required],
-      password: ['', Validators.required],
+      password: ['', Validators.required, Validators.minLength(8)],
       userRole: ['', Validators.required],
       email: ['', Validators.email],
       confirmPassword: ['', Validators.required],

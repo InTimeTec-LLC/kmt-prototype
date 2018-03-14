@@ -1,4 +1,4 @@
-<div class="container" *ngIf="article!=undefined">
+<div class="container">
     <div class="breadcrumb-fullwidth">
         <div class="breadcrumb-bar">
              <ul class="breadcrumb">
@@ -12,7 +12,7 @@
   <div class="container-heading">
     <p class="heading-margin">{{article.title}} <sub><span class="articleby"> by {{article.createdBy.firstName}}  {{article.createdBy.lastName}} </span></sub></p>
     
-    <a  class="edit" (click)="onTapNavigation('/article/edit/'+article.id)">
+    <a  class="edit" [routerLink]="['/article/edit', article.id]">
       <img src="/assets/images/edit.png" alt="articleicon"class="menu-icon">
      </a>
   </div>
@@ -32,11 +32,11 @@
               <p class="description" [innerHTML]="article.description"></p>
           </div>
           <div  class="upload-files-section">
-              <label>Uploaded File</label>
+              <label>Uploaded File</label> </div>
               <div class="img-container">
                 <div class="img-multiple" *ngFor="let attachement of attachements"><span (click)="downloadAttachment(attachement.id, attachement.fileName)">{{attachement.fileName}}</span></div>             
             </div>
-          </div>
+         
     
       </div>
     

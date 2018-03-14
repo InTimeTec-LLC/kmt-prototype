@@ -30,24 +30,18 @@
                         <label>Password</label>
                         <input matInput type="password" class="form-control" name="password" [(ngModel)]="model.password" #password="ngModel" required>
                     </mat-form-field>
-                
+                    
                     <div class="login-button" (click)="login()">
                         <button mat-raised-button color="primary" class="login-button">
                           Login
                          </button>
                     </div>
+                    <div class="login-forgot">
+                            <a href="forgot-password"> Forgot Password?</a>
+                    </div>
             </form> 
         </div>
-            
-            
-            <!-- Template Body ends -->
-            
         </div>
-    <!--</mat-grid-tile>-->
-    <!-- Writing markup for login ends -->
-    <!--<mat-grid-tile></mat-grid-tile>-->
- 
-<!--</mat-grid-list>-->
 </div>
 </div>
 

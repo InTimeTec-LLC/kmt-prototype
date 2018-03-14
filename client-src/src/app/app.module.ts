@@ -33,6 +33,7 @@ import { ListArticleComponent, ArticleListFilterComponent } from './list-knowled
 import { UserListComponent, UserListFilterComponent } from './user-list/user-list.component';
 import { SearchKnowledgeBaseComponent } from './search-knowledge-base/search-knowledge-base.component';
 import { KnowledgeBaseSearchComponent } from './knowledge-base-search/knowledge-base-search.component';
+import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
 
 
 @NgModule({
@@ -54,7 +55,8 @@ import { KnowledgeBaseSearchComponent } from './knowledge-base-search/knowledge-
     ViewKnowledgeBaseArticleComponent,
     ApprovedKnowledgeBaseArticleComponent,
     SearchKnowledgeBaseComponent,
-    KnowledgeBaseSearchComponent
+    KnowledgeBaseSearchComponent,
+    ForgotPasswordComponent
   ],
   imports: [
     BrowserModule,
