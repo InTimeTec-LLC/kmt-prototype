@@ -10,6 +10,7 @@
 build/
 dist/
 .gradle/
+static/
 node_modules/
 dist/
 e2e/
