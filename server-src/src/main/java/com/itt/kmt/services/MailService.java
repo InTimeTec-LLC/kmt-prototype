@@ -2,6 +2,7 @@ package com.itt.kmt.services;
 
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.concurrent.Future;
 
@@ -348,5 +349,33 @@ public class MailService {
             url = baseUrl;
         }
         return url;
+    }
+    /* @Async
+    public Future<Boolean> updateUserToChangeReviewer(List<ObjectId> users) {
+        //TODO:sendmail to list of users
+        return null;
+    }*/
+    /**
+     * This method is responsible for sending to users to change reviewer of article.
+     *
+     * @param templateName
+     *            to choose the relevent templates.
+     * @param model
+     *            model have the relevent parameters that is required for
+     *            templates.
+     *
+     * @return boolean
+     */
+    
+    public String updateUserToChangeReviewer(List<Article> articles) {
+        if(articles.isEmpty()){
+            System.out.println("this user is not a reviewer to any user");
+           // log.info("user is not a reviewer to any users");
+        } else {
+            for (Article article : articles) {
+                System.out.println(article);
+            }
+        }
+        return "TODO:mail implementation";
     }
 }
