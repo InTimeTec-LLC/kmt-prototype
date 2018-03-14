@@ -260,15 +260,20 @@ public class UserService {
             throw new RuntimeException("user is not active");
         } else if (existingUser != null) {
 
+            boolean changePassword = existingUser.getPassword().equals(user.getPassword());
+
             existingUser.setFirstName(user.getFirstName());
             existingUser.setLastName(user.getLastName());
             existingUser.setUserRole(user.getUserRole());
             existingUser.setPassword(user.getPassword());
             User savedUser = repository.save(existingUser);
-            try {
-                mailService.sendResetPasswordMail(savedUser, savedUser.getPassword());
-            } catch (MailException | InterruptedException e) {
-                log.error(e.getMessage());
+
+            if (!changePassword) {
+                try {
+                    mailService.sendResetPasswordMail(savedUser, savedUser.getPassword());
+                } catch (MailException | InterruptedException e) {
+                    log.error(e.getMessage());
+                }
             }
             return savedUser;
         } else {
