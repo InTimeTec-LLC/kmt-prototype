@@ -111,7 +111,7 @@ public class ArticleService {
         UserResponse approver = (UserResponse) article.getApprover();
         Article savedArticle = articleRepository.save(article);
         try {
-            mailService.sendCreateArticleMail(approver);
+            mailService.sendCreateArticleMail(approver, savedArticle);
         } catch (MailException | InterruptedException e) {
             log.error(e.getMessage());
         }
@@ -173,6 +173,12 @@ public class ArticleService {
 
         if (attachments != null && attachments.size() > 0) {
             attachmentService.updateAttachmentWithArticleId(attachments, dbArticle.getId());
+        }
+
+        try {
+            mailService.sendCreateArticleMail((UserResponse) dbArticle.getApprover(), article);
+        } catch (MailException | InterruptedException e) {
+            log.error(e.getMessage());
         }
 
         return dbArticle;
