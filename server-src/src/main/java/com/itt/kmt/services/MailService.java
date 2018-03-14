@@ -329,6 +329,7 @@ public class MailService {
         }
         return status;
     }
+
     /**
      * This method is responsible for getting different-2 urls.
      *
@@ -343,39 +344,73 @@ public class MailService {
 
         switch (expectUrl) {
         case "article":
-            url = baseUrl + "api/article/";
+            url = baseUrl + "article/";
+            break;
+        case "article/edit":
+            url = baseUrl + "article/edit/";
             break;
         default:
             url = baseUrl;
         }
         return url;
     }
-    /* @Async
-    public Future<Boolean> updateUserToChangeReviewer(List<ObjectId> users) {
-        //TODO:sendmail to list of users
-        return null;
-    }*/
+
     /**
-     * This method is responsible for sending to users to change reviewer of article.
-     *
-     * @param templateName
-     *            to choose the relevent templates.
-     * @param model
-     *            model have the relevent parameters that is required for
-     *            templates.
-     *
+     * This method is responsible for sending to users to change reviewer of
+     * article.
+     * 
+     * @param article
+     *            to findout the article details.
+     * @param isUser
+     *            to check user/approver .
+     * 
+     * @throws MailException
+     *.
+     * @throws InterruptedException
+     *.
      * @return boolean
+     **/
+    public Future<Boolean> sendNotificationMail(final Article article, final boolean isUser)
+            throws MailException, InterruptedException {
+
+        Map<String, String> model = new HashMap<String, String>();
+
+        UserResponse userResponse = (UserResponse) article.getCreatedBy();
+        UserResponse approverResponse = (UserResponse) article.getApprover();
+
+        model.put(EmailConstants.PARAM_USER_FIRST_NAME, userResponse.getFirstName());
+        model.put(EmailConstants.PARAM_USER_MAIL_ID, userResponse.getEmail());
+        model.put(EmailConstants.PARAM_ARTICLE_TITLE, article.getTitle());
+
+        if (isUser) {
+            model.put("reviewerName", approverResponse.getFirstName());
+            model.put(EmailConstants.PARAM_ARTICLE_LINK, formArticleUrl("article/edit") + article.getId());
+            model.put("user", "user");
+        }
+        model.put(EmailConstants.PARAM_EMAIL_SUBJECT, EmailConstants.SUBJECT_NOTIFICATION_MAIL);
+
+        return new AsyncResult<Boolean>(sendMail(EmailConstants.REVIEWED_USER_NOTIFICATION_TMPLT, model));
+    }
+    /**
+     * method is required to inform the user when article approver is deactivate by admin.
+     * 
+     * @param articles to get the details of article.
+     * 
      */
-    
-    public String updateUserToChangeReviewer(List<Article> articles) {
-        if(articles.isEmpty()){
+    @Async
+    public void updateUserToChangeReviewer(final List<Article> articles) {
+        if (articles.isEmpty()) {
             System.out.println("this user is not a reviewer to any user");
-           // log.info("user is not a reviewer to any users");
+            // log.info("user is not a reviewer to any users");
         } else {
             for (Article article : articles) {
-                System.out.println(article);
+                try {
+                    sendNotificationMail(article, true);
+                } catch (MailException | InterruptedException e) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+                }
             }
         }
-        return "TODO:mail implementation";
     }
 }

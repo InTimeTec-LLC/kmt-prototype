@@ -50,6 +50,10 @@ public final class EmailConstants {
      */
     public static final String REVIEWED_KA_MAIL_TMPLT = "KA-Reviewed-mail.ftl";
     /**
+     * email template name when Article will be reviewed by reviewer.
+     */
+    public static final String REVIEWED_USER_NOTIFICATION_TMPLT = "user-notification-mail.ftl";
+    /**
      * email template name when Article will not be approved.
      */
     public static final String NOT_REVIEWED_KA_MAIL_TMPLT = "KA-Not-reviewd-mail.ftl";
@@ -91,9 +95,9 @@ public final class EmailConstants {
      */
     public static final String SUBJECT_ARTICLE_DELETED_MAIL = "Article submitted for review is deleted";
     /**
-     * subject of mail when Article will be pending for review.
+     * subject of mail when user/approver is deactivated.
      */
-    public static final String SUBJECT_REMINDER_MAIL = "Article Pending for Review";
+    public static final String SUBJECT_NOTIFICATION_MAIL = "Needs Attention";
     /**
      * subject of mail when admin delete the Article.
      */
@@ -124,11 +128,11 @@ public final class EmailConstants {
      */
     public static final String PARAM_COMMENTS = "comments";
     /**
-     * parameter of templates comments of email.
+     * parameter of templates article linke  of email.
      */
     public static final String PARAM_ARTICLE_LINK = "articleLink";
     /**
-     * parameter of templates comments of email.
+     * parameter of templates article title of email.
      */
     public static final String PARAM_ARTICLE_TITLE = "articleTitle";
 
