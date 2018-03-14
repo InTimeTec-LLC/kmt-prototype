@@ -11,7 +11,9 @@ build/
 dist/
 .gradle/
 static/
-
+node_modules/
+dist/
+e2e/
 
 #Eclipse specific files
 *.project
