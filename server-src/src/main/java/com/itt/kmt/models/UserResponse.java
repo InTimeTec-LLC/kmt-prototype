@@ -1,6 +1,8 @@
 package com.itt.kmt.models;
 
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 
 /**
@@ -9,6 +11,8 @@ import lombok.Data;
  * @author Rohan Sahu
  */
 @Data
+@Getter
+@Setter
 public class UserResponse {
 
     /**

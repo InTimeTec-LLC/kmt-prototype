@@ -1,7 +1,5 @@
 package com.itt.kmt.repositories;
 
-import com.itt.kmt.models.Article;
-import com.itt.kmt.models.KBArticle;
 import org.bson.types.ObjectId;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -9,6 +7,8 @@ import org.springframework.data.mongodb.repository.Query;
 import org.springframework.data.repository.PagingAndSortingRepository;
 
 import java.util.List;
+import com.itt.kmt.models.Article;
+import com.itt.kmt.models.KBArticle;
 
 
 /**
@@ -69,7 +69,7 @@ public interface ArticleRepository extends PagingAndSortingRepository<Article, S
 
     /**
      * Implements a custom method that returns a pageable Article.
-     * @param createdById id to be searched in createdBy user.
+     * @param approverId id to be searched in createdBy user.
      * @param type article type to be searched.
      * @param status , to get article based on article published or unpublished.
      * @param search , key to search article.  
@@ -78,9 +78,16 @@ public interface ArticleRepository extends PagingAndSortingRepository<Article, S
      */
     @Query("{'$and':[ {'approver._id': ?0}, {'articleType._id': {$regex:?1 ,$options:'i'}},"
             + "{approved: ?2}, { 'title' : {$regex:?3 ,$options:'i'} }] }")
-    Page<Article> findArticlesByApprover(ObjectId createdById, ObjectId type, Boolean status, 
+    Page<Article> findArticlesByApprover(ObjectId approverId, ObjectId type, Boolean status, 
             String search, Pageable page);
 
+    /**
+     * Implements a custom method that returns Articles based on approvers.
+     * @param approverId id to be searched in approver.
+     * @return List<Article> Object.
+     */
+    @Query("{'approver._id':?0},{'createdBy':1}")
+    List<Article> findUsersByApprover(ObjectId approverId);
     /**
      * Implements a custom method that returns a pageable Article.
      * @param types article type to be searched.

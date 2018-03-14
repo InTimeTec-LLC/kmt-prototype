@@ -1,5 +1,21 @@
 package com.itt.kmt.services;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Map;
+
+import org.apache.commons.lang3.StringUtils;
+import org.bson.types.ObjectId;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.mail.MailException;
+import org.springframework.stereotype.Service;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
+
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.itt.kmt.jwt.exception.UnauthorizedException;
 import com.itt.kmt.models.Approve;
@@ -16,22 +32,8 @@ import com.itt.kmt.repositories.ArticleTypeRepository;
 import com.itt.kmt.repositories.CommentRepository;
 import com.itt.kmt.validators.ArticleValidator;
 import com.itt.utility.Constants;
-import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.lang3.StringUtils;
-import org.bson.types.ObjectId;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
-import org.springframework.mail.MailException;
-import org.springframework.stereotype.Service;
-import org.springframework.validation.BindingResult;
-import org.springframework.validation.FieldError;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Map;
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * Service class that acts as an intermediary between controller and the
@@ -605,7 +607,6 @@ public class ArticleService {
         return articlePage;
     }
 
-
     /**
      * Validate user.
      *
@@ -631,5 +632,13 @@ public class ArticleService {
             }
         }
         return errorMsg;
+    }
+        /**
+     * Function to get Article who are associated with reviewer.
+     * @param approverId string to search in article list.
+     * @return List<Article> get list of Article.
+     */
+    public List<Article> getUsersByApprover(final String approverId) {
+         return  articleRepository.findUsersByApprover(new ObjectId(approverId));
     }
 }

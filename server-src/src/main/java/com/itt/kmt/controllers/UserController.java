@@ -50,13 +50,13 @@ public class UserController {
     @RequestMapping(method = RequestMethod.POST, produces = "application/json")
     @RequiresPermissions("addUser")
     public ModelMap add(@Valid
-    @RequestBody
-    final UserRequst userRequest, final BindingResult result) {
+            @RequestBody
+            final UserRequst userRequest, final BindingResult result) {
 
         User user = userRequest.getUser();
         String errorMsg = userService.validateUser(user, result);
         if (errorMsg != null && !errorMsg.isEmpty()) {
-            
+
             ResponseMsg postResponseMsg = new ResponseMsg(false, errorMsg);
             return new ModelMap().addAttribute("success", postResponseMsg);
         }
@@ -100,18 +100,16 @@ public class UserController {
     @RequestMapping(method = RequestMethod.GET)
     @RequiresPermissions("getAllUser")
     public Page<User> getAllUsers(final HttpServletRequest request,
-                @PageableDefault(value = Constants.PAGE_SIZE)final Pageable pageablePage,
-                @RequestParam(required = false) final String role,
-                @RequestParam(required = false) final Boolean status,
-                @RequestParam(required = false) final String search) {
+            @PageableDefault(value = Constants.PAGE_SIZE)final Pageable pageablePage,
+            @RequestParam(required = false) final String role,
+            @RequestParam(required = false) final Boolean status,
+            @RequestParam(required = false) final String search) {
 
         String jwtToken = request.getHeader("Authorization");
 
         User loggedInUser = userService.getLoggedInUser(jwtToken);
-        Page<User> users = userService.filterUsersByStatusAndRole(search, role, status, 
-                     loggedInUser.getEmail(), pageablePage);
-
-        return users;
+        return userService.filterUsersByStatusAndRole(search, role, status, 
+                loggedInUser.getEmail(), pageablePage);
     }
     /**
      * REST Interface for Admin and Managers retrieval.
@@ -123,7 +121,7 @@ public class UserController {
     @RequestMapping(value = "/approvers", method = RequestMethod.GET)
     @RequiresPermissions("getAllApprovers")
     public ModelMap getAllApprovers(final HttpServletRequest request, final HttpServletResponse response, 
-               final Pageable pageablePage) {
+            final Pageable pageablePage) {
 
         String jwtToken = request.getHeader("Authorization");
         User loggedInUser = userService.getLoggedInUser(jwtToken);
@@ -149,14 +147,11 @@ public class UserController {
     public ModelMap changeUserStatus(@PathVariable("id") final String id, 
             @PathVariable("active") final boolean active) {
         userService.changeUserStatus(id, active);
-        ResponseMsg activateResponseMsg;
         if (active) {
-            activateResponseMsg = new ResponseMsg(true, Constants.USER_ACTIVATED_SUCCESS_MSG);
+            return new ModelMap().addAttribute("success", new ResponseMsg(true, Constants.USER_ACTIVATED_SUCCESS_MSG));
         } else {
-            activateResponseMsg = new ResponseMsg(true, Constants.USER_DEACTIVATED_SUCCESS_MSG);
+            return new ModelMap().addAttribute("success", new ResponseMsg(true, Constants.USER_DEACTIVATED_SUCCESS_MSG));
         }
-
-        return new ModelMap().addAttribute("success", activateResponseMsg);
     }
     /**
      * REST API to update a User.
@@ -169,7 +164,7 @@ public class UserController {
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT, produces = "application/json")
     @RequiresPermissions("updateUser")
     public ModelMap updateUser(@Valid @RequestBody
-    final UserRequst userRequest, final BindingResult result, @PathVariable("id")
+            final UserRequst userRequest, final BindingResult result, @PathVariable("id")
     final String id) {
 
         User user = userRequest.getUser();
@@ -178,10 +173,9 @@ public class UserController {
             ResponseMsg postResponseMsg = new ResponseMsg(false, errorMsg);
             return new ModelMap().addAttribute("success", postResponseMsg);
         }
-
         userService.updateUser(user, id);
-        ResponseMsg updateResponseMsg = new ResponseMsg(true, Constants.DEFAULT_UPDATE_SUCCESS_MSG);
-        return new ModelMap().addAttribute("success", updateResponseMsg);
+        return new ModelMap().addAttribute("success",
+                new ResponseMsg(true, Constants.DEFAULT_UPDATE_SUCCESS_MSG));
     }
     /**
      * REST API to return all Roles.
