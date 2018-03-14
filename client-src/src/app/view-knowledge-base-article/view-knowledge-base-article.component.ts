@@ -24,9 +24,7 @@ export class ViewKnowledgeBaseArticleComponent implements OnInit {
               private activatedRoute: ActivatedRoute,
               private auth: AuthenticationService,
 
-  ) {}
-
-  ngOnInit() {
+  ) {
     this.activatedRoute.params.subscribe((params: any) => {
       this.articleId = params['id'];
       if (this.articleId) {
@@ -41,9 +39,16 @@ export class ViewKnowledgeBaseArticleComponent implements OnInit {
     });
   }
 
+  ngOnInit() {
+
+  }
+
   downloadAttachment(id, fileName) {
     this.kbContentService.downloadAttachment(id)
     .subscribe(fileData => saveAs(fileData, fileName));
   }
 
+  onTapNavigation(route) {
+    this.router.navigate([route]);
+  }
 }

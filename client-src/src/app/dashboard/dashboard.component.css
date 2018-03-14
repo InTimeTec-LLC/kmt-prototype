@@ -1,4 +1,4 @@
-/*
+
 .dashboard-lists {
     float: left;
     width: 100%;
@@ -39,15 +39,8 @@
     position: relative;
 }
 
-.searchsubmit {
-    font-family: 'FontAwesome';
-    width: 25px;
-    height: 25px;
-    position: absolute;
-    top: 0;
-    right: 0px;
-    background: #525050;
-    border: none;
-    color: #fff;
-    cursor: pointer;
-}*/
+.view-all {
+    text-decoration: underline;
+    float: right;
+    padding: 20px 25px;
+}

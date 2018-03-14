@@ -1,11 +1,8 @@
-<!--<div class="container">
+<div class="container">
     <div class="breadcrumb-fullwidth">
         <div class="breadcrumb-bar">
              <ul class="breadcrumb">
                 <li><a href="#">Dashboard</a></li>
-                <li><a href="#">settings</a></li>
-                <li><a href="#">User</a></li>
-                <li>Edit-user</li>
              </ul>
         </div>
     </div>
@@ -18,209 +15,139 @@
             <h2>Pending Approvals</h2>
             <hr>
         </div>
-        <div class="filter-input">
-                <mat-form-field>
-                  <input matInput [(ngModel)]="searchTxt" placeholder="Search here">
-                </mat-form-field>
-                <img src="../../assets/images/search_gray.png" (click)="onTapSearchIcon()" alt="Filtericon" class="search_icon">
-                
-              </div>
+        <div class="table-input-list mat-elevation-z8">
   
-            <div *ngIf='filterList.length === 0' class="noRecord">No Record Found</div>
-            <mat-table [dataSource]="dataSource" matSort class="list_table" *ngIf='filterList.length > 0'>
-          
-              <!-- ID Column 
-              <ng-container matColumnDef="name">
-                <mat-header-cell *matHeaderCellDef mat-sort-header> Name </mat-header-cell>
-                <mat-cell *matCellDef="let row"> {{row.firstName}} {{row.lastName}} </mat-cell>
-              </ng-container>-->
-          
-              <!-- Progress Column 
-              <ng-container matColumnDef="email">
-                <mat-header-cell *matHeaderCellDef mat-sort-header> Email </mat-header-cell>
-                <mat-cell *matCellDef="let row"> {{row.email}} </mat-cell>
-              </ng-container>-->
-          
-              <!-- Name Column 
-              <ng-container matColumnDef="role">
-                <mat-header-cell *matHeaderCellDef mat-sort-header> Role </mat-header-cell>
-                <mat-cell *matCellDef="let row"> {{row.userRole}} </mat-cell>
-              </ng-container>-->
+          <div *ngIf='filterList.length === 0' class="noRecord">No Record Found</div>
+          <mat-table [dataSource]="dataSource" matSort class="list_table" *ngIf='filterList.length > 0'>
         
-               <!-- status Column 
-               <ng-container matColumnDef="status">
-                  <mat-header-cell *matHeaderCellDef mat-sort-header> Status </mat-header-cell>
-                  <mat-cell *matCellDef="let row"> 
-                      <span *ngIf="!row.status">Inactive</span>
-                      <span *ngIf="row.status">Active</span>
-                  </mat-cell>
-                </ng-container>-->
-        
-              <!-- status Column 
-              <ng-container matColumnDef="createdon">
-                  <mat-header-cell *matHeaderCellDef mat-sort-header> Created On </mat-header-cell>
-                  <mat-cell *matCellDef="let row"> {{row.createdOn | date }} </mat-cell>
+            <!-- Title Column -->
+            <ng-container matColumnDef="title">
+                <mat-header-cell *matHeaderCellDef>Title</mat-header-cell>
+                <mat-cell *matCellDef="let row">
+                  <a (click)="onTapNavigation('/article-detail/'+row.id)" *ngIf="(currentUserId != row.content.approver.id) || (row.status == true)">{{ row.title }}</a>
+                  <a (click)="onTapNavigation('/article-approved-view/'+row.id)" *ngIf="currentUserId == row.content.approver.id && row.status == false">{{ row.title }}</a>
+                </mat-cell>
                 </ng-container>
+      
+                <!-- Type Column -->
+                <ng-container matColumnDef="type">
+                <mat-header-cell *matHeaderCellDef>Type</mat-header-cell>
+                <mat-cell *matCellDef="let row">{{ row.type }}</mat-cell>
+                </ng-container>
+      
+                <!-- createdBy Column -->
+                <ng-container matColumnDef="createdBy">
+                <mat-header-cell *matHeaderCellDef>CreatedBy</mat-header-cell>
+                <mat-cell *matCellDef="let row">{{ row.createdBy }}</mat-cell>
+                </ng-container>
+
+                <!-- createdDate Column -->
+                <ng-container matColumnDef="createdDate">
+                  <mat-header-cell *matHeaderCellDef>Date</mat-header-cell>
+                  <mat-cell *matCellDef="let row">{{ row.createdDate | date: 'dd/MM/yyyy' }}</mat-cell>
+                  </ng-container>
+
+            <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+            <mat-row *matRowDef="let row; columns: displayedColumns;">
+            </mat-row>
+          </mat-table>
         
-                <!-- Color Column 
-              <ng-container matColumnDef="actions">
-                  <mat-header-cell *matHeaderCellDef mat-sort-header> Actions </mat-header-cell>
-                  <mat-cell *matCellDef="let row" class="action-link">
-                    <a [routerLink]="['/user/edit', row.id]">Edit</a> |
-                    <a *ngIf="row.status" (click)="onTapActions(false, row.id)">Deactivate</a>
-                    <a *ngIf="!row.status" (click)="onTapActions(true, row.id)">Activate</a> 
-                  </mat-cell>
-                </ng-container>-->
-          
-             <!-- <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-              <mat-row *matRowDef="let row; columns: displayedColumns;">
-              </mat-row>
-            </mat-table>
-          
-            <mat-paginator *ngIf='filterList.length > 0' [length]="totalNumberItems" [pageSize]="10" (page)="pageEvent = $event; onPaginateChange($event)">
-            </mat-paginator>
+          <div class="view">
+              <a [routerLink]="['../articlelist']" class="view-all">View All</a>
           </div>
+        
+        </div>  
+
+      </div>
     </div>
     </div>
 <div class="dashboard-lists">
+
+  
     <div class="dashboard-lists-left">
             <div class="dashboard-table-lists mat-elevation-z8">
                 <div class="pending-heading pending-list">
-                    <h2>Pending Approvals</h2>
+                    <h2>Recently Edited</h2>
                     <hr>
                 </div>
-                <div class="filter-input">
-                        <mat-form-field>
-                          <input matInput [(ngModel)]="searchTxt" placeholder="Search here">
-                        </mat-form-field>
-                        <img src="../../assets/images/search_gray.png" (click)="onTapSearchIcon()" alt="Filtericon" class="search_icon">
+                <div class="table-input-list mat-elevation-z8">
+                <div *ngIf='articleEditedList.length === 0' class="noRecord">No Record Found</div>
+                          <mat-table [dataSource]="dataSourceEdited" matSort class="list_table" *ngIf='articleEditedList.length > 0'>
                         
-                      </div>
-          
-                    <div *ngIf='filterList.length === 0' class="noRecord">No Record Found</div>
-                    <mat-table [dataSource]="dataSource" matSort class="list_table" *ngIf='filterList.length > 0'>
-                  
-                      <!-- ID Column 
-                      <ng-container matColumnDef="name">
-                        <mat-header-cell *matHeaderCellDef mat-sort-header> Name </mat-header-cell>
-                        <mat-cell *matCellDef="let row"> {{row.firstName}} {{row.lastName}} </mat-cell>
-                      </ng-container>-->
-                  
-                      <!-- Progress Column
-                      <ng-container matColumnDef="email">
-                        <mat-header-cell *matHeaderCellDef mat-sort-header> Email </mat-header-cell>
-                        <mat-cell *matCellDef="let row"> {{row.email}} </mat-cell>
-                      </ng-container> -->
-                  
-                      <!-- Name Column 
-                      <ng-container matColumnDef="role">
-                        <mat-header-cell *matHeaderCellDef mat-sort-header> Role </mat-header-cell>
-                        <mat-cell *matCellDef="let row"> {{row.userRole}} </mat-cell>
-                      </ng-container>-->
-                
-                       <!-- status Column
-                       <ng-container matColumnDef="status">
-                          <mat-header-cell *matHeaderCellDef mat-sort-header> Status </mat-header-cell>
-                          <mat-cell *matCellDef="let row"> 
-                              <span *ngIf="!row.status">Inactive</span>
-                              <span *ngIf="row.status">Active</span>
-                          </mat-cell>
-                        </ng-container> -->
-                
-                      <!-- status Column 
-                      <ng-container matColumnDef="createdon">
-                          <mat-header-cell *matHeaderCellDef mat-sort-header> Created On </mat-header-cell>
-                          <mat-cell *matCellDef="let row"> {{row.createdOn | date }} </mat-cell>
-                        </ng-container>-->
-                
-                        <!-- Color Column
-                      <ng-container matColumnDef="actions">
-                          <mat-header-cell *matHeaderCellDef mat-sort-header> Actions </mat-header-cell>
-                          <mat-cell *matCellDef="let row" class="action-link">
-                            <a [routerLink]="['/user/edit', row.id]">Edit</a> |
-                            <a *ngIf="row.status" (click)="onTapActions(false, row.id)">Deactivate</a>
-                            <a *ngIf="!row.status" (click)="onTapActions(true, row.id)">Activate</a> 
-                          </mat-cell>
-                        </ng-container>
-                  
-                      <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-                      <mat-row *matRowDef="let row; columns: displayedColumns;">
-                      </mat-row>
-                    </mat-table>
-                  
-                    <mat-paginator *ngIf='filterList.length > 0' [length]="totalNumberItems" [pageSize]="10" (page)="pageEvent = $event; onPaginateChange($event)">
-                    </mat-paginator>
-                  </div>
-            </div>
-            <div class="dashboard-lists-right">
-                    <div class="dashboard-table-lists mat-elevation-z8">
+                            <!-- Title Column -->
+                            <ng-container matColumnDef="title">
+                                <mat-header-cell *matHeaderCellDef>Title</mat-header-cell>
+                                <mat-cell *matCellDef="let row">
+                                  <a (click)="onTapNavigation('/article-detail/'+row.id)" *ngIf="(currentUserId != row.content.approver.id) || (row.status == true)">{{ row.title }}</a>
+                                  <a (click)="onTapNavigation('/article-approved-view/'+row.id)" *ngIf="currentUserId == row.content.approver.id && row.status == false">{{ row.title }}</a>
+                                </mat-cell>
+                                </ng-container>
+                      
+                                <!-- Type Column -->
+                                <ng-container matColumnDef="type">
+                                <mat-header-cell *matHeaderCellDef>Type</mat-header-cell>
+                                <mat-cell *matCellDef="let row">{{ row.type }}</mat-cell>
+                                </ng-container>
+                      
+                               <!-- Status Column -->
+                               <ng-container matColumnDef="status">
+                                    <mat-header-cell *matHeaderCellDef>Status</mat-header-cell>
+                                    <mat-cell *matCellDef="let row"> 
+                                        <span *ngIf="!row.status">Unpublished</span>
+                                        <span *ngIf="row.status">Published</span>
+                                    </mat-cell>
+                            </ng-container>
+            
+                            <mat-header-row *matHeaderRowDef="displayedColumnEdited"></mat-header-row>
+                            <mat-row *matRowDef="let row; columns: displayedColumnEdited;">
+                            </mat-row>
+                </mat-table>
+                 </div>       
+    </div>
+</div>   
+            
+    <div class="dashboard-lists-right">
+            <div class="dashboard-table-lists mat-elevation-z8">
                         <div class="pending-heading pending-list">
-                            <h2>Pending Approvals</h2>
+                            <h2>Recently Added</h2>
                             <hr>
                         </div>
-                        <div class="filter-input">
-                                <mat-form-field>
-                                  <input matInput [(ngModel)]="searchTxt" placeholder="Search here">
-                                </mat-form-field>
-                                <img src="../../assets/images/search_gray.png" (click)="onTapSearchIcon()" alt="Filtericon" class="search_icon">
-                                
-                              </div>
-                  
-                            <div *ngIf='filterList.length === 0' class="noRecord">No Record Found</div>
-                            <mat-table [dataSource]="dataSource" matSort class="list_table" *ngIf='filterList.length > 0'>
-                          
-                              <!-- ID Column 
-                              <ng-container matColumnDef="name">
-                                <mat-header-cell *matHeaderCellDef mat-sort-header> Name </mat-header-cell>
-                                <mat-cell *matCellDef="let row"> {{row.firstName}} {{row.lastName}} </mat-cell>
-                              </ng-container>-->
-                          
-                              <!-- Progress Column 
-                              <ng-container matColumnDef="email">
-                                <mat-header-cell *matHeaderCellDef mat-sort-header> Email </mat-header-cell>
-                                <mat-cell *matCellDef="let row"> {{row.email}} </mat-cell>
-                              </ng-container>-->
-                          
-                              <!-- Name Column 
-                              <ng-container matColumnDef="role">
-                                <mat-header-cell *matHeaderCellDef mat-sort-header> Role </mat-header-cell>
-                                <mat-cell *matCellDef="let row"> {{row.userRole}} </mat-cell>
-                              </ng-container>-->
+                        <div class="table-input-list mat-elevation-z8">
+  
+                          <div *ngIf='articleAddedList.length === 0' class="noRecord">No Record Found</div>
+                          <mat-table [dataSource]="dataSourceAdded" matSort class="list_table" *ngIf='articleAddedList.length > 0'>
                         
-                               <!-- status Column
-                               <ng-container matColumnDef="status">
-                                  <mat-header-cell *matHeaderCellDef mat-sort-header> Status </mat-header-cell>
-                                  <mat-cell *matCellDef="let row"> 
-                                      <span *ngIf="!row.status">Inactive</span>
-                                      <span *ngIf="row.status">Active</span>
-                                  </mat-cell>
-                                </ng-container> -->
-                        
-                              <!-- status Column 
-                              <ng-container matColumnDef="createdon">
-                                  <mat-header-cell *matHeaderCellDef mat-sort-header> Created On </mat-header-cell>
-                                  <mat-cell *matCellDef="let row"> {{row.createdOn | date }} </mat-cell>
+                            <!-- Title Column -->
+                            <ng-container matColumnDef="title">
+                                <mat-header-cell *matHeaderCellDef>Title</mat-header-cell>
+                                <mat-cell *matCellDef="let row">
+                                  <a (click)="onTapNavigation('/article-detail/'+row.id)" *ngIf="(currentUserId != row.content.approver.id) || (row.status == true)">{{ row.title }}</a>
+                                  <a (click)="onTapNavigation('/article-approved-view/'+row.id)" *ngIf="currentUserId == row.content.approver.id && row.status == false">{{ row.title }}</a>
+                                </mat-cell>
                                 </ng-container>
-                        
-                                Color Column -->
-                             <!-- <ng-container matColumnDef="actions">
-                                  <mat-header-cell *matHeaderCellDef mat-sort-header> Actions </mat-header-cell>
-                                  <mat-cell *matCellDef="let row" class="action-link">
-                                    <a [routerLink]="['/user/edit', row.id]">Edit</a> |
-                                    <a *ngIf="row.status" (click)="onTapActions(false, row.id)">Deactivate</a>
-                                    <a *ngIf="!row.status" (click)="onTapActions(true, row.id)">Activate</a> 
-                                  </mat-cell>
+                      
+                                <!-- Type Column -->
+                                <ng-container matColumnDef="type">
+                                <mat-header-cell *matHeaderCellDef>Type</mat-header-cell>
+                                <mat-cell *matCellDef="let row">{{ row.type }}</mat-cell>
                                 </ng-container>
-                          
-                              <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-                              <mat-row *matRowDef="let row; columns: displayedColumns;">
-                              </mat-row>
-                            </mat-table>
-                          
-                            <mat-paginator *ngIf='filterList.length > 0' [length]="totalNumberItems" [pageSize]="10" (page)="pageEvent = $event; onPaginateChange($event)">
-                            </mat-paginator>
-                          </div>
-                    </div>
-                    </div>
+                      
+                                <!-- Status Column -->
+                                <ng-container matColumnDef="status">
+                                        <mat-header-cell *matHeaderCellDef>Status</mat-header-cell>
+                                        <mat-cell *matCellDef="let row"> 
+                                            <span *ngIf="!row.status">Unpublished</span>
+                                            <span *ngIf="row.status">Published</span>
+                                        </mat-cell>
+                                </ng-container>
+                
+                            <mat-header-row *matHeaderRowDef="displayedColumnEdited"></mat-header-row>
+                            <mat-row *matRowDef="let row; columns: displayedColumnEdited;">
+                            </mat-row>
+                          </mat-table>
+                        </div>  
+                        </div>
+    </div>
          
-</div>-->
+
+
