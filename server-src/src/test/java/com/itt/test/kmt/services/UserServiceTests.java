@@ -94,7 +94,7 @@ public class UserServiceTests {
         // Arrange
         User user = testDataRepository.getUsers()
                 .get("user-1");
-        when(userRepository.findByEmail(user.getEmail())).thenReturn(user);
+        when(userRepository.findByEmailContainingIgnoreCase(user.getEmail())).thenReturn(user);
 
         // Act
         User userRecieved = userService.getUserByEmail(user.getEmail());
@@ -103,7 +103,7 @@ public class UserServiceTests {
         assertEquals(userRecieved.getFirstName(), user.getFirstName());
         assertEquals(userRecieved.getLastName(), user.getLastName());
         assertEquals(userRecieved.getUserRole(), user.getUserRole());
-        verify(userRepository, times(1)).findByEmail(user.getEmail());
+        verify(userRepository, times(1)).findByEmailContainingIgnoreCase(user.getEmail());
     }
 
     @Test
