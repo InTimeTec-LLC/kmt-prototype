@@ -34,6 +34,7 @@ import { UserListComponent, UserListFilterComponent } from './user-list/user-lis
 import { SearchKnowledgeBaseComponent } from './search-knowledge-base/search-knowledge-base.component';
 import { KnowledgeBaseSearchComponent } from './knowledge-base-search/knowledge-base-search.component';
 import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
+import { ProfileComponent } from './profile/profile.component';
 
 
 @NgModule({
@@ -56,7 +57,8 @@ import { ForgotPasswordComponent } from './forgot-password/forgot-password.compo
     ApprovedKnowledgeBaseArticleComponent,
     SearchKnowledgeBaseComponent,
     KnowledgeBaseSearchComponent,
-    ForgotPasswordComponent
+    ForgotPasswordComponent,
+    ProfileComponent
   ],
   imports: [
     BrowserModule,

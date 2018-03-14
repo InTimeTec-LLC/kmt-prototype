@@ -3,12 +3,19 @@ import { HttpRequest, HttpHandler, HttpEvent, HttpInterceptor, HttpResponse, Htt
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/do';
 import { Ng4LoadingSpinnerService } from 'ng4-loading-spinner';
+import { Router } from '@angular/router';
+import { MessageService } from '../message/message';
+import { AuthenticationService } from '../authentication/authentication.service';
+
 
 
 @Injectable()
 export class JwtInterceptor implements HttpInterceptor {
     constructor(
-        private spinnerService: Ng4LoadingSpinnerService
+        private spinnerService: Ng4LoadingSpinnerService,
+        private auth: AuthenticationService,
+        private router: Router,
+        private messageService: MessageService
     ) {}
     intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
         // add authorization header with jwt token if available
@@ -30,14 +37,16 @@ export class JwtInterceptor implements HttpInterceptor {
                console.log('SUCCESS: Stop Request for Spinner');
                this.spinnerService.hide();
             }
-            // this.spinnerService.hide();
           }, (err: any) => {
             if (err instanceof HttpErrorResponse) {
                console.log('ERROR: Stop Request for Spinner');
-               console.log(err);
                this.spinnerService.hide();
+               if (err.error.success.message === 'Unauthorized access') {
+                    this.messageService.sendMessage('closeMatDrawer');
+                    this.auth.logout();
+                    this.router.navigate(['/login']);
+               }
             }
-            // this.spinnerService.hide();
         });
     }
 }

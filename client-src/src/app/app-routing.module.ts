@@ -14,6 +14,7 @@ import { ApprovedKnowledgeBaseArticleComponent } from './approved-knowledge-base
 import { SearchKnowledgeBaseComponent } from './search-knowledge-base/search-knowledge-base.component';
 import { KnowledgeBaseSearchComponent } from './knowledge-base-search/knowledge-base-search.component';
 import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
+import { ProfileComponent } from './profile/profile.component';
 
 const routes:  Routes = [
     {
@@ -53,6 +54,11 @@ const routes:  Routes = [
     { path: 'userlist',
       component: UserListComponent,
       data: { title: 'User List' }
+    },
+    {
+      path: 'profile',
+      component: ProfileComponent,
+      data: { title: 'Profile' }
     },
     { path: '',
       redirectTo: '/dashboard',
