@@ -5,7 +5,7 @@
 </head>
 <body>
 <p>Hi ${firstName},</p>
-<p>Your <a href="#localhost:8080/index.html+/#/+articlePage">article name</a> has been reviewed <#if comments??> with <status>Review Comments.
+<p>Your <#if articleLink??><a href="${articleLink}"><#if articleTitle??>${articleTitle}</#if></a></#if> has been reviewed <#if comments??> with <status>Review Comments.
 
 <p style="text-decoration: underline;"><b>Comments:</b></p>
  ${comments}

@@ -260,12 +260,22 @@ public class UserService {
 
         } else if (existingUser != null) {
 
+            boolean changePassword = existingUser.getPassword().equals(user.getPassword());
+
             existingUser.setFirstName(user.getFirstName());
             existingUser.setLastName(user.getLastName());
             existingUser.setUserRole(user.getUserRole());
             existingUser.setPassword(user.getPassword());
+            User savedUser = repository.save(existingUser);
 
-            return repository.save(existingUser);
+            if (!changePassword) {
+                try {
+                    mailService.sendResetPasswordMail(savedUser, savedUser.getPassword());
+                } catch (MailException | InterruptedException e) {
+                    log.error(e.getMessage());
+                }
+            }
+            return savedUser;
         } else {
             throw new RuntimeException(Constants.USER_DOES_NOT_EXIST_ERROR_MSG);
         }
