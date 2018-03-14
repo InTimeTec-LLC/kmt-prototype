@@ -13,9 +13,10 @@ dist/
 
 
 #Eclipse specific files
-.project/
-.classpath/
-.factorypath/
+*.project
+*.settings
+*.classpath
+*.factorypath
 
 
 
