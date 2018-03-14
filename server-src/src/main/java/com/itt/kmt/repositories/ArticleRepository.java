@@ -48,7 +48,7 @@ public interface ArticleRepository extends PagingAndSortingRepository<Article, S
      * @return Article Object matching the search parameter.
      */
     @Query("{'$and':[ {'createdBy._id': ?0}, { 'articleType._id': { $in: ?1  } }, {approved: { $in: ?2  }},"
-            + " { 'title' : {$regex:?3 } }] }")
+            + " { 'title' : {$regex:?3, $options: 'i' } }] }")
     Page<Article> findArticlesByCreatedBy(ObjectId createdById, List<ObjectId> types,
             List<Boolean> status, String search , Pageable page);
 
@@ -63,7 +63,7 @@ public interface ArticleRepository extends PagingAndSortingRepository<Article, S
      * @return Article Object matching the search parameter.
      */
     @Query("{'$and':[ {?0: ?1}, { 'articleType._id': { $in: ?2  } }, {approved: { $in: ?3  }}, "
-            + "{ 'title' : {$regex:?4 } }] }")
+            + "{ 'title' : {$regex:?4, $options: 'i' } }] }")
     Page<Article> findArticlesByFilter(String filter , ObjectId createdById, List<ObjectId> types,
             List<Boolean> status, String search , Pageable page);
 
@@ -76,8 +76,8 @@ public interface ArticleRepository extends PagingAndSortingRepository<Article, S
      * @param page object to get paginated Article list.
      * @return Article Object matching the search parameter.
      */
-    @Query("{'$and':[ {'approver._id': ?0}, {'articleType._id': {$regex:?1 ,$options:'i'}},"
-            + "{approved: ?2}, { 'title' : {$regex:?3 ,$options:'i'} }] }")
+    @Query("{'$and':[ {'approver._id': ?0}, {'articleType._id': {$regex:?1, $options:'i'}},"
+            + "{approved: ?2}, { 'title' : {$regex:?3, $options:'i'} }] }")
     Page<Article> findArticlesByApprover(ObjectId createdById, ObjectId type, Boolean status, 
             String search, Pageable page);
 
@@ -89,7 +89,8 @@ public interface ArticleRepository extends PagingAndSortingRepository<Article, S
      * @param page object to get paginated Article list.
      * @return Article Object matching the search parameter.
      */
-    @Query("{'$and':[ { 'articleType._id': { $in: ?0  } }, {approved: { $in: ?1  }}, { 'title' : {$regex:?2 } }] }")
+    @Query("{'$and':[ { 'articleType._id': { $in: ?0  } }"
+            + ", {approved: { $in: ?1  }}, { 'title' : {$regex:?2, $options: 'i' } }] }")
     Page<Article> findAllArticles(List<ObjectId> types, List<Boolean> status, String search, Pageable page);
 
     /**
@@ -102,8 +103,9 @@ public interface ArticleRepository extends PagingAndSortingRepository<Article, S
      * @return Article Object matching the search parameter.
      */
     @Query("{'$or':[ {'$and':[ {'createdBy._id': ?0}, { 'articleType._id': { $in: ?1  } }, {approved: { $in: ?2  }},"
-            + " { 'title' : {$regex:?3 } }] }, {'$and':[ {'approver._id': ?0}, { 'articleType._id': { $in: ?1  } },"
-            + " {approved: { $in: ?2  }}, { 'title' : {$regex:?3 } }] } ] }")
+            + " { 'title' : {$regex:?3, $options: 'i' } }] }"
+            + ", {'$and':[ {'approver._id': ?0}, { 'articleType._id': { $in: ?1  } },"
+            + " {approved: { $in: ?2  }}, { 'title' : {$regex:?3, $options: 'i' } }] } ] }")
     Page<Article> findAllArticles(ObjectId createdById, List<ObjectId> type, List<Boolean> status, String search,
             Pageable page);
 
@@ -119,7 +121,8 @@ public interface ArticleRepository extends PagingAndSortingRepository<Article, S
      * @param approved approval status.
      * @return Article Object matching the search parameter.
      */
-    @Query("{ '$or': [ {'title': { $regex: ?0 } }, {'description': { $regex: ?0 } } ] , 'approved': ?1 }")
+    @Query("{ '$or': [ {'title': { $regex: ?0, $options: 'i' } }"
+            + ", {'description': { $regex: ?0, $options: 'i' } } ] , 'approved': ?1 }")
     Page<KBArticle> findByTitleAndDescriptionAndApproved(String search, Boolean approved, Pageable page);
 
 }
