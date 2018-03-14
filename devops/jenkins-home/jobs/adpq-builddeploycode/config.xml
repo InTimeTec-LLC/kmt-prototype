@@ -79,6 +79,7 @@ cd ${WORKSPACE}/server-src
 echo &quot;********* CHANGING THE MONGO DB IP IN application.properties with $HOSTIP *********&quot;
 #sed -i &quot;s/^spring.data.mongodb.host.*/spring.data.mongodb.host=$HOSTIP/g&quot; config/application.properties
 sed -i &quot;s#^spring.data.mongodb.uri.*#spring.data.mongodb.uri=mongodb://$HOSTIP/kmt_db#g&quot; src/main/resources/application.properties
+sed -i &quot;s#^application.baseurl.*#application.baseurl=http://$HOSTIP/#g&quot; src/main/resources/application.properties
 chmod +x setenv.sh
 ./setenv.sh
 chmod +x gradlew
