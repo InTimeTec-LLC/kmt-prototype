@@ -309,6 +309,25 @@ public class UserService {
     }
 
     /**
+     * This method is responsible to update users regarding the activation. 
+     * or deactivation of users and its effects.
+     * 
+     * @param id Id of the User.
+     * @param isActive isActive status of the User.
+     * @return User.
+     */
+    private void userUpdateMailRequest(final String id, final boolean isActive, final User existingUser) {
+        try {
+            if (!isActive) {
+                mailService.updateUserToChangeReviewer(articleService.getUsersByApprover(id));
+            }
+            mailService.sendUserActivateMail(existingUser, isActive);
+        } catch (MailException | InterruptedException e) {
+            log.error(e.getMessage());
+        }
+    }
+
+    /**
      * Updates User.
      * 
      * @param user user to be updated.

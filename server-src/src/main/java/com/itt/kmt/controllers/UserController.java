@@ -151,8 +151,10 @@ public class UserController {
         if (active) {
             return new ModelMap().addAttribute("success", new ResponseMsg(true, Constants.USER_ACTIVATED_SUCCESS_MSG));
         } else {
+
             return new ModelMap().addAttribute("success", new ResponseMsg(true,
                     Constants.USER_DEACTIVATED_SUCCESS_MSG));
+
         }
     }
     /**
@@ -168,6 +170,7 @@ public class UserController {
     @RequiresPermissions("updateUser")
     public ModelMap updateUser(@Valid @RequestBody
 
+
     final UserRequst userRequest, final BindingResult result, @PathVariable("id")
     final String id, final HttpServletRequest httpServletRequest) {
 
@@ -177,6 +180,7 @@ public class UserController {
             ResponseMsg postResponseMsg = new ResponseMsg(false, errorMsg);
             return new ModelMap().addAttribute("success", postResponseMsg);
         }
+
 
         userService.updateUser(user, id, httpServletRequest.getHeader(Constants.AUTHORIZATION));
         ResponseMsg updateResponseMsg = new ResponseMsg(true, Constants.DEFAULT_UPDATE_SUCCESS_MSG);
