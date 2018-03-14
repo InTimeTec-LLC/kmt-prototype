@@ -119,7 +119,7 @@ export class EditArticleComponent implements OnInit {
   }
 
   onCancle() {
-    this.router.navigateByUrl('/articlelist');
+    this.router.navigateByUrl('/articles');
   }
 
   updateAttachement(id) {

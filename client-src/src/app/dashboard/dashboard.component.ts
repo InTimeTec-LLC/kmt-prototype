@@ -1,7 +1,7 @@
 import {Component, ViewChild, OnInit, Inject} from '@angular/core';
 import {MatPaginator, MatSort, MatTableDataSource, MatDialog, MAT_DIALOG_DATA, MatDialogRef} from '@angular/material';
 import { User } from '../../shared/modals/user';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { ToasterService } from 'angular5-toaster';
 import { forEach } from '@angular/router/src/utils/collection';
 import { KnowledgeBaseArticleService } from '../../shared/service/knowledge-base-article/knowledge-base-article.service';
@@ -39,6 +39,7 @@ export class DashboardComponent implements OnInit {
 
   constructor(
     private router: Router,
+    private activatedRoute: ActivatedRoute,
     private toasterService: ToasterService,
     private kbContentService: KnowledgeBaseArticleService,
     public dialog: MatDialog,
@@ -91,11 +92,17 @@ createData(data, dashBoardType) {
 
 }
 
-onTapNavigation(route) {
+onTapNavigation(route, param) {
   this.router.navigate([route]);
+  if (param) {
+    this.router.navigate([route, param], {relativeTo: this.activatedRoute} );
+  } else {
+    this.router.navigate([route], {relativeTo: this.activatedRoute} );
+  }
 }
 
 createNewUser(item: any): any {
+  console.log(item.createdTime);
   return {
       id: item.id,
       type: item.articleType.type,

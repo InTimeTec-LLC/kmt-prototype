@@ -1,8 +1,8 @@
-import {Component, ViewChild, OnInit, Inject} from '@angular/core';
+import {Component, ViewChild, OnInit, Inject, OnDestroy} from '@angular/core';
 import {MatPaginator, MatSort, MatTableDataSource, MatDialog, MAT_DIALOG_DATA, MatDialogRef} from '@angular/material';
 import { UserService } from '../../shared/service/user/user.service';
 import { User } from '../../shared/modals/user';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute, NavigationEnd } from '@angular/router';
 import { ToasterService } from 'angular5-toaster';
 import { forEach } from '@angular/router/src/utils/collection';
 
@@ -15,7 +15,7 @@ import { forEach } from '@angular/router/src/utils/collection';
     styleUrls: ['./user-list.component.scss']
 })
 
-export class UserListComponent implements OnInit {
+export class UserListComponent implements OnInit, OnDestroy {
   displayedColumns = ['name', 'email', 'role', 'status', 'createdon', 'actions'];
   dataSource: MatTableDataSource<User>;
 
@@ -35,15 +35,31 @@ export class UserListComponent implements OnInit {
 
   bFilterStatus = undefined;
   pageNo = 0;
-
+  compType = 'list';
+  navigationSubscription;
   constructor(
     private userService: UserService,
     private router: Router,
+    private aRoute: ActivatedRoute,
     private toasterService: ToasterService,
     public dialog: MatDialog) {
         this.userService.listRoles().subscribe((data: any) => {
             this.userService.setRoles(data.roles);
         });
+
+        this.navigationSubscription = this.router.events.subscribe((e: any) => {
+            if (e instanceof NavigationEnd) {
+              if (this.router.url === '/users') {
+                this.compType = 'list';
+              }
+            }
+        });
+    }
+
+    ngOnDestroy() {
+        if (this.navigationSubscription) {
+           this.navigationSubscription.unsubscribe();
+        }
     }
 
     ngOnInit() {
@@ -108,8 +124,13 @@ export class UserListComponent implements OnInit {
             });
     }
 
-    onTapNavigation(route) {
-        this.router.navigate([route]);
+    onTapNavigation(route, param) {
+        this.compType = route;
+        if (param) {
+            this.router.navigate([route, param], {relativeTo: this.aRoute} );
+        } else {
+            this.router.navigate([route], {relativeTo: this.aRoute} );
+        }
     }
 
     onTapFilterIcon() {
