@@ -37,7 +37,9 @@ export class EditUserComponent implements OnInit {
     this.activatedRoute.params.subscribe((params: any) => {
       this.userId = params['id'];
       if (this.userId) {
+
         this.userService.reteriveUserById(this.userId).subscribe((data: any) => {
+          console.log(data);
           this.user.setValue({
             firstName: data.user.firstName,
             lastName: data.user.lastName,
@@ -60,7 +62,7 @@ export class EditUserComponent implements OnInit {
     this.user = this.fb.group({
       firstName: ['', [Validators.required, Validators.minLength(2)]],
       lastName: ['', Validators.required],
-      password: ['', Validators.required, Validators.minLength(8)],
+      password: ['', Validators.required],
       userRole: ['', Validators.required],
       email: ['', Validators.email],
       confirmPassword: ['', Validators.required],
