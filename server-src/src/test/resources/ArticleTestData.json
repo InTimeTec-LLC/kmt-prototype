@@ -2,9 +2,9 @@
     "article-1":  {
         "id": "1",
         "version": "1",
-        "lastModifiedTime": "Tue Feb 24 17:14:43 IST 2018",
+        "lastModifiedTime": "1520967560123",
         "createdBy":"1",
-        "createdTime": "Tue Feb 27 17:14:43 IST 2018",
+        "createdTime": "1520853515567",
         "title": "article-1",
         "description": "<html>hello<hello>",
         "restricted": false,
@@ -14,10 +14,10 @@
    "article-2":  {
          "id": "2",
          "version": "1",
-         "lastModifiedTime": "Tue Feb 24 17:14:43 IST 2018",
+         "lastModifiedTime": "1520967560123",
          "lastModifiedBy": "1",
          "createdBy": "1",
-         "createdTime": "Tue Feb 27 17:14:43 IST 2018",
+         "createdTime": "1520853515567",
          "title": "article-2",
          "description": "<html>hello</html>",
          "restricted": true,
@@ -27,10 +27,10 @@
    "article-3": {
         "id": "3",
         "version": "1",
-        "lastModifiedTime": "Tue Feb 24 17:14:43 IST 2018",
+        "lastModifiedTime": "1520967560123",
         "lastModifiedBy": "1",
         "createdBy": "1",
-        "createdTime": "Tue Feb 27 17:14:43 IST 2018",
+        "createdTime": "1520853515567",
         "title": "article-3",
         "description": "<html>hello</html>",
         "restricted": true,
@@ -40,7 +40,7 @@
     "article-4": {
          "id": "4",
          "version": "1",
-         "lastModifiedTime": "Tue Feb 24 17:14:43 IST 2018",
+         "lastModifiedTime": "1520967560123",
          "lastModifiedBy": "1",
          "createdBy": {
                "id": "5a9fef0dfdad16d3a1f3e37f",
@@ -48,7 +48,13 @@
                "lastName": "test",
                "email": "test@test.com"
          },
-         "createdTime": "Tue Feb 27 17:14:43 IST 2018",
+         "approver": {
+             "id": "5a9fef1661f02d2f6c932a80",
+             "firstName": "test",
+             "lastName": "test",
+             "email": "test@mailinator.com"
+         },
+         "createdTime": "1520853515567",
          "title": "article-4",
          "description": "<html>hello</html>",
          "restricted": true,
@@ -58,20 +64,32 @@
     "article-5": {
         "id": "5",
         "version": "1",
-        "lastModifiedTime": "Tue Feb 24 17:14:43 IST 2018",
+        "lastModifiedTime": "1520967560123",
         "lastModifiedBy": "1",
         "createdBy": "1",
-        "createdTime": "Tue Feb 27 17:14:43 IST 2018",
+        "createdTime": "1520853515567",
         "title": "article-5",
         "description": "<html>hello</html>",
         "restricted": true,
         "needsApproval": true,
         "approved": true,
+        "createdBy": {
+               "id": "5a9fef1661f02d2f6c932a80",
+               "firstName": "test",
+               "lastName": "test",
+               "email": "test@test.com"
+        },
+        "approver": {
+             "id": "5a9fef1661f02d2f6c932a80",
+             "firstName": "test",
+             "lastName": "test",
+             "email": "test@mailinator.com"
+        },
         "comments":[
            {
                "id": "5aa1eaa161f02d2a0403ca46",
                "comment": "test comment",
-               "createdTime": "Thu Mar 08 18:00:01 PST 2018",
+               "createdTime": "1520853515567",
                "commentedBy": {
                    "id": "5a9fef0dfdad16d3a1f3e37f",
                    "firstName": "test",
@@ -86,7 +104,7 @@
             "id": "5aa528ece9248611480dc319",
             "title": "ten",
             "description": "record",
-            "lastModifiedTime": "Sun Mar 11 06:02:36 PDT 2018",
+            "lastModifiedTime": "1520967560123",
             "createdBy": {
                 "id": "5a9fef0dfdad16d3a1f3e37f",
                 "firstName": "test",

@@ -1,11 +1,13 @@
 package com.itt.kmt.models;
 
 import lombok.Data;
+import org.hibernate.validator.constraints.NotBlank;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.annotation.Version;
 
+import javax.validation.constraints.NotNull;
 import java.util.Date;
 import java.util.List;
 
@@ -52,6 +54,7 @@ public class Article {
     /**
      * ArticleType of Article.
      */
+    @NotNull(message = "Article Type cannot be null")
     private Object articleType;
 
     /**
@@ -63,10 +66,13 @@ public class Article {
     /**
      * name of the Article.
      */
+    @NotBlank(message = "Title cannot be blank")
     private String title;
+
     /**
      * html content of the Article.
      */
+    @NotBlank(message = "Description cannot be blank")
     private String description;
     /**
      * Restriction of article.
@@ -80,6 +86,7 @@ public class Article {
     /**
      * User who can approve this article.
      */
+    @NotNull(message = "Approver cannot be null")
     private Object approver;
     /**
      * approval Status of this article.

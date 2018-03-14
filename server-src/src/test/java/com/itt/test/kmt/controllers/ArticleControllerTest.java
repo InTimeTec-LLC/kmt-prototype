@@ -196,13 +196,14 @@ public class ArticleControllerTest extends AbstractShiroTest {
         article.setVersion(article.getVersion() + 1);
         ResponseMsg putResponseMsg = new ResponseMsg(true, "Modifications have been saved successfully");
 
-        when(articleService.updateArticle(article.getId(), article)).thenReturn(article);
+        when(articleService.updateArticle(article.getId(), article, "testoken")).thenReturn(article);
         HashMap<String, Article> map = new HashMap<String, Article>();
         map.put("article", article);
 
         // Act
         ResultActions resultActions = mockMvc.perform(
                 MockMvcRequestBuilders.put("/articles/" + article.getId())
+                        .header(Constants.AUTHORIZATION, "testoken")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(new ObjectMapper().writeValueAsString(map)));
 
@@ -212,7 +213,7 @@ public class ArticleControllerTest extends AbstractShiroTest {
                 content().contentType(new MediaType("application", "json", Charset.forName("UTF-8"))))
         .andExpect(jsonPath("$.success.message", is(putResponseMsg.getMessage())))
         .andExpect(jsonPath("$.success.status", is(putResponseMsg.getStatus())));
-        verify(articleService, times(1)).updateArticle(article.getId(), article);
+        verify(articleService, times(1)).updateArticle(article.getId(), article, "testoken");
     }
 
 

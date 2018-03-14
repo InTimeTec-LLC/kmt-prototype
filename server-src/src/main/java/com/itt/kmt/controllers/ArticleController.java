@@ -5,9 +5,12 @@ import com.itt.kmt.models.Approve;
 import com.itt.kmt.models.Article;
 import com.itt.kmt.models.ArticleFilter;
 import com.itt.kmt.models.ArticleType;
+import com.itt.kmt.models.Attachment;
 import com.itt.kmt.models.KBArticle;
+import com.itt.kmt.request.models.ArticleRequest;
 import com.itt.kmt.response.models.ResponseMsg;
 import com.itt.kmt.services.ArticleService;
+import com.itt.kmt.services.AttachmentService;
 import com.itt.utility.Constants;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +18,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.ui.ModelMap;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -23,10 +27,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.validation.Valid;
 import java.util.HashMap;
 import java.util.List;
-import com.itt.kmt.models.Attachment;
-import com.itt.kmt.services.AttachmentService;
 
 /**
  * This class is responsible for exposing REST APis for Article.
@@ -48,13 +51,21 @@ public class ArticleController {
     /**
      * REST API to add a new Article.
      *
-     * @param articleMap from which we can take article to be added
+     * @param articleRequest from which we can take article to be added
+     * @param result the result
      * @return Success object
      */
     @RequestMapping(method = RequestMethod.POST, produces = "application/json")
-    public ModelMap addArticle(@RequestBody
-                               final HashMap<String, Article> articleMap) {
-        Article article = articleMap.get("article");
+    public ModelMap addArticle(@Valid @RequestBody
+                                   final ArticleRequest articleRequest, final BindingResult result) {
+
+        Article article = articleRequest.getArticle();
+        String errorMsg = articleService.validateArticle(article, result);
+        if (errorMsg != null && !errorMsg.isEmpty()) {
+            ResponseMsg postResponseMsg = new ResponseMsg(false, errorMsg);
+            return new ModelMap().addAttribute("success", postResponseMsg);
+        }
+
         List<Attachment> attachments = article.getAttachments();
         article.setAttachments(null);
         article = articleService.save(article);
@@ -73,15 +84,24 @@ public class ArticleController {
      * REST Interface for Article updation by id.
      *
      * @param id ID of the Article.
-     * @param articleMap from which we can take article to be updated.
+     * @param articleRequest  from which we can take article to be updated.
+     * @param httpServletRequest servlet request.
+     * @param result the result
      * @return Success object
      */
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT, produces = "application/json")
     public ModelMap updateArticle(@PathVariable(value = "id")
-                                  final String id, @RequestBody
-                                  final HashMap<String, Article> articleMap) {
+                                      final String id, @Valid @RequestBody
+                    final ArticleRequest articleRequest, final BindingResult result,
+                                  final HttpServletRequest httpServletRequest) {
 
-        articleService.updateArticle(id, articleMap.get("article"));
+        Article article = articleRequest.getArticle();
+        String errorMsg = articleService.validateArticle(article, result);
+        if (errorMsg != null && !errorMsg.isEmpty()) {
+            ResponseMsg postResponseMsg = new ResponseMsg(false, errorMsg);
+            return new ModelMap().addAttribute("success", postResponseMsg);
+        }
+        articleService.updateArticle(id, article, httpServletRequest.getHeader(Constants.AUTHORIZATION));
         return new ModelMap().addAttribute("success", new ResponseMsg(true, Constants.DEFAULT_UPDATE_SUCCESS_MSG));
     }
 
@@ -99,24 +119,6 @@ public class ArticleController {
                 articleService.getArticleById(id, httpServletRequest.getHeader(Constants.AUTHORIZATION)));
     }
 
-    /**
-     * REST API for retrieval of Article list.
-     *
-     * @param page , It is a pageable object with default size of 10 elements.
-     * @param httpServletRequest , Servlet request object.
-     * @return Page<Article> objects.
-     */
-    /*@RequestMapping(method = RequestMethod.GET)
-    public Page<Article> getArticles(@PageableDefault(value = Constants.PAGE_SIZE)final Pageable page,
-                                     final HttpServletRequest httpServletRequest) {
-    @RequestMapping(method = RequestMethod.GET)
-    public Page<Article> getArticles(@PageableDefault(value = Constants.PAGE_SIZE)
-    final Pageable page, final HttpServletRequest httpServletRequest) {
-
-        String jwtToken = httpServletRequest.getHeader(Constants.AUTHORIZATION);
-        return articleService.getAllArticles(page, jwtToken);
-    }
-     */
     /**
      * REST API to return all Article types.
      *
