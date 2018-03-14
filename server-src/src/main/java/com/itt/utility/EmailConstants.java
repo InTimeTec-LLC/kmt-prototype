@@ -123,6 +123,14 @@ public final class EmailConstants {
      * parameter of templates comments of email.
      */
     public static final String PARAM_COMMENTS = "comments";
+    /**
+     * parameter of templates comments of email.
+     */
+    public static final String PARAM_ARTICLE_LINK = "articleLink";
+    /**
+     * parameter of templates comments of email.
+     */
+    public static final String PARAM_ARTICLE_TITLE = "articleTitle";
 
     //known value of params 
     /**

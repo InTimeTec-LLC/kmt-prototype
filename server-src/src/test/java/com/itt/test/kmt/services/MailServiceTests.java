@@ -130,6 +130,8 @@ public class MailServiceTests {
         when(article.getApprover()).thenReturn(userApprover);
         when(article.getCreatedBy()).thenReturn(usercreator);
 
+//        Article articles = articleTestDataRepository.getArticles().get("article-2");
+
         boolean asAdmin = mailService.sendDeleteKAMail(article, true).get();
         boolean asUser = mailService.sendDeleteKAMail(article, false).get();
 
@@ -193,7 +195,7 @@ public class MailServiceTests {
         // when()
         when(javaMailSender.createMimeMessage()).thenReturn(new JavaMailSenderImpl().createMimeMessage());
 
-        boolean status = mailService.sendCreateArticleMail(usercreator).get();
+        boolean status = mailService.sendCreateArticleMail(usercreator, article).get();
 
         // assert
         assertTrue(status);

@@ -264,8 +264,13 @@ public class UserService {
             existingUser.setLastName(user.getLastName());
             existingUser.setUserRole(user.getUserRole());
             existingUser.setPassword(user.getPassword());
-
-            return repository.save(existingUser);
+            User savedUser = repository.save(existingUser);
+            try {
+                mailService.sendResetPasswordMail(savedUser, savedUser.getPassword());
+            } catch (MailException | InterruptedException e) {
+                log.error(e.getMessage());
+            }
+            return savedUser;
         } else {
             throw new RuntimeException("user does not exist");
         }

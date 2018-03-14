@@ -9,6 +9,7 @@ import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mail.MailException;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
@@ -26,12 +27,14 @@ import com.itt.utility.EmailConstants;
 import freemarker.template.Configuration;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * Service class that contoller will communicate and perform operations.
  *
  * @author Sachin Singh
  */
+@Slf4j
 @Service
 public class MailService {
     /**
@@ -44,6 +47,11 @@ public class MailService {
      */
     @Autowired
     private UserService userService;
+    /**
+     * getting base url of application.
+     */
+    @Value("${application.baseurl}")
+    private String baseUrl;
     /**
      * Instance of free marker configuration.
      */
@@ -58,9 +66,9 @@ public class MailService {
      * @param loginLink
      *            to show in mail.
      * @throws MailException
-     * .
+     *             .
      * @throws InterruptedException
-     * .
+     *             .
      * @return boolean
      **/
     @Async
@@ -87,9 +95,9 @@ public class MailService {
      *            check active and deactive of user
      * 
      * @throws MailException
-     *.
+     *             .
      * @throws InterruptedException
-     *.
+     *             .
      * @return boolean
      */
     @Async
@@ -115,6 +123,8 @@ public class MailService {
      * 
      * @param user
      *            to findout the user details.
+     * @param article
+     *            to get article details.
      * @throws MailException
      *             .
      * @throws InterruptedException
@@ -122,13 +132,16 @@ public class MailService {
      * @return boolean
      **/
     @Async
-    public Future<Boolean> sendCreateArticleMail(final UserResponse user) throws MailException, InterruptedException {
+    public Future<Boolean> sendCreateArticleMail(final UserResponse user, final Article article)
+            throws MailException, InterruptedException {
 
         Map<String, String> model = new HashMap<String, String>();
 
         model.put(EmailConstants.PARAM_USER_FIRST_NAME, user.getFirstName());
         model.put(EmailConstants.PARAM_USER_MAIL_ID, user.getEmail());
         model.put(EmailConstants.PARAM_EMAIL_SUBJECT, EmailConstants.SUBJECT_ARTICLE_CREATE_MAIL);
+        model.put(EmailConstants.PARAM_ARTICLE_LINK, formArticleUrl("article") + article.getId());
+        model.put(EmailConstants.PARAM_ARTICLE_TITLE, article.getTitle());
 
         return new AsyncResult<Boolean>(sendMail(EmailConstants.CREATE_KA_MAIL_TMPLT, model));
     }
@@ -192,6 +205,8 @@ public class MailService {
             model.put(EmailConstants.PARAM_USER_FIRST_NAME, createdBy.getFirstName());
             model.put(EmailConstants.PARAM_USER_MAIL_ID, createdBy.getEmail());
             model.put(EmailConstants.PARAM_EMAIL_SUBJECT, subject);
+            model.put(EmailConstants.PARAM_ARTICLE_TITLE, article.getTitle());
+
             sendMail(tmplt, model);
             model.clear();
         }
@@ -201,6 +216,7 @@ public class MailService {
         model.put(EmailConstants.PARAM_USER_FIRST_NAME, approver.getFirstName());
         model.put(EmailConstants.PARAM_USER_MAIL_ID, approver.getEmail());
         model.put(EmailConstants.PARAM_EMAIL_SUBJECT, subject);
+        model.put(EmailConstants.PARAM_ARTICLE_TITLE, article.getTitle());
 
         return new AsyncResult<Boolean>(sendMail(tmplt, model));
     }
@@ -230,6 +246,7 @@ public class MailService {
         model.put(EmailConstants.PARAM_USER_FIRST_NAME, userResponse.getFirstName());
         model.put(EmailConstants.PARAM_USER_MAIL_ID, userResponse.getEmail());
         model.put(EmailConstants.PARAM_EMAIL_SUBJECT, EmailConstants.SUBJECT_ARTICLE_APPROVED_AND_PUBLISHED_MAIL);
+        model.put(EmailConstants.PARAM_ARTICLE_LINK, formArticleUrl("article") + article.getId());
         if (approve.getComment() != null && !approve.getComment().equals("")) {
             model.put(EmailConstants.PARAM_COMMENTS, approve.getComment());
         }
@@ -261,6 +278,9 @@ public class MailService {
         model.put(EmailConstants.PARAM_USER_FIRST_NAME, userResponse.getFirstName());
         model.put(EmailConstants.PARAM_USER_MAIL_ID, userResponse.getEmail());
         model.put(EmailConstants.PARAM_EMAIL_SUBJECT, EmailConstants.SUBJECT_ARTICLE_REVIEWED_MAIL);
+        model.put(EmailConstants.PARAM_ARTICLE_LINK, formArticleUrl("article") + article.getId());
+        model.put(EmailConstants.PARAM_ARTICLE_TITLE, article.getTitle());
+
         if (approve.getComment() != null && !approve.getComment().equals("")) {
             model.put(EmailConstants.PARAM_COMMENTS, approve.getComment());
         }
@@ -305,5 +325,26 @@ public class MailService {
             e.printStackTrace();
         }
         return status;
+    }
+    /**
+     * This method is responsible for getting different-2 urls.
+     *
+     * @param expectUrl
+     *            to get the expectation.
+     *
+     * @return string
+     */
+    private String formArticleUrl(final String expectUrl) {
+
+        String url = null;
+
+        switch (expectUrl) {
+        case "article":
+            url = baseUrl + "api/article/";
+            break;
+        default:
+            url = baseUrl;
+        }
+        return url;
     }
 }

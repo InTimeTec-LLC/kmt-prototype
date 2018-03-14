@@ -6,7 +6,7 @@
 <body>
 <p>Hi ${firstName},</p>
 
-<p>Your article has been approved and published. Click <a href="localhost:8080/index.html+/#/+articlePage">here</a> to view the article.</p>
+<p>Your article has been approved and published. Click <a href="${articleLink}">here</a> to view the article.</p>
 <#if comments??>
 <p style="text-decoration: underline;"><b>Comments:</b></p>
  ${comments}
