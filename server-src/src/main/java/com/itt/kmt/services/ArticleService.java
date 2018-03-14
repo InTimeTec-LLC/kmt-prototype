@@ -210,7 +210,11 @@ public class ArticleService {
             attachmentService.updateAttachmentWithArticleId(attachments, dbArticle.getId());
         }
 
-        // TODO - Send mail, since article is resubmitted for approval
+        try {
+            mailService.sendCreateArticleMail((UserResponse) dbArticle.getApprover(), article);
+        } catch (MailException | InterruptedException e) {
+            log.error(e.getMessage());
+        }
 
         return dbArticle;
     }
@@ -338,9 +342,9 @@ public class ArticleService {
             log.error("Article with " + articleID + " Not found", ArticleService.class);
             throw new RuntimeException(ARTICLE_NOT_FOUND);
         }
+        Map<String, String> createdBy = new ObjectMapper().convertValue(article.getCreatedBy(), Map.class);
 
         if (user.getUserRole().equals(Constants.ROLE_USER) || user.getUserRole().equals(Constants.ROLE_MANAGER)) {
-            Map<String, String> createdBy = new ObjectMapper().convertValue(article.getCreatedBy(), Map.class);
             if (user.getId().equals(createdBy.get(ID))) {
                 articleRepository.delete(articleID);
                 if (!article.getApproved()) {
@@ -358,6 +362,11 @@ public class ArticleService {
                     ArticleService.class);
             throw new UnauthorizedException();
         }
+        
+        boolean isAdminAndCreator = true;
+        if (user.getId().equals(createdBy.get(ID))) {
+            isAdminAndCreator = false;
+        }
 
         articleRepository.delete(articleID);
 
@@ -365,7 +374,7 @@ public class ArticleService {
         attachmentService.deleteAttachmentWithArticleId(articleID);
         if (!article.getApproved()) {
             try {
-                mailService.sendDeleteKAMail(article, true);
+                mailService.sendDeleteKAMail(article, isAdminAndCreator);
             } catch (MailException | InterruptedException e) {
                 log.error(e.getMessage());
             }
