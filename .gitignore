@@ -1,0 +1,23 @@
+# Created by .ignore support plugin (hsz.mobi)
+
+# IntelliJ project files
+**/.idea
+*.iml
+**/out
+
+
+#build files
+build/
+dist/
+.gradle/
+
+
+#Eclipse specific files
+*.project
+*.settings
+*.classpath
+*.factorypath
+
+
+
+
