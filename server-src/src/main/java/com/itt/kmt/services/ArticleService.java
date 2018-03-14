@@ -1,11 +1,5 @@
 package com.itt.kmt.services;
 
-import org.apache.commons.lang3.StringUtils;
-import org.bson.types.ObjectId;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
-import org.springframework.mail.MailException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.itt.kmt.jwt.exception.UnauthorizedException;
 import com.itt.kmt.models.Approve;
@@ -20,10 +14,19 @@ import com.itt.kmt.models.UserResponse;
 import com.itt.kmt.repositories.ArticleRepository;
 import com.itt.kmt.repositories.ArticleTypeRepository;
 import com.itt.kmt.repositories.CommentRepository;
+import com.itt.kmt.validators.ArticleValidator;
 import com.itt.utility.Constants;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.StringUtils;
+import org.bson.types.ObjectId;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.mail.MailException;
 import org.springframework.stereotype.Service;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -158,63 +161,62 @@ public class ArticleService {
      *            of Article to be updated.
      * @param updatedArticle
      *            , Article object that needs to be updated.
+     * @param token
+     *            jwt token of the user.
      * @return Article
      */
-    public Article updateArticle(final String id, final Article updatedArticle) {
+    public Article updateArticle(final String id, final Article updatedArticle, final String token) {
+
+        // Get Logged in user
+        User loggedInUser = userService.getLoggedInUser(token);
+
         Article article = articleRepository.findOne(id);
         if (article == null) {
+            log.error("Article with " + id + " Not found", ArticleService.class);
             throw new RuntimeException(ARTICLE_NOT_FOUND);
         }
+
+        if (loggedInUser.getUserRole().equals(Constants.ROLE_USER)
+                || loggedInUser.getUserRole().equals(Constants.ROLE_MANAGER)) {
+            Map<String, String> createdBy = new ObjectMapper().convertValue(article.getCreatedBy(), Map.class);
+            if (loggedInUser.getId().equals(createdBy.get(ID))) {
+                return updateArticleAndSendMail(article, updatedArticle);
+            } else {
+                log.error("User with id:" + loggedInUser.getId() + " don't have permission to update article: " + id,
+                        ArticleService.class);
+                throw new UnauthorizedException();
+            }
+        }
+        return updateArticleAndSendMail(article, updatedArticle);
+    }
+
+    /**
+     * updates the DBEntity(Article) from the database.
+     *
+     * @param article
+     *            , Existing Article Object.
+     * @param updatedArticle
+     *            , Article object that needs to be updated.
+     * @return Article
+     */
+    private Article updateArticleAndSendMail(final Article article, final Article updatedArticle) {
+
         List<Attachment> attachments = updatedArticle.getAttachments();
         updatedArticle.setAttachments(null);
         Article dbArticle = articleRepository.save(updateArticle(article, updatedArticle));
 
         // linking attached attachments
-
         if (attachments != null && attachments.size() > 0) {
             attachmentService.updateAttachmentWithArticleId(attachments, dbArticle.getId());
         }
 
+        try {
+            mailService.sendCreateArticleMail((UserResponse) dbArticle.getApprover(), article);
+        } catch (MailException | InterruptedException e) {
+            log.error(e.getMessage());
+        }
+
         return dbArticle;
-    }
-
-    /**
-     * Get all available articles the DBEntity(Article) from the database.
-     *
-     * @param page
-     *            Pageable object.
-     * @param token
-     *            jwt token of current session.
-     * @return Page<Article> get list of articles.
-     */
-    public Page<Article> getAllArticles(final Pageable page, final String token) {
-
-        // Get Logged in user
-        User loggedInUser = userService.getLoggedInUser(token);
-
-        // get articles according to permission
-        if (loggedInUser.getUserRole().equals(Constants.ROLE_MANAGER)) {
-            Page<Article> articles = articleRepository.findByCreatedByAndAndApprover(new ObjectId(loggedInUser.getId()),
-                    new ObjectId(loggedInUser.getId()), page);
-            for (Article article :articles) {
-                List<Attachment> attachments = attachmentService.getArticleAttachments(article.getId());
-                article.setAttachments(attachments);
-            }
-        } else if (loggedInUser.getUserRole().equals(Constants.ROLE_USER)) {
-            Page<Article> articles = articleRepository.findByCreatedBy(new ObjectId(loggedInUser.getId()), page);
-            for (Article article :articles) {
-                List<Attachment> attachments = attachmentService.getArticleAttachments(article.getId());
-                article.setAttachments(attachments);
-            }
-            return articles;
-        }
-
-        Page<Article> articles = articleRepository.findAll(page);
-        for (Article article :articles) {
-            List<Attachment> attachments = attachmentService.getArticleAttachments(article.getId());
-            article.setAttachments(attachments);
-        }
-        return articles;
     }
 
     /**
@@ -231,10 +233,11 @@ public class ArticleService {
         Article article = articleRepository.findOne(id);
 
         if (article == null) {
+            log.error("Article with " + id + " Not found", ArticleService.class);
             throw new RuntimeException(ARTICLE_NOT_FOUND);
         }
 
-        String loggedInUserRole = userService.getLoggedInUser(token).getUserRole();
+        User loggedInUser = userService.getLoggedInUser(token);
 
         List<Attachment> attachments = attachmentService.getArticleAttachments(article.getId());
         article.setAttachments(attachments);
@@ -242,24 +245,42 @@ public class ArticleService {
         if (article.getRestricted()) {
             Map<String, String> createdBy = new ObjectMapper().convertValue(article.getCreatedBy(), Map.class);
             String createdByUserRole = userService.getUserByID(createdBy.get(ID)).getUserRole();
-            switch (loggedInUserRole) {
+            switch (loggedInUser.getUserRole()) {
                 case Constants.ROLE_USER:
                     if (createdByUserRole.equals(Constants.ROLE_MANAGER)
                             || createdByUserRole.equals(Constants.ROLE_ADMIN)) {
-                        throw new RuntimeException(Constants.UNAUTHORIZED_ACCESS_MSG);
+                        log.error("User with id:" + loggedInUser.getId()
+                                + " don't have permission to get article: " + id, ArticleService.class);
+                        throw new UnauthorizedException();
                     }
                     return article;
                 case Constants.ROLE_MANAGER:
                     if (createdByUserRole.equals(Constants.ROLE_ADMIN)) {
-                        throw new RuntimeException(Constants.UNAUTHORIZED_ACCESS_MSG);
+                        log.error("User with id:" + loggedInUser.getId()
+                                + " don't have permission to get article: " + id, ArticleService.class);
+                        throw new UnauthorizedException();
                     }
                     return article;
                 case Constants.ROLE_ADMIN:
                     return article;
-                default : throw new RuntimeException(Constants.UNAUTHORIZED_ACCESS_MSG);
+                default :
+                    log.error("User with id:" + loggedInUser.getId()
+                            + " don't have permission to get article: " + id, ArticleService.class);
+                    throw new UnauthorizedException();
+            }
+        } else {
+            if (loggedInUser.getUserRole().equals(Constants.ROLE_USER)
+                    || loggedInUser.getUserRole().equals(Constants.ROLE_MANAGER)) {
+                Map<String, String> createdBy = new ObjectMapper().convertValue(article.getCreatedBy(), Map.class);
+                if (loggedInUser.getId().equals(createdBy.get(ID))) {
+                    return article;
+                } else {
+                    log.error("User with id:" + loggedInUser.getId() + " don't have permission to get article: " + id,
+                            ArticleService.class);
+                    throw new UnauthorizedException();
+                }
             }
         }
-
         return article;
     }
 
@@ -297,6 +318,9 @@ public class ArticleService {
             User lastModifedBy = userService.getUserByID(updatedArticle.getLastModifiedBy().toString());
             article.setLastModifiedBy(convertUserIntoUserResponse(lastModifedBy));
         }
+        if (updatedArticle.getArticleType() != null) {
+            article.setArticleType(getArticleTypeByID(updatedArticle.getArticleType().toString()));
+        }
         article.setApproved(false);
 
         return article;
@@ -315,11 +339,12 @@ public class ArticleService {
         Article article = articleRepository.findOne(articleID);
 
         if (article == null) {
+            log.error("Article with " + articleID + " Not found", ArticleService.class);
             throw new RuntimeException(ARTICLE_NOT_FOUND);
         }
+        Map<String, String> createdBy = new ObjectMapper().convertValue(article.getCreatedBy(), Map.class);
 
         if (user.getUserRole().equals(Constants.ROLE_USER) || user.getUserRole().equals(Constants.ROLE_MANAGER)) {
-            Map<String, String> createdBy = new ObjectMapper().convertValue(article.getCreatedBy(), Map.class);
             if (user.getId().equals(createdBy.get(ID))) {
                 articleRepository.delete(articleID);
                 if (!article.getApproved()) {
@@ -333,7 +358,14 @@ public class ArticleService {
                 attachmentService.deleteAttachmentWithArticleId(articleID);
                 return;
             }
+            log.error("User with id:" + user.getId() + " don't have permission to delete article: " + articleID,
+                    ArticleService.class);
             throw new UnauthorizedException();
+        }
+        
+        boolean isAdminAndCreator = true;
+        if (user.getId().equals(createdBy.get(ID))) {
+            isAdminAndCreator = false;
         }
 
         articleRepository.delete(articleID);
@@ -342,7 +374,7 @@ public class ArticleService {
         attachmentService.deleteAttachmentWithArticleId(articleID);
         if (!article.getApproved()) {
             try {
-                mailService.sendDeleteKAMail(article, true);
+                mailService.sendDeleteKAMail(article, isAdminAndCreator);
             } catch (MailException | InterruptedException e) {
                 log.error(e.getMessage());
             }
@@ -365,10 +397,17 @@ public class ArticleService {
         Article article = articleRepository.findOne(articleID);
 
         if (article == null) {
+            log.error("Article with " + articleID + " Not found", ArticleService.class);
             throw new RuntimeException(ARTICLE_NOT_FOUND);
         }
 
         User loggedInUser = userService.getLoggedInUser(token);
+
+        //Check for valid approver
+        Map<String, String> approver = new ObjectMapper().convertValue(article.getApprover(), Map.class);
+        if (!loggedInUser.getId().equals(approver.get(ID))) {
+            throw new UnauthorizedException();
+        }
 
         if (approve.isApproved()) {
 
@@ -426,6 +465,7 @@ public class ArticleService {
         Comment comment = null;
 
         if (!approve.isApproved() && approve.getComment() == null) {
+            log.error("Review comments are null", ArticleService.class);
             throw new RuntimeException("Found no comments");
         }
         if (approve.getComment() != null) {
@@ -499,7 +539,10 @@ public class ArticleService {
                 } else {
                     return articleRepository.findArticlesByFilter(filter, userId, type, status, search, page);
                 }
-            default : throw new RuntimeException(Constants.UNAUTHORIZED_ACCESS_MSG);
+            default :
+                log.error("User with id:" + userId + " don't have permission to access articles"
+                        , ArticleService.class);
+                throw new UnauthorizedException();
         }
 
     }
@@ -560,5 +603,33 @@ public class ArticleService {
             kbArticle.setDescription(description.substring(0, Math.min(description.length(), descriptionLength)));
         }
         return articlePage;
+    }
+
+
+    /**
+     * Validate user.
+     *
+     * @param article the article
+     * @param result the result
+     * @return the string
+     */
+    public String validateArticle(final Article article, final BindingResult result) {
+
+        ArticleValidator articleValidator = new ArticleValidator();
+        articleValidator.validate(article, result);
+        String errorMsg = "";
+
+        if (result.hasErrors()) {
+
+            List<FieldError> errors = result.getFieldErrors();
+            for (FieldError error : errors) {
+                if (errorMsg.isEmpty()) {
+                    errorMsg = error.getField() + " - " + error.getDefaultMessage();
+                    continue;
+                }
+                errorMsg = errorMsg + "," + error.getField() + " - " + error.getDefaultMessage();
+            }
+        }
+        return errorMsg;
     }
 }

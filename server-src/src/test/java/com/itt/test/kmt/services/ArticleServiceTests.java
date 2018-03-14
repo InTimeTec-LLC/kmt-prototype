@@ -9,6 +9,7 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import com.itt.kmt.models.KBArticle;
@@ -42,7 +43,6 @@ import com.itt.test_category.ServicesTests;
 import com.itt.test_data.ArticleTestDataRepository;
 import com.itt.test_data.ArticleTypeTestDataRepository;
 import com.itt.test_data.TestDataRepository;
-import com.itt.utility.Constants;
 
 @Category(ServicesTests.class)
 @RunWith(SpringRunner.class)
@@ -143,14 +143,16 @@ public class ArticleServiceTests {
         verify(articleTypeRepository, times(1)).findAll();
     }
 
-
     @Test
     public final void getAllArticles() throws Exception {
 
         List<ArticleType> articleTypes = new ArrayList<ArticleType>();
+        List<ObjectId> articleTypeObjectID = new ArrayList<>();
         ArticleType articleType = articleTypeTestDataRepository.getTypes()
                 .get("articleType-3");
         articleTypes.add(articleType);
+        articleTypes.forEach(articleTypeFromList-> articleTypeObjectID.add(new ObjectId(articleType.getId())));
+        List<Boolean> listStatus = Arrays.asList(true);
 
         List<Article> articleList = new ArrayList<Article>();
         articleList.add(articleTestDataRepository.getArticles().get("article-1"));
@@ -158,76 +160,110 @@ public class ArticleServiceTests {
         when(articleTypeRepository.findAll()).thenReturn(articleTypes);
         User user = testDataRepository.getUsers()
                 .get("user-7");
+        when(userService.getLoggedInUser(JWT_TEST_TOKEN)).thenReturn(user);
 
         PageRequest pageReq = new PageRequest(0, 1);
         Page<Article> page = new PageImpl<Article>(articleList);
-        when(articleRepository.findAll(pageReq)).thenReturn(page);
-        when(userService.getLoggedInUser(JWT_TEST_TOKEN)).thenReturn(user);
+        when(articleRepository.findAllArticles(articleTypeObjectID
+                , listStatus, "searchString", pageReq)).thenReturn(page);
         Page<Article> firstPage = articleService
-                .getAllWithFiltersAndSearch(null, null, null, null,
+                .getAllWithFiltersAndSearch(null, articleType.getId(), "true", "searchString",
                         pageReq, JWT_TEST_TOKEN);
 
         // Assert
-        assertThat(firstPage.getTotalPages()).isEqualTo(1);
+        assertTrue(page.getContent().containsAll(firstPage.getContent()));
         verify(articleRepository, times(1))
-                .findAll(pageReq);
+                .findAllArticles(articleTypeObjectID, listStatus, "searchString", pageReq);
     }
 
     @Test 
     public final void getAllArticlesByUserRoleTest() throws Exception {
+
+        List<ArticleType> articleTypes = new ArrayList<ArticleType>();
+        List<ObjectId> articleTypeObjectID = new ArrayList<>();
+        ArticleType articleType = articleTypeTestDataRepository.getTypes()
+                .get("articleType-3");
+        articleTypes.add(articleType);
+        articleTypes.forEach(articleTypeFromList-> articleTypeObjectID.add(new ObjectId(articleType.getId())));
+        List<Boolean> listStatus = Arrays.asList(true);
+
         List<Article> articleList = new ArrayList<Article>();
         articleList.add(articleTestDataRepository.getArticles().get("article-1"));
         articleList.add(articleTestDataRepository.getArticles().get("article-2"));
         User user = testDataRepository.getUsers()
                 .get("user-6");
 
+        PageRequest pageReq = new PageRequest(0, 1);
         Page<Article> page = new PageImpl<Article>(articleList);
-        when(articleRepository.findByCreatedBy(new ObjectId(user.getId()),
-                new PageRequest(Constants.PAGE_NUMBER, Constants.PAGE_SIZE))).thenReturn(page);
+        when(articleRepository.findArticlesByCreatedBy(new ObjectId(user.getId())
+                , articleTypeObjectID, listStatus, "searchString",
+                pageReq)).thenReturn(page);
         when(userService.getLoggedInUser(JWT_TEST_TOKEN)).thenReturn(user);
         Page<Article> firstPage = articleService
-                .getAllWithFiltersAndSearch(null, null, null, null,
-                        new PageRequest(Constants.PAGE_NUMBER, Constants.PAGE_SIZE), JWT_TEST_TOKEN);
+                .getAllWithFiltersAndSearch(null, articleType.getId(), "true", "searchString",
+                        pageReq, JWT_TEST_TOKEN);
 
         // Assert
-        assertThat(firstPage.getTotalPages()).isEqualTo(1);
+        assertTrue(page.getContent().containsAll(firstPage.getContent()));
         verify(articleRepository, times(1))
-                .findByCreatedBy(new ObjectId(user.getId()),
-                        new PageRequest(Constants.PAGE_NUMBER, Constants.PAGE_SIZE));
+                .findArticlesByCreatedBy(new ObjectId(user.getId())
+                        , articleTypeObjectID, listStatus, "searchString",
+                        pageReq);
     }
 
 
     @Test
     public final void getAllArticlesByManagerRoleTest() throws Exception {
+        List<ArticleType> articleTypes = new ArrayList<ArticleType>();
+        List<ObjectId> articleTypeObjectID = new ArrayList<>();
+        ArticleType articleType = articleTypeTestDataRepository.getTypes()
+                .get("articleType-3");
+        articleTypes.add(articleType);
+        articleTypes.forEach(articleTypeFromList-> articleTypeObjectID.add(new ObjectId(articleType.getId())));
+        List<Boolean> listStatus = Arrays.asList(true);
+
         List<Article> articleList = new ArrayList<Article>();
         articleList.add(articleTestDataRepository.getArticles().get("article-1"));
         articleList.add(articleTestDataRepository.getArticles().get("article-2"));
+        when(articleTypeRepository.findAll()).thenReturn(articleTypes);
         User user = testDataRepository.getUsers()
                 .get("user-4");
-
-        Page<Article> page = new PageImpl<Article>(articleList);
-        when(articleRepository.findByCreatedByAndAndApprover(new ObjectId(user.getId()),
-                new ObjectId(user.getId()),
-                new PageRequest(Constants.PAGE_NUMBER, Constants.PAGE_SIZE))).thenReturn(page);
         when(userService.getLoggedInUser(JWT_TEST_TOKEN)).thenReturn(user);
+
+        PageRequest pageReq = new PageRequest(0, 1);
+        Page<Article> page = new PageImpl<Article>(articleList);
+        when(articleRepository.findAllArticles(new ObjectId(user.getId())
+                , articleTypeObjectID, listStatus, "searchString", pageReq)).thenReturn(page);
         Page<Article> firstPage = articleService
-                .getAllWithFiltersAndSearch(null, null, null, null,
-                        new PageRequest(Constants.PAGE_NUMBER, Constants.PAGE_SIZE), JWT_TEST_TOKEN);
+                .getAllWithFiltersAndSearch(null, articleType.getId(), "true", "searchString",
+                        pageReq, JWT_TEST_TOKEN);
 
         // Assert
-        assertThat(firstPage.getTotalPages()).isEqualTo(1);
+        assertTrue(page.getContent().containsAll(firstPage.getContent()));
         verify(articleRepository, times(1))
-                .findByCreatedByAndAndApprover(new ObjectId(user.getId()),
-                        new ObjectId(user.getId()),
-                        new PageRequest(Constants.PAGE_NUMBER, Constants.PAGE_SIZE));
+                .findAllArticles(new ObjectId(user.getId()), articleTypeObjectID, listStatus, "searchString", pageReq);
     }
 
     @Test
-    public void getArticleByIdTest() throws Exception {
+    public void getArticleByIdAdminTest() throws Exception {
         Article article = articleTestDataRepository.getArticles().get("article-1");
         User user = testDataRepository.getUsers()
-                .get("user-3");
+                .get("user-7");
         when(articleRepository.findOne(article.getId())).thenReturn(article);
+        when(userService.getLoggedInUser(JWT_TEST_TOKEN)).thenReturn(user);
+        Article articleRetrived = articleService.getArticleById(article.getId(), JWT_TEST_TOKEN);
+        // Assert
+        assertThat(article.getId()).isEqualTo(articleRetrived.getId());
+        verify(articleRepository, times(1)).findOne(article.getId());
+    }
+
+    @Test
+    public void getArticleByIdManagerTest() throws Exception {
+        Article article = articleTestDataRepository.getArticles().get("article-5");
+        User user = testDataRepository.getUsers()
+                .get("user-4");
+        when(articleRepository.findOne(article.getId())).thenReturn(article);
+        when(userService.getUserByID(user.getId())).thenReturn(user);
         when(userService.getLoggedInUser(JWT_TEST_TOKEN)).thenReturn(user);
         Article articleRetrived = articleService.getArticleById(article.getId(), JWT_TEST_TOKEN);
         // Assert
@@ -262,11 +298,14 @@ public class ArticleServiceTests {
     @Test
     public void updateArticleTest() {
         Article article = articleTestDataRepository.getArticles().get("article-1");
+        User user = testDataRepository.getUsers()
+                .get("user-5");
         Article updateArticle = article;
         updateArticle.setTitle(article.getTitle() + "test");
         when(articleRepository.findOne(article.getId())).thenReturn(article);
         when(articleRepository.save(updateArticle)).thenReturn(updateArticle);
-        Article updatedArticle = articleService.updateArticle(article.getId(), updateArticle);
+        when(userService.getLoggedInUser(JWT_TEST_TOKEN)).thenReturn(user);
+        Article updatedArticle = articleService.updateArticle(article.getId(), updateArticle, JWT_TEST_TOKEN);
         assertEquals(updatedArticle.getTitle(), updateArticle.getTitle());
         assertThat(updatedArticle.getTitle()).isEqualTo(updateArticle.getTitle());
         verify(articleRepository, times(1)).findOne(article.getId());
@@ -274,9 +313,12 @@ public class ArticleServiceTests {
 
     @Test(expected = Exception.class)
     public void updateArticleTestInvalidID() {
+        User user = testDataRepository.getUsers()
+                .get("user-5");
         Article article = articleTestDataRepository.getArticles().get("article-1");
         when(articleRepository.findOne(article.getId())).thenReturn(null);
-        articleService.updateArticle(article.getId(), article);
+        when(userService.getLoggedInUser(JWT_TEST_TOKEN)).thenReturn(user);
+        articleService.updateArticle(article.getId(), article, JWT_TEST_TOKEN);
     }
 
     @Test
