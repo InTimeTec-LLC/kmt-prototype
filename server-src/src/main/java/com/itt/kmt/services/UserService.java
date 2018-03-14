@@ -252,7 +252,8 @@ public class UserService {
      * 
      * @param id Id of the User.
      * @param isActive isActive status of the User.
-     * @return User.
+     * @param existingUser to get the details of user.
+     * 
      */
     private void userUpdateMailRequest(final String id, final boolean isActive, final User existingUser) {
         try {
@@ -391,15 +392,9 @@ public class UserService {
                     String password = generateRandomPassword(user);
                     user.setPassword(password);
 
-                    try {
-                        mailService.sendResetPasswordMail(user, password);
-                        updateUser(user, user.getId());
-                        message = Constants.PASSWORD_RESET_SUCCESS;
-                        status = true;
-                    } catch (MailException | InterruptedException e) {
-                        log.error(e.getMessage());
-                        message = Constants.COULD_NOT_PROCESS;
-                    }
+                    updateUser(user, user.getId());
+                    message = Constants.PASSWORD_RESET_SUCCESS;
+                    status = true;
 
                 } else {
                     message = Constants.COULD_NOT_PROCESS;
