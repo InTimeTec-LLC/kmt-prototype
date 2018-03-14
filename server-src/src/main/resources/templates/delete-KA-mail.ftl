@@ -6,7 +6,7 @@
 <body>
 <p>Hi ${firstName},</p>
 
-<p>The <a href="localhost:8080/index.html+/#/+articlePage">article-name</a> submitted for your review has been deleted.</p>
+<p>The <#if articleTitle??>${articleTitle}</#if> submitted for your review has been deleted.</p>
 
 <p>Regards,<br>
 ADPQ-KMT</p>

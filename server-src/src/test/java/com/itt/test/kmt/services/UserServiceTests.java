@@ -133,7 +133,8 @@ public class UserServiceTests {
         User user = testDataRepository.getUsers()
                 .get("user-1");
         when(userRepository.findOne(user.getId())).thenReturn(null);
-        when(userService.getUserByID(user.getId())).thenThrow(new RuntimeException("user with the id does not exist"));
+        when(userService.getUserByID(user.getId()))
+        .thenThrow(new RuntimeException(Constants.USER_DOES_NOT_EXIST_ERROR_MSG));
 
         // Act
         userService.getUserByID(user.getId());
@@ -177,14 +178,14 @@ public class UserServiceTests {
         PageRequest pageReq = new PageRequest(0, 1);
 
         Page<User> pages = new PageImpl<User>(usersList);
-        when(userRepository.findByUserRole("manager", user1.getEmail(), pageReq)).thenReturn(pages);
+        when(userRepository.findByUserRole(user2.getUserRole(), user1.getEmail(), pageReq)).thenReturn(pages);
         //Act
-        Page<User> pageOfUsers = userService.filterUsersByStatusAndRole(null, "manager", null, 
+        Page<User> pageOfUsers = userService.filterUsersByStatusAndRole(null, user2.getUserRole(), null, 
                  user1.getEmail(), pageReq);
 
         // Assert
         assertTrue(pages.getContent().containsAll(pageOfUsers.getContent()));
-        verify(userRepository, times(1)).findByUserRole("manager", user1.getEmail(), pageReq);
+        verify(userRepository, times(1)).findByUserRole(user2.getUserRole(), user1.getEmail(), pageReq);
     }
     
 
@@ -201,14 +202,15 @@ public class UserServiceTests {
         PageRequest pageReq = new PageRequest(0, 1);
 
         Page<User> pages = new PageImpl<User>(usersList);
-        when(userRepository.findByUserRoleAndActive("manager", true, user1.getEmail(), pageReq)).thenReturn(pages);
+        when(userRepository.findByUserRoleAndActive(user2.getUserRole(), true, user1.getEmail(), pageReq))
+          .thenReturn(pages);
         //Act
-        Page<User> pageOfUsers = userService.filterUsersByStatusAndRole(null, "manager", true, 
+        Page<User> pageOfUsers = userService.filterUsersByStatusAndRole(null, user2.getUserRole(), true, 
                    user1.getEmail(), pageReq);
 
         // Assert
         assertTrue(pages.getContent().containsAll(pageOfUsers.getContent()));
-        verify(userRepository, times(1)).findByUserRoleAndActive("manager", true, user1.getEmail(), pageReq);
+        verify(userRepository, times(1)).findByUserRoleAndActive(user2.getUserRole(), true, user1.getEmail(), pageReq);
     }
 
     @Test
@@ -458,7 +460,8 @@ public class UserServiceTests {
         user.setActive(false);
         when(userRepository.findOne(user.getId())).thenReturn(user);
         user.setFirstName("test");
-        when(userService.updateUser(user, user.getId())).thenThrow(new RuntimeException("user is not active"));
+        when(userService.updateUser(user, user.getId()))
+        .thenThrow(new RuntimeException(Constants.UPDATE_INACTIVE_USER_ERROR_MSG));
 
         // Act
         userService.updateUser(user, user.getId());
@@ -476,7 +479,8 @@ public class UserServiceTests {
 
         when(userRepository.findOne(user.getId())).thenReturn(null);
         user.setFirstName("test");
-        when(userService.updateUser(user, user.getId())).thenThrow(new RuntimeException("user does not exist"));
+        when(userService.updateUser(user, user.getId()))
+        .thenThrow(new RuntimeException(Constants.USER_DOES_NOT_EXIST_ERROR_MSG));
 
         // Act
         userService.updateUser(user, user.getId());
@@ -536,7 +540,7 @@ public class UserServiceTests {
         when(userRepository.findOne(user.getId()))
         .thenReturn(user);
         when(userService.changeUserStatus(user.getId(), true))
-        .thenThrow(new RuntimeException("Operation not permitted"));
+        .thenThrow(new RuntimeException(Constants.CHANGE_USER_STATUS_ERROR_MSG));
         when(mailService.sendUserActivateMail(user, true)).thenReturn(new AsyncResult<Boolean>(true));
 
         userService.changeUserStatus(user.getId(), true);
@@ -557,7 +561,7 @@ public class UserServiceTests {
         when(userRepository.findOne(user.getId()))
         .thenReturn(null);
         when(userService.changeUserStatus(user.getId(), true))
-        .thenThrow(new RuntimeException("user with the id does not exist"));
+        .thenThrow(new RuntimeException(Constants.USER_DOES_NOT_EXIST_ERROR_MSG));
         userService.changeUserStatus(user.getId(), true);
 
         // Assert

@@ -67,13 +67,24 @@ public class UserController {
     }
     /**
      * REST Interface for user retrieval.
-     *
+     * @param request request sent.
      * @param id id of the entity.
      * @return ModelMap.
      */
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     @RequiresPermissions("getUserById")
-    public ModelMap getUser(@PathVariable("id") final String id) {
+    public ModelMap getUser(final HttpServletRequest request, @PathVariable("id") final String id) {
+        String jwtToken = request.getHeader("Authorization");
+
+        User loggedInUser = userService.getLoggedInUser(jwtToken);
+        if (!loggedInUser.getUserRole().equals("admin")) {
+            if (loggedInUser.getId().equals(id)) {
+                return new ModelMap().addAttribute("user", loggedInUser);
+            } else {
+                throw new RuntimeException(Constants.USER_VIEWS_OTHER_USER_ERROR_MSG);
+            }
+        }
+
         User user = userService.getUserByID(id);
         return new ModelMap().addAttribute("user", user);
     }
@@ -140,9 +151,9 @@ public class UserController {
         userService.changeUserStatus(id, active);
         ResponseMsg activateResponseMsg;
         if (active) {
-            activateResponseMsg = new ResponseMsg(true, "activated successfully");
+            activateResponseMsg = new ResponseMsg(true, Constants.USER_ACTIVATED_SUCCESS_MSG);
         } else {
-            activateResponseMsg = new ResponseMsg(true, "deactivated successfully");
+            activateResponseMsg = new ResponseMsg(true, Constants.USER_DEACTIVATED_SUCCESS_MSG);
         }
 
         return new ModelMap().addAttribute("success", activateResponseMsg);
