@@ -111,7 +111,7 @@ public class ArticleService {
         UserResponse approver = (UserResponse) article.getApprover();
         Article savedArticle = articleRepository.save(article);
         try {
-            mailService.sendCreateArticleMail(approver);
+            mailService.sendCreateArticleMail(approver, savedArticle);
         } catch (MailException | InterruptedException e) {
             log.error(e.getMessage());
         }
