@@ -39,7 +39,6 @@ export class EditUserComponent implements OnInit {
       if (this.userId) {
 
         this.userService.reteriveUserById(this.userId).subscribe((data: any) => {
-          console.log(data);
           this.user.setValue({
             firstName: data.user.firstName,
             lastName: data.user.lastName,

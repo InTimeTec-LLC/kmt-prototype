@@ -1,11 +1,4 @@
 <div class="container">
-    <div class="breadcrumb-fullwidth">
-        <div class="breadcrumb-bar">
-             <ul class="breadcrumb">
-                <li><a href="#">Dashboard</a></li>
-             </ul>
-        </div>
-    </div>
     <div class="container-heading"><h2 class="heading-margin">Dashboard</h2></div>
     
     <div class="dashboard-lists">
@@ -37,14 +30,14 @@
       
                 <!-- createdBy Column -->
                 <ng-container matColumnDef="createdBy">
-                <mat-header-cell *matHeaderCellDef>CreatedBy</mat-header-cell>
+                <mat-header-cell *matHeaderCellDef>Created By</mat-header-cell>
                 <mat-cell *matCellDef="let row">{{ row.createdBy }}</mat-cell>
                 </ng-container>
 
                 <!-- createdDate Column -->
                 <ng-container matColumnDef="createdDate">
                   <mat-header-cell *matHeaderCellDef>Date</mat-header-cell>
-                  <mat-cell *matCellDef="let row">{{ row.createdDate | date: 'dd/MM/yyyy' }}</mat-cell>
+                  <mat-cell *matCellDef="let row">{{ row.createdDate | date: 'MM/dd/yyyy' }}</mat-cell>
                   </ng-container>
 
             <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>

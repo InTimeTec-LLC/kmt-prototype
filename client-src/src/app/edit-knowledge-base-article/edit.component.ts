@@ -60,7 +60,7 @@ export class EditArticleComponent implements OnInit {
             articleType: data.articleType.id,
             restricted: data.restricted,
             createdByUser: data.createdBy.firstName + ' ' + data.createdBy.lastName,
-            lastModified: pipe.transform(data.lastModifiedTime, 'short'),
+            lastModified: pipe.transform(data.lastModifiedTime, 'MM/dd/yyyy'),
             needsApproval: data.needsApproval,
             attachments: []
 

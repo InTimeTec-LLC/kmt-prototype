@@ -105,7 +105,7 @@ createNewUser(item: any): any {
       totalElements: 20,
       numberOfElements: 20,
       createdDate: item.createdTime,
-      createdBy: item.createdBy.firstName + item.createdBy.lastName
+      createdBy: item.createdBy.firstName + ' ' + item.createdBy.lastName
   };
  }
 
