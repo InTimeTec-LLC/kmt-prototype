@@ -65,6 +65,8 @@ public class MailService {
      *            to findout the user details.
      * @param loginLink
      *            to show in mail.
+     * @param password
+     *            to show in mail.
      * @throws MailException
      *             .
      * @throws InterruptedException
@@ -72,7 +74,7 @@ public class MailService {
      * @return boolean
      **/
     @Async
-    public Future<Boolean> sendUserCreatedMail(final String userID, final String loginLink)
+    public Future<Boolean> sendUserCreatedMail(final String userID, final String password, final String loginLink)
             throws MailException, InterruptedException {
 
         Map<String, String> model = new HashMap<String, String>();
@@ -80,7 +82,7 @@ public class MailService {
 
         model.put(EmailConstants.PARAM_USER_FIRST_NAME, user.getFirstName());
         model.put(EmailConstants.PARAM_USER_MAIL_ID, user.getEmail());
-        model.put(EmailConstants.PARAM_USER_MAIL_PASSWORD, user.getPassword());
+        model.put(EmailConstants.PARAM_USER_MAIL_PASSWORD, password);
         model.put(EmailConstants.PARAM_PORTAL_LOGIN_LINK, loginLink);
         model.put(EmailConstants.PARAM_EMAIL_SUBJECT, EmailConstants.SUBJECT_CREATE_USER_MAIL);
         return new AsyncResult<Boolean>(sendMail(EmailConstants.CREATE_USER_MAIL_TMPLT, model));
