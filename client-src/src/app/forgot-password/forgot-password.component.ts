@@ -33,7 +33,7 @@ export class ForgotPasswordComponent implements OnInit {
             .subscribe(
                 data => {
                   console.log(data);
-                  this.toasterService.pop('error', '', data.success.message);
+                  this.toasterService.pop('success', '', data.success.message);
                 },
                 error => {
                     this.toasterService.pop('error', '', error.failure.message);
