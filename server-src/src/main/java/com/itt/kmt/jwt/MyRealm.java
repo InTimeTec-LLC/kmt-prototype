@@ -122,7 +122,7 @@ public class MyRealm extends AuthorizingRealm {
             throw new AuthenticationException("User didn't existed!");
         }
         
-        if (!JWTUtil.verify(token, email, user.getPassword()) || !user.isSession()) {
+        if (!JWTUtil.verify(token, email, user.getId()) || !user.isSession()) {
             throw new AuthenticationException("Invalid Token");
         }
         
