@@ -70,16 +70,15 @@ public class UserServiceTests {
 
         // Arrange
         User user = testDataRepository.getUsers()
-                .get("user-1");
-        String password = user.getPassword();
-        
+
+                .get("user-7");
+
         when(userRepository.save(user)).thenReturn(user);
-        when(mailService.sendUserCreatedMail(user.getId(), password,
+        when(mailService.sendUserCreatedMail(user.getId(), user.getPassword(),
                 EmailConstants.PARAM_PORTAL_LOGIN_LINK)).thenReturn(new AsyncResult<Boolean>(true));
 
-        when(userRepository.save(user)).thenReturn(user);
-
         // Act
+        user.setPassword("aaa");
         User createdUser = userService.save(user);
 
         // Assert
@@ -258,17 +257,17 @@ public class UserServiceTests {
 
         when(userRepository.findByFirstNameOrLastNameOrEmailAndActiveAndUserRole(user2.getFirstName(),
                 user1.getEmail(), 
-                true, "manager", pageReq)).thenReturn(pages);
+                true, user2.getUserRole(), pageReq)).thenReturn(pages);
         //Act
         Page<User> pageOfUsers = userService.filterUsersByStatusAndRole(user2.getFirstName(), 
-                   "manager", true, 
+                user2.getUserRole(), true, 
                    user1.getEmail(), pageReq);
 
         // Assert
         assertTrue(pages.getContent().containsAll(pageOfUsers.getContent()));
         verify(userRepository, times(1)).findByFirstNameOrLastNameOrEmailAndActiveAndUserRole(user2.getFirstName(), 
                 user1.getEmail(), 
-                true, "manager", pageReq);
+                true, user2.getUserRole(), pageReq);
     }
 
     @Test
@@ -317,17 +316,17 @@ public class UserServiceTests {
         Page<User> pages = new PageImpl<User>(usersList);
 
         when(userRepository.findByFirstNameOrLastNameOrEmailAndUserRole(user2.getFirstName(), user1.getEmail(), 
-             "manager", pageReq)).thenReturn(pages);
+                user2.getUserRole(), pageReq)).thenReturn(pages);
         //Act
         Page<User> pageOfUsers = userService.filterUsersByStatusAndRole(user2.getFirstName(), 
-                   "manager", null, 
+                user2.getUserRole(), null, 
                    user1.getEmail(), pageReq);
 
         // Assert
         assertTrue(pages.getContent().containsAll(pageOfUsers.getContent()));
         verify(userRepository, times(1)).findByFirstNameOrLastNameOrEmailAndUserRole(user2.getFirstName(), 
                  user1.getEmail(), 
-                "manager", pageReq);
+                 user2.getUserRole(), pageReq);
     }
 
     @Test
@@ -397,14 +396,16 @@ public class UserServiceTests {
         PageRequest pageRequest = new PageRequest(0, 1);
         Page<User> page = new PageImpl<User>(managers);
 
-        when(userRepository.findByUserRoleAndActive("manager", true, user1.getEmail(), pageRequest)).thenReturn(page);
+        when(userRepository.findByUserRoleAndActive(user2.getUserRole(), true, user1.getEmail(), pageRequest))
+              .thenReturn(page);
 
         // Act
-        Page<User> usersPageRecieved = userService.getAllUsersByRolesAndStatus("manager", true, user1.getEmail(), 
-               pageRequest);
+        Page<User> usersPageRecieved = userService.getAllUsersByRolesAndStatus(user2.getUserRole(), true, 
+                user1.getEmail(), pageRequest);
         // Assert
         assertTrue(page.getContent().containsAll(usersPageRecieved.getContent()));
-        verify(userRepository, times(1)).findByUserRoleAndActive("manager", true, user1.getEmail(), pageRequest);
+        verify(userRepository, times(1)).findByUserRoleAndActive(user2.getUserRole(), 
+                true, user1.getEmail(), pageRequest);
     }
 
     @Test
@@ -419,13 +420,13 @@ public class UserServiceTests {
         PageRequest pageRequest = new PageRequest(0, 1);
         Page<User> page = new PageImpl<User>(usersList);
 
-        when(userRepository.findByUserRole("admin", user.getEmail(), pageRequest)).thenReturn(page);
+        when(userRepository.findByUserRole(user.getUserRole(), user.getEmail(), pageRequest)).thenReturn(page);
 
         // Act
-        Page<User> usersPageRecieved = userService.getAllUsersByRoles("admin", user.getEmail(), pageRequest);
+        Page<User> usersPageRecieved = userService.getAllUsersByRoles(user.getUserRole(), user.getEmail(), pageRequest);
         // Assert
         assertTrue(page.getContent().containsAll(usersPageRecieved.getContent()));
-        verify(userRepository, times(1)).findByUserRole("admin", user.getEmail(), pageRequest);
+        verify(userRepository, times(1)).findByUserRole(user.getUserRole(), user.getEmail(), pageRequest);
     }
 
     @Test
