@@ -24,7 +24,7 @@ export class SearchKnowledgeBaseComponent implements OnInit {
   ) {
       this.sortField = 'title';
       this.kbSearchResults = {'content': [], 'totalElements': 0 };
-      this.getKnowledgeBaseResult(0, this.sortField, 'title');
+      // this.getKnowledgeBaseResult(0, this.sortField, '');
       this.activateRoute
         .queryParams
         .subscribe(params => {

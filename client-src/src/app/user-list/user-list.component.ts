@@ -35,7 +35,7 @@ export class UserListComponent implements OnInit, OnDestroy {
 
   bFilterStatus = undefined;
   pageNo = 0;
-  compType = 'list';
+  compType = '';
   navigationSubscription;
   constructor(
     private userService: UserService,
@@ -51,6 +51,7 @@ export class UserListComponent implements OnInit, OnDestroy {
             if (e instanceof NavigationEnd) {
               if (this.router.url === '/users') {
                 this.compType = 'list';
+                this.initData();
               }
             }
         });
@@ -62,8 +63,11 @@ export class UserListComponent implements OnInit, OnDestroy {
         }
     }
 
-    ngOnInit() {
+    initData() {
         this.getUserList(0, '' , this.selectedFilter.role, this.bFilterStatus, this.finalTxt);
+    }
+
+    ngOnInit() {
     }
 
     onTapSearchIcon() {

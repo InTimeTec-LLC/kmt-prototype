@@ -63,6 +63,7 @@ export class ListArticleComponent implements OnInit, OnDestroy {
             if (e instanceof NavigationEnd) {
               if (this.router.url === '/articles') {
                 this.compType = 'list';
+                this.initData();
               }
             }
         });
@@ -74,8 +75,11 @@ export class ListArticleComponent implements OnInit, OnDestroy {
         }
     }
 
-    ngOnInit() {
+    initData() {
         this.getArticleList(0, this.articleBy , this.selectedFilter.typeId, this.bFilterStatus, this.finalTxt);
+    }
+
+    ngOnInit() {
     }
 
     onClickviewAll() {

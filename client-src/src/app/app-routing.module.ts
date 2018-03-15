@@ -46,12 +46,12 @@ const routes:  Routes = [
         {
           path: 'knowledge-base',
           component: SearchKnowledgeBaseComponent,
-          data: { title: 'Knowledge Base', breadcrumb: 'Knowledge Base' }
+          data: { title: 'Knowledge Base', breadcrumb: 'Knowledge Base Search' }
         },
         {
           path: 'knowledge-base-search',
           component: KnowledgeBaseSearchComponent,
-          data: { title: 'Knowledge Base Search', breadcrumb: 'Knowledge Base Search' }
+          data: { title: 'Knowledge Base Search', breadcrumb: 'Knowledge Base' }
         },
         {
           path: 'users',
