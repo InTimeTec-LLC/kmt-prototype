@@ -2,9 +2,11 @@
 	<router-outlet></router-outlet>  
 </div> 
 <div class="table-list-container" *ngIf="compType === 'list'">
-  <div class="add-button"><a (click)="onTapNavigation('add')">Add Article</a></div>
+  
   <div class="Container-table">
-    <div class="container-heading"><h2 class="heading-margin">Articles</h2></div>
+    <div class="container-heading"><h2 class="heading-margin">Articles</h2>
+      <div class="add-button"><a (click)="onTapNavigation('add')">Add Article</a></div>
+    </div>
     <div class="container-table-body">
 
   <div class="filter-input">
@@ -16,7 +18,7 @@
      <span class="filter_text marginLeft20" *ngIf='appliedFilter.length > 0'><b>Filters: </b> {{appliedFilter[0]}}<span *ngIf='appliedFilter.length > 1'>, {{appliedFilter[1]}} </span><span class="marginLeft20">|</span></span>
      <span class="marginLeft20 action-link"><b> Pending Approvals:</b>  <a (click)="onClickAssignedCreatedList('ASSIGNED')"> Assigned to me</a> | <a (click)="onClickAssignedCreatedList('CREATED')"> Created by me</a></span>
 
-      </div>
+  </div>
   
   <div class="table-input-list mat-elevation-z8">
   
