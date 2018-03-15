@@ -6,6 +6,7 @@ import static org.mockito.Mockito.RETURNS_DEEP_STUBS;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
+import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -212,7 +213,7 @@ public class UserControllerTest extends AbstractShiroTest {
         user.setFirstName(firstName);
         user.setLastName(lastName);
 
-        when(userService.updateUser(user, user.getId())).thenReturn(user);
+        when(userService.updateUser(user, user.getId(), "testtoken")).thenReturn(user);
         HashMap<String, User> map = new HashMap<String, User>();
         map.put("user", user);
 
@@ -220,8 +221,9 @@ public class UserControllerTest extends AbstractShiroTest {
         // Act
         ResultActions resultActions = mockMvc.perform(
             MockMvcRequestBuilders.put("/users/" + user.getId())
-                                  .contentType(MediaType.APPLICATION_JSON)
-                                  .content(content));
+                    .contentType(MediaType.APPLICATION_JSON)
+                    .header(Constants.AUTHORIZATION, "testtoken")
+                    .content(content));
 
         ResponseMsg updateResponseMsg = new ResponseMsg(true, Constants.DEFAULT_UPDATE_SUCCESS_MSG);
         // Assert
@@ -230,7 +232,7 @@ public class UserControllerTest extends AbstractShiroTest {
                      .andExpect(jsonPath("$.success.message", is(updateResponseMsg.getMessage())))
                      .andExpect(jsonPath("$.success.status", is(updateResponseMsg.getStatus())));
 
-        verify(userService, times(1)).updateUser(user, user.getId());
+        verify(userService, times(1)).updateUser(user, user.getId(), "testtoken");
     }
     /**
      * Update status of the user.
@@ -352,7 +354,25 @@ public class UserControllerTest extends AbstractShiroTest {
                      .andExpect(jsonPath("$.roles[1].role", is(role2.getRole())));
         verify(userService, times(1)).getUserRoles();
     }
+    /**
+     * Get Users Tests.
+     *
+     * @throws Exception the exception
+     */
+    @Test
+    public void getUsersTest() throws Exception {
 
+        User user = testDataRepository.getUsers()
+                .get("user-3");
+        when(userService.getLoggedInUser("testToken")).thenReturn(user);
+        // Arrange
+        mockMvc.perform(
+                MockMvcRequestBuilders.get("/users").param("size", "10")
+                        .header(Constants.AUTHORIZATION, "testToken")
+                        .accept(MediaType.APPLICATION_JSON))
+                .andDo(print())
+                .andExpect(status().isOk());
+    }
     /**
      * Tear down.
      */
