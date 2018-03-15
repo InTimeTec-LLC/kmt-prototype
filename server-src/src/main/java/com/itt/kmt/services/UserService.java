@@ -26,7 +26,6 @@ import com.itt.utility.EmailConstants;
 
 import lombok.extern.slf4j.Slf4j;
 
-// TODO: Auto-generated Javadoc
 /**
  * Service class that acts as an intermediary between controller and the
  * database for all basic CRUD operations. The business logic should reside in
@@ -34,6 +33,7 @@ import lombok.extern.slf4j.Slf4j;
  * 
  * @author Rakshit Rajeev
  */
+/** The Constant log. */
 
 /** The Constant log. */
 
@@ -66,6 +66,9 @@ public class UserService {
 
     /** The Constant PASSWORD_SALT_LENGTH. */
     public static final int PASSWORD_SALT_LENGTH = 4;
+    
+    /** The Constant SALT_LONG_ROUND. */
+    public static final int SALT_LONG_ROUND = 12;
 
     /**
      * Gets the User given the email.
@@ -448,20 +451,20 @@ public class UserService {
      * @param content the content
      * @return the string
      */
-    public static String encryptContent(final String content)
-    {
-       return BCrypt.hashpw(content, BCrypt.gensalt(12));
+    public static String encryptContent(final String content) {
+
+        return BCrypt.hashpw(content, BCrypt.gensalt(SALT_LONG_ROUND));
     }
-    
+
     /**
      * Checks if is content matched.
      *
-     * @param content1 the content 1
-     * @param content2 the content 2
+     * @param content the content
+     * @param encryptedContent the encrypted content
      * @return true, if is content matched
      */
-    public static boolean isContentMatched (final String content, final String encryptedContent)
-    {
+    public static boolean isContentMatched(final String content, final String encryptedContent) {
+
         return BCrypt.checkpw(content, encryptedContent);
     }
 

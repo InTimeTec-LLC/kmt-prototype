@@ -65,6 +65,8 @@ public class MailService {
      *            to findout the user details.
      * @param loginLink
      *            to show in mail.
+     * @param password
+     *            to show in mail.
      * @throws MailException
      *             .
      * @throws InterruptedException

@@ -72,7 +72,8 @@ public class MailServiceTests {
         when(javaMailSender.createMimeMessage()).thenReturn(new JavaMailSenderImpl().createMimeMessage());
         when(userService.getUserByID(user.getId())).thenReturn(user);
 
-        boolean status = mailService.sendUserCreatedMail(user.getId(), password, EmailConstants.PORTAL_LOGIN_LINK).get();
+        boolean status = mailService.sendUserCreatedMail(user.getId(), password, EmailConstants.PORTAL_LOGIN_LINK)
+                                    .get();
 
         // assert
         assertTrue(status);
