@@ -106,6 +106,8 @@
 .mat-drawer-content{
     width: 100%;
 }
+
+
 @media (min-width: 600px) {
   .login-container {
     width: 500px;
@@ -141,5 +143,11 @@
     }
    .mat-drawer-content {
     padding: 0px;
+    }
+}
+
+@media (max-width: 580px) {
+    .company_logo h1{
+        font-size: 40pt;
     }
 }
