@@ -37,12 +37,13 @@ export class ListArticleComponent implements OnInit, OnDestroy {
   currentUserId: any;
   currentUserRole: any;
   totalNumberItems: Number;
+  clickedOnApprovals: Boolean = false;
 
   bFilterStatus = undefined;
   pageNo = 0;
   articleBy = '';
   navigationSubscription;
-  compType = 'list';
+  compType = '';
 
   constructor(
     private router: Router,
@@ -77,7 +78,21 @@ export class ListArticleComponent implements OnInit, OnDestroy {
         this.getArticleList(0, this.articleBy , this.selectedFilter.typeId, this.bFilterStatus, this.finalTxt);
     }
 
+    onClickviewAll() {
+        this.clickedOnApprovals = false;
+        this.articleBy = '';
+        this.selectedFilter = {
+            status: undefined,
+            type: undefined,
+            typeId : undefined
+        };
+        this.bFilterStatus = undefined;
+        this.finalTxt = '';
+        this.ngOnInit();
+    }
+
     onClickAssignedCreatedList(fromWhich) {
+        this.clickedOnApprovals = true;
         this.articleBy = fromWhich;
         this.getArticleList(0, this.articleBy , this.selectedFilter.typeId, this.bFilterStatus, this.finalTxt);
     }
