@@ -61,10 +61,10 @@ export class EditUserComponent implements OnInit {
     this.user = this.fb.group({
       firstName: ['', [Validators.required, Validators.minLength(2)]],
       lastName: ['', Validators.required],
-      password: ['', Validators.required],
+      password: [''],
       userRole: ['', Validators.required],
       email: ['', Validators.email],
-      confirmPassword: ['', Validators.required],
+      confirmPassword: [''],
     }, {validator: this.validateConfirmPassword('password', 'confirmPassword')});
 
   }
@@ -82,6 +82,10 @@ export class EditUserComponent implements OnInit {
 
   onSubmit({value, valid}: {value: any, valid: boolean }) {
     delete value.confirmPassword;
+    if (value.password === '' || value.password === null) {
+      delete value.password;
+    }
+
     this.userService.updateUser(this.userId, value)
     .subscribe( data => {
                     this.toasterService.pop('success', '', data.success.message);

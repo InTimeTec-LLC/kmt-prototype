@@ -93,7 +93,7 @@ const routes:  Routes = [
             {
               path: 'detail/:id',
               component: ViewKnowledgeBaseArticleComponent,
-              data: { breadcrumb: 'Article Detail' }
+              data: { breadcrumb: 'Article Details' }
             },
             {
               path: 'approved-view/:id',

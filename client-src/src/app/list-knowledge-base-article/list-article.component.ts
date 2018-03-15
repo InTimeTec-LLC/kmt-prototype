@@ -44,6 +44,7 @@ export class ListArticleComponent implements OnInit, OnDestroy {
   articleBy = '';
   navigationSubscription;
   compType = '';
+  userType;
 
   constructor(
     private router: Router,
@@ -58,6 +59,8 @@ export class ListArticleComponent implements OnInit, OnDestroy {
             this.currentUserId = this.auth.getUserId();
             this.currentUserRole = this.auth.getUserRole();
         });
+
+        this.userType = this.auth.getUserType();
 
         this.navigationSubscription = this.router.events.subscribe((e: any) => {
             if (e instanceof NavigationEnd) {
@@ -75,6 +78,7 @@ export class ListArticleComponent implements OnInit, OnDestroy {
                 this.bFilterStatus = undefined;
                 if (this.kbContentService.getIsPending()) {
                     this.articleBy = 'ASSIGNED';
+                    if (this.userType === 'user') { this.articleBy = 'CREATED'; }
                     this.clickedOnApprovals = true;
                     this.bFilterStatus = false;
                     this.kbContentService.setIsPending(false);
