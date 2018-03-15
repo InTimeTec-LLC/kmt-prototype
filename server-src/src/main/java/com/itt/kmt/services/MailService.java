@@ -2,6 +2,7 @@ package com.itt.kmt.services;
 
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.concurrent.Future;
 
@@ -18,6 +19,7 @@ import org.springframework.scheduling.annotation.AsyncResult;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.freemarker.FreeMarkerTemplateUtils;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.itt.kmt.models.Approve;
 import com.itt.kmt.models.Article;
 import com.itt.kmt.models.User;
@@ -328,6 +330,7 @@ public class MailService {
         }
         return status;
     }
+
     /**
      * This method is responsible for getting different-2 urls.
      *
@@ -342,11 +345,72 @@ public class MailService {
 
         switch (expectUrl) {
         case "article":
-            url = baseUrl + "api/article/";
+            url = baseUrl + "articles/detail/";
+            break;
+        case "article/edit":
+            url = baseUrl + "articles/edit/";
             break;
         default:
             url = baseUrl;
         }
         return url;
+    }
+
+    /**
+     * This method is responsible for sending to users to change reviewer of
+     * article.
+     * 
+     * @param article
+     *            to findout the article details.
+     * @param isUser
+     *            to check user/approver .
+     * 
+     * @throws MailException
+     *             .
+     * @throws InterruptedException
+     *             .
+     * @return boolean
+     **/
+    public Future<Boolean> sendNotificationMail(final Article article, final boolean isUser)
+            throws MailException, InterruptedException {
+
+        Map<String, String> model = new HashMap<String, String>();
+
+        Map<String, String> userResponse = new ObjectMapper().convertValue(article.getCreatedBy(), Map.class);
+        Map<String, String> approverResponse = new ObjectMapper().convertValue(article.getApprover(), Map.class);
+
+        model.put(EmailConstants.PARAM_USER_FIRST_NAME, userResponse.get("firstName"));
+        model.put(EmailConstants.PARAM_USER_MAIL_ID, userResponse.get("email"));
+        model.put(EmailConstants.PARAM_ARTICLE_TITLE, article.getTitle());
+
+        if (isUser) {
+            model.put("reviewerName", approverResponse.get("firstName"));
+            model.put(EmailConstants.PARAM_ARTICLE_LINK, formArticleUrl("article/edit") + article.getId());
+            model.put("user", "user");
+        }
+        model.put(EmailConstants.PARAM_EMAIL_SUBJECT, EmailConstants.SUBJECT_NOTIFICATION_MAIL);
+
+        return new AsyncResult<Boolean>(sendMail(EmailConstants.REVIEWED_USER_NOTIFICATION_TMPLT, model));
+    }
+
+    /**
+     * method is responsible to inform the user when article approver is
+     * deactivated by admin.
+     * 
+     * @param articles
+     *            to get the details of article.
+     * @return boolean.
+     */
+    @Async
+    public Future<Boolean> updateUserToChangeReviewer(final List<Article> articles) {
+        for (Article article : articles) {
+            try {
+                sendNotificationMail(article, true);
+            } catch (MailException | InterruptedException e) {
+                log.debug(e.getMessage());
+                return new AsyncResult<Boolean>(true);
+            }
+        }
+        return new AsyncResult<Boolean>(true);
     }
 }

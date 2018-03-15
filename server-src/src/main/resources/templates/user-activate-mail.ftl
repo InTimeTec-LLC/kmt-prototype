@@ -13,6 +13,6 @@ line-height: 1.5;
 <p>Your account has been activated successfully. Please login with your credentials. </br>
 Please contact the Admin for further assistance.</p>
 <p>Regards,<br>
-ADPQ-KMT</p>
+Cognizance</p>
 </body>
 </html>

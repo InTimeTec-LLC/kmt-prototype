@@ -112,5 +112,25 @@
                 "email": "test@mailinator.com"
             },
             "restricted": true
+        },
+    "article-7":
+        {
+            "id": "5aa528ece9248611480dc329",
+            "title": "ten",
+            "description": "record",
+            "lastModifiedTime": "1520967560123",
+            "createdBy": {
+                "id": "5a9fef0dfdad16d3a1f3e37f",
+                "firstName": "test",
+                "lastName": "test",
+                "email": "test@mailinator.com"
+            },
+            "approver": {
+                "id": "5a9fef0dfdad16d3a1f3e37f",
+                "firstName": "test",
+                "lastName": "test",
+                "email": "test@mailinator.com"
+            },
+            "restricted": true
         }
 }

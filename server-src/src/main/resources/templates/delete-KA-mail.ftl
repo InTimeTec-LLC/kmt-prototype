@@ -9,6 +9,6 @@
 <p>The <#if articleTitle??>${articleTitle}</#if> submitted for your review has been deleted.</p>
 
 <p>Regards,<br>
-ADPQ-KMT</p>
+Cognizance</p>
 </body>
 </html>

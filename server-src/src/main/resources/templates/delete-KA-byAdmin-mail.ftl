@@ -8,6 +8,6 @@
 
 <p>The <#if articleTitle??>${articleTitle}</#if> has been deleted by the Admin.Contact the Admin for further clarifications.</p>
 <p>Regards,<br>
-ADPQ-KMT</p>
+Cognizance</p>
 </body>
 </html>

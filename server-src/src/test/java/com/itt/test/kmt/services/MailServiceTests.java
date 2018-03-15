@@ -5,6 +5,8 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
+import java.util.Arrays;
+import java.util.List;
 import java.util.concurrent.ExecutionException;
 
 import org.junit.Before;
@@ -131,8 +133,6 @@ public class MailServiceTests {
         when(article.getApprover()).thenReturn(userApprover);
         when(article.getCreatedBy()).thenReturn(usercreator);
 
-//        Article articles = articleTestDataRepository.getArticles().get("article-2");
-
         boolean asAdmin = mailService.sendDeleteKAMail(article, true).get();
         boolean asUser = mailService.sendDeleteKAMail(article, false).get();
 
@@ -201,4 +201,35 @@ public class MailServiceTests {
         // assert
         assertTrue(status);
     }
+
+    @Test
+    public final void updateUserToChangeReviewerTest() throws MailException, InterruptedException, ExecutionException {
+
+        // Arrange
+        Article article = articleTestDataRepository.getArticles().get("article-7");
+        List<Article> articles = Arrays.asList(article);
+
+        // when()
+        when(javaMailSender.createMimeMessage()).thenReturn(new JavaMailSenderImpl().createMimeMessage());
+
+        Boolean status = mailService.updateUserToChangeReviewer(articles).get();
+        // assert
+        assertTrue(status);
+    }
+
+    @Test
+    public final void sendNotificationMailTest() throws MailException, InterruptedException, ExecutionException {
+
+        Article article = articleTestDataRepository.getArticles().get("article-7");
+
+        // when
+        when(javaMailSender.createMimeMessage()).thenReturn(new JavaMailSenderImpl().createMimeMessage());
+
+        boolean status = mailService.sendNotificationMail(article, true).get();
+
+        // assert
+        assertTrue(status);
+
+    }
+
 }

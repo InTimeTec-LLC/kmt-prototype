@@ -434,7 +434,7 @@ public class UserServiceTests {
 
         // Arrange
         User user = testDataRepository.getUsers()
-                .get("user-1");
+                .get("user-7");
         user.setFirstName("test");
         when(userRepository.findOne(user.getId())).thenReturn(user);
         when(mailService.sendResetPasswordMail(user, user.getPassword())).thenReturn(new AsyncResult<Boolean>(true));
@@ -531,6 +531,27 @@ public class UserServiceTests {
         verify(userRepository, times(1)).save(user);
     }
 
+    @Test()
+    public final void changeUserStatusTestMailFAil() throws MailException, InterruptedException {
+
+        // Arrange
+        User user = testDataRepository.getUsers()
+                .get("user-3");
+        user.setActive(true);
+
+        when(userRepository.findOne(user.getId())).thenReturn(user);
+        when(mailService.sendUserActivateMail(user, false)).thenThrow(new InterruptedException()); 
+        when(userRepository.save(user)).thenReturn(user);
+
+        // Act
+        User updatedUser = userService.changeUserStatus(user.getId(), false);
+
+        // Assert
+        assertEquals(updatedUser.isActive(), false);
+
+        verify(userRepository, times(1)).save(user);
+    }
+    
     @Test(expected = RuntimeException.class)
     public final void activateActiveUser() throws MailException, InterruptedException {
 

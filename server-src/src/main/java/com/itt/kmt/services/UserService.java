@@ -62,6 +62,12 @@ public class UserService {
     @Autowired
     private MailService mailService;
 
+    /**
+     * Instance of article service.
+     */
+    @Autowired
+    private ArticleService articleService;
+
     /** The Constant PASSWORD_PREFIX_LENGTH. */
     public static final int PASSWORD_PREFIX_LENGTH = 3;
 
@@ -116,7 +122,7 @@ public class UserService {
      * @return Page<User> page of users.
      */
     public Page<User> getAllUsersByRolesAndStatus(
-        final String role, final boolean active, final String loggedInUserEmail, final Pageable page) {
+            final String role, final boolean active, final String loggedInUserEmail, final Pageable page) {
 
         Page<User> users = repository.findByUserRoleAndActive(role, active, loggedInUserEmail, page);
 
@@ -148,20 +154,20 @@ public class UserService {
      * @return Page<User> page of users.
      */
     public Page<User> filterUsersByStatusAndRole(
-        final String search, final String role, final Boolean status, final String loggedInUserEmail,
-        final Pageable page) {
+            final String search, final String role, final Boolean status, final String loggedInUserEmail,
+            final Pageable page) {
 
         Page<User> users = null;
 
         if ((role == null || role.equals(Constants.EMPTY_STRING)) 
-                        && status == null 
-                        && (search == null || search.equals(Constants.EMPTY_STRING))) {
+                && status == null 
+                && (search == null || search.equals(Constants.EMPTY_STRING))) {
 
             users = getAllUsers(loggedInUserEmail, page);
 
         } else if ((role != null 
-                        && !Constants.EMPTY_STRING.equals(role)) 
-                        && (search == null || search.equals(Constants.EMPTY_STRING))) {
+                && !Constants.EMPTY_STRING.equals(role)) 
+                && (search == null || search.equals(Constants.EMPTY_STRING))) {
 
             if (status != null) {
                 users = getAllUsersByRolesAndStatus(role, status, loggedInUserEmail, page);
@@ -173,27 +179,27 @@ public class UserService {
             users = repository.findByActive(status, loggedInUserEmail, page);
 
         } else if (search != null 
-                        && !Constants.EMPTY_STRING.equals(search)) {
+                && !Constants.EMPTY_STRING.equals(search)) {
 
             if ((role != null 
-                            && !Constants.EMPTY_STRING.equals(role)) 
-                            && status != null) {
+                    && !Constants.EMPTY_STRING.equals(role)) 
+                    && status != null) {
 
                 users = repository.findByFirstNameOrLastNameOrEmailAndActiveAndUserRole(
-                    search, loggedInUserEmail, status, role, page);
+                        search, loggedInUserEmail, status, role, page);
 
             } else if ((role == null || role.equals(Constants.EMPTY_STRING)) 
-                            && status != null) {
+                    && status != null) {
 
                 users =
-                    repository.findByFirstNameOrLastNameOrEmailAndActive(search, loggedInUserEmail, status, page);
+                        repository.findByFirstNameOrLastNameOrEmailAndActive(search, loggedInUserEmail, status, page);
 
             } else if ((role != null 
-                            && !Constants.EMPTY_STRING.equals(role)) 
-                            && status == null) {
+                    && !Constants.EMPTY_STRING.equals(role)) 
+                    && status == null) {
 
                 users =
-                    repository.findByFirstNameOrLastNameOrEmailAndUserRole(search, loggedInUserEmail, role, page);
+                        repository.findByFirstNameOrLastNameOrEmailAndUserRole(search, loggedInUserEmail, role, page);
 
             } else {
                 users = repository.findByFirstNameOrLastNameOrEmail(search, loggedInUserEmail, page);
@@ -253,13 +259,9 @@ public class UserService {
         User existingUser = repository.findOne(id);
 
         if (existingUser != null 
-                        && existingUser.isActive() != isActive) {
+                && existingUser.isActive() != isActive) {
             existingUser.setActive(isActive);
-            try {
-                mailService.sendUserActivateMail(existingUser, isActive);
-            } catch (MailException | InterruptedException e) {
-                log.error(e.getMessage());
-            }
+            userUpdateMailRequest(id, isActive, existingUser);
             return repository.save(existingUser);
         } else if (existingUser == null) {
             throw new RuntimeException(Constants.USER_DOES_NOT_EXIST_ERROR_MSG);
@@ -287,6 +289,26 @@ public class UserService {
         return updateUser(user, id);
     }
     /**
+     * This method is responsible to update users regarding the activation. 
+     * or deactivation of users and its effects.
+     * 
+     * @param id Id of the User.
+     * @param isActive isActive status of the User.
+     * @param existingUser to get the details of user.
+     * 
+     */
+    private void userUpdateMailRequest(final String id, final boolean isActive, final User existingUser) {
+        try {
+            if (!isActive) {
+                mailService.updateUserToChangeReviewer(articleService.getUsersByApprover(id));
+            }
+            mailService.sendUserActivateMail(existingUser, isActive);
+        } catch (MailException | InterruptedException e) {
+            log.error(e.getMessage());
+        }
+    }
+
+    /**
      * Updates User.
      * 
      * @param user user to be updated.
@@ -299,7 +321,6 @@ public class UserService {
 
         if (existingUser != null && !existingUser.isActive()) {
             throw new RuntimeException(Constants.UPDATE_INACTIVE_USER_ERROR_MSG);
-
         } else if (existingUser != null) {
             String requestedPassword = user.getPassword();
 
@@ -416,7 +437,7 @@ public class UserService {
         String message = "";
         boolean status = false;
         if (emailId != null 
-                        && !emailId.isEmpty()) {
+                && !emailId.isEmpty()) {
             User user = getUserByEmail(emailId);
             if (user != null) {
                 if (user.isActive()) {
@@ -424,15 +445,9 @@ public class UserService {
                     String password = generateRandomPassword(user);
                     user.setPassword(password);
 
-                    try {
-                        updateUser(user, user.getId());
-                        mailService.sendResetPasswordMail(user, password);
-                        message = Constants.PASSWORD_RESET_SUCCESS;
-                        status = true;
-                    } catch (MailException | InterruptedException e) {
-                        log.error(e.getMessage());
-                        message = Constants.COULD_NOT_PROCESS;
-                    }
+                    updateUser(user, user.getId());
+                    message = Constants.PASSWORD_RESET_SUCCESS;
+                    status = true;
 
                 } else {
                     message = Constants.COULD_NOT_PROCESS;
@@ -475,7 +490,7 @@ public class UserService {
         StringBuilder salt = new StringBuilder();
         Random rnd = new Random();
         while (salt.length() < PASSWORD_SALT_LENGTH) { // length of the random
-                                                       // string.
+            // string.
             int index = (int) (rnd.nextFloat() * saltChars.length());
             salt.append(saltChars.charAt(index));
         }

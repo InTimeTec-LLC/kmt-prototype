@@ -18,6 +18,6 @@ Password - ${password}</p>
 <p>Once you login, please reset your password.</p>
 
 <p>Regards,<br>
-ADPQ-KMT</p>
+Cognizance</p>
 </body>
 </html>
