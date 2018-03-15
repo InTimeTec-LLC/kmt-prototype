@@ -97,7 +97,6 @@ createData(data, dashBoardType) {
 }
 
 onTapNavigation(route, param) {
-  this.router.navigate([route]);
   if (param) {
     this.router.navigate([route, param], {relativeTo: this.activatedRoute} );
   } else {
