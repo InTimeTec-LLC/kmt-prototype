@@ -19,6 +19,7 @@ import org.springframework.scheduling.annotation.AsyncResult;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.freemarker.FreeMarkerTemplateUtils;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.itt.kmt.models.Approve;
 import com.itt.kmt.models.Article;
 import com.itt.kmt.models.User;
@@ -365,9 +366,9 @@ public class MailService {
      *            to check user/approver .
      * 
      * @throws MailException
-     *.
+     *             .
      * @throws InterruptedException
-     *.
+     *             .
      * @return boolean
      **/
     public Future<Boolean> sendNotificationMail(final Article article, final boolean isUser)
@@ -375,15 +376,15 @@ public class MailService {
 
         Map<String, String> model = new HashMap<String, String>();
 
-        UserResponse userResponse = (UserResponse) article.getCreatedBy();
-        UserResponse approverResponse = (UserResponse) article.getApprover();
+        Map<String, String> userResponse = new ObjectMapper().convertValue(article.getCreatedBy(), Map.class);
+        Map<String, String> approverResponse = new ObjectMapper().convertValue(article.getApprover(), Map.class);
 
-        model.put(EmailConstants.PARAM_USER_FIRST_NAME, userResponse.getFirstName());
-        model.put(EmailConstants.PARAM_USER_MAIL_ID, userResponse.getEmail());
+        model.put(EmailConstants.PARAM_USER_FIRST_NAME, userResponse.get("firstName"));
+        model.put(EmailConstants.PARAM_USER_MAIL_ID, userResponse.get("email"));
         model.put(EmailConstants.PARAM_ARTICLE_TITLE, article.getTitle());
 
         if (isUser) {
-            model.put("reviewerName", approverResponse.getFirstName());
+            model.put("reviewerName", approverResponse.get("firstName"));
             model.put(EmailConstants.PARAM_ARTICLE_LINK, formArticleUrl("article/edit") + article.getId());
             model.put("user", "user");
         }
@@ -391,10 +392,13 @@ public class MailService {
 
         return new AsyncResult<Boolean>(sendMail(EmailConstants.REVIEWED_USER_NOTIFICATION_TMPLT, model));
     }
+
     /**
-     * method is required to inform the user when article approver is deactivate by admin.
+     * method is responsible to inform the user when article approver is
+     * deactivated by admin.
      * 
-     * @param articles to get the details of article.
+     * @param articles
+     *            to get the details of article.
      * @return boolean.
      */
     @Async
