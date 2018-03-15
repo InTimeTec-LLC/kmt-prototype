@@ -34,6 +34,7 @@ export class DashboardComponent implements OnInit {
   formattedResponse: any;
   currentUserId: any;
   currentUserRole: any;
+  labelTxt: any;
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
@@ -49,6 +50,11 @@ export class DashboardComponent implements OnInit {
     ) {
       this.currentUserId = this.auth.getUserId();
       this.currentUserRole = this.auth.getUserRole();
+      if (this.currentUserRole !== 'user') {
+        this.labelTxt = '(assigned to me)';
+      } else {
+        this.labelTxt = '(created by me)';
+      }
     }
 
 
@@ -62,6 +68,13 @@ export class DashboardComponent implements OnInit {
     let queryParam = '?page=' + pageNum + '&' + sort;
     if (status !== '' && status !== undefined && status !== null) {
         queryParam = queryParam.concat('&status=' + status);
+    }
+    if (this.currentUserRole !== 'user') {
+      queryParam = queryParam.concat('&filter=ASSIGNED');
+      this.labelTxt = '(assigned to me)';
+    } else {
+      this.labelTxt = '(created by me)';
+      queryParam = queryParam.concat('&filter=CREATED');
     }
     this.kbContentService.listKnowledgeBaseArticle(queryParam)
     .subscribe(
@@ -105,7 +118,6 @@ onTapNavigation(route, param) {
 }
 
 createNewUser(item: any): any {
-  console.log(item.createdTime);
   return {
       id: item.id,
       type: item.articleType.type,

@@ -36,9 +36,13 @@
     margin: 40px 0 20px 0;
     padding: 20px;
 }
+.pending-list span{
+    color:#9c9c9c;
+}
 
 .pending-list h2 {
     color: #ffa834;
+    display: inline-block;
     margin: 12px 0;
 }
 .pending-list hr {
