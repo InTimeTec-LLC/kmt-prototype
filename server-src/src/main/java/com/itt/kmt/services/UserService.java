@@ -15,6 +15,7 @@ import org.springframework.validation.FieldError;
 
 import com.itt.kmt.jwt.BCrypt;
 import com.itt.kmt.jwt.JWTUtil;
+import com.itt.kmt.jwt.exception.UnauthorizedException;
 import com.itt.kmt.models.Role;
 import com.itt.kmt.models.User;
 import com.itt.kmt.repositories.RoleRepository;
@@ -226,7 +227,8 @@ public class UserService {
             }
 
             try {
-                mailService.sendUserCreatedMail(savedUser.getId(), user.getPassword(), EmailConstants.PARAM_PORTAL_LOGIN_LINK);
+                mailService.sendUserCreatedMail(savedUser.getId(), user.getPassword(), 
+                        EmailConstants.PARAM_PORTAL_LOGIN_LINK);
             } catch (MailException | InterruptedException e) {
                 log.error(e.getMessage());
             }
@@ -262,7 +264,25 @@ public class UserService {
             throw new RuntimeException(Constants.CHANGE_USER_STATUS_ERROR_MSG);
         }
     }
+    /**
+     * Updates User.
+     * 
+     * @param user user to be updated.
+     * @param id id of the user to be updated.
+     * @param token jwt token of logged in user.
+     * @return user.
+     */
+    public User updateUser(final User user, final String id, final String token) {
 
+        User loggedInUser = getLoggedInUser(token);
+        if (!loggedInUser.getUserRole().equals(Constants.ROLE_ADMIN)) {
+            if (!loggedInUser.getId().equals(id)) {
+                throw new UnauthorizedException();
+            }
+        }
+
+        return updateUser(user, id);
+    }
     /**
      * Updates User.
      * 
@@ -299,7 +319,7 @@ public class UserService {
 
             if (changePassword) {
                 try {
-                    mailService.sendResetPasswordMail(savedUser, requestedPassword);
+                    mailService.sendResetPasswordMail(savedUser, user.getPassword());
                 } catch (MailException | InterruptedException e) {
                     log.error(e.getMessage());
                 }
