@@ -21,6 +21,7 @@ export class ApprovedKnowledgeBaseArticleComponent implements OnInit {
   articleInfo: any;
   attachements: any[] = [];
   comments: any[] = [];
+  error: boolean;
 
 
   constructor(private kbContentService: KnowledgeBaseArticleService,
@@ -29,6 +30,7 @@ export class ApprovedKnowledgeBaseArticleComponent implements OnInit {
               private auth: AuthenticationService,
               private toasterService: ToasterService
   ) {
+    this.error = false;
     this.activatedRoute.params.subscribe((params: any) => {
       this.articleId = params['id'];
       if (this.articleId) {
@@ -47,8 +49,15 @@ export class ApprovedKnowledgeBaseArticleComponent implements OnInit {
   }
 
   ngOnInit() {
-
   }
+
+  valuechange(newValue) {
+    if ( newValue !== undefined &&  newValue !== '') {
+      this.error = false;
+   } else {
+      this.error = true;
+   }
+}
 
   onCancle() {
     this.submit({'comment': this.comment, 'approved': false});
@@ -67,9 +76,12 @@ export class ApprovedKnowledgeBaseArticleComponent implements OnInit {
   }
 
   onReviewComments() {
-    this.submit({'comment': this.comment, 'approved': false});
+    if ( this.comment !== undefined) {
+      this.submit({'comment': this.comment, 'approved': false});
+    } else {
+      this.error = true;
+    }
   }
-
   onApproved() {
     this.submit({'comment': this.comment, 'approved': true});
   }

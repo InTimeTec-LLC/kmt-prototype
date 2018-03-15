@@ -112,3 +112,7 @@ textarea.mat-input-element {
     margin-top: 29px;
     width: 100%;
 }
+
+.error {
+    color: #ff1010;
+}

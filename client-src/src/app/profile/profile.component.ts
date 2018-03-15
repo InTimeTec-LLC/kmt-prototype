@@ -22,6 +22,8 @@ export class ProfileComponent implements OnInit {
   user: FormGroup;
   userId: String;
   roles: any[];
+  userRole: any;
+  readOnly: boolean;
 
   get cpwd() {
     return this.user.get('confirmPassword');
@@ -37,6 +39,12 @@ export class ProfileComponent implements OnInit {
 
   ) {
 
+    this.userRole = this.authService.getUserRole();
+    if (this.userRole === 'admin') {
+      this.readOnly = false;
+    } else {
+      this.readOnly = true;
+    }
 
     this.userId = this.authService.getUserId();
     if (this.userId) {
@@ -62,7 +70,7 @@ export class ProfileComponent implements OnInit {
       firstName: ['', [Validators.required, Validators.minLength(2)]],
       lastName: ['', Validators.required],
       password: ['', Validators.required],
-      userRole: ['', Validators.required],
+      userRole: [{value: '', disabled: this.readOnly}, Validators.required],
       email: ['', Validators.email],
       confirmPassword: ['', Validators.required],
     }, {validator: this.validateConfirmPassword('password', 'confirmPassword')});
@@ -91,6 +99,6 @@ export class ProfileComponent implements OnInit {
   }
 
   onCancle() {
-    this.router.navigateByUrl('/users');
+    this.router.navigateByUrl('');
   }
 }
