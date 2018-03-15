@@ -16,6 +16,7 @@ import { KnowledgeBaseSearchComponent } from './knowledge-base-search/knowledge-
 import { RootComponent } from './root.component';
 import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
 import { ProfileComponent } from './profile/profile.component';
+import { HelpComponent } from './help/help.component';
 
 const routes:  Routes = [
     {
@@ -52,6 +53,11 @@ const routes:  Routes = [
           path: 'knowledge-base-search',
           component: KnowledgeBaseSearchComponent,
           data: { title: 'Knowledge Base Search', breadcrumb: 'Knowledge Base' }
+        },
+        {
+          path: 'help',
+          component: HelpComponent,
+          data: { title: 'Help', breadcrumb: 'Help' }
         },
         {
           path: 'users',

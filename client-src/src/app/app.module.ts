@@ -37,6 +37,7 @@ import { SearchKnowledgeBaseComponent } from './search-knowledge-base/search-kno
 import { KnowledgeBaseSearchComponent } from './knowledge-base-search/knowledge-base-search.component';
 import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
 import { ProfileComponent } from './profile/profile.component';
+import { HelpComponent } from './help/help.component';
 
 
 @NgModule({
@@ -62,7 +63,8 @@ import { ProfileComponent } from './profile/profile.component';
     SearchKnowledgeBaseComponent,
     KnowledgeBaseSearchComponent,
     ForgotPasswordComponent,
-    ProfileComponent
+    ProfileComponent,
+    HelpComponent
   ],
   imports: [
     BrowserModule,
