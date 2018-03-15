@@ -21,6 +21,7 @@
 		"role": "manager",
 		"permissions": [
 			"addContent",
+			"updateUser",
 			"updateContent",
 			"getUserById",
 			"deleteContent",
@@ -34,6 +35,7 @@
 		"permissions": [
 			"addContent",
 			"getUserById",
+			"updateUser",
 			"updateContent",
 			"deleteContent",
 			"getAllApprovers",
