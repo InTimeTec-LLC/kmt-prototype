@@ -76,6 +76,7 @@ export class ListArticleComponent implements OnInit, OnDestroy {
                 if (this.kbContentService.getIsPending()) {
                     this.articleBy = 'ASSIGNED';
                     this.clickedOnApprovals = true;
+                    this.bFilterStatus = false;
                     this.kbContentService.setIsPending(false);
                 }
                 this.initData();
@@ -101,6 +102,7 @@ export class ListArticleComponent implements OnInit, OnDestroy {
         this.clickedOnApprovals = false;
         this.articleBy = '';
         this.finalTxt = '';
+        this.bFilterStatus = '';
         this.initData();
     }
 
@@ -112,7 +114,7 @@ export class ListArticleComponent implements OnInit, OnDestroy {
             type: undefined,
             typeId : undefined
         };
-        this.bFilterStatus = undefined;
+        this.bFilterStatus = false;
         this.articleBy = fromWhich;
         this.getArticleList(0, this.articleBy , this.selectedFilter.typeId, this.bFilterStatus, this.finalTxt);
     }

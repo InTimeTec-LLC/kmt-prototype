@@ -11,7 +11,7 @@
 
   <div class="filter-input">
     <mat-form-field>
-      <input matInput placeholder="Search here">
+      <input matInput placeholder="Search here" [(ngModel)]="searchTxt">
     </mat-form-field>
     <img src="../../assets/images/search_gray.png" (click)="onTapSearchIcon()" alt="Filtericon" class="search_icon">
     <img *ngIf='!clickedOnApprovals' src="../../assets/images/filter-icon.png" (click)="onTapFilterIcon()" alt="Filtericon" class="filter_icon">
