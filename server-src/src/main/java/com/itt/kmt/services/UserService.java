@@ -15,6 +15,7 @@ import org.springframework.validation.FieldError;
 
 import com.itt.kmt.jwt.BCrypt;
 import com.itt.kmt.jwt.JWTUtil;
+import com.itt.kmt.jwt.exception.UnauthorizedException;
 import com.itt.kmt.models.Role;
 import com.itt.kmt.models.User;
 import com.itt.kmt.repositories.RoleRepository;
@@ -199,6 +200,9 @@ public class UserService {
             }
 
         }
+        for (User user : users.getContent()) {
+            user.setPassword(null);
+        }
         return users;
     }
 
@@ -214,12 +218,19 @@ public class UserService {
         if (existingUser == null) {
             user.setDateJoined(new Date());
             user.setActive(true);
-            String password = user.getPassword();
-            user.setPassword(encryptContent(password));
-            
-            User savedUser = repository.save(user);
+
+            User savedUser = null;
+            if (user.getPassword() != null) {
+                String password = user.getPassword();
+                user.setPassword(encryptContent(password));
+                savedUser = repository.save(user);
+            } else {
+                throw new RuntimeException(Constants.NULL_PASSWORD_MESSAGE);
+            }
+
             try {
-                mailService.sendUserCreatedMail(savedUser.getId(), password, EmailConstants.PARAM_PORTAL_LOGIN_LINK);
+                mailService.sendUserCreatedMail(savedUser.getId(), user.getPassword(), 
+                        EmailConstants.PARAM_PORTAL_LOGIN_LINK);
             } catch (MailException | InterruptedException e) {
                 log.error(e.getMessage());
             }
@@ -255,7 +266,25 @@ public class UserService {
             throw new RuntimeException(Constants.CHANGE_USER_STATUS_ERROR_MSG);
         }
     }
+    /**
+     * Updates User.
+     * 
+     * @param user user to be updated.
+     * @param id id of the user to be updated.
+     * @param token jwt token of logged in user.
+     * @return user.
+     */
+    public User updateUser(final User user, final String id, final String token) {
 
+        User loggedInUser = getLoggedInUser(token);
+        if (!loggedInUser.getUserRole().equals(Constants.ROLE_ADMIN)) {
+            if (!loggedInUser.getId().equals(id)) {
+                throw new UnauthorizedException();
+            }
+        }
+
+        return updateUser(user, id);
+    }
     /**
      * Updates User.
      * 
@@ -272,19 +301,29 @@ public class UserService {
 
         } else if (existingUser != null) {
             String requestedPassword = user.getPassword();
-            boolean isPasswordMatched = isContentMatched(requestedPassword, existingUser.getPassword());
+
+            boolean changePassword = false;
+            if (user.getPassword() == null) {
+                changePassword = false;
+            } else {
+                changePassword = !existingUser.getPassword().equals(requestedPassword);
+            }
 
             existingUser.setFirstName(user.getFirstName());
             existingUser.setLastName(user.getLastName());
             existingUser.setUserRole(user.getUserRole());
-            if (!isPasswordMatched) {
-            existingUser.setPassword(encryptContent(requestedPassword));
+
+            if (changePassword) {
+                existingUser.setPassword(encryptContent(requestedPassword));
+
+                existingUser.setPassword(user.getPassword());
+
             }
             User savedUser = repository.save(existingUser);
 
-            if (!isPasswordMatched) {
+            if (changePassword) {
                 try {
-                    mailService.sendResetPasswordMail(savedUser, requestedPassword);
+                    mailService.sendResetPasswordMail(savedUser, user.getPassword());
                 } catch (MailException | InterruptedException e) {
                     log.error(e.getMessage());
                 }
@@ -317,6 +356,7 @@ public class UserService {
         if (user == null) {
             throw new RuntimeException(Constants.USER_DOES_NOT_EXIST_ERROR_MSG);
         }
+        user.setPassword(null);
         return user;
     }
 
@@ -362,7 +402,7 @@ public class UserService {
             repository.save(loggedInUser);
 
         } else {
-            throw new RuntimeException("user doesnot exist");
+            throw new RuntimeException(Constants.USER_DOES_NOT_EXIST_ERROR_MSG);
         }
     }
 
@@ -383,7 +423,7 @@ public class UserService {
                 if (user.isActive()) {
 
                     String password = generateRandomPassword(user);
-                    user.setPassword(encryptContent(password));
+                    user.setPassword(password);
 
                     try {
                         updateUser(user, user.getId());

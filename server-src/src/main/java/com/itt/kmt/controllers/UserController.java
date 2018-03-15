@@ -164,13 +164,15 @@ public class UserController {
      * @param userRequest the user request
      * @param result the result
      * @param id Id of the user to be updated.
+     * @param httpServletRequest HttpServletRequest.
      * @return ModelMap.
      */
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT, produces = "application/json")
     @RequiresPermissions("updateUser")
     public ModelMap updateUser(@Valid @RequestBody
     final UserRequst userRequest, final BindingResult result, @PathVariable("id")
-    final String id) {
+    final String id, final HttpServletRequest httpServletRequest) {
+
 
         User user = userRequest.getUser();
         String errorMsg = userService.validateUser(user, result);
@@ -179,7 +181,7 @@ public class UserController {
             return new ModelMap().addAttribute("success", postResponseMsg);
         }
 
-        userService.updateUser(user, id);
+        userService.updateUser(user, id, httpServletRequest.getHeader(Constants.AUTHORIZATION));
         ResponseMsg updateResponseMsg = new ResponseMsg(true, Constants.DEFAULT_UPDATE_SUCCESS_MSG);
         return new ModelMap().addAttribute("success", updateResponseMsg);
     }
