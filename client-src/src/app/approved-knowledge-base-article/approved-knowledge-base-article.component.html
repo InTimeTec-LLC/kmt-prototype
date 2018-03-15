@@ -24,15 +24,15 @@
         </div>
       </div>
       <mat-form-field class="example-full-width">
-          <textarea (ngModelChange)="valuechange($event)" matInput placeholder="Leave a comment*" [(ngModel)]="comment" ></textarea>
-      </mat-form-field>
-      <div class="error" *ngIf="error">Comment is required.</div>
-  </div>
- 
-  <div class="reviewer-comments f-left">
-      <label>Review Comments</label>
-      <p *ngFor="let c of comments">{{c.comment}}</p>
+          <textarea matInput placeholder="Leave a comment" [(ngModel)]="comment"></textarea>
+        </mat-form-field>
+        <div class="reviewer-comments f-left">
+          <label>Review Comments</label>
+          <p *ngFor="let c of comments">{{c.comment}}</p>
+        </div>
     </div>
+ 
+  
   <div class="button-container">
     <button type="button" mat-raised-button (click)="onReviewComments()">Post Comment</button>
     <button mat-raised-button type="button" (click)="onApproved()">Approve</button>

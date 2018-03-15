@@ -5,7 +5,7 @@ html{
   Height:100%;
 }
 body { 
-  font-family: Source Sans Pro, Arial, sans-serif;
+  font-family: Source Sans Pro, monospace, Arial, sans-serif;
   margin: 0;
   font-size: 14px;
   height:100%
@@ -30,14 +30,25 @@ a{
 .noRecord{
   padding: 19px;
   border: 1px solid #dcd8d8;
-  background-color: #ecebeb;
+  background-color: #eeeeee;
   font-weight: 600;
+  box-shadow: none;
 }
 app-content .table-list-container .Container-table .container-table-body .mat-elevation-z8{
   box-shadow:none;
 }
-
-
+/***text-editor***/
+.description h1,
+.description h2{
+  margin: 0px;
+  padding: 0px;
+}
+.ql-font-monospace{
+  font-family: monospace,sans-serif;
+}
+.ql-font-serif{
+  font-family: serif,sans-serif;
+}
 /* for add and edit user component css............................*/
 .form-box{
   float: left;
@@ -268,8 +279,7 @@ background-color: #fff;
   }
   .breadcrumb-fullwidth .breadcrumb-bar {
     width: 100%;
-  }
-  
+  }  
   ul.breadcrumb {
     padding: 10px 16px;
     list-style: none;
@@ -318,9 +328,6 @@ background-color: #fff;
     padding: 26px;
     float: right;
   }
- /* mat-drawer-content .app-sidenav-content {
-        margin-left: 0px;
-  }*/
 }
 @media (max-width: 1023px) {
   mat-drawer-content .mat-button, .mat-flat-button, .mat-icon-button, .mat-stroked-button{
@@ -331,5 +338,19 @@ background-color: #fff;
   padding: 20px;
   width: 64%;
 }
+
+.form-input-area .mat-form-field {
+  width: 100%;
+  margin-right: 0;
+}
+.button-container .mat-raised-button {
+  padding: 0;
+  margin-right: 8px;
+}
+.button-container {
+  width: 100%;
+  text-align: center;
+}
+
 }
 

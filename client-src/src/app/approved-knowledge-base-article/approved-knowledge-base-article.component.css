@@ -10,7 +10,6 @@
 }
 .left-container{
     float: left;
-    padding: 20px;
     width: 96%
 }
 .left-container div{
@@ -97,10 +96,7 @@ textarea.mat-input-element {
 .article_view{
     float: left;
     width: 100%;
-    padding: 25px 0;
 }
-
-  
 .reviewer-comments label{
     color: #111111;
     font-weight: bold;
@@ -115,4 +111,8 @@ textarea.mat-input-element {
 
 .error {
     color: #ff1010;
+}
+.reviewer-comments-list span{
+    float: right;
+    color: #7a7a7a;
 }

@@ -45,6 +45,16 @@
   .article-box {
       text-align: center;
   }
+  .upper-heading{
+    font-size: 28px;
+    font-weight: 700;
+      
+  }
+  .lower-heading{
+    font-size: 20px;
+    color: #b0afaf;
+    margin-bottom: 27px;
+  }
   
 
   
