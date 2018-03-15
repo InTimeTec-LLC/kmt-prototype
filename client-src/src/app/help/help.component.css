@@ -1,0 +1,27 @@
+
+.help_container {
+    flex-direction: column;
+    padding: 20px 0;
+    float: left;
+    width: 100%;
+    background: #fbfbfb;
+    border-width: 1px 1px 3px 1px;
+    border-color: #e4dfdf;
+    border-radius: 5px 5px 0 0;
+    border-style: solid;
+    
+  }
+ 
+  .help_container_body {
+      width: 100%;
+  }
+
+  .help-text {
+      margin: 20px;
+  }
+
+  .help-page_link a {
+  color: #4388f3;
+  }
+
+  
