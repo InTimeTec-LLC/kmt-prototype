@@ -151,7 +151,8 @@ public class UserController {
         if (active) {
             return new ModelMap().addAttribute("success", new ResponseMsg(true, Constants.USER_ACTIVATED_SUCCESS_MSG));
         } else {
-            return new ModelMap().addAttribute("success", new ResponseMsg(true, Constants.USER_DEACTIVATED_SUCCESS_MSG));
+            return new ModelMap().addAttribute("success", new ResponseMsg(true,
+                    Constants.USER_DEACTIVATED_SUCCESS_MSG));
         }
     }
     /**
