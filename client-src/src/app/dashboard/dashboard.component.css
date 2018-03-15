@@ -1,21 +1,25 @@
 
 .dashboard-lists {
     float: left;
-    width: 100%;
-   
+    width: 100%;   
+}
+.dashboard-lower-box{
+    margin-bottom: 56px;
+    
 }
 .dashboard-lists-fullwidth {
     background: #fbfbfb;
+    margin: 29px 0px;
 }
 .dashboard-lists-left {
     float: left;
-    width: 45%;
+    width: 48%;
     background: #fbfbfb;
 }
 
 .dashboard-lists-right {
     float: right;
-    width: 45%;
+    width: 48%;
     background: #fbfbfb;
 }
 
@@ -33,7 +37,7 @@
     -ms-flex-direction: column;
     flex-direction: column;
     min-width: 300px;
-    margin: 40px 0 20px 0;
+    margin: 8px 0 18px 0;
     padding: 20px;
 }
 .pending-list span{
@@ -69,6 +73,13 @@
     padding: 20px 25px;
 }
 
+/*.dashboard-table-lists .table-input-list {
+    display: flex;
+    flex-direction: column;
+    min-width: 300px;
+    margin: 10px 0 0px 0;
+  } 
+*/
 @media (min-width: 1024px) {
     .sidenav {
       position: relative!important;

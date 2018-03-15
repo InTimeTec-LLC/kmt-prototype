@@ -8,7 +8,7 @@
             <h2>Pending Approvals</h2> <span>{{labelTxt}}</span>
             <hr>
         </div>
-        <div class="table-input-list ">
+        <div class="dashboard-table-input-list">
   
           <div *ngIf='filterList.length === 0' class="noRecord">No Record Found</div>
           <mat-table [dataSource]="dataSource" matSort class="list_table" *ngIf='filterList.length > 0'>
@@ -54,7 +54,7 @@
       </div>
     </div>
     </div>
-<div class="dashboard-lists">
+<div class="dashboard-lists dashboard-lower-box">
 
   
     <div class="dashboard-lists-left">
