@@ -3,12 +3,12 @@
     
     <div class="dashboard-lists">
         <div class="dashboard-lists-fullwidth">
-    <div class="dashboard-table-lists mat-elevation-z8">
-        <div class="pending-heading pending-list">
+    <div class="dashboard-table-lists ">
+        <div class="pending-list">
             <h2>Pending Approvals</h2>
             <hr>
         </div>
-        <div class="table-input-list mat-elevation-z8">
+        <div class="table-input-list ">
   
           <div *ngIf='filterList.length === 0' class="noRecord">No Record Found</div>
           <mat-table [dataSource]="dataSource" matSort class="list_table" *ngIf='filterList.length > 0'>
@@ -58,12 +58,12 @@
 
   
     <div class="dashboard-lists-left">
-            <div class="dashboard-table-lists mat-elevation-z8">
-                <div class="pending-heading pending-list">
+            <div class="dashboard-table-lists ">
+                <div class="edited-list">
                     <h2>Recently Edited</h2>
                     <hr>
                 </div>
-                <div class="table-input-list mat-elevation-z8">
+                <div class="table-input-list">
                 <div *ngIf='articleEditedList.length === 0' class="noRecord">No Record Found</div>
                           <mat-table [dataSource]="dataSourceEdited" matSort class="list_table" *ngIf='articleEditedList.length > 0'>
                         
@@ -100,12 +100,12 @@
 </div>   
             
     <div class="dashboard-lists-right">
-            <div class="dashboard-table-lists mat-elevation-z8">
-                        <div class="pending-heading pending-list">
+            <div class="dashboard-table-lists">
+                        <div class="added-list">
                             <h2>Recently Added</h2>
                             <hr>
                         </div>
-                        <div class="table-input-list mat-elevation-z8">
+                        <div class="table-input-list">
   
                           <div *ngIf='articleAddedList.length === 0' class="noRecord">No Record Found</div>
                           <mat-table [dataSource]="dataSourceAdded" matSort class="list_table" *ngIf='articleAddedList.length > 0'>
