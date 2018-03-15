@@ -38,7 +38,6 @@ export class ApprovedKnowledgeBaseArticleComponent implements OnInit {
       }
       this.article = data;
       this.attachements = data.attachments;
-      const lastComment = this.article.comments.pop();
       this.comments = this.article.comments;
 
     });
