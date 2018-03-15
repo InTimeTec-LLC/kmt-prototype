@@ -67,12 +67,12 @@ public class MailServiceTests {
 
         // Arrange
         User user = testDataRepository.getUsers().get("user-2");
-
+        String password = user.getPassword();
         // when()
         when(javaMailSender.createMimeMessage()).thenReturn(new JavaMailSenderImpl().createMimeMessage());
         when(userService.getUserByID(user.getId())).thenReturn(user);
 
-        boolean status = mailService.sendUserCreatedMail(user.getId(), EmailConstants.PORTAL_LOGIN_LINK).get();
+        boolean status = mailService.sendUserCreatedMail(user.getId(), password, EmailConstants.PORTAL_LOGIN_LINK).get();
 
         // assert
         assertTrue(status);

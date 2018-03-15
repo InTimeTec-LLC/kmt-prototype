@@ -71,9 +71,10 @@ public class UserServiceTests {
         // Arrange
         User user = testDataRepository.getUsers()
                 .get("user-1");
-
+        String password = user.getPassword();
+        
         when(userRepository.save(user)).thenReturn(user);
-        when(mailService.sendUserCreatedMail(user.getId(),
+        when(mailService.sendUserCreatedMail(user.getId(), password,
                 EmailConstants.PARAM_PORTAL_LOGIN_LINK)).thenReturn(new AsyncResult<Boolean>(true));
 
         when(userRepository.save(user)).thenReturn(user);
