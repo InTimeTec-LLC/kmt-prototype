@@ -465,8 +465,13 @@ public class UserService {
      */
     public static boolean isContentMatched(final String content, final String encryptedContent) {
 
-        return BCrypt.checkpw(content, encryptedContent);
+        boolean isMatched = false;
+        try {
+            isMatched = BCrypt.checkpw(content, encryptedContent);
+        } catch (Exception ex) {
+            log.error(ex.getMessage());
+        }
+        return isMatched;
     }
-
 }
 

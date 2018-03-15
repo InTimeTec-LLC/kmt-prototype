@@ -2,8 +2,8 @@
 package com.itt.test.kmt.controllers;
 
 import static org.hamcrest.core.Is.is;
-import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.RETURNS_DEEP_STUBS;
+import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
@@ -11,8 +11,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 import java.nio.charset.Charset;
 
-import com.itt.kmt.response.models.ResponseMsg;
-import com.itt.utility.Constants;
 import org.apache.shiro.subject.Subject;
 import org.apache.shiro.util.ThreadContext;
 import org.apache.shiro.web.mgt.DefaultWebSecurityManager;
@@ -41,9 +39,11 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.itt.kmt.models.User;
 import com.itt.kmt.repositories.UserRepository;
 import com.itt.kmt.response.models.LoginResponseMsg;
+import com.itt.kmt.response.models.ResponseMsg;
 import com.itt.kmt.services.UserService;
 import com.itt.test_data.RoleTestDataRepository;
 import com.itt.test_data.TestDataRepository;
+import com.itt.utility.Constants;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -133,9 +133,13 @@ public class LoginControllerTest extends AbstractShiroTest {
     @Test
     public void login()
         throws Exception {
-
+        ResponseMsg unauthorizedAccessMsg = new ResponseMsg(false, Constants.UNAUTHORIZED_ACCESS_MSG);
         User user = testDataRepository.getUsers()
-                                      .get("user-1");
+                                      .get("user-7");
+        User user1 = testDataRepository.getUsers()
+                        .get("user-7");
+        user1.setPassword("manmewUDL4");
+        user.setPassword("$2a$12$STPVAz9LPkmYS2GgHLI.QOmwoV5QzCpON0PCrvMsIMX9pwhVHYx5C");
         LoginResponseMsg loginResponseMsg = new LoginResponseMsg();
 
         LoginResponseMsg.StatusMsg ic = loginResponseMsg.new StatusMsg();
@@ -148,7 +152,7 @@ public class LoginControllerTest extends AbstractShiroTest {
 
         when(userService.getUserByEmail(user.getEmail())).thenReturn(user);
 
-        String content = new ObjectMapper().writeValueAsString(user);
+        String content = new ObjectMapper().writeValueAsString(user1);
         ResultActions resultActions = null;
 
         // Act
@@ -162,7 +166,8 @@ public class LoginControllerTest extends AbstractShiroTest {
         resultActions.andExpect(
             MockMvcResultMatchers.content()
                                  .contentType(new MediaType("application", "json", Charset.forName("UTF-8"))))
-                     .andExpect(status().isBadRequest());
+                                 .andExpect(jsonPath("$.success.message", is(unauthorizedAccessMsg.getMessage())))
+                                 .andExpect(jsonPath("$.success.status", is(unauthorizedAccessMsg.getStatus())));
     }
 
     /**
@@ -237,14 +242,16 @@ public class LoginControllerTest extends AbstractShiroTest {
         throws Exception {
 
         User user = testDataRepository.getUsers()
-                                      .get("user-3");
+                                      .get("user-7");
+        User user1 = testDataRepository.getUsers()
+                        .get("user-7");
+        user.setPassword("$2a$12$STPVAz9LPkmYS2GgHLI.QOmwoV5QzCpON0PCrvMsIMX9pwhVHYx5C");
         ResponseMsg unauthorizedAccessMsg = new ResponseMsg(false, Constants.UNAUTHORIZED_ACCESS_MSG);
-
         when(userService.getUserByEmail(user.getEmail())).thenReturn(user);
-
+        
         // setting user as inActive
-        user.setActive(false);
-
+        user1.setActive(false);
+        user1.setPassword("manmewUDL4");
         String content = new ObjectMapper().writeValueAsString(user);
         ResultActions resultActions = null;
 
