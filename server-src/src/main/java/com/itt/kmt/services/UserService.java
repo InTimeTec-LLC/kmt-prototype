@@ -230,7 +230,7 @@ public class UserService {
             }
 
             try {
-                mailService.sendUserCreatedMail(savedUser.getId(), user.getPassword(), 
+                mailService.sendUserCreatedMail(savedUser.getId(), password, 
                         EmailConstants.PARAM_PORTAL_LOGIN_LINK);
             } catch (MailException | InterruptedException e) {
                 log.error(e.getMessage());
@@ -307,7 +307,7 @@ public class UserService {
             if (user.getPassword() == null) {
                 changePassword = false;
             } else {
-                changePassword = !existingUser.getPassword().equals(requestedPassword);
+                changePassword = !isContentMatched(requestedPassword, existingUser.getPassword());;
             }
 
             existingUser.setFirstName(user.getFirstName());
@@ -316,8 +316,6 @@ public class UserService {
 
             if (changePassword) {
                 existingUser.setPassword(encryptContent(requestedPassword));
-
-                existingUser.setPassword(user.getPassword());
 
             }
             User savedUser = repository.save(existingUser);
