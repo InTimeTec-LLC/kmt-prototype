@@ -65,19 +65,19 @@ public final class EmailConstants {
     /**
      * subject of mail when new user will register.
      */
-    public static final String SUBJECT_CREATE_USER_MAIL = "User created successfully for KMT";
+    public static final String SUBJECT_CREATE_USER_MAIL = "User created successfully for Cognizance";
     /**
      * subject of mail when admin deactivate the user.
      */
-    public static final String SUBJECT_ACCOUNT_DEACTIVATE_MAIL = "Deactivation of your account for KMT";
+    public static final String SUBJECT_ACCOUNT_DEACTIVATE_MAIL = "Deactivation of your account for Cognizance";
     /**
      * subject of mail when admin activate the user.
      */
-    public static final String SUBJECT_ACCOUNT_ACTIVATE_MAIL = "Activation of your account for KMT";
+    public static final String SUBJECT_ACCOUNT_ACTIVATE_MAIL = "Activation of your account for Cognizance";
     /**
      * subject of mail when admin reset the user's password.
      */
-    public static final String SUBJECT_ADMIN_RESET_PASS_MAIL = "Password reset successfully for KMT";
+    public static final String SUBJECT_ADMIN_RESET_PASS_MAIL = "Password reset successfully for Cognizance";
     /**
      * subject of mail when creator will submit the Article.
      */
@@ -97,7 +97,7 @@ public final class EmailConstants {
     /**
      * subject of mail when user/approver is deactivated.
      */
-    public static final String SUBJECT_NOTIFICATION_MAIL = "Needs Attention";
+    public static final String SUBJECT_NOTIFICATION_MAIL = "[Cognizance]: Needs Attention";
     /**
      * subject of mail when admin delete the Article.
      */

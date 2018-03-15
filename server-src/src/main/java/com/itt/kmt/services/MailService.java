@@ -345,10 +345,10 @@ public class MailService {
 
         switch (expectUrl) {
         case "article":
-            url = baseUrl + "article/";
+            url = baseUrl + "articles/detail/";
             break;
         case "article/edit":
-            url = baseUrl + "article/edit/";
+            url = baseUrl + "articles/edit/";
             break;
         default:
             url = baseUrl;

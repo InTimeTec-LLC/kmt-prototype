@@ -12,6 +12,6 @@
 </#if>
 
 <p>Regards,<br>
-ADPQ-KMT</p>
+Cognizance</p>
 </body>
 </html>

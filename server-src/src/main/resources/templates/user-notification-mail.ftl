@@ -11,6 +11,6 @@
 <p>The user <user name> has been deactivated by the Admin. You need not approve and publish the ${articleTitle}.
 </#if>
 <p>Regards,<br>
-ADPQ-KMT</p>
+Cognizance</p>
 </body>
 </html>

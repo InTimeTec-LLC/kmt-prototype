@@ -16,6 +16,6 @@ line-height: 1.5;
 Your username is  ${emailId} and Password - ${password}<br>
 Once you login, please reset your password. </p>
 <p>Regards,<br>
-ADPQ-KMT</p>
+Cognizance</p>
 </body>
 </html>
