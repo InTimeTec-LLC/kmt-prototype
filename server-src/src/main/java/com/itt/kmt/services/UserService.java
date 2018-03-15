@@ -103,7 +103,7 @@ public class UserService {
     public User getLoggedInUser(final String jwtToken) {
 
         String email = JWTUtil.getemail(jwtToken);
-        return getUserByEmail(email);;
+        return getUserByEmail(email);
     }
 
     /**
