@@ -12,7 +12,7 @@
 
     
     <div class="article-box" *ngFor="let article of kbSearchResults.content"> 
-        <h3><a [routerLink]="['detail', article.id]">{{article.title}}</a> </h3>
+        <h3><a (click)="onTapNavigation('../articles/detail/',article.id)">{{article.title}}</a> </h3>
         <p [innerHTML]="article.description">{{article.description}}</p>
         <p class="article-date">{{article.createdBy.firstName}} {{article.createdBy.lastName}}, {{article.lastModifiedTime | date: 'MM/dd/yyyy'}}
                 {{article.articleType.type}}</p>

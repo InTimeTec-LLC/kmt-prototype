@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {MatPaginator} from '@angular/material';
 import { KnowledgeBaseArticleService } from '../../shared/service/knowledge-base-article/knowledge-base-article.service';
 import { ToasterService } from 'angular5-toaster';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-search-knowledge-base',
@@ -19,7 +19,8 @@ export class SearchKnowledgeBaseComponent implements OnInit {
   constructor(
     private kbContentService: KnowledgeBaseArticleService,
     private toasterService: ToasterService,
-    private activateRoute: ActivatedRoute
+    private activateRoute: ActivatedRoute,
+    private router: Router,
   ) {
       this.sortField = 'title';
       this.kbSearchResults = {'content': [], 'totalElements': 0 };
@@ -37,6 +38,14 @@ export class SearchKnowledgeBaseComponent implements OnInit {
 
   onPaginateChange(pageInfo) {
     this.getKnowledgeBaseResult(pageInfo.pageIndex, this.sortField, this.searchTxt);
+  }
+
+  onTapNavigation(route, param) {
+      if (param) {
+          this.router.navigate([route, param], {relativeTo: this.activateRoute} );
+      } else {
+          this.router.navigate([route], {relativeTo: this.activateRoute} );
+      }
   }
 
   onSubmit() {
