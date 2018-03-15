@@ -7,11 +7,13 @@ import { forEach } from '@angular/router/src/utils/collection';
 import { KnowledgeBaseArticleService } from '../../shared/service/knowledge-base-article/knowledge-base-article.service';
 import { Aritcles } from '../../shared/modals/knowledge-base-article';
 import { AuthenticationService } from '../../shared/service/authentication/authentication.service';
+import { ViewEncapsulation } from '@angular/core';
 
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.css'],
+  encapsulation: ViewEncapsulation.None
 })
 export class DashboardComponent implements OnInit {
 

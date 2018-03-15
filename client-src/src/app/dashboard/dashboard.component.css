@@ -44,3 +44,23 @@
     float: right;
     padding: 20px 25px;
 }
+
+@media (min-width: 1024px) {
+    .sidenav {
+      position: relative!important;
+      display: block;
+    }
+    .app-sidenav {
+      visibility: visible!important;
+      padding:0!important;
+    }
+    mat-drawer {
+      height: 100%;
+      position: relative;
+      transform: initial!important;
+    }
+    .app-sidenav-content {
+      margin-left: 200px;
+    }
+  
+  }

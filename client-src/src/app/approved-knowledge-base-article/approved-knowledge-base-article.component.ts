@@ -20,6 +20,7 @@ export class ApprovedKnowledgeBaseArticleComponent implements OnInit {
   comment: any;
   articleInfo: any;
   attachements: any[] = [];
+  comments: any[] = [];
 
 
   constructor(private kbContentService: KnowledgeBaseArticleService,
@@ -38,7 +39,8 @@ export class ApprovedKnowledgeBaseArticleComponent implements OnInit {
       this.article = data;
       this.attachements = data.attachments;
       const lastComment = this.article.comments.pop();
-      this.comment = lastComment.comment;
+      this.comments = this.article.comments;
+
     });
     }
 } );

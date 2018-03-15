@@ -34,7 +34,7 @@ export class AppComponent implements OnInit, AfterViewInit {
  }
 
  ngAfterViewInit() {
-  this.getMatDrawerStatus();
+    this.getMatDrawerStatus();
  }
 
  getMatDrawerStatus() {

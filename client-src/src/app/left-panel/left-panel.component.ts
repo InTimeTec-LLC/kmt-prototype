@@ -53,7 +53,8 @@ export class LeftPanelComponent implements OnInit, OnDestroy {
   logout() {
     this.messageService.sendMessage('closeMatDrawer');
     this.auth.logout();
-    this.onTapNavigation('/login');
+    // this.onTapNavigation('/login');
+    window.location.href = '/login';
     this.isAuthenticated();
   }
 
