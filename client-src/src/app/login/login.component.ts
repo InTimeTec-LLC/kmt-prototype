@@ -3,12 +3,15 @@ import { Router } from '@angular/router';
 import { AuthenticationService } from '../../shared/service/authentication/authentication.service';
 import { ToasterService } from 'angular5-toaster';
 import { MessageService } from '../../shared/service/message/message';
+import { ViewEncapsulation } from '@angular/core';
 
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.scss']
+  styleUrls: ['./login.component.scss'],
+  encapsulation: ViewEncapsulation.None
+
 })
 export class LoginComponent implements OnInit {
 
@@ -31,7 +34,9 @@ export class LoginComponent implements OnInit {
                 data => {
                     this.messageService.sendMessage('set user type');
                     this.messageService.sendMessage('openMatDrawer');
-                    this.router.navigate(['/dashboard']);
+                    // this.router.navigate(['/dashboard']);
+                    window.location.href = '/dashboard';
+
                 },
                 error => {
                     this.loading = false;
