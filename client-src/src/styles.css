@@ -272,7 +272,20 @@ background-color: #fff;
     color: #01447e;
     text-decoration: underline;
    }
-
+@media (max-width: 1024px) {
+  .form-input-area .mat-form-field {
+    width: 100%;
+    margin-right: 0;
+  }
+  .button-container .mat-raised-button {
+    padding: 0;
+    margin-right: 8px;
+  }
+  .button-container {
+    width: 100%;
+    text-align: center;
+  }
+}
 @media (min-width: 1024px) {
   .sidenav {
     position: relative!important;
@@ -290,5 +303,4 @@ background-color: #fff;
   .app-sidenav-content {
     margin-left: 200px;
   }
-
 }

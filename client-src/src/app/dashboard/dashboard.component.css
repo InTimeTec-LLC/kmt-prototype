@@ -9,13 +9,13 @@
 }
 .dashboard-lists-left {
     float: left;
-    width: 45%;
+    width: 48%;
     background: #fbfbfb;
 }
 
 .dashboard-lists-right {
     float: right;
-    width: 45%;
+    width: 48%;
     background: #fbfbfb;
 }
 
@@ -28,17 +28,28 @@
     -ms-flex-direction: column;
     flex-direction: column;
     min-width: 300px;
-    margin: 10px 0 40px 0;
+    margin: 40px 0 20px 0;
     padding: 20px;
 }
 
+.pending-list h2 {
+    color: #ffa834;
+}
 .pending-list hr {
-    border: 3px solid orange;
+    border: 3px solid #ffa834;
 }
-.filter-input {
-    position: relative;
+.edited-list h2 {
+    color: #00a2e5;
 }
-
+.edited-list hr {
+    border: 3px solid #00a2e5;
+}
+.added-list h2 {
+    color: #629c44;
+}
+.added-list hr {
+    border: 3px solid #629c44;
+}
 .view-all {
     text-decoration: underline;
     float: right;
