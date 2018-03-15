@@ -127,3 +127,13 @@
     float: right;
     color: #7a7a7a;
 }
+
+
+@media (max-width: 1023px) {
+    .approver-input {
+        width: 100%;
+    }
+    .user-article-details {
+        width: 100%;
+     }
+}

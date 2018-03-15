@@ -351,6 +351,9 @@ background-color: #fff;
   width: 100%;
   text-align: center;
 }
+.form-box .mat-form-field {
+  width: 100%;
+} 
 
 }
 

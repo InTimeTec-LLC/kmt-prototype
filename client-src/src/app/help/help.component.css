@@ -23,5 +23,9 @@
   .help-page_link a {
   color: #4388f3;
   }
-
+  @media (max-width: 1023px) {
+    .help_container {
+        border-width: 0;
+    }
+    }
   
