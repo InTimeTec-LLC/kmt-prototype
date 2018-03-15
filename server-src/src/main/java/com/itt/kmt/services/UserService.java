@@ -199,6 +199,9 @@ public class UserService {
             }
 
         }
+        for (User user : users.getContent()) {
+            user.setPassword(null);
+        }
         return users;
     }
 
@@ -214,12 +217,16 @@ public class UserService {
         if (existingUser == null) {
             user.setDateJoined(new Date());
             user.setActive(true);
-            String password = user.getPassword();
-            user.setPassword(encryptContent(password));
-            
-            User savedUser = repository.save(user);
+
+            User savedUser = null;
+            if (user.getPassword() != null) {
+                savedUser = repository.save(user);
+            } else {
+                throw new RuntimeException(Constants.NULL_PASSWORD_MESSAGE);
+            }
+
             try {
-                mailService.sendUserCreatedMail(savedUser.getId(), password, EmailConstants.PARAM_PORTAL_LOGIN_LINK);
+                mailService.sendUserCreatedMail(savedUser.getId(), user.getPassword(), EmailConstants.PARAM_PORTAL_LOGIN_LINK);
             } catch (MailException | InterruptedException e) {
                 log.error(e.getMessage());
             }
@@ -271,18 +278,26 @@ public class UserService {
             throw new RuntimeException(Constants.UPDATE_INACTIVE_USER_ERROR_MSG);
 
         } else if (existingUser != null) {
-            String requestedPassword = user.getPassword();
-            boolean isPasswordMatched = isContentMatched(requestedPassword, existingUser.getPassword());
+
+            boolean changePassword = false;
+            if (user.getPassword() == null) {
+                changePassword = false;
+            } else {
+                changePassword = !existingUser.getPassword().equals(user.getPassword());
+            }
 
             existingUser.setFirstName(user.getFirstName());
             existingUser.setLastName(user.getLastName());
             existingUser.setUserRole(user.getUserRole());
-            if (!isPasswordMatched) {
-            existingUser.setPassword(encryptContent(requestedPassword));
+
+            if (user.getPassword() != null) {
+
+                existingUser.setPassword(user.getPassword());
+
             }
             User savedUser = repository.save(existingUser);
 
-            if (!isPasswordMatched) {
+            if (changePassword) {
                 try {
                     mailService.sendResetPasswordMail(savedUser, requestedPassword);
                 } catch (MailException | InterruptedException e) {
@@ -317,6 +332,7 @@ public class UserService {
         if (user == null) {
             throw new RuntimeException(Constants.USER_DOES_NOT_EXIST_ERROR_MSG);
         }
+        user.setPassword(null);
         return user;
     }
 
@@ -362,7 +378,7 @@ public class UserService {
             repository.save(loggedInUser);
 
         } else {
-            throw new RuntimeException("user doesnot exist");
+            throw new RuntimeException(Constants.USER_DOES_NOT_EXIST_ERROR_MSG);
         }
     }
 

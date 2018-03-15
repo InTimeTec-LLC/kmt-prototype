@@ -60,6 +60,9 @@ public final class Constants {
     /** The Constant ARTICLE_CREATED_MESSAGE. */
     public static final String ARTICLE_CREATED_MESSAGE = "Knowledge Article has been created successfully";
 
+    /** The Constant NULL_PASSWORD_MESSAGE. */
+    public static final String NULL_PASSWORD_MESSAGE = "Password should not be empty";
+
     /** The Constant ARTICLE_DELETED_MESSAGE. */
     public static final String ARTICLE_DELETED_MESSAGE = "Knowledge Article has been deleted successfully";
 
