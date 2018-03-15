@@ -383,7 +383,7 @@ public class UserService {
                 if (user.isActive()) {
 
                     String password = generateRandomPassword(user);
-                    user.setPassword(encryptContent(password));
+                    user.setPassword(password);
 
                     try {
                         updateUser(user, user.getId());
