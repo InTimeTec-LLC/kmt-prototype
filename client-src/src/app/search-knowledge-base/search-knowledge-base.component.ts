@@ -23,16 +23,16 @@ export class SearchKnowledgeBaseComponent implements OnInit {
   ) {
       this.sortField = 'title';
       this.kbSearchResults = {'content': [], 'totalElements': 0 };
-   }
-
-  ngOnInit() {
-    this.getKnowledgeBaseResult(0, this.sortField, 'title');
-    this.activateRoute
-      .queryParams
-      .subscribe(params => {
+      this.getKnowledgeBaseResult(0, this.sortField, 'title');
+      this.activateRoute
+        .queryParams
+        .subscribe(params => {
          this.searchTxt = params['search'] || '';
          this.getKnowledgeBaseResult(0, this.sortField, this.searchTxt);
       });
+   }
+
+  ngOnInit() {
   }
 
   onPaginateChange(pageInfo) {
@@ -58,13 +58,7 @@ export class SearchKnowledgeBaseComponent implements OnInit {
 
   getQueryParam (pageNum, sortField, search) {
     let queryParam = '?size=10&page=' + pageNum;
-    if (search !== '' && search !== undefined && search !== null) {
-      console.log(search);
-      queryParam = queryParam.concat('&search=' + search.toLowerCase());
-    }
-    if (sortField !== '' && sortField !== undefined && sortField !== null) {
-      // queryParam = queryParam.concat('&sort=' + sortField);
-    }
+    queryParam = queryParam.concat('&search=' + search.toLowerCase());
     return queryParam;
   }
 

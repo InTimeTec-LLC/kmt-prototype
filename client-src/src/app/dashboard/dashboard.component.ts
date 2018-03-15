@@ -32,6 +32,8 @@ export class DashboardComponent implements OnInit {
   pageNo = 0;
   articleBy = '';
   formattedResponse: any;
+  currentUserId: any;
+  currentUserRole: any;
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
@@ -44,6 +46,8 @@ export class DashboardComponent implements OnInit {
     public dialog: MatDialog,
     private auth: AuthenticationService
     ) {
+      this.currentUserId = this.auth.getUserId();
+      this.currentUserRole = this.auth.getUserRole();
     }
 
 
