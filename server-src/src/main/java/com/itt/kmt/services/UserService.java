@@ -218,10 +218,11 @@ public class UserService {
         if (existingUser == null) {
             user.setDateJoined(new Date());
             user.setActive(true);
+            String password = null;
 
             User savedUser = null;
             if (user.getPassword() != null) {
-                String password = user.getPassword();
+                password = user.getPassword();
                 user.setPassword(encryptContent(password));
                 savedUser = repository.save(user);
             } else {
