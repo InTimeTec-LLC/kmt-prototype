@@ -32,10 +32,9 @@ export class LoginComponent implements OnInit {
         this.authenticationService.login(this.model.username, this.model.password)
             .subscribe(
                 data => {
-                    this.messageService.sendMessage('set user type');
                     this.messageService.sendMessage('openMatDrawer');
-                    // this.router.navigate(['/dashboard']);
-                    window.location.href = '/dashboard';
+                    // this.router.navigate(['']);
+                    window.location.href = '';
                 },
                 error => {
                     this.loading = false;
