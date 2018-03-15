@@ -14,9 +14,9 @@
       <input matInput placeholder="Search here">
     </mat-form-field>
     <img src="../../assets/images/search_gray.png" (click)="onTapSearchIcon()" alt="Filtericon" class="search_icon">
-    <img src="../../assets/images/filter-icon.png" (click)="onTapFilterIcon()" alt="Filtericon" class="filter_icon">
+    <img *ngIf='!clickedOnApprovals' src="../../assets/images/filter-icon.png" (click)="onTapFilterIcon()" alt="Filtericon" class="filter_icon">
      <span class="filter_text marginLeft20" *ngIf='appliedFilter.length > 0'><b>Filters: </b> {{appliedFilter[0]}}<span *ngIf='appliedFilter.length > 1'>, {{appliedFilter[1]}} </span><span class="marginLeft20">|</span></span>
-     <span class="marginLeft20 action-link" *ngIf='clickedOnApprovals'><a (click)="onClickviewAll()">View All</a></span>
+     <span class="marginLeft20 action-link" *ngIf='clickedOnApprovals'><a (click)="onClickviewAll()">View All</a> <span class="marginLeft20">|</span></span>
      <span class="marginLeft20 action-link"><b> Pending Approvals:</b>  <a (click)="onClickAssignedCreatedList('ASSIGNED')"> Assigned to me</a> | <a (click)="onClickAssignedCreatedList('CREATED')"> Created by me</a></span>
 
   </div>

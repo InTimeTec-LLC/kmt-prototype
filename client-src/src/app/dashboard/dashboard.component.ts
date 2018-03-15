@@ -110,6 +110,9 @@ createData(data, dashBoardType) {
 }
 
 onTapNavigation(route, param) {
+  if (route === 'articles') {
+    this.kbContentService.setIsPending(true);
+  }
   if (param) {
     this.router.navigate([route, param], {relativeTo: this.activatedRoute} );
   } else {

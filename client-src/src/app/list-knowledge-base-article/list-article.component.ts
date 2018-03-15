@@ -63,6 +63,21 @@ export class ListArticleComponent implements OnInit, OnDestroy {
             if (e instanceof NavigationEnd) {
               if (this.router.url === '/articles') {
                 this.compType = 'list';
+                this.clickedOnApprovals = false;
+                this.appliedFilter = [];
+                this.articleBy = '';
+                this.finalTxt = '';
+                this.selectedFilter = {
+                    status: undefined,
+                    type: undefined,
+                    typeId : undefined
+                };
+                this.bFilterStatus = undefined;
+                if (this.kbContentService.getIsPending()) {
+                    this.articleBy = 'ASSIGNED';
+                    this.clickedOnApprovals = true;
+                    this.kbContentService.setIsPending(false);
+                }
                 this.initData();
               }
             }
@@ -85,18 +100,19 @@ export class ListArticleComponent implements OnInit, OnDestroy {
     onClickviewAll() {
         this.clickedOnApprovals = false;
         this.articleBy = '';
+        this.finalTxt = '';
+        this.initData();
+    }
+
+    onClickAssignedCreatedList(fromWhich) {
+        this.clickedOnApprovals = true;
+        this.appliedFilter = [];
         this.selectedFilter = {
             status: undefined,
             type: undefined,
             typeId : undefined
         };
         this.bFilterStatus = undefined;
-        this.finalTxt = '';
-        this.ngOnInit();
-    }
-
-    onClickAssignedCreatedList(fromWhich) {
-        this.clickedOnApprovals = true;
         this.articleBy = fromWhich;
         this.getArticleList(0, this.articleBy , this.selectedFilter.typeId, this.bFilterStatus, this.finalTxt);
     }

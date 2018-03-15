@@ -21,6 +21,7 @@ const httpOptions = {
 export class KnowledgeBaseArticleService {
 
   types: any[];
+  isPending;
   /**
    * Creates a new KnowledgeBaseContentervice with the injected HttpClient.
    * @param {HttpClient} http - The injected HttpClient.
@@ -48,6 +49,13 @@ export class KnowledgeBaseArticleService {
     return this.types;
   }
 
+  setIsPending(val) {
+    this.isPending = val;
+  }
+
+  getIsPending() {
+    return this.isPending;
+  }
   /**
    * Returns an Observable for the HTTP GET request for the JSON resource.
    * @return {any[]} The Observable for the HTTP request.
