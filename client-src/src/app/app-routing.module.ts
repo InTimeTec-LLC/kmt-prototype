@@ -36,7 +36,7 @@ const routes:  Routes = [
         {
           path: 'profile',
           component: ProfileComponent,
-          data: { title: 'Profile', breadcrumb: 'Profile' }
+          data: { title: 'Profile', breadcrumb: 'My Profile' }
         },
         {
           path: 'forgot-password',
