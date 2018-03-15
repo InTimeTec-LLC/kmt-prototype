@@ -24,6 +24,7 @@ export class ProfileComponent implements OnInit {
   roles: any[];
   userRole: any;
   readOnly: boolean;
+  bUserRole;
 
   get cpwd() {
     return this.user.get('confirmPassword');
@@ -57,6 +58,7 @@ export class ProfileComponent implements OnInit {
           confirmPassword: data.user.password,
           userRole: data.user.userRole
         });
+        this.bUserRole = data.user.userRole;
       });
     }
 
@@ -92,6 +94,11 @@ export class ProfileComponent implements OnInit {
     delete value.confirmPassword;
     if (value.password === '' || value.password === null) {
       delete value.password;
+    }
+
+    // Temp fix. It is added due userRole is not coming in value object while role field is diabled.
+    if (this.readOnly) {
+      value.userRole = this.bUserRole;
     }
 
     this.userService.updateUser(this.userId, value)
