@@ -94,7 +94,7 @@ app-content .table-list-container .Container-table .container-table-body .mat-el
   flex-direction: column;
   background-color: #fbfbfb;
   padding: 20px;
-  box-shadow:  0px 5px 8px rgba(0, 0, 0, 0.3);
+  box-shadow:  none;
   float:left;
   border-radius: 0px 0px 5px 5px;
   margin-bottom: 20px;
