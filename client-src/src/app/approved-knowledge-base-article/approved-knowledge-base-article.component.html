@@ -28,7 +28,11 @@
         </mat-form-field>
         <div class="reviewer-comments f-left">
           <label>Review Comments</label>
-          <p *ngFor="let c of comments">{{c.comment}}</p>
+          <div class="reviewer-comments-list">
+            <p *ngFor="let c of comments">{{c.comment}}<span>{{c.createdTime |  date: 'MM/dd/yyyy hh:mm' }}</span> </p>
+            
+          </div>
+          
         </div>
     </div>
  
