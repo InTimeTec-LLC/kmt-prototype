@@ -1,16 +1,13 @@
-<div class="table-list-container">
-    <div class="breadcrumb-bar">
-        <ul class="breadcrumb">
-          <li><a href="#">Dashboard</a></li>
-          <li><a href="#">settings</a></li>
-          <li><a href="#">User</a></li>
-          <li>Edit-user</li>
-        </ul>
-    </div>
-  <div class="add-button"><a (click)="onTapNavigation('/user/add')">Add User</a></div>
+<div *ngIf="compType !== 'list'">
+	<router-outlet></router-outlet>  
+</div> 
+<div class="table-list-container" *ngIf="compType === 'list'">
+  
   <div class="Container-table">
     <link href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css" rel="stylesheet">
-    <div class="container-heading"><h2 class="heading-margin">User Settings</h2></div>
+    <div class="container-heading"><h2 class="heading-margin">User Settings</h2>
+      <div class="add-button"><a (click)="onTapNavigation('add')">Add User</a></div>
+    </div>
     <div class="container-table-body">
 
   <div class="filter-input">
@@ -64,7 +61,7 @@
       <ng-container matColumnDef="actions">
           <mat-header-cell *matHeaderCellDef mat-sort-header> Actions </mat-header-cell>
           <mat-cell *matCellDef="let row" class="action-link">
-            <a [routerLink]="['/user/edit', row.id]">Edit</a> |
+            <a (click)="onTapNavigation('edit', row.id)">Edit</a> |
             <a *ngIf="row.status" (click)="onTapActions(false, row.id)">Deactivate</a>
             <a *ngIf="!row.status" (click)="onTapActions(true, row.id)">Activate</a> 
           </mat-cell>

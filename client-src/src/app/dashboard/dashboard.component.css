@@ -20,6 +20,11 @@
 }
 
 .dashboard-table-lists {
+    background: #fbfbfb;
+    border-width: 1px 1px 3px 1px;
+    border-color: #e4dfdf;
+    border-radius: 5px 5px 0 0;
+    border-style: solid;
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
@@ -28,15 +33,30 @@
     -ms-flex-direction: column;
     flex-direction: column;
     min-width: 300px;
-    margin: 10px 0 40px 0;
+    margin: 40px 0 20px 0;
     padding: 20px;
 }
 
-.pending-list hr {
-    border: 3px solid orange;
+.pending-list h2 {
+    color: #ffa834;
+    margin: 12px 0;
 }
-.filter-input {
-    position: relative;
+.pending-list hr {
+    border: 3px solid #ffa834;
+}
+.edited-list h2 {
+    color: #00a2e5;
+    margin: 12px 0;
+}
+.edited-list hr {
+    border: 3px solid #00a2e5;
+}
+.added-list h2 {
+    color: #629c44;
+    margin: 12px 0;
+}
+.added-list hr {
+    border: 3px solid #629c44;
 }
 
 .view-all {
@@ -59,8 +79,4 @@
       position: relative;
       transform: initial!important;
     }
-    .app-sidenav-content {
-      margin-left: 200px;
-    }
-  
   }

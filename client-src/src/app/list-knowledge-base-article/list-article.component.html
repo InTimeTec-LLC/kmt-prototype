@@ -1,15 +1,12 @@
-<div class="table-list-container">
-    <div class="breadcrumb-bar">
-            <ul class="breadcrumb">
-              <li><a href="#">Dashboard</a></li>
-              <li><a href="#">settings</a></li>
-              <li><a href="#">User</a></li>
-              <li>Edit-user</li>
-            </ul>
-        </div>
-  <div class="add-button"><a (click)="onTapNavigation('/article/add')">Add Article</a></div>
+<div *ngIf="compType !== 'list'">
+	<router-outlet></router-outlet>  
+</div> 
+<div class="table-list-container" *ngIf="compType === 'list'">
+  
   <div class="Container-table">
-    <div class="container-heading"><h2 class="heading-margin">Articles</h2></div>
+    <div class="container-heading"><h2 class="heading-margin">Articles</h2>
+      <div class="add-button"><a (click)="onTapNavigation('add')">Add Article</a></div>
+    </div>
     <div class="container-table-body">
 
   <div class="filter-input">
@@ -21,7 +18,7 @@
      <span class="filter_text marginLeft20" *ngIf='appliedFilter.length > 0'><b>Filters: </b> {{appliedFilter[0]}}<span *ngIf='appliedFilter.length > 1'>, {{appliedFilter[1]}} </span><span class="marginLeft20">|</span></span>
      <span class="marginLeft20 action-link"><b> Pending Approvals:</b>  <a (click)="onClickAssignedCreatedList('ASSIGNED')"> Assigned to me</a> | <a (click)="onClickAssignedCreatedList('CREATED')"> Created by me</a></span>
 
-      </div>
+  </div>
   
   <div class="table-input-list mat-elevation-z8">
   
@@ -32,8 +29,8 @@
       <ng-container matColumnDef="title">
           <mat-header-cell *matHeaderCellDef>Title</mat-header-cell>
           <mat-cell *matCellDef="let row">
-            <a (click)="onTapNavigation('/article-detail/'+row.id)" *ngIf="(currentUserId != row.content.approver.id) || (row.status == true)">{{ row.title }}</a>
-            <a (click)="onTapNavigation('/article-approved-view/'+row.id)" *ngIf="currentUserId == row.content.approver.id && row.status == false">{{ row.title }}</a>
+            <a (click)="onTapNavigation('detail', row.id)" *ngIf="(currentUserId != row.content.approver.id) || (row.status == true)">{{ row.title }}</a>
+            <a (click)="onTapNavigation('approved-view', row.id)" *ngIf="currentUserId == row.content.approver.id && row.status == false">{{ row.title }}</a>
           </mat-cell>
           </ng-container>
 
@@ -56,7 +53,7 @@
           <ng-container matColumnDef="actions">
           <mat-header-cell *matHeaderCellDef> Actions </mat-header-cell>
           <mat-cell *matCellDef="let row" class="action-link">
-              <div *ngIf="(currentUserId == row.content.createdBy.id) || (currentUserRole=='admin')"><a  (click)="onTapNavigation('/article/edit/'+row.id)">Edit</a> | <a (click)="onTapDelete(row.id)">Delete</a></div>
+              <div *ngIf="(currentUserId == row.content.createdBy.id) || (currentUserRole=='admin')"><a  (click)="onTapNavigation('edit',row.id)">Edit</a> | <a (click)="onTapDelete(row.id)">Delete</a></div>
           </mat-cell>
           </ng-container>
   

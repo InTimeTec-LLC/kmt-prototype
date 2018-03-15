@@ -3,12 +3,12 @@
     
     <div class="dashboard-lists">
         <div class="dashboard-lists-fullwidth">
-    <div class="dashboard-table-lists mat-elevation-z8">
-        <div class="pending-heading pending-list">
+    <div class="dashboard-table-lists ">
+        <div class="pending-list">
             <h2>Pending Approvals</h2>
             <hr>
         </div>
-        <div class="table-input-list mat-elevation-z8">
+        <div class="table-input-list ">
   
           <div *ngIf='filterList.length === 0' class="noRecord">No Record Found</div>
           <mat-table [dataSource]="dataSource" matSort class="list_table" *ngIf='filterList.length > 0'>
@@ -17,8 +17,8 @@
             <ng-container matColumnDef="title">
                 <mat-header-cell *matHeaderCellDef>Title</mat-header-cell>
                 <mat-cell *matCellDef="let row">
-                  <a (click)="onTapNavigation('/article-detail/'+row.id)" *ngIf="(currentUserId != row.content.approver.id) || (row.status == true)">{{ row.title }}</a>
-                  <a (click)="onTapNavigation('/article-approved-view/'+row.id)" *ngIf="currentUserId == row.content.approver.id && row.status == false">{{ row.title }}</a>
+                  <a (click)="onTapNavigation('articles/detail/', row.id)" *ngIf="(currentUserId != row.content.approver.id) || (row.status == true)">{{ row.title }}</a>
+                  <a (click)="onTapNavigation('articles/approved-view/', row.id)" *ngIf="currentUserId == row.content.approver.id && row.status == false">{{ row.title }}</a>
                 </mat-cell>
                 </ng-container>
       
@@ -46,7 +46,7 @@
           </mat-table>
         
           <div class="view">
-              <a [routerLink]="['../articlelist']" class="view-all">View All</a>
+              <a (click)="onTapNavigation('articles')" class="view-all">View All</a>
           </div>
         
         </div>  
@@ -58,12 +58,12 @@
 
   
     <div class="dashboard-lists-left">
-            <div class="dashboard-table-lists mat-elevation-z8">
-                <div class="pending-heading pending-list">
+            <div class="dashboard-table-lists ">
+                <div class="edited-list">
                     <h2>Recently Edited</h2>
                     <hr>
                 </div>
-                <div class="table-input-list mat-elevation-z8">
+                <div class="table-input-list">
                 <div *ngIf='articleEditedList.length === 0' class="noRecord">No Record Found</div>
                           <mat-table [dataSource]="dataSourceEdited" matSort class="list_table" *ngIf='articleEditedList.length > 0'>
                         
@@ -71,8 +71,8 @@
                             <ng-container matColumnDef="title">
                                 <mat-header-cell *matHeaderCellDef>Title</mat-header-cell>
                                 <mat-cell *matCellDef="let row">
-                                  <a (click)="onTapNavigation('/article-detail/'+row.id)" *ngIf="(currentUserId != row.content.approver.id) || (row.status == true)">{{ row.title }}</a>
-                                  <a (click)="onTapNavigation('/article-approved-view/'+row.id)" *ngIf="currentUserId == row.content.approver.id && row.status == false">{{ row.title }}</a>
+                                  <a (click)="onTapNavigation('articles/detail/', row.id)" *ngIf="(currentUserId != row.content.approver.id) || (row.status == true)">{{ row.title }}</a>
+                                  <a (click)="onTapNavigation('articles/approved-view/', row.id)" *ngIf="currentUserId == row.content.approver.id && row.status == false">{{ row.title }}</a>
                                 </mat-cell>
                                 </ng-container>
                       
@@ -100,12 +100,12 @@
 </div>   
             
     <div class="dashboard-lists-right">
-            <div class="dashboard-table-lists mat-elevation-z8">
-                        <div class="pending-heading pending-list">
+            <div class="dashboard-table-lists">
+                        <div class="added-list">
                             <h2>Recently Added</h2>
                             <hr>
                         </div>
-                        <div class="table-input-list mat-elevation-z8">
+                        <div class="table-input-list">
   
                           <div *ngIf='articleAddedList.length === 0' class="noRecord">No Record Found</div>
                           <mat-table [dataSource]="dataSourceAdded" matSort class="list_table" *ngIf='articleAddedList.length > 0'>
@@ -114,8 +114,8 @@
                             <ng-container matColumnDef="title">
                                 <mat-header-cell *matHeaderCellDef>Title</mat-header-cell>
                                 <mat-cell *matCellDef="let row">
-                                  <a (click)="onTapNavigation('/article-detail/'+row.id)" *ngIf="(currentUserId != row.content.approver.id) || (row.status == true)">{{ row.title }}</a>
-                                  <a (click)="onTapNavigation('/article-approved-view/'+row.id)" *ngIf="currentUserId == row.content.approver.id && row.status == false">{{ row.title }}</a>
+                                  <a (click)="onTapNavigation('articles/detail/', row.id)" *ngIf="(currentUserId != row.content.approver.id) || (row.status == true)">{{ row.title }}</a>
+                                  <a (click)="onTapNavigation('/articles/approved-view/', row.id)" *ngIf="currentUserId == row.content.approver.id && row.status == false">{{ row.title }}</a>
                                 </mat-cell>
                                 </ng-container>
                       

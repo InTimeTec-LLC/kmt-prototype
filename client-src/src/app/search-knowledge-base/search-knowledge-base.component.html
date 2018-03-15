@@ -1,14 +1,4 @@
 <div class="container">
-    <div class="breadcrumb-fullwidth">
-        <div class="breadcrumb-bar">
-             <ul class="breadcrumb">
-                <li><a href="#">Dashboard</a></li>
-                <li><a href="#">settings</a></li>
-                <li><a href="#">User</a></li>
-                <li>Edit-user</li>
-             </ul>
-          </div>
-        </div>
     <div class="container-heading"><h2 class="heading-margin">Knowledge Base</h2></div>
 <link href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css" rel="stylesheet">
 <div class="container-article-body">
@@ -22,7 +12,7 @@
 
     
     <div class="article-box" *ngFor="let article of kbSearchResults.content"> 
-        <h3><a [routerLink]="['/article-detail', article.id]">{{article.title}}</a> </h3>
+        <h3><a [routerLink]="['detail', article.id]">{{article.title}}</a> </h3>
         <p [innerHTML]="article.description">{{article.description}}</p>
         <p class="article-date">{{article.createdBy.firstName}} {{article.createdBy.lastName}}, {{article.lastModifiedTime | date: 'MM/dd/yyyy'}}
                 {{article.articleType.type}}</p>

@@ -87,7 +87,7 @@ export class AddArticleComponent implements OnInit {
   }
 
   onCancle() {
-    this.router.navigateByUrl('/articlelist');
+    this.router.navigateByUrl('/articles');
   }
   deleteAttachment(attachment_id) {
         if (confirm('Would you like to delete the attachment?')) {

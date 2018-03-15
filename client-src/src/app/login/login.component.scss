@@ -83,12 +83,19 @@ Login template using Angular Material
 
 .login-forgot {
     margin-bottom: 10px;
+    text-align: center;
+    margin: 20px 0;
 }
 
 .login-forgot a {
     text-decoration: none;
+    color: #262626;
+    text-decoration: none;
 }
-
+.login-forgot a:hover {
+    color: #01447e;
+    text-decoration: underline;
+}
 .mat-raised-button.mat-primary {
     background-color: #1f8edc!important;
 }
@@ -97,6 +104,9 @@ Login template using Angular Material
     margin: 0;
 }
 
+.mat-drawer-content{
+    width: 100%;
+}
 @media (min-width: 600px) {
   .login-container {
     width: 500px;
@@ -130,5 +140,7 @@ Login template using Angular Material
     .app-sidenav-content {
       margin-left: 0px;
     }
-  
-  }
+   .mat-drawer-content {
+    padding: 0px;
+    }
+}

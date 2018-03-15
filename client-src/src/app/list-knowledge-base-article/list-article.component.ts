@@ -1,7 +1,7 @@
-import {Component, ViewChild, OnInit, Inject} from '@angular/core';
+import {Component, ViewChild, OnInit, Inject, OnDestroy} from '@angular/core';
 import {MatPaginator, MatSort, MatTableDataSource, MatDialog, MAT_DIALOG_DATA, MatDialogRef} from '@angular/material';
 import { User } from '../../shared/modals/user';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute, NavigationEnd } from '@angular/router';
 import { ToasterService } from 'angular5-toaster';
 import { forEach } from '@angular/router/src/utils/collection';
 import { KnowledgeBaseArticleService } from '../../shared/service/knowledge-base-article/knowledge-base-article.service';
@@ -17,7 +17,7 @@ import { AuthenticationService } from '../../shared/service/authentication/authe
   styleUrls: ['./list-article.component.scss']
 })
 
-export class ListArticleComponent implements OnInit {
+export class ListArticleComponent implements OnInit, OnDestroy {
   displayedColumns = ['title', 'type', 'status', 'actions'];
   dataSource: MatTableDataSource<Aritcles>;
 
@@ -41,19 +41,36 @@ export class ListArticleComponent implements OnInit {
   bFilterStatus = undefined;
   pageNo = 0;
   articleBy = '';
+  navigationSubscription;
+  compType = 'list';
 
   constructor(
     private router: Router,
+    private aRoute: ActivatedRoute,
     private toasterService: ToasterService,
     private kbContentService: KnowledgeBaseArticleService,
     public dialog: MatDialog,
     private auth: AuthenticationService
     ) {
         this.kbContentService.listKnowledgeBaseArticleTypes().subscribe((data: any) => {
-        this.kbContentService.setTypes(data.types);
-        this.currentUserId = this.auth.getUserId();
-        this.currentUserRole = this.auth.getUserRole();
-      });
+            this.kbContentService.setTypes(data.types);
+            this.currentUserId = this.auth.getUserId();
+            this.currentUserRole = this.auth.getUserRole();
+        });
+
+        this.navigationSubscription = this.router.events.subscribe((e: any) => {
+            if (e instanceof NavigationEnd) {
+              if (this.router.url === '/articles') {
+                this.compType = 'list';
+              }
+            }
+        });
+    }
+
+    ngOnDestroy() {
+        if (this.navigationSubscription) {
+           this.navigationSubscription.unsubscribe();
+        }
     }
 
     ngOnInit() {
@@ -121,8 +138,13 @@ export class ListArticleComponent implements OnInit {
             });
     }
 
-    onTapNavigation(route) {
-        this.router.navigate([route]);
+    onTapNavigation(route, param) {
+        this.compType = route;
+        if (param) {
+            this.router.navigate([route, param], {relativeTo: this.aRoute} );
+        } else {
+            this.router.navigate([route], {relativeTo: this.aRoute} );
+        }
     }
 
     onTapFilterIcon() {
