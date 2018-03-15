@@ -18,7 +18,7 @@ mongo kmt_db --eval 'db.user.insert(
          "userRole": "admin",
          "firstName": "kmt",
          "lastName": "admin",
-         "password": "Admin123",
+         "password": "$2a$12$A/DcfQo0jprUH9reawlm9.svCzK9RrRjUeVoeHJ5vHzOTtRob1VHm",
          "active": true,
          "dateJoined": new Date(),
 		 "session": false
