@@ -272,7 +272,9 @@ public class ArticleService {
             if (loggedInUser.getUserRole().equals(Constants.ROLE_USER)
                     || loggedInUser.getUserRole().equals(Constants.ROLE_MANAGER)) {
                 Map<String, String> createdBy = new ObjectMapper().convertValue(article.getCreatedBy(), Map.class);
-                if (loggedInUser.getId().equals(createdBy.get(ID))) {
+                Map<String, String> approver = new ObjectMapper().convertValue(article.getApprover(), Map.class);
+                if (loggedInUser.getId().equals(createdBy.get(ID))
+                        || loggedInUser.getId().equals(approver.get(ID))) {
                     return article;
                 } else {
                     log.error("User with id:" + loggedInUser.getId() + " don't have permission to get article: " + id,
