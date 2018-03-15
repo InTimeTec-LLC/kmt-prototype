@@ -63,7 +63,7 @@ public class UserRepositoryTests {
         User user = testDataRepository.getUsers()
                                       .get("user-1");
         // Act
-        User users = repository.findByEmail(user.getEmail());
+        User users = repository.findByEmailContainingIgnoreCase(user.getEmail());
         // Assert
         assertThat(users).isNotNull();
         assertThat(users.getEmail()).isEqualTo(user.getEmail());

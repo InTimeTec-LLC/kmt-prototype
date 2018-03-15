@@ -69,7 +69,7 @@ public class UserService {
      */
     public User getUserByEmail(final String email) {
 
-        return repository.findByEmail(email);
+        return repository.findByEmailContainingIgnoreCase(email);
     }
 
     /**

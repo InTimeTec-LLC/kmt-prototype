@@ -22,7 +22,7 @@ public interface UserRepository extends PagingAndSortingRepository<User, String>
      * @param email of the User
      * @return User Object matching the email parameter
      */
-   User findByEmail(String email);
+   User findByEmailContainingIgnoreCase(String email);
    /**
     * Finds list of User object that matches the parameters passed. Spring
     * automatically formulates appropriate query depending on the name of the
@@ -86,8 +86,9 @@ public interface UserRepository extends PagingAndSortingRepository<User, String>
     * @param page Page consisting of users.
     * @return Page<User> page of users.
     */
-   @Query("{'email': { $ne: ?1  }, $or: [ {'firstName': { $regex: ?0 } }, {'lastName': { $regex: ?0 } }, "
-          + "{'email': { $regex: ?0 } } ]}")
+   @Query("{'email': { $ne: ?1  }, $or: [ {'firstName': { $regex: ?0, $options: 'i' } }"
+           + ", {'lastName': { $regex: ?0, $options: 'i' } }, "
+          + "{'email': { $regex: ?0, $options: 'i' } } ]}")
    Page<User> findByFirstNameOrLastNameOrEmail(String param0, String emailOfLoggedInUser, Pageable page);
    /**
     * Finds list of User object that matches the parameters passed. Spring
@@ -102,8 +103,9 @@ public interface UserRepository extends PagingAndSortingRepository<User, String>
     * @param page Page consisting of users.
     * @return Page<User> page of users.
     */
-   @Query("{'email': { $ne: ?1  }, $or: [ {'firstName': { $regex: ?0 } }, {'lastName': { $regex: ?0 } }, "
-         + "{'email': { $regex: ?0 } } ], 'active': ?2, 'userRole': ?3}")
+   @Query("{'email': { $ne: ?1  }, $or: [ {'firstName': { $regex: ?0, $options: 'i' } }"
+           + ", {'lastName': { $regex: ?0, $options: 'i' } }, "
+         + "{'email': { $regex: ?0, $options: 'i' } } ], 'active': ?2, 'userRole': ?3}")
    Page<User> findByFirstNameOrLastNameOrEmailAndActiveAndUserRole(String param0, String emailOfLoggedInUser, 
            boolean active, String userRole, Pageable page);
    /**
@@ -118,8 +120,9 @@ public interface UserRepository extends PagingAndSortingRepository<User, String>
     * @param page Page consisting of users.
     * @return Page<User> page of users.
     */
-   @Query("{'email': { $ne: ?1  }, $or: [ {'firstName': { $regex: ?0 } }, {'lastName': { $regex: ?0 } }, "
-           + "{'email': { $regex: ?0 } } ], 'userRole': ?2}")
+   @Query("{'email': { $ne: ?1  }, $or: [ {'firstName': { $regex: ?0, $options: 'i' } }"
+           + ", {'lastName': { $regex: ?0, $options: 'i' } }, "
+           + "{'email': { $regex: ?0, $options: 'i' } } ], 'userRole': ?2}")
    Page<User> findByFirstNameOrLastNameOrEmailAndUserRole(String param0, String emailOfLoggedInUser, String userRole, 
                Pageable page);
    /**
@@ -134,8 +137,9 @@ public interface UserRepository extends PagingAndSortingRepository<User, String>
     * @param page Page consisting of users.
     * @return Page<User> page of users.
     */
-   @Query("{'email': { $ne: ?1  }, $or: [ {'firstName': { $regex: ?0 } }, {'lastName': { $regex: ?0 } }, "
-          + "{'email': { $regex: ?0 } } ], 'active': ?2}")
+   @Query("{'email': { $ne: ?1  }, $or: [ {'firstName': { $regex: ?0, $options: 'i' } }"
+           + ", {'lastName': { $regex: ?0, $options: 'i' } }, "
+          + "{'email': { $regex: ?0, $options: 'i' } } ], 'active': ?2}")
    Page<User> findByFirstNameOrLastNameOrEmailAndActive(String param0, String emailOfLoggedInUser, boolean active, 
              Pageable page);
 
