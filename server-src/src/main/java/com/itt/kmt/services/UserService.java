@@ -190,6 +190,9 @@ public class UserService {
             }
 
         }
+        for (User user : users.getContent()) {
+            user.setPassword(null);
+        }
         return users;
     }
 
@@ -303,6 +306,7 @@ public class UserService {
         if (user == null) {
             throw new RuntimeException(Constants.USER_DOES_NOT_EXIST_ERROR_MSG);
         }
+        user.setPassword(null);
         return user;
     }
 
@@ -348,7 +352,7 @@ public class UserService {
             repository.save(loggedInUser);
 
         } else {
-            throw new RuntimeException("user doesnot exist");
+            throw new RuntimeException(Constants.USER_DOES_NOT_EXIST_ERROR_MSG);
         }
     }
 
