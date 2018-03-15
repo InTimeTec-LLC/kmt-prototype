@@ -290,7 +290,7 @@ public class UserService {
             existingUser.setLastName(user.getLastName());
             existingUser.setUserRole(user.getUserRole());
 
-            if (user.getPassword() != null) {
+            if (changePassword) {
 
                 existingUser.setPassword(user.getPassword());
 
