@@ -94,8 +94,10 @@ textarea.mat-input-element {
     color:#1464f6;
 }
 .article_view{
-    float: left;
-    width: 100%;
+    flex-direction: column;
+    background-color: #fbfbfb;
+    padding: 20px;
+    box-shadow: none;
 }
 .reviewer-comments label{
     color: #111111;
@@ -115,4 +117,10 @@ textarea.mat-input-element {
 .reviewer-comments-list span{
     float: right;
     color: #7a7a7a;
+}
+
+@media (min-width: 1024px) {
+    .article_view {
+        width: 100%;
+    }
 }

@@ -95,3 +95,22 @@
       transform: initial!important;
     }
   }
+
+@media (max-width: 1024px) {
+   .dashboard-list-wrapper {
+       padding: 0 15px;
+       float: left;
+   }
+
+    .dashboard-lists-left {
+        width: 100%;
+    }
+
+    .dashboard-lists-right {
+        width: 100%;
+    }
+
+    .dashboard-table-lists {
+        padding: 20px 8px;
+    }
+}
