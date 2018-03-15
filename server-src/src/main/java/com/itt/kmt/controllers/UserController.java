@@ -79,6 +79,7 @@ public class UserController {
         User loggedInUser = userService.getLoggedInUser(jwtToken);
         if (!loggedInUser.getUserRole().equals("admin")) {
             if (loggedInUser.getId().equals(id)) {
+                loggedInUser.setPassword(null);
                 return new ModelMap().addAttribute("user", loggedInUser);
             } else {
                 throw new RuntimeException(Constants.USER_VIEWS_OTHER_USER_ERROR_MSG);
