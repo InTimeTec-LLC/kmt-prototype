@@ -307,7 +307,7 @@ public class UserService {
             if (user.getPassword() == null) {
                 changePassword = false;
             } else {
-                changePassword = !isContentMatched(requestedPassword, existingUser.getPassword());;
+                changePassword = !isContentMatched(requestedPassword, existingUser.getPassword());
             }
 
             existingUser.setFirstName(user.getFirstName());
