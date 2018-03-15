@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 
+import com.itt.kmt.jwt.BCrypt;
 import com.itt.kmt.jwt.JWTUtil;
 import com.itt.kmt.models.Role;
 import com.itt.kmt.models.User;
@@ -32,6 +33,11 @@ import lombok.extern.slf4j.Slf4j;
  * 
  * @author Rakshit Rajeev
  */
+/** The Constant log. */
+
+/** The Constant log. */
+
+/** The Constant log. */
 
 /** The Constant log. */
 @Slf4j
@@ -60,6 +66,9 @@ public class UserService {
 
     /** The Constant PASSWORD_SALT_LENGTH. */
     public static final int PASSWORD_SALT_LENGTH = 4;
+    
+    /** The Constant SALT_LONG_ROUND. */
+    public static final int SALT_LONG_ROUND = 12;
 
     /**
      * Gets the User given the email.
@@ -205,9 +214,12 @@ public class UserService {
         if (existingUser == null) {
             user.setDateJoined(new Date());
             user.setActive(true);
+            String password = user.getPassword();
+            user.setPassword(encryptContent(password));
+            
             User savedUser = repository.save(user);
             try {
-                mailService.sendUserCreatedMail(savedUser.getId(), EmailConstants.PARAM_PORTAL_LOGIN_LINK);
+                mailService.sendUserCreatedMail(savedUser.getId(), password, EmailConstants.PARAM_PORTAL_LOGIN_LINK);
             } catch (MailException | InterruptedException e) {
                 log.error(e.getMessage());
             }
@@ -259,18 +271,20 @@ public class UserService {
             throw new RuntimeException(Constants.UPDATE_INACTIVE_USER_ERROR_MSG);
 
         } else if (existingUser != null) {
-
-            boolean changePassword = existingUser.getPassword().equals(user.getPassword());
+            String requestedPassword = user.getPassword();
+            boolean isPasswordMatched = isContentMatched(requestedPassword, existingUser.getPassword());
 
             existingUser.setFirstName(user.getFirstName());
             existingUser.setLastName(user.getLastName());
             existingUser.setUserRole(user.getUserRole());
-            existingUser.setPassword(user.getPassword());
+            if (!isPasswordMatched) {
+            existingUser.setPassword(encryptContent(requestedPassword));
+            }
             User savedUser = repository.save(existingUser);
 
-            if (!changePassword) {
+            if (!isPasswordMatched) {
                 try {
-                    mailService.sendResetPasswordMail(savedUser, savedUser.getPassword());
+                    mailService.sendResetPasswordMail(savedUser, requestedPassword);
                 } catch (MailException | InterruptedException e) {
                     log.error(e.getMessage());
                 }
@@ -369,11 +383,11 @@ public class UserService {
                 if (user.isActive()) {
 
                     String password = generateRandomPassword(user);
-                    user.setPassword(password);
+                    user.setPassword(encryptContent(password));
 
                     try {
-                        mailService.sendResetPasswordMail(user, password);
                         updateUser(user, user.getId());
+                        mailService.sendResetPasswordMail(user, password);
                         message = Constants.PASSWORD_RESET_SUCCESS;
                         status = true;
                     } catch (MailException | InterruptedException e) {
@@ -430,6 +444,34 @@ public class UserService {
         password = password + saltStr;
         return password;
     }
+    
+    /**
+     * Encrypt content.
+     *
+     * @param content the content
+     * @return the string
+     */
+    public static String encryptContent(final String content) {
 
+        return BCrypt.hashpw(content, BCrypt.gensalt(SALT_LONG_ROUND));
+    }
+
+    /**
+     * Checks if is content matched.
+     *
+     * @param content the content
+     * @param encryptedContent the encrypted content
+     * @return true, if is content matched
+     */
+    public static boolean isContentMatched(final String content, final String encryptedContent) {
+
+        boolean isMatched = false;
+        try {
+            isMatched = BCrypt.checkpw(content, encryptedContent);
+        } catch (Exception ex) {
+            log.error(ex.getMessage());
+        }
+        return isMatched;
+    }
 }
 

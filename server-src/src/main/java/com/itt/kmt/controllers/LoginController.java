@@ -47,7 +47,7 @@ public class LoginController {
         User dbUser = userService.getUserByEmail(user.getEmail());
         String jwtToken = "";
         if (dbUser != null 
-                        && dbUser.getPassword().equals(user.getPassword()) 
+                        && UserService.isContentMatched(user.getPassword(), dbUser.getPassword())
                                     && dbUser.isActive()) {
             LoginResponseMsg responseMsg = new LoginResponseMsg();
 
@@ -95,7 +95,7 @@ public class LoginController {
      */
     @RequestMapping(value = "/forgotpassword", method = RequestMethod.GET, produces = "application/json",
                     consumes = "application/json")
-    public ModelMap logout(@RequestParam("emailid")
+    public ModelMap forgotPassword(@RequestParam("emailid")
     final String emailId) {
 
         return new ModelMap().addAttribute("success", userService.processForgotPassowrd(emailId));
