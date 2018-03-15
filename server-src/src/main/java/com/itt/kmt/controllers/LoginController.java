@@ -51,7 +51,7 @@ public class LoginController {
                                     && dbUser.isActive()) {
             LoginResponseMsg responseMsg = new LoginResponseMsg();
 
-            jwtToken = JWTUtil.sign(dbUser.getEmail(), dbUser.getPassword());
+            jwtToken = JWTUtil.sign(dbUser.getEmail(), dbUser.getId());
 
             LoginResponseMsg.StatusMsg statusMsg = responseMsg.new StatusMsg();
             statusMsg.setStatus(Boolean.TRUE);
