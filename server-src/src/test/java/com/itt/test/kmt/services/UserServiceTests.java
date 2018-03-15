@@ -432,7 +432,7 @@ public class UserServiceTests {
 
         // Arrange
         User user = testDataRepository.getUsers()
-                .get("user-1");
+                .get("user-7");
         user.setFirstName("test");
         when(userRepository.findOne(user.getId())).thenReturn(user);
         when(mailService.sendResetPasswordMail(user, user.getPassword())).thenReturn(new AsyncResult<Boolean>(true));

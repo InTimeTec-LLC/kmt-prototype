@@ -5,6 +5,8 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
+import java.util.Arrays;
+import java.util.List;
 import java.util.concurrent.ExecutionException;
 
 import org.junit.Before;
@@ -200,4 +202,21 @@ public class MailServiceTests {
         // assert
         assertTrue(status);
     }
+    
+    @Test
+    public final void updateUserToChangeReviewerTest() throws MailException, InterruptedException, ExecutionException {
+        
+        // Arrange
+        Article article = articleTestDataRepository.getArticles().get("article-7");
+        List<Article> articles = Arrays.asList(article);
+        
+        // when()
+        when(mailService.sendNotificationMail(articles.get(0), true).get()).thenReturn(true);
+
+        Boolean status = mailService.updateUserToChangeReviewer(articles).get();
+        // assert
+        assertTrue(status);
+    }
+
+
 }

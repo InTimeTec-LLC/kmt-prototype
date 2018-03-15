@@ -390,25 +390,21 @@ public class MailService {
         return new AsyncResult<Boolean>(sendMail(EmailConstants.REVIEWED_USER_NOTIFICATION_TMPLT, model));
     }
     /**
-     * method is required to inform the user when article approver is deactivate by admin.
+     * method is responsible to inform the user when article approver is deactivated by admin.
      * 
      * @param articles to get the details of article.
      * 
      */
     @Async
-    public void updateUserToChangeReviewer(final List<Article> articles) {
-        if (articles.isEmpty()) {
-            System.out.println("this user is not a reviewer to any user");
-            // log.info("user is not a reviewer to any users");
-        } else {
-            for (Article article : articles) {
-                try {
-                    sendNotificationMail(article, true);
-                } catch (MailException | InterruptedException e) {
-                    // TODO Auto-generated catch block
-                    e.printStackTrace();
-                }
+    public Future<Boolean> updateUserToChangeReviewer(final List<Article> articles) {
+        for (Article article : articles) {
+            try {
+                sendNotificationMail(article, true);
+            } catch (MailException | InterruptedException e) {
+                log.debug(e.getMessage());
+                return new AsyncResult<Boolean>(true);
             }
         }
+        return new AsyncResult<Boolean>(true);
     }
 }
