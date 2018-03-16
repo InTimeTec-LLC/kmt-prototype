@@ -70,6 +70,7 @@ export class ListArticleComponent implements OnInit, OnDestroy {
                 this.appliedFilter = [];
                 this.articleBy = '';
                 this.finalTxt = '';
+                this.searchTxt = '';
                 this.selectedFilter = {
                     status: undefined,
                     type: undefined,
@@ -106,6 +107,7 @@ export class ListArticleComponent implements OnInit, OnDestroy {
         this.clickedOnApprovals = false;
         this.articleBy = '';
         this.finalTxt = '';
+        this.searchTxt = '';
         this.bFilterStatus = '';
         this.initData();
     }
