@@ -41,12 +41,7 @@ export class ProfileComponent implements OnInit {
   ) {
 
     this.userRole = this.authService.getUserRole();
-    if (this.userRole === 'admin') {
-      this.readOnly = false;
-    } else {
-      this.readOnly = true;
-    }
-
+    this.readOnly = true;
     this.userId = this.authService.getUserId();
     if (this.userId) {
       this.userService.reteriveUserById(this.userId).subscribe((data: any) => {
