@@ -73,7 +73,8 @@ app-content .table-list-container .Container-table .container-table-body .mat-el
   padding: 20px 40px;
 }*/
 .container-heading {
-  background-color: #33b7fc;
+  /*background-color: #33b7fc;*/
+  background-color: #205081;
   color: #fff;
   float: left;
   width: 100%;
@@ -108,9 +109,11 @@ app-content .table-list-container .Container-table .container-table-body .mat-el
 .button-container .mat-raised-button {
   line-height: 24px;
   padding: 5px 35px;
-  background-color: #33b7fc;
+  /*background-color: #33b7fc;*/
+  background-color: #205081;  
   color: white;
   margin-right: 10px;
+  border-radius: 5px;
 }
 .button-container {
   float: right;
@@ -157,7 +160,8 @@ app-content .table-list-container .Container-table .container-table-body .mat-el
 .add-button a {
   text-decoration: none;
   padding: 17px 25px;
-  background-color: #33b7fc;
+  /*background-color: #33b7fc;*/
+  background-color: #205081;
   display: block;
   color: #fff;
   font-weight: 600;
@@ -165,7 +169,7 @@ app-content .table-list-container .Container-table .container-table-body .mat-el
     border-radius: 4px;
 }
 .add-button a:hover{
-  background-color: #2e9ed8;
+  background-color: #3071b3;
 }
 /**user management**/
 
@@ -176,7 +180,8 @@ app-content .table-list-container .Container-table .container-table-body .mat-el
  font-size: 17px;
 }
 .filter-popup .mat-dialog-actions .final_apply{
-  background-color: #33b7fc;
+  /*background-color: #33b7fc;*/
+  background-color: #01314a;
   color: #fff;
   float: right;
 }

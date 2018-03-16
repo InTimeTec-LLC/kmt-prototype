@@ -15,7 +15,8 @@ body {
     z-index: 1;
     top: 0;
     left: 0;
-    background-color: #252525;
+    /*background-color: #252525;*/
+    background-color:#010f1f;
     overflow-x: hidden;
 
 }
@@ -122,7 +123,8 @@ li {
 }
 
 .menu-list a:hover {
-    background-color: #151515;
+    /*background-color: #151515;*/
+    background-color: #000a15;
     color: #ffffff;
 }
 .menu-list a:active{
@@ -140,10 +142,12 @@ li {
 }
 
 .sidenav-menu ul li Ul {
-    background-color: #151515;
+    /*background-color: #151515;*/
+    background-color: #000c19;
 }
 .sidenav-menu:hover ul li Ul {
-    background-color: #000000;
+    /*background-color: #000000;*/
+    background-color: #000a15;
 }
 .sidenav-menu ul li Ul li a {
     padding-left: 46px;

@@ -1,7 +1,8 @@
 
  .login_page {
-      background-color: #00a8ff;
-     height: 100%;
+      /*background-color: #00a8ff;*/
+      background-color: #01314a;
+      height: 100%;
  }
     .company_logo {
         padding: 40px;
@@ -15,7 +16,6 @@
 }
 
 .login-body {
-    background-color: #00a8ff;
     display: flex;
   align-content: center;
   justify-content: center;
@@ -34,7 +34,8 @@
 }
 
 .login-box-header {
-    color: #1f8edc;
+    /*color: #1f8edc;*/
+  color: #0a72a9;   
     text-align: center;
     font-size: 44px;
     font-weight: 400;
@@ -108,6 +109,7 @@
 .mat-drawer-content{
     width: 100%;
 }
+
 @media (min-width: 600px) {
   .login-container {
     width: 500px;
