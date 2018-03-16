@@ -1,9 +1,21 @@
-# InTimeTec ADPQ Vendor Pool Prototype 2018 - Knowledge Management Tool (KMT)
+# InTimeTec ADPQ Vendor Pool Prototype 2018
 
 ## Introduction
-KMT Prototype is being developed as part of Vendor Pool Selection for State of California to demonstrate our agile design and development techniques. 
+We have named the application as "Cognizance". This Prototype is being developed as part of Vendor Pool Selection for State of California to demonstrate our agile design and development techniques. 
 
-KMT is a comprehensive collaborative tool that helps to seemlessly share knowledge across cross-functional teams and organisations. Using this tool, employees can share, contribute, organize and discover information thus making the collaboration effective.
+Cognizance is a comprehensive collaborative knowledge management tool that helps to seemlessly share knowledge across cross-functional teams and organisations. Using this tool, employees can share, contribute, organize and discover information thus making the collaboration effective.
+
+Cognizance is up and running at the below link: <Raunak>
+
+Login credentials:
+Admin username:
+Password:
+
+Manager username:
+Password:
+
+General username:
+Password:
 
 ## Technical Approach
 
