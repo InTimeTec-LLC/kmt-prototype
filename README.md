@@ -57,6 +57,14 @@ Confluence - https://intimetec.atlassian.net/wiki/spaces/AD/overview (internal)
 ## Development Process
 Agile Methodology for development is used where in we kickstarted the project by defining the requirements in the form of user stories in Jira Scrum board and established the cadence, roles, and responsibilities of this agile development effort. We will be using 1 week sprint model to deliver tangible usable product at the end of every sprint. This process will also involve capturing feedback across multiple iterations from users, the product owner, and project team.
 
+## Documents
+Agile Artifacts - https://github.com/InTimeTec-LLC/kmt-prototype/tree/master/Documents/AgileArtifacts
+Deployment Docs - https://github.com/InTimeTec-LLC/kmt-prototype/tree/master/Documents/DeploymentDocs
+DigitalServicesPlaybook - Refer the Wiki link: https://github.com/InTimeTec-LLC/kmt-prototype/wiki
+Manuals - https://github.com/InTimeTec-LLC/kmt-prototype/tree/master/Documents/Manuals
+QualityAssuranceDocs - https://github.com/InTimeTec-LLC/kmt-prototype/tree/master/Documents/QualityAssuranceDocs
+Technical DesignDocs - https://github.com/InTimeTec-LLC/kmt-prototype/tree/master/Documents/TechnicalDesignDocs
+
 ## Technology Stack
 
 * Front End
