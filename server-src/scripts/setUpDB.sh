@@ -14,7 +14,7 @@ mongo kmt_db --eval 'db.articleType.remove({ })'
 #Table = user
 mongo kmt_db --eval 'db.user.insert(
      {
-         "email": "kmtadmin@mailinator.com",
+         "email": "cognizance.su@gmail.com",
          "userRole": "admin",
          "firstName": "kmt",
          "lastName": "admin",
