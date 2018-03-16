@@ -24,8 +24,9 @@
         </div>
       </div>
       <mat-form-field class="example-full-width">
-          <textarea matInput placeholder="Leave a comment" [(ngModel)]="comment"></textarea>
+          <textarea (ngModelChange)="valuechange($event)" matInput placeholder="Leave a comment" [(ngModel)]="comment"></textarea>
         </mat-form-field>
+        <div class="error" *ngIf="error">Comment is required.</div>
         <div class="reviewer-comments f-left">
           <label>Review Comments</label>
           <div class="reviewer-comments-list">
