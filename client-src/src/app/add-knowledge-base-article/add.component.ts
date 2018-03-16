@@ -113,6 +113,7 @@ export class AddArticleComponent implements OnInit {
   }
 
   onChange(event: any) {
+    console.log('onChangeonChangeonChangeonChangeonChange')
     const files = [].slice.call(event.target.files);
     const fd = new FormData();
     for (const file of files) {
@@ -121,8 +122,12 @@ export class AddArticleComponent implements OnInit {
     fd.append('fileName', files[0].name);
     fd.append('fileType', files[0].type);
     this.kbContentService.uploadAttachement(fd).subscribe(data => {
-        this.attachements.push(data.success.attachement);
-        this.toasterService.pop('success', '', data.success.message);
+        if (data.success.status) {
+          this.attachements.push(data.success.attachement);
+          this.toasterService.pop('success', '', data.success.message);
+        } else {
+          this.toasterService.pop('error', '', data.success.message);
+        }
       }, error => {
         this.toasterService.pop('error', '', error.success.message);
       });

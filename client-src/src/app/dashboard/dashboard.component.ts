@@ -70,7 +70,12 @@ export class DashboardComponent implements OnInit {
         queryParam = queryParam.concat('&status=' + status);
     }
     if (this.currentUserRole !== 'user') {
-      queryParam = queryParam.concat('&filter=ASSIGNED');
+      if (dashboardType === 'pending_approvals') {
+        queryParam = queryParam.concat('&filter=ASSIGNED');
+      } else {
+        // queryParam = queryParam.concat('&filter=ASSIGNED');
+      }
+
       this.labelTxt = '(assigned to me)';
     } else {
       this.labelTxt = '(created by me)';
