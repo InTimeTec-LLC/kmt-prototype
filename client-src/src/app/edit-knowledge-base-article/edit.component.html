@@ -61,8 +61,12 @@
                 <div class="img-container">
                   <div class="img-multiple" *ngFor="let attachement of attachements"><span (click)="downloadAttachment(attachement.id, attachement.fileName)">{{attachement.fileName}}</span><span class="x-icon" (click)="deleteAttachment(attachement.id)">x</span></div>
               </div>
+             
             </div>
-        </div>
+            <div class="error f-left" *ngIf="fileError">
+              {{errorMsg}}
+            </div>
+          </div>
           <div item-height="10">&nbsp;</div>
           <div class="edit-article-details">
           <div class="approver-input">

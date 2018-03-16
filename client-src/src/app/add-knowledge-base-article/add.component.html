@@ -49,11 +49,13 @@
                     <a  #upload_new (click)="file_new.click();">Add File</a>
                 </div>
               </div>
-
               <div class="description">
                   <div class="img-container">
                       <div class="img-multiple" *ngFor="let attachement of attachements"><span (click)="downloadAttachment(attachement.id, attachement.fileName)">{{attachement.fileName}}</span><label class="x-icon"(click)="deleteAttachment(attachement.id)">x</label></div>
                 </div>
+              </div>
+              <div class="error" *ngIf="fileError">
+                {{errorMsg}}
               </div>
           </div>
           <div class="edit-article-details">

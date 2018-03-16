@@ -26,6 +26,9 @@ export class AddArticleComponent implements OnInit {
   file_obj: any;
   attachements: any[] = [];
   quill_config: any;
+  fileCount: number;
+  fileError: boolean;
+  errorMsg: string;
 
   constructor(
     private kbContentService: KnowledgeBaseArticleService,
@@ -36,6 +39,9 @@ export class AddArticleComponent implements OnInit {
     private toasterService: ToasterService
   ) {
     this.quill_config = environment.quillEditorConfig;
+    this.fileCount = 0;
+    this.fileError = false;
+    this.errorMsg = '';
   }
 
   ngOnInit() {
@@ -94,6 +100,7 @@ export class AddArticleComponent implements OnInit {
             this.kbContentService.deleteAttachement(attachment_id).subscribe(
                 data => {
                     this.updateAttachement(attachment_id);
+                    this.fileCount = this.fileCount - 1;
                     this.toasterService.pop('success', '', data.success.message);
                 },
                 error => {
@@ -112,8 +119,23 @@ export class AddArticleComponent implements OnInit {
     }
   }
 
+  validateFile() {
+    if (this.fileCount > 19) {
+      this.fileError = true;
+      this.errorMsg = 'File attachment limit exceeded';
+      return false;
+    } else {
+      this.fileError = false;
+      this.errorMsg = '';
+      return true;
+    }
+  }
+
   onChange(event: any) {
-    console.log('onChangeonChangeonChangeonChangeonChange')
+    if (this.validateFile() !== true) {
+      return false;
+    }
+
     const files = [].slice.call(event.target.files);
     const fd = new FormData();
     for (const file of files) {
@@ -122,12 +144,9 @@ export class AddArticleComponent implements OnInit {
     fd.append('fileName', files[0].name);
     fd.append('fileType', files[0].type);
     this.kbContentService.uploadAttachement(fd).subscribe(data => {
-        if (data.success.status) {
-          this.attachements.push(data.success.attachement);
-          this.toasterService.pop('success', '', data.success.message);
-        } else {
-          this.toasterService.pop('error', '', data.success.message);
-        }
+        this.attachements.push(data.success.attachement);
+        this.fileCount = this.fileCount + 1;
+        this.toasterService.pop('success', '', data.success.message);
       }, error => {
         this.toasterService.pop('error', '', error.success.message);
       });
