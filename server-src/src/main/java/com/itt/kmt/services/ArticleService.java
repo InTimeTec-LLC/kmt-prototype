@@ -271,6 +271,10 @@ public class ArticleService {
                     throw new UnauthorizedException();
             }
         } else {
+            // return article if it is approved.
+            if (article.getApproved()) {
+                return article;
+            }
             if (loggedInUser.getUserRole().equals(Constants.ROLE_USER)
                     || loggedInUser.getUserRole().equals(Constants.ROLE_MANAGER)) {
                 Map<String, String> createdBy = new ObjectMapper().convertValue(article.getCreatedBy(), Map.class);
