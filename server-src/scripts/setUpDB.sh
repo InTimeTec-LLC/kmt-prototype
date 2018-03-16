@@ -57,8 +57,5 @@ mongo kmt_db --eval 'db.articleType.insert([
        },
        {
            type: "Report"
-       },
-       {
-           type: "Public"
        }]
 )'
