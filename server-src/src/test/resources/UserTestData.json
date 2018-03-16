@@ -61,13 +61,5 @@
           "userRole":"admin",
           "password":"password@123",
           "active"  : true
-     },
-  "user-8":  {
-          "id": "5a9fef1661f02d2f6c932a80",
-          "lastName": "Koti",
-          "firstName": "Koti",
-          "userRole":"admin",
-          "password":"password@123",
-          "active"  : true
      }
 }
