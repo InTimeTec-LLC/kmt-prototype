@@ -126,7 +126,6 @@ public class UserControllerTest extends AbstractShiroTest {
     /**
      * Gets the user.
      *
-     * @return the user
      * @throws Exception the exception
      */
     @Test
@@ -158,7 +157,71 @@ public class UserControllerTest extends AbstractShiroTest {
 
         verify(userService, times(1)).getUserByID(user2.getId());
     }
+    /**
+     * Gets the user.
+     *
+     * @throws Exception the exception
+     */
+    @Test
+    public void getUserWithIdOfLoggedInUser()
+        throws Exception {
 
+        // Arrange
+        User user = testDataRepository.getUsers()
+                                      .get("user-6");
+
+        String jwtToken = "testtoken";
+        when(userService.getLoggedInUser(jwtToken)).thenReturn(user);
+ 
+        RequestBuilder requestBuilder = MockMvcRequestBuilders.get("/users/" + user.getId())
+                                                              .header(Constants.AUTHORIZATION, jwtToken)
+                                                              .accept(MediaType.APPLICATION_JSON);
+
+        // Act
+        ResultActions resultActions = mockMvc.perform(requestBuilder);
+
+        // Assert
+        resultActions.andExpect(status().isOk())
+                     .andExpect(content().contentType(contentType))
+                     .andExpect(jsonPath("$.user.firstName", is(user.getFirstName())))
+                     .andExpect(jsonPath("$.user.lastName", is(user.getLastName())))
+                     .andExpect(jsonPath("$.user.email", is(user.getEmail())))
+                     .andExpect(jsonPath("$.user.userRole", is(user.getUserRole())));
+
+    }
+    /**
+     * Gets the user.
+     *
+     * @throws Exception the exception
+     */
+
+    public void getUserWithException()
+        throws Exception {
+
+        // Arrange
+        User user2 = testDataRepository.getUsers()
+                                      .get("user-2");
+
+        User user3 = testDataRepository.getUsers()
+                .get("user-3");
+        String jwtToken = "testtoken";
+        when(userService.getLoggedInUser(jwtToken)).thenReturn(user2);
+ 
+        RequestBuilder requestBuilder = MockMvcRequestBuilders.get("/users/" + user3.getId())
+                                                              .header(Constants.AUTHORIZATION, jwtToken)
+                                                              .accept(MediaType.APPLICATION_JSON);
+        ResponseMsg getResponseMessage = new ResponseMsg(false, Constants.USER_VIEWS_OTHER_USER_ERROR_MSG);
+
+        // Act
+        ResultActions resultActions = mockMvc.perform(requestBuilder);
+
+        // Assert
+        resultActions.andExpect(status().isBadRequest())
+                     .andExpect(content().contentType(contentType))
+                     .andExpect(jsonPath("$.success.message", is(getResponseMessage.getMessage())))
+                     .andExpect(jsonPath("$.success.status", is(getResponseMessage.getStatus())));
+
+    }
     /**
      * Adds the.
      *
@@ -195,7 +258,6 @@ public class UserControllerTest extends AbstractShiroTest {
 
         verify(userService, times(1)).save(user);
     }
-
     /**
      * Update user.
      *
@@ -283,7 +345,6 @@ public class UserControllerTest extends AbstractShiroTest {
         ResultActions resultActions = mockMvc.perform(MockMvcRequestBuilders.put("/users/state/" + user.getId() 
                     + "/" + user.isActive()).
                    contentType(MediaType.APPLICATION_JSON).content(content));
-
 
         ResponseMsg activateResponseMsg = new ResponseMsg(false, Constants.CHANGE_USER_STATUS_ERROR_MSG);
 
