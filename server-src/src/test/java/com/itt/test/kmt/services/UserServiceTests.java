@@ -434,12 +434,12 @@ public class UserServiceTests {
 
         // Arrange
         User user = testDataRepository.getUsers()
-                .get("user-7");
+                .get("user-5");
         user.setFirstName("test");
         when(userRepository.findOne(user.getId())).thenReturn(user);
-        when(mailService.sendResetPasswordMail(user, user.getPassword())).thenReturn(new AsyncResult<Boolean>(true));
 
         when(userRepository.save(user)).thenReturn(user);
+        when(mailService.sendResetPasswordMail(user, user.getPassword())).thenReturn(new AsyncResult<Boolean>(true));
 
         // Act
         User updatedUser = userService.updateUser(user, user.getId());
