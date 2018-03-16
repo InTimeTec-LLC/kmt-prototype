@@ -51,6 +51,14 @@ export class UserListComponent implements OnInit, OnDestroy {
             if (e instanceof NavigationEnd) {
               if (this.router.url === '/users') {
                 this.compType = 'list';
+                this.searchTxt = '';
+                this.finalTxt = '';
+                this.appliedFilter = [];
+                this.selectedFilter = {
+                    status: undefined,
+                    role: undefined
+                };
+                this.bFilterStatus = undefined;
                 this.initData();
               }
             }
