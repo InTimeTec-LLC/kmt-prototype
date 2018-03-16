@@ -43,3 +43,16 @@ Sprint Goals Readme File
   4) Application Integration
     - Ensure successful integration and predictable behaviour of the application
   5) Severity 1 Defect Fixes
+  
+  # Sprint 5 Goals - 13th March 2018 - 15th March 2018
+  
+  1) Dashboard  - User/Admin
+  2) BreadCrumbs
+  3) Wireframes 
+	  - Stabilizing the current UI 
+	  - Implement Responsive UI for Mobile Enabled Website
+  4) Profile 
+  5) Help  
+  6) All Sev1/Sev2 defects for the implemented features 
+  7) Forgot Password Feature
+  8) All Documentation Deliverables 
