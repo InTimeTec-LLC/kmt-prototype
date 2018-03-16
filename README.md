@@ -5,17 +5,18 @@ We have named the application as "Cognizance". This Prototype is being developed
 
 Cognizance is a comprehensive collaborative knowledge management tool that helps to seemlessly share knowledge across cross-functional teams and organisations. Using this tool, employees can share, contribute, organize and discover information thus making the collaboration effective.
 
-Cognizance is up and running at the below link: <Raunak>
+Cognizance is up and running at: 
+Application URL: http://18.144.60.207/login
 
 Login credentials:
-Admin username:
-Password:
+Admin username:cognizance.su@gmail.com
+Password: Admin123
 
-Manager username:
-Password:
+Manager username: cognizance.mu@gmail.com
+Password: cognimanager
 
-General username:
-Password:
+General username: cognizance.nu@gmail.com
+Password: cogniuser
 
 ## Technical Approach
 
@@ -44,7 +45,8 @@ We assembled a multidisciplinary and collaborative team that included the follow
 We have setup an Research interview meetings with few personnel working in State of California. We will be going through a list of questionnaire with them to understand the end user need for such collaborative knowledge management tool. We will heavily rely on these personnel’s inputs to design the application.
 
 ### “User-centered design” techniques or tools
-Work in Progress
+We have created wirefreames and moqups for both desktop and mobile devices application.
+
   
 ### Use GitHub to document code commits
 GitHub, Jira and confluence has been setup to commit code as well as related documentation for this project. Links are given below
