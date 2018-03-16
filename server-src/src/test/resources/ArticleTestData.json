@@ -1,136 +1,192 @@
 {
-    "article-1":  {
-        "id": "1",
-        "version": "1",
-        "lastModifiedTime": "1520967560123",
-        "createdBy":"1",
-        "createdTime": "1520853515567",
-        "title": "article-1",
-        "description": "<html>hello<hello>",
-        "restricted": false,
-        "needsApproval": false,
-        "approved": false
+  "article-1": {
+    "id": "1",
+    "version": "1",
+    "lastModifiedTime": "1520967560123",
+    "createdBy": "1",
+    "createdTime": "1520853515567",
+    "title": "article-1",
+    "description": "<html>hello<hello>",
+    "restricted": false,
+    "needsApproval": false,
+    "approved": false
+  },
+  "article-2": {
+    "id": "2",
+    "version": "1",
+    "lastModifiedTime": "1520967560123",
+    "lastModifiedBy": "1",
+    "createdBy": "1",
+    "createdTime": "1520853515567",
+    "title": "article-2",
+    "description": "<html>hello</html>",
+    "restricted": true,
+    "needsApproval": true,
+    "approved": true
+  },
+  "article-3": {
+    "id": "3",
+    "version": "1",
+    "lastModifiedTime": "1520967560123",
+    "lastModifiedBy": "1",
+    "createdBy": "1",
+    "createdTime": "1520853515567",
+    "title": "article-3",
+    "description": "<html>hello</html>",
+    "restricted": true,
+    "needsApproval": true,
+    "approved": true
+  },
+  "article-4": {
+    "id": "4",
+    "version": "1",
+    "lastModifiedTime": "1520967560123",
+    "lastModifiedBy": "1",
+    "createdBy": {
+      "id": "5a9fef0dfdad16d3a1f3e37f",
+      "firstName": "test",
+      "lastName": "test",
+      "email": "test@test.com"
     },
-   "article-2":  {
-         "id": "2",
-         "version": "1",
-         "lastModifiedTime": "1520967560123",
-         "lastModifiedBy": "1",
-         "createdBy": "1",
-         "createdTime": "1520853515567",
-         "title": "article-2",
-         "description": "<html>hello</html>",
-         "restricted": true,
-         "needsApproval": true,
-         "approved": true
-     },
-   "article-3": {
-        "id": "3",
-        "version": "1",
-        "lastModifiedTime": "1520967560123",
-        "lastModifiedBy": "1",
-        "createdBy": "1",
-        "createdTime": "1520853515567",
-        "title": "article-3",
-        "description": "<html>hello</html>",
-        "restricted": true,
-        "needsApproval": true,
-        "approved": true
+    "approver": {
+      "id": "5a9fef1661f02d2f6c932a80",
+      "firstName": "test",
+      "lastName": "test",
+      "email": "test@mailinator.com"
     },
-    "article-4": {
-         "id": "4",
-         "version": "1",
-         "lastModifiedTime": "1520967560123",
-         "lastModifiedBy": "1",
-         "createdBy": {
-               "id": "5a9fef0dfdad16d3a1f3e37f",
-               "firstName": "test",
-               "lastName": "test",
-               "email": "test@test.com"
-         },
-         "approver": {
-             "id": "5a9fef1661f02d2f6c932a80",
-             "firstName": "test",
-             "lastName": "test",
-             "email": "test@mailinator.com"
-         },
-         "createdTime": "1520853515567",
-         "title": "article-4",
-         "description": "<html>hello</html>",
-         "restricted": true,
-         "needsApproval": true,
-         "approved": true
-     },
-    "article-5": {
-        "id": "5",
-        "version": "1",
-        "lastModifiedTime": "1520967560123",
-        "lastModifiedBy": "1",
-        "createdBy": "1",
-        "createdTime": "1520853515567",
-        "title": "article-5",
-        "description": "<html>hello</html>",
-        "restricted": true,
-        "needsApproval": true,
-        "approved": true,
-        "createdBy": {
-               "id": "5a9fef1661f02d2f6c932a80",
-               "firstName": "test",
-               "lastName": "test",
-               "email": "test@test.com"
-        },
-        "approver": {
-             "id": "5a9fef1661f02d2f6c932a80",
-             "firstName": "test",
-             "lastName": "test",
-             "email": "test@mailinator.com"
-        },
-        "comments":[
-           {
-               "id": "5aa1eaa161f02d2a0403ca46",
-               "comment": "test comment",
-               "createdTime": "1520853515567",
-               "commentedBy": {
-                   "id": "5a9fef0dfdad16d3a1f3e37f",
-                   "firstName": "test",
-                   "lastName": "test",
-                   "email": "test@test.com"
-               }
-           }
-       ]
+    "createdTime": "1520853515567",
+    "title": "article-4",
+    "description": "<html>hello</html>",
+    "restricted": true,
+    "needsApproval": true,
+    "approved": true
+  },
+  "article-5": {
+    "id": "5",
+    "version": "1",
+    "lastModifiedTime": "1520967560123",
+    "lastModifiedBy": "1",
+    "createdBy": "1",
+    "createdTime": "1520853515567",
+    "title": "article-5",
+    "description": "<html>hello</html>",
+    "restricted": true,
+    "needsApproval": true,
+    "approved": true,
+    "createdBy": {
+      "id": "5a9fef1661f02d2f6c932a80",
+      "firstName": "test",
+      "lastName": "test",
+      "email": "test@test.com"
     },
-    "article-6":
-        {
-            "id": "5aa528ece9248611480dc319",
-            "title": "ten",
-            "description": "record",
-            "lastModifiedTime": "1520967560123",
-            "createdBy": {
-                "id": "5a9fef0dfdad16d3a1f3e37f",
-                "firstName": "test",
-                "lastName": "test",
-                "email": "test@mailinator.com"
-            },
-            "restricted": true
-        },
-    "article-7":
-        {
-            "id": "5aa528ece9248611480dc329",
-            "title": "ten",
-            "description": "record",
-            "lastModifiedTime": "1520967560123",
-            "createdBy": {
-                "id": "5a9fef0dfdad16d3a1f3e37f",
-                "firstName": "test",
-                "lastName": "test",
-                "email": "test@mailinator.com"
-            },
-            "approver": {
-                "id": "5a9fef0dfdad16d3a1f3e37f",
-                "firstName": "test",
-                "lastName": "test",
-                "email": "test@mailinator.com"
-            },
-            "restricted": true
+    "approver": {
+      "id": "5a9fef1661f02d2f6c932a80",
+      "firstName": "test",
+      "lastName": "test",
+      "email": "test@mailinator.com"
+    },
+    "comments": [
+      {
+        "id": "5aa1eaa161f02d2a0403ca46",
+        "comment": "test comment",
+        "createdTime": "1520853515567",
+        "commentedBy": {
+          "id": "5a9fef0dfdad16d3a1f3e37f",
+          "firstName": "test",
+          "lastName": "test",
+          "email": "test@test.com"
         }
+      }
+    ]
+    },
+  "article-6": {
+    "id": "5aa528ece9248611480dc319",
+    "title": "ten",
+    "description": "record",
+    "lastModifiedTime": "1520967560123",
+    "createdBy": {
+      "id": "5a9fef0dfdad16d3a1f3e37f",
+      "firstName": "test",
+      "lastName": "test",
+      "email": "test@mailinator.com"
+    },
+    "restricted": true
+  },
+  "article-7": {
+    "id": "7",
+    "version": "1",
+    "lastModifiedTime": "1520967560123",
+    "lastModifiedBy": "1",
+    "createdBy": {
+      "id": "5a9fef0dfdad16d3a1f3e37f",
+      "firstName": "test",
+      "lastName": "test",
+      "email": "test@test.com"
+    },
+    "approver": {
+      "id": "5a9fef1661f02d2f6c932a80",
+      "firstName": "test",
+      "lastName": "test",
+      "email": "test@mailinator.com"
+    },
+    "articleType": {
+      "id": "5aa38f8d9d4cd02aca2ea849",
+      "type": "How To"
+    },
+    "createdTime": "1520853515567",
+    "title": "article-4",
+    "description": "<html>hello</html>",
+    "restricted": true,
+    "needsApproval": true,
+    "approved": true
+  },"article-8": {
+    "id": "8",
+    "version": "1",
+    "lastModifiedTime": "1520967560123",
+    "createdBy": "1",
+    "approver": "2",
+    "articleType":"3",
+    "createdTime": "1520853515567",
+    "title": "article-1",
+    "description": "<html>hello<hello>",
+    "restricted": false,
+    "needsApproval": false,
+    "approved": false
+  },"article-9": {
+    "id": "9",
+    "version": "1",
+    "lastModifiedTime": "1520967560123",
+    "createdTime": "1520853515567",
+    "title": "article-1",
+    "description": "<html>hello<hello>",
+    "restricted": false,
+    "needsApproval": false,
+    "approved": false
+  },
+  "article-10": {
+    "id": "10",
+    "version": "1",
+    "lastModifiedTime": "1520967560123",
+    "lastModifiedBy": "1",
+    "createdBy": "1",
+    "createdTime": "1520853515567",
+    "title": "article-3",
+    "description": "<html>hello</html>",
+    "restricted": true,
+    "needsApproval": true,
+    "approved": true
+  },
+  "article-11": {
+    "id": "11",
+    "version": "1",
+    "lastModifiedTime": "1520967560123",
+    "lastModifiedBy": "1",
+    "createdBy": "1",
+    "createdTime": "1520853515567",
+    "title": "article-11",
+    "description": "<html>hello</html>",
+    "restricted": false,
+    "needsApproval": true,
+    "approved": true
+  }
 }

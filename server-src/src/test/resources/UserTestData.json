@@ -62,4 +62,32 @@
           "password":"password@123",
           "active"  : true
      }
+     ,
+  "user-8":  {
+          "id": "5a9fef1661f02d2f6c932a80",
+          "email": "mmm@gmail.com",
+          "lastName": "Koti",
+          "firstName": "Koti",
+          "password":"password@123",
+          "active"  : true
+     },
+   "user-9": {
+         "id": "5a9fef1661f02d2f6c932a80",
+         "email": "lll@gmail.com",
+         "lastName": "Sachin",
+         "firstName": "Sachin",
+         "userRole": "admin",
+         "password": "password@123",
+         "active": true
+   }
+   ,
+   "user-10": {
+         "id": "5a9fef1661f02d2f6c932a80",
+         "email": "lll@gmail.com",
+         "lastName": "Sachin",
+         "firstName": "Sachin",
+         "userRole": "dummy",
+         "password": "password@123",
+         "active": true
+   }
 }
