@@ -131,7 +131,7 @@ export class EditArticleComponent implements OnInit {
   }
 
   validateFile() {
-    if (this.fileCount > 19) {
+    if (this.fileCount > 9) {
       this.fileError = true;
       this.errorMsg = 'File attachment limit exceeded';
       return false;
