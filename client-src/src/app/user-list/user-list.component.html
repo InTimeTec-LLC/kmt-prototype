@@ -19,7 +19,7 @@
     <span class="filter_text marginLeft20" *ngIf='appliedFilter.length > 0'><b>Filters: </b> {{appliedFilter[0]}}<span *ngIf='appliedFilter.length > 1'>, {{appliedFilter[1]}} </span></span>
   </div>
   
-  <div class="table-input-list mat-elevation-z8">
+  <div class="table-input-list">
   
     <div *ngIf='filterList.length === 0' class="noRecord">No Record Found</div>
     <mat-table [dataSource]="dataSource" matSort class="list_table" *ngIf='filterList.length > 0'>

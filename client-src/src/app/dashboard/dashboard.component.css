@@ -98,7 +98,7 @@
 
 @media (max-width: 1024px) {
    .dashboard-list-wrapper {
-       padding: 0 15px;
+       /*padding: 0 15px;*/
        float: left;
    }
 
@@ -113,4 +113,7 @@
     .dashboard-table-lists {
         padding: 20px 8px;
     }
+    .dashboard .heading-margin{
+        margin-left: 33px;
+      }
 }
