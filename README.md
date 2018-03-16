@@ -58,6 +58,6 @@ Agile Methodology for development is used where in we kickstarted the project by
 * Infrastructure
     * Jenkins
     * Docker
-    * AWS CloudWatch/Sensu Monitoring (for continuous monitoring)
+    * Shell script
     
  All the technologies considered here are open-source and do not require license purchasal
