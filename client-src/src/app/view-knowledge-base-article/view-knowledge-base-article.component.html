@@ -1,6 +1,6 @@
 <div class="container" *ngIf="article!=undefined">
   <div class="container-heading">
-    <p class="heading-margin">{{article.title}} <sub><span class="articleby"> by {{article.createdBy.firstName}}  {{article.createdBy.lastName}} </span></sub></p>
+    <p class="heading-margin">{{article.title}} <sub><span class="articleby"> by {{article.createdBy.firstName}}  {{article.createdBy.lastName}} {{article.createdTime |  date: 'MM/dd/yyyy hh:mm a' }} </span></sub></p>
     
     <a  class="edit" (click)="onTapNavigation('../../edit', article.id)">
       <img src="/assets/images/edit.png" alt="articleicon"class="menu-icon">

@@ -14,7 +14,7 @@
     <div class="article-box" *ngFor="let article of kbSearchResults.content"> 
         <h3><a (click)="onTapNavigation('../articles/detail/',article.id)">{{article.title}}</a> </h3>
         <p [innerHTML]="article.description">{{article.description}}</p>
-        <p class="article-date">{{article.createdBy.firstName}} {{article.createdBy.lastName}}, {{article.lastModifiedTime | date: 'MM/dd/yyyy'}}
+        <p class="article-date">{{article.createdBy.firstName}} {{article.createdBy.lastName}}, {{article.lastModifiedTime | date: 'MM/dd/yyyy hh:mm a'}}
                 {{article.articleType.type}}</p>
         <hr>
       </div>

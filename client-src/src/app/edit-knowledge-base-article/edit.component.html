@@ -95,7 +95,7 @@
          
           <label>Review Comments</label>
           <div class="reviewer-comments-list">
-          <p *ngFor="let c of comments">{{c.comment}}<span>{{c.createdTime |  date: 'MM/dd/yyyy hh:mm' }}</span> </p>
+          <p *ngFor="let c of comments">{{c.comment}}<span>{{c.createdTime |  date: 'MM/dd/yyyy hh:mm a' }}</span> </p>
         </div>
         </div>
         <div class="button-container">
