@@ -49,21 +49,21 @@ Work in Progress
 ### Use GitHub to document code commits
 GitHub, Jira and confluence has been setup to commit code as well as related documentation for this project. Links are given below
 
-Github Repository - https://github.com/InTimeTec-LLC/kmt-prototype (publicly available)
-Jira Board - https://intimetec.atlassian.net/secure/RapidBoard.jspa?rapidView=178&selectedIssue=ADPQVP2018-41 (internal)
-Confluence - https://intimetec.atlassian.net/wiki/spaces/AD/overview (internal)
+* Github Repository - https://github.com/InTimeTec-LLC/kmt-prototype (publicly available)
+* Jira Board - https://intimetec.atlassian.net/secure/RapidBoard.jspa?rapidView=178&selectedIssue=ADPQVP2018-41 (internal)
+* Confluence - https://intimetec.atlassian.net/wiki/spaces/AD/overview (internal)
 
 
 ## Development Process
 Agile Methodology for development is used where in we kickstarted the project by defining the requirements in the form of user stories in Jira Scrum board and established the cadence, roles, and responsibilities of this agile development effort. We will be using 1 week sprint model to deliver tangible usable product at the end of every sprint. This process will also involve capturing feedback across multiple iterations from users, the product owner, and project team.
 
 ## Documents
-Agile Artifacts - https://github.com/InTimeTec-LLC/kmt-prototype/tree/master/Documents/AgileArtifacts
-Deployment Docs - https://github.com/InTimeTec-LLC/kmt-prototype/tree/master/Documents/DeploymentDocs
-DigitalServicesPlaybook - Refer the Wiki link: https://github.com/InTimeTec-LLC/kmt-prototype/wiki
-Manuals - https://github.com/InTimeTec-LLC/kmt-prototype/tree/master/Documents/Manuals
-QualityAssuranceDocs - https://github.com/InTimeTec-LLC/kmt-prototype/tree/master/Documents/QualityAssuranceDocs
-Technical DesignDocs - https://github.com/InTimeTec-LLC/kmt-prototype/tree/master/Documents/TechnicalDesignDocs
+* Agile Artifacts - https://github.com/InTimeTec-LLC/kmt-prototype/tree/master/Documents/AgileArtifacts
+* Deployment Docs - https://github.com/InTimeTec-LLC/kmt-prototype/tree/master/Documents/DeploymentDocs
+* DigitalServicesPlaybook - Refer the Wiki link: https://github.com/InTimeTec-LLC/kmt-prototype/wiki
+* Manuals - https://github.com/InTimeTec-LLC/kmt-prototype/tree/master/Documents/Manuals
+* QualityAssuranceDocs - https://github.com/InTimeTec-LLC/kmt-prototype/tree/master/Documents/QualityAssuranceDocs
+* Technical DesignDocs - https://github.com/InTimeTec-LLC/kmt-prototype/tree/master/Documents/TechnicalDesignDocs
 
 ## Technology Stack
 
