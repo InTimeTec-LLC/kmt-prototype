@@ -111,7 +111,10 @@
     top: 0;
     right: 0;
   }
-  
+  .ql-editor{
+    height: 150px;
+    overflow-y: scroll;
+  }
 .reviewer-comments label{
     color: #111111;
     font-weight: bold;

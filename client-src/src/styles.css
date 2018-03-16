@@ -120,6 +120,12 @@ app-content .table-list-container .Container-table .container-table-body .mat-el
   margin-top: 70px;
 }
 /* for the input text area in edit and add  user page................*/
+.description .error,
+.article-description .error{
+  color: #ff1010;
+    font-size: 12px;
+    MARGIN-TOP: 7PX;
+}
 .form-field-error mat-form-field .error,
 .form-input-area  mat-form-field .error
 {
