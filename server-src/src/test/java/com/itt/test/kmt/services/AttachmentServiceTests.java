@@ -7,7 +7,6 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,12 +19,10 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.context.annotation.PropertySource;
-import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import com.itt.kmt.models.Attachment;
 import com.itt.kmt.repositories.AttachmentRepository;
-import com.itt.kmt.response.models.ResponseMsg;
 import com.itt.kmt.services.AttachmentService;
 import com.itt.test_category.ServicesTests;
 import com.itt.test_data.AttachmentTestDataRepository;
@@ -173,22 +170,5 @@ public class AttachmentServiceTests {
         assertEquals(retrivedList.size(), attachments.size());
 
         verify(attachmentRepository, times(1)).findByArticleId("5aa3c92e6f48113e288a7fda");
-    }
-
-    @Test
-    public void storeUploadedFiles()
-        throws Exception {
-
-        MockMultipartFile uploadfile =
-            new MockMultipartFile("file", "filename.txt", "text/plain", "some xml".getBytes());
-
-        ResponseMsg responseMsg = attachmentService.storeUploadedFiles(uploadfile);
-        if (responseMsg.getStatus()) {
-            File file = new File(attachmentPath + responseMsg.getMessage());
-            file.delete();
-        }
-
-        assertEquals(responseMsg.getStatus(), Boolean.TRUE);
-
     }
 }

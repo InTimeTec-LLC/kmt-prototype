@@ -246,7 +246,8 @@ public class ArticleService {
 
         if (article.getRestricted()) {
             Map<String, String> createdBy = new ObjectMapper().convertValue(article.getCreatedBy(), Map.class);
-            String createdByUserRole = userService.getUserByID(createdBy.get(ID)).getUserRole();
+            User userByID = userService.getUserByID(createdBy.get(ID));
+            String createdByUserRole = userByID.getUserRole();
             switch (loggedInUser.getUserRole()) {
                 case Constants.ROLE_USER:
                     if (createdByUserRole.equals(Constants.ROLE_MANAGER)
@@ -614,7 +615,7 @@ public class ArticleService {
     }
 
     /**
-     * Validate user.
+     * Validate Article.
      *
      * @param article the article
      * @param result the result

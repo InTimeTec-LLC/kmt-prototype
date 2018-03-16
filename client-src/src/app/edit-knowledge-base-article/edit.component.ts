@@ -30,6 +30,9 @@ export class EditArticleComponent implements OnInit {
   attachements: any[] = [];
   quill_config: any;
   comments: any[] = [];
+  fileCount: number;
+  fileError: boolean;
+  errorMsg: string;
 
   constructor(
     private kbContentService: KnowledgeBaseArticleService,
@@ -41,6 +44,10 @@ export class EditArticleComponent implements OnInit {
     private activatedRoute: ActivatedRoute,
     private http: Http,
       ) {
+
+    this.fileCount = 0;
+    this.fileError = false;
+    this.errorMsg = '';
     this.quill_config = environment.quillEditorConfig;
     this.activatedRoute.params.subscribe((params: any) => {
       this.articleId = params['id'];
@@ -51,6 +58,7 @@ export class EditArticleComponent implements OnInit {
           }
           const pipe = new DatePipe('en-US');
           this.attachements = data.attachments;
+          this.fileCount = data.attachments.length;
           this.comments = data.comments;
           this.article.setValue({
             title: data.title,
@@ -122,6 +130,18 @@ export class EditArticleComponent implements OnInit {
     this.router.navigateByUrl('/articles');
   }
 
+  validateFile() {
+    if (this.fileCount > 9) {
+      this.fileError = true;
+      this.errorMsg = 'File attachment limit exceeded';
+      return false;
+    } else {
+      this.fileError = false;
+      this.errorMsg = '';
+      return true;
+    }
+  }
+
   updateAttachement(id) {
     for (let i = 0; i < this.attachements.length; i++) {
         const obj = this.attachements[i];
@@ -133,6 +153,10 @@ export class EditArticleComponent implements OnInit {
   }
 
   onChange(event: any) {
+    if (this.validateFile() !== true) {
+      return false;
+    }
+
     const files = [].slice.call(event.target.files);
     const fd = new FormData();
     for (const file of files) {
@@ -141,8 +165,13 @@ export class EditArticleComponent implements OnInit {
     fd.append('fileName', files[0].name);
     fd.append('fileType', files[0].type);
     this.kbContentService.uploadAttachement(fd).subscribe(data => {
-        this.attachements.push(data.success.attachement);
-        this.toasterService.pop('success', '', data.success.message);
+        if (data.success.status) {
+          this.attachements.push(data.success.attachement);
+          this.fileCount = this.fileCount + 1;
+          this.toasterService.pop('success', '', data.success.message);
+        } else {
+          this.toasterService.pop('error', '', data.success.message);
+        }
       }, error => {
         this.toasterService.pop('error', '', error.success.message);
       });
@@ -153,6 +182,7 @@ export class EditArticleComponent implements OnInit {
             this.kbContentService.deleteAttachement(attachment_id).subscribe(
                 data => {
                     this.updateAttachement(attachment_id);
+                    this.fileCount = this.fileCount - 1;
                     this.toasterService.pop('success', '', data.success.message);
                 },
                 error => {
