@@ -2,6 +2,7 @@ package com.itt.test.kmt.services;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.times;
@@ -12,12 +13,12 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import com.itt.kmt.models.KBArticle;
 import org.bson.types.ObjectId;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
 import org.junit.runner.RunWith;
+import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
@@ -27,12 +28,16 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.mail.MailException;
 import org.springframework.scheduling.annotation.AsyncResult;
 import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
 
 import com.itt.kmt.models.Approve;
 import com.itt.kmt.models.Article;
 import com.itt.kmt.models.ArticleType;
 import com.itt.kmt.models.Comment;
+import com.itt.kmt.models.KBArticle;
 import com.itt.kmt.models.User;
+import com.itt.kmt.models.UserResponse;
 import com.itt.kmt.repositories.ArticleRepository;
 import com.itt.kmt.repositories.ArticleTypeRepository;
 import com.itt.kmt.repositories.CommentRepository;
@@ -101,14 +106,19 @@ public class ArticleServiceTests {
 
         // Arrange
         Article article1 = articleTestDataRepository.getArticles()
-                .get("article-1");
+                .get("article-8");
 
         // Arrange
         User user = testDataRepository.getUsers()
                 .get("user-1");
+        User userTwo = testDataRepository.getUsers()
+                .get("user-2");
+
+        ArticleType articleType = articleTypeTestDataRepository.getTypes().get("articleType-1");
+        when(articleTypeRepository.findOne("3")).thenReturn(articleType);
         when(articleRepository.save(article1)).thenReturn(article1);
         when(userService.getUserByID(user.getId())).thenReturn(user);
-
+        when(userService.getUserByID(userTwo.getId())).thenReturn(userTwo);
         // Act
         Article article = articleService.save(article1);
 
@@ -122,6 +132,37 @@ public class ArticleServiceTests {
         assertEquals(article.getCreatedTime(), article1.getCreatedTime());
         verify(articleRepository, times(1)).save(article1);
     }
+
+    @Test
+    public final void onSaveTestMailFailure() throws MailException, InterruptedException {
+
+        // Arrange
+        Article article = articleTestDataRepository.getArticles()
+                .get("article-9");
+
+        // Arrange
+        User user = testDataRepository.getUsers()
+                .get("user-1");
+        UserResponse userResponse = new UserResponse(user.getId(), user.getFirstName(), 
+                user.getLastName(), user.getEmail()); 
+        ArticleType articleType = articleTypeTestDataRepository.getTypes().get("articleType-1");
+        when(articleRepository.save(article)).thenReturn(article);
+        when(mailService.sendCreateArticleMail(userResponse, article)).thenThrow(new InterruptedException());
+        // Act
+        Article articleSaved = articleService.save(article);
+
+        // Assert
+        assertEquals(article.getTitle(), articleSaved.getTitle());
+        assertEquals(article.getDescription(), article.getDescription());
+        assertEquals(article.getRestricted(), article.getRestricted());
+        assertEquals(article.getNeedsApproval(), article.getNeedsApproval());
+        assertEquals(article.getApproved(), article.getApproved());
+        assertEquals(article.getCreatedBy(), article.getCreatedBy());
+        assertEquals(article.getCreatedTime(), article.getCreatedTime());
+        verify(articleRepository, times(1)).save(article);
+    }
+
+
 
     @Test
     public final void getAllArticleTypes() {
@@ -173,7 +214,7 @@ public class ArticleServiceTests {
         // Assert
         assertTrue(page.getContent().containsAll(firstPage.getContent()));
         verify(articleRepository, times(1))
-                .findAllArticles(articleTypeObjectID, listStatus, "searchString", pageReq);
+        .findAllArticles(articleTypeObjectID, listStatus, "searchString", pageReq);
     }
 
     @Test 
@@ -206,12 +247,11 @@ public class ArticleServiceTests {
         // Assert
         assertTrue(page.getContent().containsAll(firstPage.getContent()));
         verify(articleRepository, times(1))
-                .findArticlesByCreatedBy(new ObjectId(user.getId())
-                        , articleTypeObjectID, listStatus, "searchString",
-                        pageReq);
+        .findArticlesByCreatedBy(new ObjectId(user.getId())
+                , articleTypeObjectID, listStatus, "searchString",
+                pageReq);
     }
-
-
+    
     @Test
     public final void getAllArticlesByManagerRoleTest() throws Exception {
         List<ArticleType> articleTypes = new ArrayList<ArticleType>();
@@ -241,7 +281,7 @@ public class ArticleServiceTests {
         // Assert
         assertTrue(page.getContent().containsAll(firstPage.getContent()));
         verify(articleRepository, times(1))
-                .findAllArticles(new ObjectId(user.getId()), articleTypeObjectID, listStatus, "searchString", pageReq);
+        .findAllArticles(new ObjectId(user.getId()), articleTypeObjectID, listStatus, "searchString", pageReq);
     }
 
     @Test
@@ -256,7 +296,79 @@ public class ArticleServiceTests {
         assertThat(article.getId()).isEqualTo(articleRetrived.getId());
         verify(articleRepository, times(1)).findOne(article.getId());
     }
+    
+    @Test(expected = Exception.class)
+    public void getArticleByLoggedinIdRoleUserAndCreatedByManagerTest() throws Exception {
+        Article article = articleTestDataRepository.getArticles().get("article-3");
+        User loggedInUser = testDataRepository.getUsers()
+                .get("user-6");
+        User createdByUser = testDataRepository.getUsers()
+                .get("user-4");
+        article.setCreatedBy(new UserResponse(createdByUser.getId(), createdByUser.getFirstName(),
+                createdByUser.getLastName(), createdByUser.getEmail()));
+        when(articleRepository.findOne(article.getId())).thenReturn(article);
+        when(userService.getLoggedInUser(JWT_TEST_TOKEN)).thenReturn(loggedInUser);
+        when(userService.getUserByID(createdByUser.getId())).thenReturn(createdByUser);
+        Article articleRetrived = articleService.getArticleById(article.getId(), JWT_TEST_TOKEN);
+        // Assert
+        assertThat(article.getId()).isEqualTo(articleRetrived.getId());
+        //verify(articleRepository, times(1)).findOne(article.getId());
+    }
+    
+    @Test(expected = Exception.class)
+    public void getArticleByLoggedinIdRoleUserAndCreatedByAdminTest() throws Exception {
+        Article article = articleTestDataRepository.getArticles().get("article-3");
+        User loggedInUser = testDataRepository.getUsers()
+                .get("user-6");
+        User createdByUser = testDataRepository.getUsers()
+                .get("user-5");
+        article.setCreatedBy(new UserResponse(createdByUser.getId(), createdByUser.getFirstName(),
+                createdByUser.getLastName(), createdByUser.getEmail()));
+        when(articleRepository.findOne(article.getId())).thenReturn(article);
+        when(userService.getLoggedInUser(JWT_TEST_TOKEN)).thenReturn(loggedInUser);
+        when(userService.getUserByID(createdByUser.getId())).thenReturn(createdByUser);
+        Article articleRetrived = articleService.getArticleById(article.getId(), JWT_TEST_TOKEN);
+        // Assert
+        assertThat(article.getId()).isEqualTo(articleRetrived.getId());
+        //verify(articleRepository, times(1)).findOne(article.getId());
+    }
 
+    @Test
+    public void getArticleByLoggedinIdRoleUserAndCreatedByUserTest() throws Exception {
+        Article article = articleTestDataRepository.getArticles().get("article-3");
+        User loggedInUser = testDataRepository.getUsers()
+                .get("user-6");
+        User createdByUser = testDataRepository.getUsers()
+                .get("user-3");
+        article.setCreatedBy(new UserResponse(createdByUser.getId(), createdByUser.getFirstName(),
+                createdByUser.getLastName(), createdByUser.getEmail()));
+        when(articleRepository.findOne(article.getId())).thenReturn(article);
+        when(userService.getLoggedInUser(JWT_TEST_TOKEN)).thenReturn(loggedInUser);
+        when(userService.getUserByID(createdByUser.getId())).thenReturn(createdByUser);
+        Article articleRetrived = articleService.getArticleById(article.getId(), JWT_TEST_TOKEN);
+        // Assert
+        assertThat(article.getId()).isEqualTo(articleRetrived.getId());
+        //verify(articleRepository, times(1)).findOne(article.getId());
+    }
+
+    @Test(expected = Exception.class)
+    public void getArticleByLoggedinIdRoleManagerAndCreatedByAdminTest() throws Exception {
+        Article article = articleTestDataRepository.getArticles().get("article-3");
+        User loggedInUser = testDataRepository.getUsers()
+                .get("user-4");
+        User createdByUser = testDataRepository.getUsers()
+                .get("user-5");
+        article.setCreatedBy(new UserResponse(createdByUser.getId(), createdByUser.getFirstName(),
+                createdByUser.getLastName(), createdByUser.getEmail()));
+        when(articleRepository.findOne(article.getId())).thenReturn(article);
+        when(userService.getLoggedInUser(JWT_TEST_TOKEN)).thenReturn(loggedInUser);
+        when(userService.getUserByID(createdByUser.getId())).thenReturn(createdByUser);
+        Article articleRetrived = articleService.getArticleById(article.getId(), JWT_TEST_TOKEN);
+        // Assert
+        assertThat(article.getId()).isEqualTo(articleRetrived.getId());
+        //verify(articleRepository, times(1)).findOne(article.getId());
+    }
+    
     @Test
     public void getArticleByIdManagerTest() throws Exception {
         Article article = articleTestDataRepository.getArticles().get("article-5");
@@ -269,6 +381,69 @@ public class ArticleServiceTests {
         // Assert
         assertThat(article.getId()).isEqualTo(articleRetrived.getId());
         verify(articleRepository, times(1)).findOne(article.getId());
+    }
+
+    @Test
+    public void getArticleByAdminTest() throws Exception {
+        Article article = articleTestDataRepository.getArticles().get("article-5");
+        User user = testDataRepository.getUsers()
+                .get("user-9");
+        when(articleRepository.findOne(article.getId())).thenReturn(article);
+        when(userService.getUserByID(user.getId())).thenReturn(user);
+        when(userService.getLoggedInUser(JWT_TEST_TOKEN)).thenReturn(user);
+        Article articleRetrived = articleService.getArticleById(article.getId(), JWT_TEST_TOKEN);
+        // Assert
+        assertThat(article.getId()).isEqualTo(articleRetrived.getId());
+        verify(articleRepository, times(1)).findOne(article.getId());
+    }
+
+    @Test(expected = Exception.class)
+    public void getArticleByNoRoleTest() throws Exception {
+        Article article = articleTestDataRepository.getArticles().get("article-5");
+        User user = testDataRepository.getUsers()
+                .get("user-8");
+        when(articleRepository.findOne(article.getId())).thenReturn(article);
+        when(userService.getUserByID(user.getId())).thenReturn(user);
+        when(userService.getLoggedInUser(JWT_TEST_TOKEN)).thenReturn(user);
+        Article articleRetrived = articleService.getArticleById(article.getId(), JWT_TEST_TOKEN);
+        // Assert
+        assertThat(article.getId()).isEqualTo(articleRetrived.getId());
+        verify(articleRepository, times(1)).findOne(article.getId());
+    }
+
+    @Test(expected = Exception.class)
+    public void getArticleByDummyRoleTest() throws Exception {
+        Article article = articleTestDataRepository.getArticles().get("article-5");
+        User user = testDataRepository.getUsers()
+                .get("user-10");
+        when(articleRepository.findOne(article.getId())).thenReturn(article);
+        when(userService.getUserByID(user.getId())).thenReturn(user);
+        when(userService.getLoggedInUser(JWT_TEST_TOKEN)).thenReturn(user);
+        Article articleRetrived = articleService.getArticleById(article.getId(), JWT_TEST_TOKEN);
+        // Assert
+        assertThat(article.getId()).isEqualTo(articleRetrived.getId());
+        verify(articleRepository, times(1)).findOne(article.getId());
+    }
+
+    @Test
+    public void getArticleByLoggedInAsOwnerOfArticleOnUnrestrictedArticleTest() throws Exception {
+        Article article = articleTestDataRepository.getArticles().get("article-11");
+        User loggedInUser = testDataRepository.getUsers()
+                .get("user-4");
+        User createdByUser = testDataRepository.getUsers()
+                .get("user-5");
+        createdByUser.setId(loggedInUser.getId());
+        UserResponse userResponse = new UserResponse(createdByUser.getId(),
+                createdByUser.getFirstName(), createdByUser.getLastName(), createdByUser.getEmail());
+        article.setCreatedBy(userResponse);
+        article.setApprover(userResponse);
+        when(articleRepository.findOne(article.getId())).thenReturn(article);
+        when(userService.getLoggedInUser(JWT_TEST_TOKEN)).thenReturn(loggedInUser);
+        when(userService.getUserByID(createdByUser.getId())).thenReturn(createdByUser);
+        Article articleRetrived = articleService.getArticleById(article.getId(), JWT_TEST_TOKEN);
+        // Assert
+        assertThat(article.getId()).isEqualTo(articleRetrived.getId());
+        //verify(articleRepository, times(1)).findOne(article.getId());
     }
 
     @Test(expected = Exception.class)
@@ -469,8 +644,21 @@ public class ArticleServiceTests {
         // Assert
         assertTrue(page.getContent().containsAll(firstPage.getContent()));
         verify(articleRepository, times(1))
-                .findByTitleAndDescriptionAndApproved(searchString, true,
-                        pageReq);
+        .findByTitleAndDescriptionAndApproved(searchString, true,
+                pageReq);
+    }
+
+    @Test
+    public void validateArticleTest() {
+        Article article = articleTestDataRepository.getArticles().get("article-4");
+        BindingResult result = Mockito.mock(BindingResult.class);
+        FieldError fieldError = new FieldError("error detail", "error detail", "error detail");
+        FieldError fieldErrorOne = new FieldError("error string", "error string", "error string");
+        List<FieldError> errors = Arrays.asList(fieldError, fieldErrorOne);
+        when(result.hasErrors()).thenReturn(true);
+        when(result.getFieldErrors()).thenReturn(errors);
+        String errorMsg = articleService.validateArticle(article, result);
+        assertNotNull(errorMsg);
     }
 
 }
