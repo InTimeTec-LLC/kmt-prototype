@@ -30,7 +30,7 @@ export function main() {
       const expectedUsers = [];
 
       let actualUser: User[] = [];
-      kbContentService.listUser().subscribe((user: User[]) => {
+      kbContentService.listUser('').subscribe((user: User[]) => {
         actualUser = user;
       });
 
