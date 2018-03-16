@@ -144,9 +144,13 @@ export class AddArticleComponent implements OnInit {
     fd.append('fileName', files[0].name);
     fd.append('fileType', files[0].type);
     this.kbContentService.uploadAttachement(fd).subscribe(data => {
-        this.attachements.push(data.success.attachement);
-        this.fileCount = this.fileCount + 1;
-        this.toasterService.pop('success', '', data.success.message);
+        if (data.success.status) {
+          this.attachements.push(data.success.attachement);
+          this.fileCount = this.fileCount + 1;
+          this.toasterService.pop('success', '', data.success.message);
+        } else {
+          this.toasterService.pop('error', '', data.success.message);
+        }
       }, error => {
         this.toasterService.pop('error', '', error.success.message);
       });
