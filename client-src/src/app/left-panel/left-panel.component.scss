@@ -180,3 +180,10 @@ li {
 a {
     cursor: pointer;
 }*/
+
+@media screen and (-ms-high-contrast: active), (-ms-high-contrast: none) {
+    .sidenav{   
+    position: fixed!important;
+    width: 15% !important; 
+    }
+}
