@@ -1,20 +1,29 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ListArticleComponent } from './list-article.component';
-
+import { ArticleListFilterComponent } from './list-article.component';
+import { MaterialModule } from '../../shared/material.module';
+import { QuillModule } from 'ngx-quill';
+import { KnowledgeBaseArticleService } from '../../shared/service/knowledge-base-article/knowledge-base-article.service';
+import { HttpClientModule } from '@angular/common/http';
+import { HttpModule } from '@angular/http';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 describe('ContentComponent', () => {
-  let component: ListArticleComponent;
-  let fixture: ComponentFixture<ListArticleComponent>;
+  let component: ArticleListFilterComponent;
+  let fixture: ComponentFixture<ArticleListFilterComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ListArticleComponent ]
+      declarations: [ ArticleListFilterComponent ],
+      imports: [ MaterialModule, HttpClientModule, HttpModule],
+      providers: [ KnowledgeBaseArticleService,
+        { provide: MatDialogRef, useValue: {} },
+        { provide: MAT_DIALOG_DATA, useValue: [] }]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(ListArticleComponent);
+    fixture = TestBed.createComponent(ArticleListFilterComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
