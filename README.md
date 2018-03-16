@@ -6,16 +6,23 @@ We have named the application as "Cognizance". This Prototype is being developed
 Cognizance is a comprehensive collaborative knowledge management tool that helps to seemlessly share knowledge across cross-functional teams and organisations. Using this tool, employees can share, contribute, organize and discover information thus making the collaboration effective.
 
 Cognizance is up and running at: 
+
 Application URL: http://18.144.60.207/login
 
 Login credentials:
-Admin username:cognizance.su@gmail.com
+
+Admin username: cognizance.su@gmail.com
+
 Password: Admin123
 
+
 Manager username: cognizance.mu@gmail.com
+
 Password: cognimanager
 
+
 General username: cognizance.nu@gmail.com
+
 Password: cogniuser
 
 ## Technical Approach
@@ -47,6 +54,7 @@ We have setup an Research interview meetings with few personnel working in State
 ### “User-centered design” techniques or tools
 We have created wirefreames and moqups for both desktop and mobile devices application.
 
+URL: https://github.com/InTimeTec-LLC/kmt-prototype/tree/master/Documents/TechnicalDesignDocs/UX-DesignDocs
   
 ### Use GitHub to document code commits
 GitHub, Jira and confluence has been setup to commit code as well as related documentation for this project. Links are given below
