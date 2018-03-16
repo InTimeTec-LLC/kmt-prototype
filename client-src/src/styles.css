@@ -421,4 +421,10 @@ ul.breadcrumb{
   border: none;
 }
 }
+@media screen and (-ms-high-contrast: active), (-ms-high-contrast: none) {
+  
+  .container-body .button-container{
+      margin-bottom: 72px;
+  }
+}
 
