@@ -29,14 +29,14 @@ We assembled a multidisciplinary and collaborative team that included the follow
 1. Delivery Lead & Scrum Master - Vijaya Arucapalli
 2. Overall Technical Architect - Shiva Dixit
 3. Technical Architect (Interaction Designer/User Researcher/Usability Test) - Inwinder Kochhar
-4. Front End Web Developers - Harish Patidar, Sweta Lavaniya, Manish Tripathi
+4. Front End Web Developers - Harish Patidar, Sweta Lavaniya, Manish Tripathi, Neha Saraswat
 5. Back End Web Developers - Koteswara Varanasi, Rohan Sahu, Sachin Singh, Rakshit Rajeev, Ashish Y, Manoj Mewara
 6. Visual Designers - Jennifer Barker, Parul Sharma, Nidhi Saini, Inwinder Kochhar
 7. DevOps Engineer - Simarpreet Gujral, Yashwant Mahawar
 8. Quality Assurance - Raunak Shah, Jitendra Sen, Raksha Deshpande
 9. Writer - Grace Arpana
 10. Business Analyst - Rob Tuft
-11. Product Manager - Anthony Chen
+11. Product Owner - Anthony Chen
 
 ## Design Process
 
@@ -65,7 +65,7 @@ Agile Methodology for development is used where in we kickstarted the project by
 * Back End/API Server
     * Spring
     * Hibernate
-    * MySQL
+    * MongoDB
     * JUnit
 * Infrastructure
     * Jenkins
