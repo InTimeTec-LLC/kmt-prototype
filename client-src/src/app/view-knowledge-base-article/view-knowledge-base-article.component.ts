@@ -17,6 +17,8 @@ export class ViewKnowledgeBaseArticleComponent implements OnInit {
   articleId: any;
   article: any;
   attachements: any[] = [];
+  currentUserId: any;
+  currentUserRole: any;
 
 
   constructor(private kbContentService: KnowledgeBaseArticleService,
@@ -24,7 +26,10 @@ export class ViewKnowledgeBaseArticleComponent implements OnInit {
               private activatedRoute: ActivatedRoute,
               private auth: AuthenticationService,
 
-  ) {}
+  ) {
+    this.currentUserId = this.auth.getUserId();
+    this.currentUserRole = this.auth.getUserRole();
+  }
 
   onTapNavigation(route, param) {
       if (param) {
