@@ -117,7 +117,9 @@ app-content .table-list-container .Container-table .container-table-body .mat-el
   margin-top: 70px;
 }
 /* for the input text area in edit and add  user page................*/
-.form-field-error mat-form-field .error{
+.form-field-error mat-form-field .error,
+.form-input-area  mat-form-field .error
+{
   color: #ff1010; 
   font-size: 12px;
   position: absolute;
@@ -342,11 +344,6 @@ background-color: #fff;
 @media (max-width: 1025px) {
   mat-drawer-content .mat-button, .mat-flat-button, .mat-icon-button, .mat-stroked-button{
     display: block;
-  }
-  .upload-button a{
-    display: block;
-    text-align: center;
-    margin-top: 10px;
   }
 .app-sidenav {
   padding: 20px;
