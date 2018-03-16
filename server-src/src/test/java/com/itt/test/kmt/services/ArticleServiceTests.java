@@ -425,25 +425,6 @@ public class ArticleServiceTests {
         verify(articleRepository, times(1)).findOne(article.getId());
     }
 
-    @Test(expected = Exception.class)
-    public void getArticleByLoggedinIdManagerOnUnrestrictedArticleTest() throws Exception {
-        Article article = articleTestDataRepository.getArticles().get("article-11");
-        User loggedInUser = testDataRepository.getUsers()
-                .get("user-4");
-        User createdByUser = testDataRepository.getUsers()
-                .get("user-5");
-        UserResponse userResponse = new UserResponse(createdByUser.getId(), createdByUser.getFirstName(),
-                createdByUser.getLastName(), createdByUser.getEmail());
-        article.setCreatedBy(userResponse);
-        article.setApprover(userResponse);
-        when(articleRepository.findOne(article.getId())).thenReturn(article);
-        when(userService.getLoggedInUser(JWT_TEST_TOKEN)).thenReturn(loggedInUser);
-        when(userService.getUserByID(createdByUser.getId())).thenReturn(createdByUser);
-        Article articleRetrived = articleService.getArticleById(article.getId(), JWT_TEST_TOKEN);
-        // Assert
-        assertThat(article.getId()).isEqualTo(articleRetrived.getId());
-    }
-    
     @Test
     public void getArticleByLoggedInAsOwnerOfArticleOnUnrestrictedArticleTest() throws Exception {
         Article article = articleTestDataRepository.getArticles().get("article-11");
