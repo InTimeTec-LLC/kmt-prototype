@@ -110,7 +110,9 @@ textarea.mat-input-element {
     margin-top: 29px;
     width: 100%;
 }
-
+.approve-button{
+    background-color: #8BC34A;
+}
 .error {
     color: #ff1010;
 }

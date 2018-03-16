@@ -1,11 +1,11 @@
 <div class="sidenav" *ngIf="loggeInStatus">
     <div class="user-profile">
       <div class="user-image">
-     <a (click)="onTapNavigation('')"> <img src="../../assets/images/user.png" alt="usericon" class="user_icon">
+     <a (click)="onTapNavigation('profile')"> <img src="../../assets/images/user.png" alt="usericon" class="user_icon">
     </a>
       </div>
       <div class="user-information">
-     <span class="user"><a>{{ getUserName() }}</a></span>
+     <span class="user"><a (click)="onTapNavigation('profile')" >{{ getUserName() }}</a></span>
      <span class="user-logout"><a (click)="logout();"> Logout</a></span>
       </div>
      </div>
@@ -43,10 +43,7 @@
                </li>
                <li>  
                    <a (click)="onTapNavigation('profile')">My Profile</a>
-               </li>
-               <!--<li> 
-                   <a (click)="onTapNavigation('')">Google Tanslater</a>
-               </li>-->     
+               </li>    
              </ul>              
          </li>
          <li>

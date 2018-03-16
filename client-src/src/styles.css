@@ -97,13 +97,17 @@ app-content .table-list-container .Container-table .container-table-body .mat-el
   box-shadow:  none;
   float:left;
   border-radius: 0px 0px 5px 5px;
-  margin-bottom: 20px;
+  margin-bottom: 52px;
+  border-width: 0px 1px 3px 1px;
+  border-color: #e4dfdf;
+  border-radius: 5px 5px 0 0;
+  border-style: solid;
 }
 
 /* for the cancle and save button in add and edit user ...........*/
 .button-container .mat-raised-button {
   line-height: 24px;
-  padding: 0 35px;
+  padding: 5px 35px;
   background-color: #33b7fc;
   color: white;
   margin-right: 10px;
@@ -236,7 +240,7 @@ background-color: #fff;
 .search_icon {
   vertical-align: text-top;
   margin-top: -6px;
-  margin-left: 7px;
+  /*margin-left: 7px;*/
   }
 
 /* globle table.....................*/
@@ -258,12 +262,18 @@ background-color: #fff;
 .border-menu:before {
   content: "";
   position: absolute;
-  top: 2px;
-  left: 0;
+  top: -10px;
+  left: -9px;
   width: 32px;
   height: 3px;
-  border-top: 0.6em double #33b7fc;
-  border-bottom: 0.2em solid #33b7fc;
+  border-top: 0.6em double #ffffff;
+  border-bottom: 0.2em solid #ffffff;
+}
+.mat-button { 
+  min-width: 46px !important;
+  padding: 0 16px !important;
+  border-radius: 2px !important;
+  height: 44px !important;
 }
 
 /* for the breadcrumb..............*/
@@ -304,7 +314,7 @@ background-color: #fff;
     text-decoration: underline;
    }
 
-@media (min-width: 1024px) {
+@media (min-width: 1025px) {
   .sidenav {
     position: relative!important;
     display: block;
@@ -329,11 +339,15 @@ background-color: #fff;
     float: right;
   }
 }
-@media (max-width: 1023px) {
+@media (max-width: 1025px) {
   mat-drawer-content .mat-button, .mat-flat-button, .mat-icon-button, .mat-stroked-button{
     display: block;
   }
-  
+  .upload-button a{
+    display: block;
+    text-align: center;
+    margin-top: 10px;
+  }
 .app-sidenav {
   padding: 20px;
   width: 64%;
@@ -344,8 +358,8 @@ background-color: #fff;
   margin-right: 0;
 }
 .button-container .mat-raised-button {
-  padding: 0;
-  margin-right: 8px;
+  /*padding: 0;*/
+  margin: 8px;
 }
 .button-container {
   width: 100%;
@@ -353,7 +367,43 @@ background-color: #fff;
 }
 .form-box .mat-form-field {
   width: 100%;
-} 
-
+}
+.border-menu {
+  position: relative;
+  margin-top: 5px;
+}
+.border-menu:before {
+  content: "";
+  position: absolute;
+  top: -10px;
+  left: -9px;
+  width: 32px;
+  height: 3px;
+  border-top: 0.6em double #ffffff;
+  border-bottom: 0.2em solid #ffffff;
+}
+.mat-button { 
+  min-width: 46px !important;
+  padding: 0 16px !important;
+  border-radius: 2px !important;
+  height: 44px !important;
+}
+.breadcrumb-fullwidth{
+  margin-top: 4px;
+}
+ul.breadcrumb{  
+  margin-left: 41px;
+  margin: 6px 0 0 41px;
+}
+.container-table-body{
+  border: none;
+}
+.mat-header-row, .mat-row {
+  border-bottom-width: 3px;
+  border-bottom-color: rgba(0,0,0,.12);
+}
+.container-body{
+  border: none;
+}
 }
 

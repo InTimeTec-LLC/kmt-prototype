@@ -29,7 +29,6 @@
     font-weight: bold;
     font-size: 15px;
     display: inline-block;
-    width: 200px;
 }
 .upload-file {
     color: #a5a5a5;
@@ -48,9 +47,10 @@
 
 .upload-button a {
     text-decoration: none;
-    padding: 10px 12px;
+    padding: 10px 27px;
     background-color: #33b7fc;
     color: #fff;
+    border-radius: 5px;
 }
 
 /*
@@ -122,7 +122,10 @@
     margin-top: 29px;
     width: 100%;
 }
-
+.reviewer-comments-list p{
+    float: left;
+    width:100%;
+}
 .reviewer-comments-list span{
     float: right;
     color: #7a7a7a;
