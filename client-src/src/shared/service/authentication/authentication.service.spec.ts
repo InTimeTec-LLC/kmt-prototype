@@ -4,6 +4,7 @@ import { HttpClientTestingModule, HttpTestingController } from '@angular/common/
 import { environment } from '../../../environments/environment';
 import { Observable } from 'rxjs/Observable';
 import { ResponseOptions } from '@angular/http';
+
 let loginApiURL = environment.API_ENDPOINT + 'login';
 let forgotPasswordURL = environment.API_ENDPOINT + 'forgotpassword?emailid=kmtadmin@mailinator.com';
 
