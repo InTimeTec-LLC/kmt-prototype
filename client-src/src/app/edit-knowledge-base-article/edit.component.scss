@@ -136,11 +136,16 @@
 }
 
 
-@media (max-width: 1023px) {
+@media (max-width: 1025px) {
     .approver-input {
         width: 100%;
     }
     .user-article-details {
         width: 100%;
      }
+     .upload-button a{
+        display: block;
+        text-align: center;
+        margin-top: 10px;
+      }
 }
